@@ -89,5 +89,5 @@ We will attempt to notify you (and update this repository) during the challenge 
 - Workshop details
 - Availability of files for the SAMPLing challenge
 
-Please feel free to contact us if you notice any errors in the information provided or have questions about SAMPL6: samplchallenge@gmail.com
+Please feel free to contact us if you notice any errors in the information provided or have questions about SAMPL6; please use the issue tracker connected with this repository, or use our e-mail: samplchallenge@gmail.com
 
