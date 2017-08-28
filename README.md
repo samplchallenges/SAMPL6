@@ -14,6 +14,16 @@ Specifically, if you want to receive updates if we uncover any problems, it is i
 ## What's forthcoming
 - Physical property challenge files (see description, below) 
 - SAMPLing challenge files (see description, below) for both host-guest and physical properties
+
+## Changes and Data Set Versions So Far:
+(all major versions available under [releases](https://github.com/MobleyLab/SAMPL6/releases) above)
+
+### Release versions
+- Version 1.0: Data set as originally posted Aug. 24
+
+### Changes not yet in a release
+- 8/28/17: Updated `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration.
+
  
 ## Challenge Overview 
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
