@@ -54,7 +54,7 @@ Oxaliplatin is also potentially complex due to the platinum atom it contains.
 As a consequence,  these three compounds are not being included in our main challenge.
 Accordingly, the **main challenge** is to compute the 11 binding free energies (or association constants) of the remaining compounds with CB8, and participants are also invited to compute the binding enthalpies.
 A **bonus challenge** is to also predict binding affinities for aricept, cyclohexane diamine, and oxaliplatin (highlighted in magenta in the image).
-All measurements were carried out in aqueous 20 mM sodium phosphate buffer at pH 7.2, at 298 K.
+All measurements were carried out in aqueous 25 mM sodium phosphate buffer at pH 7.2, at 298 K.
 Measurements are currently complete for all compounds shown, except Detrol and gallamine triethiodate.
 You may wish to do these last, just in case unexpected difficulties are encountered for these last two.
 We will let you know of any updates regarding the experimental work (assuming you either sign up for the SAMPL e-mail list or monitor this GitHub repository).
