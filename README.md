@@ -10,6 +10,7 @@ Specifically, if you want to receive updates if we uncover any problems, it is i
 - `host_guest`: Directory containing inputs for the host-guest challenges, as well as supporting files and a README detailing their organization
 - [Host-guest challenge instructions](host_guest_instructions.md): Detailed instructions on the host-guest component of the challenge.
 - [Detailed host-guest description](host_guest_description.md): Detailed description of the hosts, guests, and background information.
+- [Physical properties preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the physical properties component of the challenge, and previews of some of the potential compounds.
 
 ## What's forthcoming
 - Physical property challenge files (see description, below) 
@@ -20,9 +21,9 @@ Specifically, if you want to receive updates if we uncover any problems, it is i
 
 ### Release versions
 - Version 1.0: Data set as originally posted Aug. 24
+- Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
 
 ### Changes not yet in a release
-- 8/28/17: Updated `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration.
 
  
 ## Challenge Overview 
@@ -73,7 +74,8 @@ There is also a possibility that solubilities will be measured, using the CheqSo
 The exact size of the dataset will depend on practical data collection throughput.
 An initial batch of ~25 fragment-like compounds is currently being assayed, with the prospect for additional measurements performed subsequently.
 Post-challenge follow-up experiments are possible and will be conducted as needed.
-We hope to provide a preliminary list of compounds by September 15 to allow participants to begin planning. The final challenge will include logD and, if available, solubility prediction.
+A preliminary list of compounds is now available in the `physical_properties` directory to give participants an idea of what types of compounds may be included, but this list is expected to change to some degree.
+The final challenge will include logD and, if available, solubility prediction.
 
 
 Distribution coefficients were included in the SAMPL5 challenge (overview doi:10.1007/s10822-016-9954-8 and experiment doi:10.1007/s10822-016-9971-7; JCAMD special issue https://link.springer.com/journal/10822/30/11/page/1); in many cases, they were predicted as if they were partition coefficients, using solvation free energies in the relevant solvents.
