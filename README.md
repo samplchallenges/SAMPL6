@@ -21,11 +21,9 @@ Specifically, if you want to receive updates if we uncover any problems, it is i
 
 ### Release versions
 - Version 1.0: Data set as originally posted Aug. 24
+- Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
 
 ### Changes not yet in a release
-- 8/28/17: Updated `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration.
-- 9/22/17: Updated to add input files from Andrea Rizzi for host-guest challenge
-- 9/26/17: Updated adding `physical_properties` with preview information on the potential physical properties component of the challenge.
 
  
 ## Challenge Overview 
