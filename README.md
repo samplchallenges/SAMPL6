@@ -6,6 +6,8 @@ This cycle we have migrated the data download package to GitHub so it will be ve
 Specifically, if you want to receive updates if we uncover any problems, it is imperative that you either (a) sign up for the SAMPL e-mail list via the D3R site, or (b) sign up for notifications of changes to this GitHub repository (the ``Watch'' button, above); ideally you would do both. 
 **Join our e-mail list** by visiting the [D3R SAMPL6 Site](https://drugdesigndata.org/about/sampl6) and click "Join Challenge".
 
+The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
+
 ## What's Here
 - [Challenge Overview](#challenge-overview)
 - `host_guest`: Directory containing inputs for the host-guest challenges, as well as supporting files and a README detailing their organization
