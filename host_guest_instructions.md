@@ -79,7 +79,7 @@ We also encourage predictions of the binding enthalpies, and of the binding free
 Incomplete submissions - such as for a subset of compounds - will also be accepted, but will not necessarily be evaluated together with the rest of the submissions.
 However, we would emphasize that omission of enthalpies and/or bonus cases will not cause a submission to be regarded as incomplete. 
 
-Names of the prediction files must begin with the name of the host molecule for which it contains predictions (i.e., OAMe, OAH or CBClip, case-independently), and must end with an integer indicating which of your predictions for this host it contains.
+Names of the prediction files must begin with the name of the host molecule for which it contains predictions (i.e., OA, TEMOA or CB8, case-independently), and must end with an integer indicating which of your predictions for this host it contains.
 For example, if you want to submit one prediction file for CB8, you might name it CB8-myname-1.csv, where myname is arbitrary text of your choice. If you submit two prediction files for CB8, you might name them CB8-myname-1.txt and CB8-myname-2.txt
 
 The file will be machine parsed, so correct formatting is essential.
