@@ -1,0 +1,84 @@
+LAMMPS (16 Feb 2016)
+Reading data file ...
+  orthogonal box = (-0.615034 -0.700586 -0.682479) to (32.7773 33.0486 33.5514)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  3822 atoms
+  reading velocities ...
+  3822 velocities
+  scanning bonds ...
+  4 = max bonds/atom
+  scanning angles ...
+  6 = max angles/atom
+  scanning dihedrals ...
+  10 = max dihedrals/atom
+  reading bonds ...
+  2552 bonds
+  reading angles ...
+  1295 angles
+  reading dihedrals ...
+  35 dihedrals
+Finding 1-2 1-3 1-4 neighbors ...
+ Special bond factors lj:   0          0          0.5       
+ Special bond factors coul: 0          0          0.833333  
+  4 = max # of 1-2 neighbors
+  6 = max # of 1-3 neighbors
+  10 = max # of 1-4 neighbors
+  14 = max # of special neighbors
+Finding SHAKE clusters ...
+  0 = # of size 2 clusters
+  0 = # of size 3 clusters
+  0 = # of size 4 clusters
+  1268 = # of frozen angles
+PPPM initialization ...
+WARNING: For better accuracy use 'pair_modify table 0' (../kspace.cpp:328)
+  G vector (1/distance) = 0.283033
+  grid = 90 90 90
+  stencil order = 5
+  estimated absolute RMS force accuracy = 1.75562e-05
+  estimated relative force accuracy = 5.28701e-08
+  using double precision FFTs
+  3d grid and FFT values/proc = 1030301 729000
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 5 5 5
+Setting up Verlet run ...
+  Unit style  : real
+  Current step: 0
+  Time step   : 1
+Memory usage per processor = 126.669 Mbytes
+E_bond E_angle E_dihed E_impro E_pair E_vdwl E_coul E_long E_tail PotEng 
+  0.57241948    8.1545465    2.4166163            0   -12394.768    1868.0602    56009.144   -70271.972   -19.222756   -12383.624 
+Loop time of 9.53674e-07 on 1 procs for 0 steps with 3822 atoms
+
+314.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Kspace  | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 9.537e-07  |            |       |100.00
+
+Nlocal:    3822 ave 3822 max 3822 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    24385 ave 24385 max 24385 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    3.24698e+06 ave 3.24698e+06 max 3.24698e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 3246979
+Ave neighs/atom = 849.55
+Ave special neighs/atom = 2.02983
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00

@@ -1,0 +1,16 @@
+! CHARMM Energy for CB8-G8_converted/solvent_converted.inp
+BOMLEV  -1
+open read card unit 10 name "CB8-G8_converted/solvent_converted.rtf"
+read rtf card unit 10
+open read card unit 20 name "CB8-G8_converted/solvent_converted.prm"
+read para card unit 20
+read psf card name "CB8-G8_converted/solvent_converted.psf"
+read coor card name "CB8-G8_converted/solvent_converted.crd"
+read coor card comp name "CB8-G8_converted/solvent_converted.crd"
+crystal define orthorombic 33.03166760 33.39921720 33.09466180 90.00000000 90.00000000 90.00000000
+crystal build noper 0
+nbond inbfrq -1 imgfrq -1 -
+elec ewald pmew fftx 48 ffty 48 fftz 48 kappa 0.20822755 order 4 -
+vdw vips cutnb 14. cutim 14. ctofnb 14. ctonnb 14.
+energy
+stop

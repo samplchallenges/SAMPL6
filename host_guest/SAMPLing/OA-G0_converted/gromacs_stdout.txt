@@ -1,0 +1,68 @@
+Analysing residue names:
+There are:     2      Other residues
+There are:     9        Ion residues
+There are:  2639      Water residues
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 44x44x44, spacing 0.099 0.099 0.099
+This run will generate roughly 1 Mb of data
+
+Statistics over 1 steps [ 0.0000 through 0.0000 ps ], 19 data sets
+All statistics are over 1 points
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Bond                        206.682         --          0          0  (kJ/mol)
+Angle                       422.845         --          0          0  (kJ/mol)
+Proper Dih.                 373.759         --          0          0  (kJ/mol)
+Ryckaert-Bell.              173.896         --          0          0  (kJ/mol)
+Improper Dih.               12.4403         --          0          0  (kJ/mol)
+LJ-14                       318.914         --          0          0  (kJ/mol)
+Coulomb-14                  210.332         --          0          0  (kJ/mol)
+LJ (SR)                     15640.6         --          0          0  (kJ/mol)
+Disper. corr.              -179.611         --          0          0  (kJ/mol)
+Coulomb (SR)                -129882         --          0          0  (kJ/mol)
+Coul. recip.                216.133         --          0          0  (kJ/mol)
+Potential                   -112486         --          0          0  (kJ/mol)
+Kinetic En.                 265.306         --          0          0  (kJ/mol)
+Total Energy                -112221         --          0          0  (kJ/mol)
+Temperature                  3.8748         --          0          0  (K)
+Pres. DC                          0         --          0          0  (bar)
+Pressure                   -1223.92         --          0          0  (bar)
+Vir-XX                      2527.84         --          0          0  (kJ/mol)
+Vir-XY                     -100.565         --          0          0  (kJ/mol)
+Analysing residue names:
+There are:     1      Other residues
+There are:     1        Ion residues
+There are:  1107      Water residues
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 36x36x36, spacing 0.089 0.089 0.091
+This run will generate roughly 0 Mb of data
+
+Statistics over 1 steps [ 0.0000 through 0.0000 ps ], 19 data sets
+All statistics are over 1 points
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Bond                        15.7338         --          0          0  (kJ/mol)
+Angle                       91.2285         --          0          0  (kJ/mol)
+Proper Dih.                 6.69789         --          0          0  (kJ/mol)
+Ryckaert-Bell.              51.5727         --          0          0  (kJ/mol)
+Improper Dih.               2.17198         --          0          0  (kJ/mol)
+LJ-14                       10.1428         --          0          0  (kJ/mol)
+Coulomb-14                 -49.4481         --          0          0  (kJ/mol)
+LJ (SR)                     6619.73         --          0          0  (kJ/mol)
+Disper. corr.              -70.6246         --          0          0  (kJ/mol)
+Coulomb (SR)               -51917.9         --          0          0  (kJ/mol)
+Coul. recip.                86.2686         --          0          0  (kJ/mol)
+Potential                  -45154.4         --          0          0  (kJ/mol)
+Kinetic En.                 95.7717         --          0          0  (kJ/mol)
+Total Energy               -45058.7         --          0          0  (kJ/mol)
+Temperature                 3.43739         --          0          0  (K)
+Pres. DC                          0         --          0          0  (bar)
+Pressure                   -1620.71         --          0          0  (bar)
+Vir-XX                      1636.56         --          0          0  (kJ/mol)
+Vir-XY                      8.16095         --          0          0  (kJ/mol)
