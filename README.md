@@ -4,12 +4,16 @@ This repository gives challenge details and inputs for the SAMPL6 challenge.
 This cycle we have migrated the data download package to GitHub so it will be version controlled and more broadly acccessible.
 **Because these files are available publicly, we have no record of who downloads them. Therefore, you should sign up for notifications**.
 Specifically, if you want to receive updates if we uncover any problems, it is imperative that you either (a) sign up for the SAMPL e-mail list via the D3R site, or (b) sign up for notifications of changes to this GitHub repository (the ``Watch'' button, above); ideally you would do both. 
+**Join our e-mail list** by visiting the [D3R SAMPL6 Site](https://drugdesigndata.org/about/sampl6) and click "Join Challenge".
+
+The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
 
 ## What's Here
 - [Challenge Overview](#challenge-overview)
 - `host_guest`: Directory containing inputs for the host-guest challenges, as well as supporting files and a README detailing their organization
 - [Host-guest challenge instructions](host_guest_instructions.md): Detailed instructions on the host-guest component of the challenge.
 - [Detailed host-guest description](host_guest_description.md): Detailed description of the hosts, guests, and background information.
+- [Physical properties preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the physical properties component of the challenge, and previews of some of the potential compounds.
 
 ## What's forthcoming
 - Physical property challenge files (see description, below) 
@@ -20,10 +24,11 @@ Specifically, if you want to receive updates if we uncover any problems, it is i
 
 ### Release versions
 - Version 1.0: Data set as originally posted Aug. 24
+- Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
 
 ### Changes not yet in a release
-- 8/28/17: Updated `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration.
-
+- Improve README for SAMPLing draft input files
+- Add draft submission files for host-guest predictions in host_guest/(hostname)AndGuests.
  
 ## Challenge Overview 
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
@@ -73,7 +78,8 @@ There is also a possibility that solubilities will be measured, using the CheqSo
 The exact size of the dataset will depend on practical data collection throughput.
 An initial batch of ~25 fragment-like compounds is currently being assayed, with the prospect for additional measurements performed subsequently.
 Post-challenge follow-up experiments are possible and will be conducted as needed.
-We hope to provide a preliminary list of compounds by September 15 to allow participants to begin planning. The final challenge will include logD and, if available, solubility prediction.
+A preliminary list of compounds is now available in the `physical_properties` directory to give participants an idea of what types of compounds may be included, but this list is expected to change to some degree.
+The final challenge will include logD and, if available, solubility prediction.
 
 
 Distribution coefficients were included in the SAMPL5 challenge (overview doi:10.1007/s10822-016-9954-8 and experiment doi:10.1007/s10822-016-9971-7; JCAMD special issue https://link.springer.com/journal/10822/30/11/page/1); in many cases, they were predicted as if they were partition coefficients, using solvation free energies in the relevant solvents.
