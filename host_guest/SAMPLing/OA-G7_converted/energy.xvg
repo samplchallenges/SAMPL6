@@ -1,0 +1,42 @@
+# This file was created Sun Oct  8 11:55:25 2017
+# Created by:
+#         :-) GROMACS - gmx energy, VERSION 5.1.2 (double precision) (-:
+# 
+# Executable:   /home/mish4610/software/install_gromacs/bin/gmx_d
+# Data prefix:  /home/mish4610/software/install_gromacs
+# Command line:
+#   gmx_d energy -f /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/OA-G7_converted/ener.edr -o /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/OA-G7_converted/energy.xvg -dp
+# gmx energy is part of G R O M A C S:
+#
+# GRoups of Organic Molecules in ACtion for Science
+#
+@    title "GROMACS Energies"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "(kJ/mol), (K), (bar)"
+@TYPE xy
+@ view 0.15, 0.15, 0.75, 0.85
+@ legend on
+@ legend box on
+@ legend loctype view
+@ legend 0.78, 0.8
+@ legend length 2
+@ s0 legend "Bond"
+@ s1 legend "Angle"
+@ s2 legend "Proper Dih."
+@ s3 legend "Ryckaert-Bell."
+@ s4 legend "Improper Dih."
+@ s5 legend "LJ-14"
+@ s6 legend "Coulomb-14"
+@ s7 legend "LJ (SR)"
+@ s8 legend "Disper. corr."
+@ s9 legend "Coulomb (SR)"
+@ s10 legend "Coul. recip."
+@ s11 legend "Potential"
+@ s12 legend "Kinetic En."
+@ s13 legend "Total Energy"
+@ s14 legend "Temperature"
+@ s15 legend "Pres. DC"
+@ s16 legend "Pressure"
+@ s17 legend "Vir-XX"
+@ s18 legend "Vir-XY"
+    0.000000   11.980722223572   37.666869387813    3.118082941102   11.684684853988    0.322955420094   13.471677603920  123.587940015592  6226.648502964215  -67.812589058065  -50067.577762043642   83.706370206082  -43623.202545485321   86.923618047533  -43536.278927437786    3.244726519478    0.000000000000  -2002.286063706282  1542.601968475174  -83.383401926816

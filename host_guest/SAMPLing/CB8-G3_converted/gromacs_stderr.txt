@@ -1,0 +1,365 @@
+         :-) GROMACS - gmx grompp, VERSION 5.1.2 (double precision) (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra   Sebastian Fritsch 
+  Gerrit Groenhof   Christoph Junghans   Anca Hamuraru    Vincent Hindriksen
+ Dimitrios Karkoulis    Peter Kasson        Jiri Kraus      Carsten Kutzner  
+    Per Larsson      Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff 
+   Erik Marklund      Teemu Murtola       Szilard Pall       Sander Pronk   
+   Roland Schulz     Alexey Shvetsov     Michael Shirts     Alfons Sijbers  
+   Peter Tieleman    Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2015, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, VERSION 5.1.2 (double precision)
+Executable:   /home/mish4610/software/install_gromacs/bin/gmx_d
+Data prefix:  /home/mish4610/software/install_gromacs
+Command line:
+  gmx_d grompp -f /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/runfiles/grompp_SAMPL6.mdp -c /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/complex_converted.gro -p /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/complex_converted.top -o /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/topol.tpr -po /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/mdout.mdp -maxwarn 5
+
+
+NOTE 1 [file /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/runfiles/grompp_SAMPL6.mdp]:
+  With Verlet lists the optimal nstlist is >= 10, with GPUs >= 20. Note
+  that with the Verlet scheme, nstlist has no effect on the accuracy of
+  your simulation.
+
+
+NOTE 2 [file /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/runfiles/grompp_SAMPL6.mdp]:
+  nstcomm < nstcalcenergy defeats the purpose of nstcalcenergy, setting
+  nstcomm to nstcalcenergy
+
+Setting the LD random seed to 3550184653
+Generated 253 of the 253 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 253 of the 253 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'HST'
+Excluding 3 bonded neighbours molecule type 'GST'
+Excluding 3 bonded neighbours molecule type 'Cl-'
+Excluding 3 bonded neighbours molecule type 'Na+'
+Excluding 3 bonded neighbours molecule type 'WAT'
+Removing all charge groups because cutoff-scheme=Verlet
+
+NOTE 3 [file complex_converted.top, line 2507]:
+  The bond in molecule-type GST between atoms 22 N2 and 48 H24 has an
+  estimated oscillational period of 1.1e-02 ps, which is less than 10 times
+  the time step of 2.0e-03 ps.
+  Maybe you forgot to change the constraints mdp option.
+
+Number of degrees of freedom in T-Coupling group rest is 13551.00
+Estimate for the relative computational load of the PME mesh part: 0.13
+
+There were 3 notes
+
+gcq#178: "Make the Floor Burn" (2 Unlimited)
+
+         :-) GROMACS - gmx mdrun, VERSION 5.1.2 (double precision) (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra   Sebastian Fritsch 
+  Gerrit Groenhof   Christoph Junghans   Anca Hamuraru    Vincent Hindriksen
+ Dimitrios Karkoulis    Peter Kasson        Jiri Kraus      Carsten Kutzner  
+    Per Larsson      Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff 
+   Erik Marklund      Teemu Murtola       Szilard Pall       Sander Pronk   
+   Roland Schulz     Alexey Shvetsov     Michael Shirts     Alfons Sijbers  
+   Peter Tieleman    Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2015, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, VERSION 5.1.2 (double precision)
+Executable:   /home/mish4610/software/install_gromacs/bin/gmx_d
+Data prefix:  /home/mish4610/software/install_gromacs
+Command line:
+  gmx_d mdrun -nt 1 -s /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/topol.tpr -o /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/traj.trr -cpo /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/state.cpt -c /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/confout.gro -e /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/ener.edr -g /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/md.log
+
+
+Running on 1 node with total 8 cores, 16 logical cores
+Hardware detected:
+  CPU info:
+    Vendor: GenuineIntel
+    Brand:  Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz
+    SIMD instructions most likely to fit this hardware: AVX2_256
+    SIMD instructions selected at GROMACS compile time: AVX2_256
+
+Reading file /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/topol.tpr, VERSION 5.1.2 (double precision)
+Using 1 MPI thread
+Using 1 OpenMP thread 
+
+starting mdrun 'Untitled'
+0 steps,      0.0 ps.
+
+NOTE: 19 % of the run time was spent in pair search,
+      you might want to increase nstlist (this has no effect on accuracy)
+
+
+               Core t (s)   Wall t (s)        (%)
+       Time:        0.321        0.321      100.0
+                 (ns/day)    (hour/ns)
+Performance:        0.539       44.527
+
+gcq#200: "Hangout In the Suburbs If You've Got the Guts" (Urban Dance Squad)
+
+         :-) GROMACS - gmx energy, VERSION 5.1.2 (double precision) (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra   Sebastian Fritsch 
+  Gerrit Groenhof   Christoph Junghans   Anca Hamuraru    Vincent Hindriksen
+ Dimitrios Karkoulis    Peter Kasson        Jiri Kraus      Carsten Kutzner  
+    Per Larsson      Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff 
+   Erik Marklund      Teemu Murtola       Szilard Pall       Sander Pronk   
+   Roland Schulz     Alexey Shvetsov     Michael Shirts     Alfons Sijbers  
+   Peter Tieleman    Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2015, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, VERSION 5.1.2 (double precision)
+Executable:   /home/mish4610/software/install_gromacs/bin/gmx_d
+Data prefix:  /home/mish4610/software/install_gromacs
+Command line:
+  gmx_d energy -f /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/ener.edr -o /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/energy.xvg -dp
+
+Opened /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/ener.edr as double precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Ryckaert-Bell.
+  5  Improper-Dih.    6  LJ-14            7  Coulomb-14       8  LJ-(SR)       
+  9  Disper.-corr.   10  Coulomb-(SR)    11  Coul.-recip.    12  Potential     
+ 13  Kinetic-En.     14  Total-Energy    15  Temperature     16  Pres.-DC      
+ 17  Pressure        18  Vir-XX          19  Vir-XY          20  Vir-XZ        
+ 21  Vir-YX          22  Vir-YY          23  Vir-YZ          24  Vir-ZX        
+ 25  Vir-ZY          26  Vir-ZZ          27  Pres-XX         28  Pres-XY       
+ 29  Pres-XZ         30  Pres-YX         31  Pres-YY         32  Pres-YZ       
+ 33  Pres-ZX         34  Pres-ZY         35  Pres-ZZ         36  #Surf*SurfTen 
+ 37  T-rest        
+
+
+Reading energy frame      0 time    0.000         
+Last energy frame read 0 time    0.000         
+
+gcq#437: "The researcher's art is first of all to find himself a good boss." (Andre Lwoff)
+
+         :-) GROMACS - gmx grompp, VERSION 5.1.2 (double precision) (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra   Sebastian Fritsch 
+  Gerrit Groenhof   Christoph Junghans   Anca Hamuraru    Vincent Hindriksen
+ Dimitrios Karkoulis    Peter Kasson        Jiri Kraus      Carsten Kutzner  
+    Per Larsson      Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff 
+   Erik Marklund      Teemu Murtola       Szilard Pall       Sander Pronk   
+   Roland Schulz     Alexey Shvetsov     Michael Shirts     Alfons Sijbers  
+   Peter Tieleman    Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2015, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, VERSION 5.1.2 (double precision)
+Executable:   /home/mish4610/software/install_gromacs/bin/gmx_d
+Data prefix:  /home/mish4610/software/install_gromacs
+Command line:
+  gmx_d grompp -f /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/runfiles/grompp_SAMPL6.mdp -c /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/solvent_converted.gro -p /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/solvent_converted.top -o /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/topol.tpr -po /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/mdout.mdp -maxwarn 5
+
+
+Back Off! I just backed up /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/mdout.mdp to /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/#mdout.mdp.1#
+
+NOTE 1 [file /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/runfiles/grompp_SAMPL6.mdp]:
+  With Verlet lists the optimal nstlist is >= 10, with GPUs >= 20. Note
+  that with the Verlet scheme, nstlist has no effect on the accuracy of
+  your simulation.
+
+
+NOTE 2 [file /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/runfiles/grompp_SAMPL6.mdp]:
+  nstcomm < nstcalcenergy defeats the purpose of nstcalcenergy, setting
+  nstcomm to nstcalcenergy
+
+Setting the LD random seed to 988365100
+Generated 171 of the 171 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 171 of the 171 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'GST'
+Excluding 3 bonded neighbours molecule type 'Cl-'
+Excluding 3 bonded neighbours molecule type 'Na+'
+Excluding 3 bonded neighbours molecule type 'WAT'
+Removing all charge groups because cutoff-scheme=Verlet
+
+NOTE 3 [file solvent_converted.top, line 604]:
+  The bond in molecule-type GST between atoms 22 N2 and 48 H24 has an
+  estimated oscillational period of 1.1e-02 ps, which is less than 10 times
+  the time step of 2.0e-03 ps.
+  Maybe you forgot to change the constraints mdp option.
+
+Number of degrees of freedom in T-Coupling group rest is 10773.00
+Estimate for the relative computational load of the PME mesh part: 0.13
+
+There were 3 notes
+
+Back Off! I just backed up /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/topol.tpr to /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/#topol.tpr.1#
+
+gcq#135: "We Don't Bother Anyone" (LIVE)
+
+         :-) GROMACS - gmx mdrun, VERSION 5.1.2 (double precision) (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra   Sebastian Fritsch 
+  Gerrit Groenhof   Christoph Junghans   Anca Hamuraru    Vincent Hindriksen
+ Dimitrios Karkoulis    Peter Kasson        Jiri Kraus      Carsten Kutzner  
+    Per Larsson      Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff 
+   Erik Marklund      Teemu Murtola       Szilard Pall       Sander Pronk   
+   Roland Schulz     Alexey Shvetsov     Michael Shirts     Alfons Sijbers  
+   Peter Tieleman    Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2015, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, VERSION 5.1.2 (double precision)
+Executable:   /home/mish4610/software/install_gromacs/bin/gmx_d
+Data prefix:  /home/mish4610/software/install_gromacs
+Command line:
+  gmx_d mdrun -nt 1 -s /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/topol.tpr -o /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/traj.trr -cpo /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/state.cpt -c /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/confout.gro -e /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/ener.edr -g /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/md.log
+
+
+Back Off! I just backed up /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/md.log to /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/#md.log.1#
+
+Running on 1 node with total 8 cores, 16 logical cores
+Hardware detected:
+  CPU info:
+    Vendor: GenuineIntel
+    Brand:  Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz
+    SIMD instructions most likely to fit this hardware: AVX2_256
+    SIMD instructions selected at GROMACS compile time: AVX2_256
+
+Reading file /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/topol.tpr, VERSION 5.1.2 (double precision)
+Using 1 MPI thread
+Using 1 OpenMP thread 
+
+
+Back Off! I just backed up /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/ener.edr to /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/#ener.edr.1#
+starting mdrun 'Untitled'
+0 steps,      0.0 ps.
+
+NOTE: 18 % of the run time was spent in pair search,
+      you might want to increase nstlist (this has no effect on accuracy)
+
+
+               Core t (s)   Wall t (s)        (%)
+       Time:        0.263        0.263      100.0
+                 (ns/day)    (hour/ns)
+Performance:        0.658       36.492
+
+gcq#0: "If You Want Something Done You Have to Do It Yourself" (Highlander II)
+
+         :-) GROMACS - gmx energy, VERSION 5.1.2 (double precision) (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra   Sebastian Fritsch 
+  Gerrit Groenhof   Christoph Junghans   Anca Hamuraru    Vincent Hindriksen
+ Dimitrios Karkoulis    Peter Kasson        Jiri Kraus      Carsten Kutzner  
+    Per Larsson      Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff 
+   Erik Marklund      Teemu Murtola       Szilard Pall       Sander Pronk   
+   Roland Schulz     Alexey Shvetsov     Michael Shirts     Alfons Sijbers  
+   Peter Tieleman    Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2015, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, VERSION 5.1.2 (double precision)
+Executable:   /home/mish4610/software/install_gromacs/bin/gmx_d
+Data prefix:  /home/mish4610/software/install_gromacs
+Command line:
+  gmx_d energy -f /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/ener.edr -o /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/energy.xvg -dp
+
+Opened /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/ener.edr as double precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Ryckaert-Bell.
+  5  Improper-Dih.    6  LJ-14            7  Coulomb-14       8  LJ-(SR)       
+  9  Disper.-corr.   10  Coulomb-(SR)    11  Coul.-recip.    12  Potential     
+ 13  Kinetic-En.     14  Total-Energy    15  Temperature     16  Pres.-DC      
+ 17  Pressure        18  Vir-XX          19  Vir-XY          20  Vir-XZ        
+ 21  Vir-YX          22  Vir-YY          23  Vir-YZ          24  Vir-ZX        
+ 25  Vir-ZY          26  Vir-ZZ          27  Pres-XX         28  Pres-XY       
+ 29  Pres-XZ         30  Pres-YX         31  Pres-YY         32  Pres-YZ       
+ 33  Pres-ZX         34  Pres-ZY         35  Pres-ZZ         36  #Surf*SurfTen 
+ 37  T-rest        
+
+
+Back Off! I just backed up /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/energy.xvg to /home/mish4610/conversions/SAMPL6/SAMPL6/host_guest/SAMPLing/CB8-G3_converted/#energy.xvg.1#
+
+Reading energy frame      0 time    0.000         
+Last energy frame read 0 time    0.000         
+
+gcq#313: "Put Me Inside SSC, Let's Test Superstring Theory, Oh Yoi Yoi Accelerate the Protons" (Gogol Bordello)
+
