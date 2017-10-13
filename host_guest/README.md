@@ -9,10 +9,28 @@
 - `OctaAcidsAndGuests/`: Directory containing octa acid (OA and TEMOA) input structures and guest structure files
 - `CB8AndGuests/`: Directory containing CB8 input structure and guest structure files
 - `GenerateInputs.ipynb`: Jupyter notebook using the OpenEye toolkits to generate molecule structure files from the other inputs noted above
-- `SAMPLing/`: Equilibrated system files for the SAMPLing challenge. Equilibrated systems are provided for OA-G3 (5-hexenoic acid), OA-G6 (4-methylpentanoic acid) and CB8-G3 (quinine). 5 different initial configurations are given for each complex. Files are available in Amber (`prmtop`/`rst7`), Gromacs (`top`/`gro`), OpenMM (`xml`) and PDB formats. Solvated system files are available both for the host-guest complex (e.g. `complex.pdb`) and the guest alone (e.g. `solvent.pdb`). See below for the setup protocol.
+- `SAMPLing/`: Equilibrated system files for the SAMPLing challenge (see below for further details).
 
-## SAMPLing files preparation
+## SAMPLing challenge files
 
+Equilibrated systems are provided for OA-G3 (5-hexenoic acid), OA-G6 (4-methylpentanoic acid) and CB8-G3 (quinine). 5 different initial configurations are given for each complex. Files are available in Amber (`prmtop`/`rst7`), Gromacs (`top`/`gro`), OpenMM (`xml`) and PDB formats. Solvated system files are available both for the host-guest complex (e.g. `complex`) and the guest alone (e.g. `solvent`).
+
+The `SAMPLing/` folder includes an atom map in JSON format for relative free energy calculations. The ligand atoms of OA-G3 that match the ligand atoms in OA-G6 are given for the systems in complex and in solvent. The file has this format
+```json
+"complex":
+   "unique_atoms_G3": [184, 185, 187, 192, 193, 194, 195, 196]
+   "unique_atoms_G6": [185, 186, 189, 192, 193, 194, 195, 196, 197, 202]
+   "atom_map_G3_to_G6":
+      "197": 198
+      "198": 199
+      "199": 201
+      ...
+"solvent":
+   ...
+```
+where `unique_atoms_G3` is a list of atom indices that do not match any G6 atom, and `atom_map_G3_to_G6` matches atoms of G3 to those of G6 by atom index. All indices are 0-based. This map can be used with any of the 5 replicates `OA-G3-X` and `OA-G6-X`.
+
+### Preparation
 All the host-guest system files in the `SAMPLing/` directory were prepared using the protocol below.
 - Protonation states and initial starting configurations were taken as given by the original `mol2` files in the `OctaAcidsAndGuests/` and `CB8AndGuests/` directories.
 - 5 docked complexes were generated with OpenEye `2017.6.1`.
