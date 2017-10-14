@@ -1,8 +1,8 @@
 ;
 ;   File ../host_guest/SAMPLing/OA-G3-2/complex.top  was generated
 ;   By user: andrrizzi (20065)
-;   On host: ls09
-;   At date: Thu. October  4 19:32:47 2017
+;   On host: ls02
+;   At date: Fri. October  5 22:20:57 2017
 ;
 ;   This is a standalone topology file
 ;
@@ -30,6 +30,7 @@ hc             1    1.00800    0.000000  A      0.264953     0.0656888
 h2             1    1.00800    0.000000  A      0.229317     0.0656888
 c2             6   12.01000    0.000000  A      0.339967      0.359824
 Na+           11   22.99000    0.000000  A      0.243928      0.365846
+Cl-           17   35.45000    0.000000  A      0.447766      0.148913
 OW             8   16.00000    0.000000  A      0.315075      0.635968
 HW             1    1.00800    0.000000  A             0             0
 
@@ -2135,6 +2136,16 @@ Na+          3
 
 [ moleculetype ]
 ; Name            nrexcl
+Cl-          3
+
+[ atoms ]
+;   nr       type  resnr residue  atom   cgnr    charge       mass  typeB    chargeB      massB
+; residue    1 Cl- rtp Cl- q -1.0
+    1        Cl-      1    Cl-    Cl-      1  -1.000000    35.4500   ; qtot -1.0000
+
+
+[ moleculetype ]
+; Name            nrexcl
 WAT          3
 
 [ atoms ]
@@ -2174,5 +2185,6 @@ Generic title
 ; Compound       #mols
 HST                  1
 GST                  1
-Na+                  9
-WAT               2592
+Na+                 12
+Cl-                  3
+WAT               2586

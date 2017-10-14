@@ -1,8 +1,8 @@
 ;
 ;   File ../host_guest/SAMPLing/CB8-G3-0/complex.top  was generated
 ;   By user: andrrizzi (20065)
-;   On host: ls03
-;   At date: Thu. October  4 20:22:41 2017
+;   On host: ls04
+;   At date: Fri. October  5 22:46:07 2017
 ;
 ;   This is a standalone topology file
 ;
@@ -2548,6 +2548,6 @@ Generic title
 HST                  1
 GST                  1
 Cl-                  1
-Na+                  1
-Cl-                  1
-WAT               2160
+Na+                  6
+Cl-                  6
+WAT               2150
