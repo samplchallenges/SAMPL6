@@ -61,7 +61,7 @@ Existing benchmark datasets based on these hosts also may be of interest for tho
 ### Cucubit[8]uril (CB8) binding of guests
 
 This host-guest series is based on the host cucurbit[8]uril (CB8), which was used in SAMPL3, as previously summarized (DOI 10.1007/s10822-012-9554-1).
-CB8 is the eight-membered relative of cucurbit[7uril, which was used in several other prior SAMPL challenges.
+CB8 is the eight-membered relative of cucurbit[7]uril, which was used in several other prior SAMPL challenges.
 Data will be provided for ~14 guests, including several FDA approved drugs.
 Background information on CB8 may be found in a number of publications, including DOI 10.1021/jp2110067, 10.1002/chem.201403405, and 10.1021/ja055013x.
 
@@ -85,3 +85,21 @@ The final challenge will include logD and, if available, solubility prediction.
 Distribution coefficients were included in the SAMPL5 challenge (overview doi:10.1007/s10822-016-9954-8 and experiment doi:10.1007/s10822-016-9971-7; JCAMD special issue https://link.springer.com/journal/10822/30/11/page/1); in many cases, they were predicted as if they were partition coefficients, using solvation free energies in the relevant solvents.
 The difference between distribution coefficients (logD, which reflects the transfer free energy at a given pH including the effects of accessing all equilibrium  protonation states of the solute in each phase) and partition coefficients (logP, which reflects the free energy of transfer for the neutral form only) proved particularly important.
 In some cases, other effects like the presence of small amount of water in cyclohexane may also have played a role.
+
+
+### SAMPLing challenge
+The purpose of the SAMPLing challenge component is to evaluate and compare the performance of different sampling methodologies in the context of free energy calculations of biomolecular systems. The challenge consists in computing the free energy of binding of three host-guest systems taken from the main SAMPL6 challenge: CB8-G3 (quinine), OA-G3 (5-hexenoic acid), and OA-G6 (4-methylpentanoic acid). Force field parameters, and ideally long-range treatment, should be the same for all participants to allow a more objective comparison of sampling methods. For this purpose, equilibrated system files that include topologies and initial configurations are provided in `host_guest/SAMPLing/` in various formats (i.e., Amber, Gromacs, OpenMM, PDB). Five different initial configurations are provided for each host-guest systems (see [`host_guest/README.md`](host_guest/README.md#sampling-challenge-files) for the setup protocol).
+
+To participate in the challenge, you will have to submit the following information for each of the 5 replicates of the 3 host-guest systems:
+- Binding free energy predictions using 1%, 2%, 3%, ..., 100% of the sequential data (i.e., _not_ bootstrapped).
+- Integrated autocorrelation time of the potential energies of the bound thermodynamic state. The `pymbar` Python package exposes a function `statisticalInefficiency()` in its `timeseries` module.
+- Description of the thermodynamic cycle, in particular the number of thermodynamic states (e.g. lambda/umbrella sampling windows).
+- Total computer time, total wall clock time, total number of energy evaluations, and hardware used to perform the simulations.
+
+For relative free energy methods, only the five replicates of the transformation OA-G3 to OA-G6 are required. An atom map is provided in JSON format in `host_guest/SAMPLing/`.
+
+The reference absolute free energy calculations will be performed using YANK and the following methods/parameters:
+- Hamiltonian Replica-Exchange and Langevin dynamics (BAOAB splitting) with the temperature set to 298.15K.
+- A Monte Carlo barostat set at 1atm
+- The OpenMM's implementation of PME for long-range electrostatic interactions with a cutoff of 10A.
+- VdW interactions used the same 10A cutoff and a switching distance of 9A.
