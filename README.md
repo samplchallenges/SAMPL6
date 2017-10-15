@@ -92,7 +92,7 @@ The purpose of the SAMPLing challenge component is to evaluate and compare the p
 
 To participate in the challenge, you will have to submit the following information for each of the 5 replicates of the 3 host-guest systems:
 - Binding free energy predictions using 1%, 2%, 3%, ..., 100% of the sequential data (i.e., _not_ bootstrapped).
-- Integrated autocorrelation time of the potential energies of the bound thermodynamic state. The `pymbar` Python package exposes a function `statisticalInefficiency()` in its `timeseries` module.
+- Integrated autocorrelation time of the _reduced_ potential energies of the bound thermodynamic state after the first 10ns of the simulation. The `pymbar` Python package exposes a function `statisticalInefficiency()` in its `timeseries` module.
 - Description of the thermodynamic cycle, in particular the number of thermodynamic states (e.g. lambda/umbrella sampling windows).
 - Total computer time, total wall clock time, total number of energy evaluations, and hardware used to perform the simulations.
 
