@@ -14,10 +14,11 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - [Host-guest challenge instructions](host_guest_instructions.md): Detailed instructions on the host-guest component of the challenge.
 - [Detailed host-guest description](host_guest_description.md): Detailed description of the hosts, guests, and background information.
 - [Physical properties preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the physical properties component of the challenge, and previews of some of the potential compounds.
+- SAMPLing challenge files for host-guest challenge: Input files for the host-guest component of the SAMPLing challenge, see [description](#sampling-challenge) below.
 
 ## What's forthcoming
-- Physical property challenge files (see description, below) 
-- SAMPLing challenge files (see description, below) for both host-guest and physical properties
+- Physical property challenge files, specifically for pKa prediction (see description, below) 
+- SAMPLing challenge files in different formats, along with energy validation data
 
 ## Changes and Data Set Versions So Far:
 (all major versions available under [releases](https://github.com/MobleyLab/SAMPL6/releases) above)
@@ -25,10 +26,12 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 ### Release versions
 - Version 1.0: Data set as originally posted Aug. 24
 - Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
+- Version 1.2 (release pending): Adds host-guest SAMPLing challenge explanation and inputs
 
 ### Changes not yet in a release
 - Improve README for SAMPLing draft input files
 - Add draft submission files for host-guest predictions in host_guest/(hostname)AndGuests.
+- Add SAMPLing challenge inputs
  
 ## Challenge Overview 
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
@@ -42,11 +45,11 @@ The SAMPLing challenge is expected to include one or more cases from each challe
 
 **As of August 24, all of the information and data files needed to start on the host-guest component, including machine-readable structure files for the hosts and guests are posted, so this challenge is open!
 Files are hosted at github.com/mobleylab/SAMPL6.**
-We estimate that the physical property and SAMPling parts of SAMPL6 will open in October 15, 2017 and September 20, 2017, respectively.
+We estimate that the physical property and SAMPling parts of SAMPL6 will open in October 2017.
 Status updates will be posted here and announced by email to the D3R SAMPL list and on the D3R Twitter account; we also encourage participants to “watch” the GitHub repository for notifications of file changes/availability and relevant discussions.
 
 Further information on both the host-guest and physical property components of SAMPL6 follow. 
-Thanks to Drs. Bruce Gibb (Tulane U.) and Lyle Isaacs (U. Maryland) for providing the host-guest data, and Dr. John Chodera, Mehtap Isik, and Merck for the distribution coefficient data.
+Thanks to Drs. Bruce Gibb (Tulane U.) and Lyle Isaacs (U. Maryland) for providing the host-guest data, Andrea Rizzi for SAMPLing challenge data, and Dr. John Chodera, Mehtap Isik, and Merck for the distribution coefficient data.
 
 ### Gibb Deep Cavity Cavitand (Octa Acids) binding of guests
 
@@ -61,12 +64,14 @@ Existing benchmark datasets based on these hosts also may be of interest for tho
 ### Cucubit[8]uril (CB8) binding of guests
 
 This host-guest series is based on the host cucurbit[8]uril (CB8), which was used in SAMPL3, as previously summarized (DOI 10.1007/s10822-012-9554-1).
-CB8 is the eight-membered relative of cucurbit[7uril, which was used in several other prior SAMPL challenges.
+CB8 is the eight-membered relative of cucurbit[7]uril, which was used in several other prior SAMPL challenges.
 Data will be provided for ~14 guests, including several FDA approved drugs.
 Background information on CB8 may be found in a number of publications, including DOI 10.1021/jp2110067, 10.1002/chem.201403405, and 10.1021/ja055013x.
 
 ### Physical properties
-The SAMPL6 physical property challenge will center on predicting physicochemical properties for 25-50 fragment- and drug-like small molecules that small molecule protein kinase inhibitors (or fragments thereof).
+Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phases.
+The first phase, for SAMPL6, will focus on pKa prediction for the upcoming workshop.
+Then the pKa data for this challenge will be provided to participants and used as part of a second challenge centering on predicting physicochemical properties for 25-50 fragment- and drug-like small molecules that small molecule protein kinase inhibitors (or fragments thereof) -- specifically, distribution coefficients and potentially also solubilities.
 Because the SAMPL5 logD challenge highlighted the difficulty in correctly predicting transfer free energies involving protonation states, we will provide participants with experimental pKa values for these compounds.
 We will ask participants to predict distribution coefficients (logD) at a single pH and (as a separate challenge), provided the measurements can be completed in time, pH-dependent solubilities for these compounds.
 
@@ -85,3 +90,29 @@ The final challenge will include logD and, if available, solubility prediction.
 Distribution coefficients were included in the SAMPL5 challenge (overview doi:10.1007/s10822-016-9954-8 and experiment doi:10.1007/s10822-016-9971-7; JCAMD special issue https://link.springer.com/journal/10822/30/11/page/1); in many cases, they were predicted as if they were partition coefficients, using solvation free energies in the relevant solvents.
 The difference between distribution coefficients (logD, which reflects the transfer free energy at a given pH including the effects of accessing all equilibrium  protonation states of the solute in each phase) and partition coefficients (logP, which reflects the free energy of transfer for the neutral form only) proved particularly important.
 In some cases, other effects like the presence of small amount of water in cyclohexane may also have played a role.
+
+
+### SAMPLing challenge
+The purpose of the SAMPLing challenge component is to evaluate and compare the performance of different sampling methodologies in the context of free energy calculations of biomolecular systems; we will be running extremely long calculations with the provided input files in an attempt to obtain ``gold standard'' results, and then assess how well different methods/approaches converge to these results..
+The challenge consists in computing the free energy of binding of three host-guest systems taken from the main SAMPL6 challenge: CB8-G3 (quinine), OA-G3 (5-hexenoic acid), and OA-G6 (4-methylpentanoic acid).
+Force field parameters, and ideally long-range treatment, should be the same for all participants to allow a more objective comparison of sampling methods.
+For this purpose, equilibrated system files that include topologies and initial configurations are provided in `host_guest/SAMPLing/` in various formats (i.e., Amber, Gromacs, OpenMM, PDB).
+Five different initial configurations are provided for each host-guest systems (see [`host_guest/README.md`](host_guest/README.md#sampling-challenge-files) for the setup protocol).
+
+To participate in the challenge, you will have to submit the following information for each of the 5 replicates of the 3 host-guest systems:
+- Binding free energy predictions using 1%, 2%, 3%, ..., 100% of the sequential data (i.e., _not_ bootstrapped).
+- Integrated autocorrelation time of the _reduced_ potential energies of the bound thermodynamic state after the first 10ns of the simulation. The `pymbar` Python package exposes a function `statisticalInefficiency()` in its `timeseries` module which can be used for this task..
+- Description of the thermodynamic cycle, in particular the number of thermodynamic states (e.g. lambda/umbrella sampling windows).
+- Total computer time, total wall clock time, total number of energy evaluations, and hardware used to perform the simulations.
+The file format for these will be made available in the near future.
+
+For relative free energy methods, only the five replicates of the transformation OA-G3 to OA-G6 are required. An atom map is provided in JSON format in `host_guest/SAMPLing/`.
+
+The reference absolute free energy calculations will be performed using YANK and the following methods/parameters:
+- Hamiltonian Replica-Exchange and Langevin dynamics (BAOAB splitting) with the temperature set to 298.15K.
+- A Monte Carlo barostat set at 1atm
+- The OpenMM's implementation of PME for long-range electrostatic interactions with a cutoff of 10A.
+- VdW interactions used the same 10A cutoff and a switching distance of 9A.
+
+This SAMPLing challenge is a bit of an experiment, as it is entirely possible that different methods/packages may *not* agree even when apparently converged, requiring participating groups to work together to track down discrepancies. However, if agreement is obtained, it should be very instructive to compare rate of convergence.
+We expect that analysis of this challenge component will focus even more than usual on ``lessons learned'' rather than on which methods performed ``best'' by some metric, but we hope it will also pave the way for future iterations of such challenges.
