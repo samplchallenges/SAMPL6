@@ -27,12 +27,9 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 ### Release versions
 - Version 1.0: Data set as originally posted Aug. 24
 - Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
-- Version 1.2 (release pending): Adds host-guest SAMPLing challenge explanation and inputs
+- Version 1.2: Adds host-guest SAMPLing challenge explanation and inputs, describes these in README files; adds draft submission files for host-guest predictions in `host_guest/(hostname)AndGuests` directories; updates the discussion of the physical property challenge to reflect the current status.
 
 ### Changes not yet in a release
-- Improve README for SAMPLing draft input files
-- Add draft submission files for host-guest predictions in host_guest/(hostname)AndGuests.
-- Add SAMPLing challenge inputs
  
 ## Challenge Overview 
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
