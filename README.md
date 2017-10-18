@@ -18,7 +18,8 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 
 ## What's forthcoming
 - Physical property challenge files, specifically for pKa prediction (see description, below) 
-- SAMPLing challenge files in different formats, along with energy validation data
+- SAMPLing challenge files in alternate formats, along with energy validation data
+- Submission formats for pKa prediction and SAMPLing challenge
 
 ## Changes and Data Set Versions So Far:
 (all major versions available under [releases](https://github.com/MobleyLab/SAMPL6/releases) above)
