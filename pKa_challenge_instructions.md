@@ -6,8 +6,8 @@ This challenge consists of predicting microscopic and macroscopic pKas of 24 sma
 The following subsections describe the molecules included in this challenge, the experimental conditions and measurements, the quantities to be predicted, and how prediction results must be submitted.
 
 ## Small molecules included in the pKa challenge
-
-
+![pKa_challenge_small_molecules](images/pKa_challenge_small_molecules.jpg)
+A list of SAMPL6 pKa challenge small molecules canonical isomeric SMILES and molecule IDs can be found [here](physical_properties/pKa/molecule_ID_and_SMILES.csv).
 
 ## Experimental details
 pKa measurements were collected using spectrophotometric pKa measurements with Sirius T3 instrument by Mehtap Isik from Chodera Lab with the support of Merck Rahway, Preformulation Department. 
