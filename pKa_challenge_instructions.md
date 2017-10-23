@@ -33,32 +33,34 @@ Three independent replicate measurements were made for all compounds at room tem
 ## Instructions and Submission Templates
 Three types of predictions will be accepted. Participants are encouraged to submit their results in all or multiple submission types as it fits to their prediction methods.
 
-### Type I - microscopic pKas and related microstates
+#### Type I - microscopic pKas and related microstates
 Predicting microscopic pKa values and related microstates structures. Different protonation states and tautomers constitute different microstates. 
 - Fill the `microscopic_pKa_and_microstates.csv` template for all molecules.
 - For each molecule, report as many microscopic pKas based on your best guest.
 - Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated for each microscopic pKa. To determine the microstate ID for your predicted structure check the spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates).
-- If your predicted structure is not included in the list, contact Mehtap Isik (mehtap.isik@choderalab.org). Please send us 2D structure depiction and canonical isomeric SMILES of your proposed microstate. We will assign a unique microstate ID and include it in the analysis.
+- If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details are in missing microstates section.
 - Report microscopic pKa values with 2 decimals (e.g. 10.71).
 - Reporting standard error of the mean (SEM) is optional and should be reported with 2 decimals. (e.g. 1.02).
 
-### Type II - microstate populations as a function of pH
+#### Type II - microstate populations as a function of pH
 Predicting fractional population of microstates between pH interval 2 to 12 with 0.1 pH increments, based on microscopic pKa predictions.
-- Fill the `microstate_fractional_populations.csv` template file for all molecules.
-- For each molecule, report as populations of as many microscopic pKas based on your best guest.
-- Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated for each microscopic pKa. To determine the microstate ID for your predicted structure check the spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates).
-- If your predicted structure is not included in the list, contact Mehtap Isik (mehtap.isik@choderalab.org). Please send us 2D structure depiction and canonical isomeric SMILES of your proposed microstate. We will assign a unique microstate ID and include it in the analysis.
-- Report microscopic pKa values with 2 decimals (e.g. 10.71).
-- Reporting standard error of the mean (SEM) is optional and should be reported with 2 decimals. (e.g. 1.02).
+- Fill the `microstate_fractional_populations.csv` template file for all molecules and microstates you have predictions for.
+- To determine the microstate ID for your predicted microstate populations check the spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates).
+- If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details are in missing microstates section.
+- Report natural logaritm of fractional microstate populations with scientific notation and 3 decimals of precision, for each pH.  
+e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent number of molecules at microstate A and B.   
+At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30E+00`.  
+- Do not report SEM in this submission type.
+- For pH value or microstates which you don't have any estimates for, leave the csv table cell empty. 
 
-### Type III - macroscopic pKas
+#### Type III - macroscopic pKas
 Predicting the value of  macroscopic pKas based between 2 and 12.
 - Fill one `macroscopic_pKa.csv` template file for all predicted molecules.
 - Report as many macroscopic pKas based on your predictions.
 - Report pKa values with 2 decimals (e.g. 10.71).
 - Reporting standard error of the mean (SEM) is optional and should be reproted with 2 decimals. (e.g. 1.02).
 
-## A warning about enumerated microstates
+## A warning about enumerated microstates and requesting missing microstates
 A list of microstates and microstate IDs were generated for each molecule to aid parsing of submissions. Enumerated list of microstates was not created with the intend to guide computational predictions. It is possible that some relevant microscopic species are missing from these lists. If your predicted structure is not already included in the microstates list, contact Mehtap Isik (mehtap.isik@choderalab.org). Please send us 2D structure depiction and canonical isomeric SMILES of your proposed microstate. We will assign a unique microstate ID and include it in the analysis.  
 
 Please do not create a microstate ID yourself. It is important that challenge organizers assign unique microstate IDs and keep track. 
