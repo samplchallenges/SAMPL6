@@ -1,0 +1,9 @@
+microstate ID,canonical isomeric SMILES
+SM16_micro001,c1cc(c(c(c1)Cl)C(=[OH+])N=c2cc[nH]cc2)Cl
+SM16_micro002,c1cc(c(c(c1)Cl)C(=O)Nc2ccncc2)Cl
+SM16_micro003,c1cc(c(c(c1)Cl)C(=[OH+])[N-]c2ccncc2)Cl
+SM16_micro004,c1cc(c(c(c1)Cl)C(=[NH+]c2cc[nH+]cc2)[O-])Cl
+SM16_micro005,c1cc(c(c(c1)Cl)/C(=N/c2ccncc2)/[O-])Cl
+SM16_micro006,c1cc(c(c(c1)Cl)C(=[OH+])Nc2ccncc2)Cl
+SM16_micro007,c1cc(c(c(c1)Cl)C(=O)N=c2cc[nH]cc2)Cl
+SM16_micro008,c1cc(c(c(c1)Cl)C(=[OH+])Nc2cc[nH+]cc2)Cl

@@ -1,0 +1,5 @@
+microstate ID,canonical isomeric SMILES
+SM15_micro001,c1ccc2c(c1)[nH]c[n+]2c3ccc(cc3)[O-]
+SM15_micro002,c1ccc2c(c1)ncn2c3ccc(cc3)O
+SM15_micro003,c1ccc2c(c1)[nH+]cn2c3ccc(cc3)O
+SM15_micro004,c1ccc2c(c1)ncn2c3ccc(cc3)[O-]

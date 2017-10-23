@@ -1,0 +1,11 @@
+microstate ID,canonical isomeric SMILES
+SM01_micro001,c1cc2c(cc1O)c3c(o2)C(=[OH+])NCCC3
+SM01_micro002,c1cc2c(cc1[O-])c3c(o2)C(=NCCC3)[O-]
+SM01_micro003,c1cc2=[O+]C3=C(NCCCC3=c2cc1O)[O-]
+SM01_micro004,c1cc2c(cc1[O-])c3c(o2)C(=O)NCCC3
+SM01_micro005,c1cc2c(cc1O)c3c(o2)C(=O)NCCC3
+SM01_micro006,c1cc2c(cc1[O-])c3c(o2)C(=[OH+])NCCC3
+SM01_micro007,c1cc2=[O+]C3=C(NCCCC3=c2cc1[O-])[O-]
+SM01_micro008,c1cc2c(cc1[O-])c3c(o2)C(=O)[NH2+]CCC3
+SM01_micro009,c1cc2c(cc1O)c3c(o2)C(=O)[NH2+]CCC3
+SM01_micro010,c1cc2c(cc1O)c3c(o2)C(=NCCC3)[O-]

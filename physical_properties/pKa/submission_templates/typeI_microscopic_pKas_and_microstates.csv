@@ -1,11 +1,10 @@
 # Type I Submissiion
 #
 # PREDICTION SECTION
-#
-# The data in each prediction line should be structured as follows:
-# microstate ID of HA, micorstate ID of A, microscopic pKa, microscopic pKa SEM
 # Add new lines for each microstate pair.
 # Leave csv sections you don't have estimates for empty.
+# The data in each prediction line should be structured as follows:
+# microstate ID of protonated state(HA), microstate ID of deprotonated state(A), microscopic pKa, microscopic pKa SEM
 # The list of predictions must begin with the "Prediction:" keyword, as illustrated here.
 Predictions:
 

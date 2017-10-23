@@ -1,0 +1,26 @@
+microstate ID,canonical isomeric SMILES
+SM21_micro001,c1cc(cc(c1)Br)Nc2[nH]cc(/c(=[NH+]/c3cccc(c3)Br)/n2)F
+SM21_micro002,c1cc(cc(c1)Br)[NH2+]c2ncc(c(n2)Nc3cccc(c3)Br)F
+SM21_micro003,c1cc(cc(c1)Br)Nc2c(cn/c(=N/c3cccc(c3)Br)/[nH]2)F
+SM21_micro004,c1cc(cc(c1)Br)Nc2c(c[n-]c(=[NH+]c3cccc(c3)Br)n2)F
+SM21_micro005,c1cc(cc(c1)Br)Nc2c(cnc(n2)[N-]c3cccc(c3)Br)F
+SM21_micro006,c1cc(cc(c1)Br)Nc2[nH]/c(=N/c3cccc(c3)Br)/c(cn2)F
+SM21_micro007,c1cc(cc(c1)Br)[NH+]=c2c(cnc([n-]2)[N-]c3cccc(c3)Br)F
+SM21_micro008,c1cc(cc(c1)Br)[N-]c2[nH]/c(=N\c3cccc(c3)Br)/c(cn2)F
+SM21_micro009,c1cc(cc(c1)Br)[N-]c2c(cn/c(=N/c3cccc(c3)Br)/[nH]2)F
+SM21_micro010,c1cc(cc(c1)Br)[N-]c2c(c[nH]/c(=N\c3cccc(c3)Br)/n2)F
+SM21_micro011,c1cc(cc(c1)Br)Nc2[nH]/c(=N\c3cccc(c3)Br)/c(cn2)F
+SM21_micro012,c1cc(cc(c1)Br)Nc2ncc(c(n2)[N-]c3cccc(c3)Br)F
+SM21_micro013,c1cc(cc(c1)Br)[N-]c2c(c[nH]/c(=N/c3cccc(c3)Br)/n2)F
+SM21_micro014,c1cc(cc(c1)Br)Nc2[nH]cc(/c(=N\c3cccc(c3)Br)/n2)F
+SM21_micro015,c1cc(cc(c1)Br)[N-]c2[nH]/c(=N/c3cccc(c3)Br)/c(cn2)F
+SM21_micro016,c1cc(cc(c1)Br)[N-]c2[nH]cc(/c(=N/c3cccc(c3)Br)/n2)F
+SM21_micro017,c1cc(cc(c1)Br)Nc2c(c[nH]/c(=N\c3cccc(c3)Br)/n2)F
+SM21_micro018,c1cc(cc(c1)Br)Nc2c(c[nH]/c(=N/c3cccc(c3)Br)/n2)F
+SM21_micro019,c1cc(cc(c1)Br)[NH+]=c2c(c[n-]c(=[NH+]c3cccc(c3)Br)[n-]2)F
+SM21_micro020,c1cc(cc(c1)Br)Nc2c(cnc(n2)Nc3cccc(c3)Br)F
+SM21_micro021,c1cc(cc(c1)Br)[N-]c2c(cnc(n2)[N-]c3cccc(c3)Br)F
+SM21_micro022,c1cc(cc(c1)Br)[NH2+]c2c(cnc(n2)Nc3cccc(c3)Br)F
+SM21_micro023,c1cc(cc(c1)Br)Nc2[nH]cc(/c(=N/c3cccc(c3)Br)/n2)F
+SM21_micro024,c1cc(cc(c1)Br)Nc2c(cnc([nH+]2)Nc3cccc(c3)Br)F
+SM21_micro025,c1cc(cc(c1)Br)[N-]c2[nH]cc(/c(=N\c3cccc(c3)Br)/n2)F

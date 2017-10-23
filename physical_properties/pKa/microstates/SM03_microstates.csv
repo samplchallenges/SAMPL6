@@ -1,0 +1,23 @@
+microstate ID,canonical isomeric SMILES
+SM03_micro001,c1ccc(cc1)Cc2[nH+]nc(s2)NC(=O)c3cccs3
+SM03_micro002,c1ccc(cc1)Cc2nnc(s2)N=C(c3cccs3)[O-]
+SM03_micro003,c1ccc(cc1)Cc2[n-]nc([s+]2)[N-]C(=O)c3cccs3
+SM03_micro004,c1ccc(cc1)Cc2[nH+]nc(s2)/N=C(/c3cccs3)\[O-]
+SM03_micro005,c1ccc(cc1)Cc2n[nH+]c(s2)[N-]C(=C3C=CC=[S+]3)[O-]
+SM03_micro006,c1ccc(cc1)Cc2[n-][nH]c(=NC(=C3C=CC=[S+]3)[O-])[s+]2
+SM03_micro007,c1ccc(cc1)Cc2nnc(s2)/N=C(/c3cccs3)\[O-]
+SM03_micro008,c1ccc(cc1)Cc2[n-][nH+]c([s+]2)[N-]C(=O)c3cccs3
+SM03_micro009,c1ccc(cc1)Cc2nnc(s2)[N-]C(=[OH+])c3cccs3
+SM03_micro010,c1ccc(cc1)[CH-]c2nnc(s2)NC(=O)c3cccs3
+SM03_micro011,c1ccc(cc1)Cc2nnc(s2)NC(=[OH+])c3cccs3
+SM03_micro012,c1ccc(cc1)Cc2nnc(s2)NC(=O)c3cccs3
+SM03_micro013,c1ccc(cc1)Cc2n[nH]c(=NC(=O)c3cccs3)s2
+SM03_micro014,c1ccc(cc1)[CH-]c2nnc(s2)/N=C(/c3cccs3)\[O-]
+SM03_micro015,c1ccc(cc1)Cc2[nH+]nc(s2)[N-]C(=[OH+])c3cccs3
+SM03_micro016,c1ccc(cc1)Cc2n[nH+]c(s2)NC(=O)c3cccs3
+SM03_micro017,c1ccc(cc1)Cc2n[nH]/c(=N\C(=O)c3cccs3)/s2
+SM03_micro018,c1ccc(cc1)Cc2[n-][n-]c(=NC(=O)c3cccs3)[s+]2
+SM03_micro019,c1ccc(cc1)Cc2n[n-]c([s+]2)[N-]C(=C3C=CC=[S+]3)[O-]
+SM03_micro020,c1ccc(cc1)CC2=N[NH2+]/C(=N\C(=O)c3cccs3)/S2
+SM03_micro021,c1ccc(cc1)CC2=[NH2+2]N=C(S2)NC(=O)c3cccs3
+SM03_micro022,c1ccc(cc1)Cc2n[nH]/c(=N\C(=[OH+])c3cccs3)/s2

@@ -103,6 +103,7 @@ When you upload your submission, you will have the option of having it treated a
 Participants are invited to share and discuss their results, as well as the D3R and SAMPL projects more broadly, at the second in-person D3R and SAMPL workshop, which is scheduled for February 22-23, 2018, at UC San Diego, La Jolla, CA. Note that the workshop immediately follows the Biophysical Society National Meeting in San Francisco.
 
 ## Files provided
+- `/physical_properties/pKa/molecule_ID_and_SMILES.csv` - CSV file that indicates SAMPL6 pKa challenge molecule IDs and canonical isomeric SMILES.
 - `/physical_properties/pKa/microstates/` - This directory contains files that list of microstate IDs and canonical isomeric SMILES of microstates. Files are separated by molecule ID.
 - `/physical_properties/pKa/submission_templates/` - Empty prediction submission template files are located here.
 - `/physical_properties/pKa/example_submission_files/` - This directory contains example submission files filled with random values to illustrate expected format.
