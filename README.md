@@ -68,8 +68,23 @@ Background information on CB8 may be found in a number of publications, includin
 
 ### Physical properties
 Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phases.
-The first phase, for SAMPL6, will focus on pKa prediction for the upcoming workshop.
-Then the pKa data for this challenge will be provided to participants and used as part of a second challenge centering on predicting physicochemical properties for 25-50 fragment- and drug-like small molecules that small molecule protein kinase inhibitors (or fragments thereof) -- specifically, distribution coefficients and potentially also solubilities.
+The first phase, for SAMPL6, will focus on pKa prediction for the upcoming workshop. Then the pKa data for this challenge will be provided to participants and used as part of a second challenge centering on predicting distribution coefficients.
+
+#### pKa prediction
+This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules. These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions. This is the first time a pKa prediction challenge is being conducting as a part of SAMPL.
+
+Three formats of pKa prediction results will be evaluated:
+1. microscopic pKa values and related microstates
+2. microstate populations as a function of pH
+3. macroscopic pKa values
+
+For detailed instructions for pKa challenge: [pKa_challenge_instructions.md](pKa_challenge_instructions.md)
+
+Challenge start date: Oct 24, 2017   
+Challenge submission due: Jan 10, 2018  
+
+#### logD prediction
+Distribution coefficients for about 25 fragment- and drug-like small molecules that small molecule protein kinase inhibitors (or fragments thereof).
 Because the SAMPL5 logD challenge highlighted the difficulty in correctly predicting transfer free energies involving protonation states, we will provide participants with experimental pKa values for these compounds.
 We will ask participants to predict distribution coefficients (logD) at a single pH and (as a separate challenge), provided the measurements can be completed in time, pH-dependent solubilities for these compounds.
 
