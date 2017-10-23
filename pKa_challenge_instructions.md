@@ -56,6 +56,7 @@ Predicting fractional population of microstates between pH interval 2 to 12 with
 - Report natural logaritm of fractional microstate populations with scientific notation and 3 decimals of precision, for each pH.  
 e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent number of molecules at microstate A and B.   
 At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30E+00`.  
+- If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`.
 - Do not report SEM in this submission type.
 - For pH value or microstates which you don't have any estimates for, leave the csv table cell empty. 
 
@@ -102,6 +103,9 @@ When you upload your submission, you will have the option of having it treated a
 Participants are invited to share and discuss their results, as well as the D3R and SAMPL projects more broadly, at the second in-person D3R and SAMPL workshop, which is scheduled for February 22-23, 2018, at UC San Diego, La Jolla, CA. Note that the workshop immediately follows the Biophysical Society National Meeting in San Francisco.
 
 ## Files provided
+- `/physical_properties/pKa/microstates/` - This directory contains files that list of microstate IDs and canonical isomeric SMILES of microstates. Files are separated by molecule ID.
+- `/physical_properties/pKa/submission_templates/` - Empty prediction submission template files are located here.
+- `/physical_properties/pKa/example_submission_files/` - This directory contains example submission files filled with random values to illustrate expected format.
 
 ## Problems, questions and contact
 
