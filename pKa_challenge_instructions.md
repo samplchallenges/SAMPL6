@@ -13,16 +13,6 @@ Three formats of pKa prediction results will be evaluated:
 
 The following subsections describe the molecules included in this challenge, the experimental conditions and measurements, the quantities to be predicted, and how prediction results must be submitted.
 
-## Due Date
-
-Your predictions must be uploaded on the D3R SAMPL6 web-page by January 10, 2018. 
-The experimental results will be released immediately after the challenge closes. 
-You must use the provided templates to upload your predictions to the [SAMPL website](https://drugdesigndata.org/about/sampl6). Additional information on using these templates is provided below.
-
-## Computational prediction methods
-
-You may use any method(s) you like to generate your predictions; e.g., molecular mechanics or quantum mechanics based methods, QSPR, empirical pKa prediction tools etc.
-
 ## 24 small molecules included in the pKa challenge
 ![pKa_challenge_small_molecules](images/pKa_challenge_small_molecules.jpg)
 A list of SAMPL6 pKa challenge small molecules canonical isomeric SMILES and molecule IDs can be found here: [/physical_properties/pKa/molecule_ID_and_SMILES.csv](physical_properties/pKa/molecule_ID_and_SMILES.csv). 
@@ -49,6 +39,16 @@ For compounds with insufficient solubility, cosolvent protocol is used where 3 U
 
 Three replicate pKa measurements were made for all compounds at room temperature (25°C). 
 Multiwavelength absorbance analysis of Sirius T3 allows very good resolution pKas but essentially this method measures macroscopic pKas. Microscopic pKas with very close pKa values and overlapping changes in absorbance spectra could be measured as one macroscopic pKa value.
+
+## Due Date
+
+Your predictions must be uploaded on the D3R SAMPL6 web-page by January 10, 2018. 
+The experimental results will be released immediately after the challenge closes. 
+You must use the provided templates to upload your predictions to the [SAMPL website](https://drugdesigndata.org/about/sampl6). Additional information on using these templates is provided below.
+
+## Computational prediction methods
+
+You may use any method(s) you like to generate your predictions; e.g., molecular mechanics or quantum mechanics based methods, QSPR, empirical pKa prediction tools etc.
 
 ## Instructions and Submission Templates
 Three types of predictions will be accepted. Participants are encouraged to submit their results in all or multiple submission types as it fits to their prediction methods.
@@ -109,13 +109,13 @@ Please include predictions related all molecules with same method and same submi
 
 We encourage submitting predictions in all three formats and for all 24 molecules when possible. 
 Incomplete submissions - such as for a subset of compounds - will also be accepted, but will not necessarily be evaluated together with the rest of the submissions. 
-However, we would emphasize that omission of SEM estimates will not cause a submission to be regarded as incomplete.
+However, we would emphasize that omission of SEM estimates will not cause a submission to be regarded as incomplete, though we highly encourage including such estimates.
 
 Names of the prediction files must begin with the name of the submission type (i.e., typeIII), and your name and must end with an integer indicating set of prediction. 
-For example, if you want to submit one prediction file for type III prediction (macroscopic pKas), you might name it `typeIII-myname-1.csv`, where myname is arbitrary text of your choice. 
-If you submit two prediction files of the same submission type, you might name them `typeIII-myname-1.txt` and `typeIII-myname-2.txt`.
+For example, if you want to submit one prediction file for type III prediction (macroscopic pKas), you would name it `typeIII-myname-1.csv`, where myname is arbitrary text of your choice. 
+If you submit two prediction files of the same submission type, you would name them `typeIII-myname-1.txt` and `typeIII-myname-2.txt`.
 
-The file will be machine parsed, so correct formatting is essential.
+The file will be machine parsed, so correct formatting is essential.  Files with the wrong format will not be accepted.
 
 Lines beginning with a hash-tag (#) may be included as comments. 
 These and blank lines will be ignored.
