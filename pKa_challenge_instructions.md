@@ -34,7 +34,7 @@ This method is capable of measuring pKas between 2 and 12, when protonatable gro
 
 pKa measurements of soluble compounds were performed in ionic-strength adjusted water with 0.15 M KCl. Indications for precipitation was observed by visual inspection of samples and also by inspection of UV-spectra plots as a function of pH at 500-600 nm region of the spectra. For compounds with insufficient solubility, cosolvent protocol is used where 3 UV-metric pKa measurements were done at different cosolvent:water ratios (typically 30%, 40% and 50% methanol) and  Yasuda-Shedlovsky extrapolation method is used to estimate pKa value at 0% cosolvent.
 
-Three replicate pKa measurements were made for all compounds at room temperature (25°C). Multiwavelength absorbance analysis of Sirius T3 allows very good resolution pKas but essentially this method measures macroscopic pKas. Microscopic pKas with with very close pKa values and overlapping changes in absorbance spectra could be measured as one macroscopic pKa value.
+Three replicate pKa measurements were made for all compounds at room temperature (25°C). Multiwavelength absorbance analysis of Sirius T3 allows very good resolution pKas but essentially this method measures macroscopic pKas. Microscopic pKas with very close pKa values and overlapping changes in absorbance spectra could be measured as one macroscopic pKa value.
 
 ## Instructions and Submission Templates
 Three types of predictions will be accepted. Participants are encouraged to submit their results in all or multiple submission types as it fits to their prediction methods.
@@ -49,7 +49,8 @@ Predicting microscopic pKa values and related microstates structures. Different 
 - Reporting standard error of the mean (SEM) is optional and should be reported with 2 decimals. (e.g. 1.02).
 
 #### Type II - microstate populations as a function of pH
-Predicting fractional population of microstates between pH interval 2 to 12 with 0.1 pH increments, based on microscopic pKa predictions.
+Predicting fractional population of microstates between pH interval 2 to 12 with 0.1 pH increments.
+
 - Fill the `typeII_microstate_fractional_populations.csv` template file for all molecules and microstates you have predictions for.
 - To determine the microstate ID for your predicted microstate populations check the spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates).
 - If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details are in missing microstates section.
