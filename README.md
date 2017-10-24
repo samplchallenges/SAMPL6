@@ -71,20 +71,26 @@ Due to experimental issues, the upcoming SAMPL6 physical property challenge is b
 The first phase, for SAMPL6, will focus on pKa prediction for the upcoming workshop. Then the pKa data for this challenge will be provided to participants and used as part of a second challenge centering on predicting distribution coefficients.
 
 #### pKa prediction
-This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules. These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions. This is the first time a pKa prediction challenge is being conducting as a part of SAMPL.
+This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules. 
+These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
+Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions. 
+This is the first time a pKa prediction challenge is being conducted as a part of SAMPL.
 
 Three formats of pKa prediction results will be evaluated:
 1. microscopic pKa values and related microstates
 2. microstate populations as a function of pH
 3. macroscopic pKa values
 
-For detailed instructions for pKa challenge: [pKa_challenge_instructions.md](pKa_challenge_instructions.md)
+Detailed instructions for the pKa challenge can be found here: [pKa_challenge_instructions.md](pKa_challenge_instructions.md)
 
 Challenge start date: Oct 24, 2017   
 Challenge submission due: Jan 10, 2018  
 
 #### logD prediction
-Distribution coefficients for about 25 fragment- and drug-like small molecules that small molecule protein kinase inhibitors (or fragments thereof).
+Distribution coefficients for about 25 fragment- and drug-like small molecules that resemble small molecule protein kinase inhibitors (or fragments thereof).
+
+logD prediction challenge will take place in early 2018, after SAMPL8 workshop.
+
 Because the SAMPL5 logD challenge highlighted the difficulty in correctly predicting transfer free energies involving protonation states, we will provide participants with experimental pKa values for these compounds.
 We will ask participants to predict distribution coefficients (logD) at a single pH and (as a separate challenge), provided the measurements can be completed in time, pH-dependent solubilities for these compounds.
 
@@ -98,7 +104,6 @@ An initial batch of ~25 fragment-like compounds is currently being assayed, with
 Post-challenge follow-up experiments are possible and will be conducted as needed.
 A preliminary list of compounds is now available in the `physical_properties` directory to give participants an idea of what types of compounds may be included, but this list is expected to change to some degree.
 The final challenge will include logD and, if available, solubility prediction.
-
 
 Distribution coefficients were included in the SAMPL5 challenge (overview doi:10.1007/s10822-016-9954-8 and experiment doi:10.1007/s10822-016-9971-7; JCAMD special issue https://link.springer.com/journal/10822/30/11/page/1); in many cases, they were predicted as if they were partition coefficients, using solvation free energies in the relevant solvents.
 The difference between distribution coefficients (logD, which reflects the transfer free energy at a given pH including the effects of accessing all equilibrium  protonation states of the solute in each phase) and partition coefficients (logP, which reflects the free energy of transfer for the neutral form only) proved particularly important.
