@@ -23,7 +23,7 @@ pKa measurements were collected using spectrophotometric pKa measurements with S
 
 Small molecules were purchased in powder form. 
 10 mg/ml DMSO solutions were prepared and used as stock solutions for preparation of samples, where 1-5 uL of 10 mg/ml DMSO stock solution is diluted in 1.5 mL ionic-strength adjusted water (0.15 M KCl). 
-pH titrations with acid (0.5 M HCl, 0.15 M KCl) and base (0.5 M KOH, 0.15 M KCl) and cosolvent addition (80% methanol, 0.15 M KCl) were performed in an automated fashion with a Sirius T3 instrument.
+pH titrations with acid (0.5 M HCl, 0.15 M KCl) and base (0.5 M KOH, 0.15 M KCl) and cosolvent addition (80% methanol, 0.15 M KCl) were performed in an automated fashion with with a [Sirius T3 instrument (Sirius Analytical)](http://www.sirius-analytical.com/products/t3).
 
 [The UV-metric pKa measurement protocol of Sirius T3](http://www.sirius-analytical.com/science/pka) measures the change in multiwavelength absorbance in the 250-450 nm UV region of the spectrum while the pH is titrated between pH 1.8 and 12.2 to evaluate pKas. 
 Protonation state change of titratable sites near chromophores will modulate the UV absorbance spectra of these chromophores, allowing populations of distinct UV-active species to be resolved as a function of pH. 
@@ -38,7 +38,9 @@ Indications for precipitation was observed by visual inspection of samples and a
 For compounds with insufficient solubility, cosolvent protocol is used where 3 UV-metric pKa measurements were done at different cosolvent:water ratios (typically 30%, 40% and 50% methanol) and  Yasuda-Shedlovsky extrapolation method is used to estimate pKa value at 0% cosolvent.
 
 Three replicate pKa measurements were made for all compounds at room temperature (25°C). 
-Multiwavelength absorbance analysis of Sirius T3 allows very good resolution pKas but essentially this method measures macroscopic pKas. Microscopic pKas with very close pKa values and overlapping changes in absorbance spectra could be measured as one macroscopic pKa value.
+Replicate measurements were set up from the same compound stock solutions (~10 mg/ml in DMSO) and independent aliquotes were taken to prepare samples for Sirius T3 titration.
+Multiwavelength absorbance analysis of Sirius T3 allows for very good resolution of pKas but essentially this method measures macroscopic pKas. 
+Microscopic pKas with very close pKa values and overlapping changes in absorbance spectra could be measured as one macroscopic pKa value.
 
 ## Due Date
 
@@ -51,39 +53,41 @@ You must use the provided templates to upload your predictions to the [SAMPL web
 You may use any method(s) you like to generate your predictions; e.g., molecular mechanics or quantum mechanics based methods, QSPR, empirical pKa prediction tools etc.
 
 ## Instructions and Submission Templates
-Three types of predictions will be accepted. Participants are encouraged to submit their results in all or multiple submission types as it fits to their prediction methods.
+Three types of predictions will be accepted. 
+Participants are encouraged to submit their results in all or multiple submission types if their prediction methods allow it.
 
-#### Type I - microscopic pKas and related microstates
-Predicting microscopic pKa values and related microstates structures. 
+#### Prediction Type I - microscopic pKas and related microstates
+Predicting microscopic pKas and related microstate structures. 
 Different protonation states and tautomers constitute different microstates. 
 - Fill the `typeI_microscopic_pKas_and_microstates.csv` template for all molecules.
-- For each molecule, report as many microscopic pKas based on your best guest.
-- Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated for each microscopic pKa. To determine the microstate ID for your predicted structure check the spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates).
-- If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details are in missing microstates section.
-- Report microscopic pKa values with 2 decimals (e.g. 10.71).
-- Reporting standard error of the mean (SEM) is optional and should be reported with 2 decimals. (e.g. 1.02).
+- For each molecule, report as many microscopic pKas as your method predicts.
+- Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated with each microscopic pKa. To determine the microstate ID for your predicted structure, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
+- If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
+- Report microscopic pKa values to two decimal places (e.g. 10.71).
+- Reporting the standard error of the mean (SEM) is optional, but if reported, two decimal places should be provided (e.g. 1.02).
 
-#### Type II - microstate populations as a function of pH
-Predicting fractional population of microstates between pH interval 2 to 12 with 0.1 pH increments.
+#### Prediction Type II - microstate populations as a function of pH
+Predicting the fractional microstate populations between pH interval 2 to 12 with 0.1 pH increments.
 
 - Fill the `typeII_microstate_fractional_populations.csv` template file for all molecules and microstates you have predictions for.
-- To determine the microstate ID for your predicted microstate populations check the spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates).
-- If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details are in missing microstates section.
-- Report natural logaritm of fractional microstate populations with scientific notation and 3 decimals of precision, for each pH.  
-e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent number of molecules at microstate A and B.   
+- For each molecule, report as many microstates as your method predicts.
+- To determine the microstate ID for your predicted microstate populations, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
+- If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
+- For each pH, report the *natural logarithm* of the fractional micrstate populations in scientific notation with three decimals of precision (e.g., 1.02e-4).
+e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent percentage of microstate populations of A and B.   
 At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30E+00`.  
 - If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`.
 - Do not report SEM in this submission type.
 - For pH value or microstates which you don't have any estimates for, leave the csv table cell empty. 
 
-#### Type III - macroscopic pKas
+#### Prediction Type III - macroscopic pKas
 Predicting the value of  macroscopic pKas based between 2 and 12.
 - Fill one `typeIII_macroscopic_pKas.csv` template file for all predicted molecules.
-- Report as many macroscopic pKas based on your predictions.
-- Report pKa values with 2 decimals (e.g. 10.71).
-- Reporting standard error of the mean (SEM) is optional and should be reproted with 2 decimals. (e.g. 1.02).
+- For each molecule, report as many macroscopic pKas as your method predicts.
+- Report pKa values to two decimal places (e.g. 10.71).
+- Reporting the standard error of the mean (SEM) is optional, but if reported, two decimal places should be provided (e.g. 1.02).
 
-## A warning about enumerated microstates and requesting missing microstates
+## A warning about enumerated microstates and requesting the missing microstates
 A list of microstates and microstate IDs were generated for each molecule to aid parsing of submissions. 
 Enumerated list of microstates was not created with the intend to guide computational predictions. 
 It is possible that some relevant microscopic species are missing from these lists. 
