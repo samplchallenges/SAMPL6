@@ -4,7 +4,8 @@
 # PREDICTION SECTION
 #
 # Microstate ID of the predicted microstate should be recorded in the first column. 
-# Consecutive columns heads indicate the pH value at which ln(fractional microstate population) should be predicted.
+# Consecutive columns must be used to report ln(fractional microstate population) values at the pH value indicated by column title.
+# e.g. In column 3 report ln(fractional microstate population) at pH 2.10 of you predicted microstate. 
 # Use scientific notation with 3 decimals of precision.
 # Add new lines for each microstate.
 # Leave csv sections for which you don't have estimates empty.
