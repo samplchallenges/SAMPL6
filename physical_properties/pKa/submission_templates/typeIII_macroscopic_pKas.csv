@@ -1,12 +1,15 @@
-# Type III Submissiion
+# Submission Type III
 #
 # PREDICTION SECTION
 #
+# Fill one typeIII_macroscopic_pKas.csv template file for all predicted molecules.
+# For each molecule, report as many macroscopic pKas as your method predicts. 
 # Add new lines for each predicted molecule.
-# If you predict multiple macroscopic pKas for a molecule, add new lines for each pKa with the same molecular ID as identifier(first column).
-# Leave csv sections you don't have estimates for empty.
-# Report pKas with 2 decimal places.
-# 
+# For molecules with multiple macroscopic pKas report each macroscopic pKa in a new line.
+# Report pKa values to two decimal places (e.g. 10.71).
+# Reporting the standard error of the mean (SEM) is optional and encouraged. If it is reported, SEM should be reported to two decimal places (e.g. 1.02).
+# For values for which you don't have an estimate, leave that cell of the csv table empty.
+#
 # The data in each prediction line should be structured as follows:
 # Molecule ID, macroscopic pKa, macroscopic pKa SEM
 # The list of predictions must begin with the "Prediction:" keyword, as illustrated here.

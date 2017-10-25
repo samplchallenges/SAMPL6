@@ -1,8 +1,14 @@
-# Type I Submissiion
+# Submission Type I
 #
 # PREDICTION SECTION
+#
+# Fill one typeI_microscopic_pKas_and_microstates.csv template for all molecules predicted with the same method.
+# For each molecule, report as many microscopic pKas as your method predicts.
 # Add new lines for each microstate pair.
-# Leave csv sections you don't have estimates for empty.
+# Report microscopic pKa values to two decimal places (e.g. 10.71).
+# Reporting the standard error of the mean (SEM) is optional, but if reported, two decimal places should be provided (e.g. 1.02).
+# For values which you don't have an estimate, leave that cell of the csv table empty.
+#
 # The data in each prediction line should be structured as follows:
 # microstate ID of protonated state(HA), microstate ID of deprotonated state(A), microscopic pKa, microscopic pKa SEM
 # The list of predictions must begin with the "Prediction:" keyword, as illustrated here.

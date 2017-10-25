@@ -1,18 +1,19 @@
-# Type II Submissiion
-#
+# Submission Type II
 #
 # PREDICTION SECTION
 #
-# Add new lines for each microstate.
-# Microstate ID of the predicted microstate should be recorded in the first column. 
+# Fill one typeII_microstate_fractional_populations.csv template file for all molecules and microstates you have predictions for.
+# For each molecule, report as many microstates as your method predicts.
+# Add new lines for each predicted microstate.
+# Microstate ID of the predicted microstate should be recorded in the first column.
 # Consecutive columns must be used to report ln(fractional microstate population) values of your predicted microstate at the pH value indicated by column title.
-# e.g. In column 3 report ln(fractional microstate population) at pH 2.10 of your predicted microstate. 
-# Use scientific notation with 3 decimals of precision.
-# Leave csv sections for which you don't have estimates empty.
+# e.g. In column 3 report ln(fractional microstate population) at pH 2.10 of your predicted microstate.
+# Use scientific notation with 3 decimals of precision (e.g. -2.30e0 or 3.14e-4).
 # For microstates predicted to have 0 populations, instead of ln(0), report as "-infinity".
 # Do not report error estimates in this section. You can report error estimates in Method secton.
+# For pH values which you don't have an estimate of ln(fractional microstate population), leave that cell or line of the csv table empty.
 # 
-# The data in each prediction line should be structured as follows:
+# The ln(fractional microstate population) data in each prediction line should be structured as follows:
 # Microstate ID,2.00,2.10,2.20,2.30,2.40,2.50,2.60,2.70,2.80,2.90,3.00,3.10,3.20,3.30,3.40,3.50,3.60,3.70,3.80,3.90,4.00,4.10,4.20,4.30,4.40,4.50,4.60,4.70,4.80,4.90,5.00,5.10,5.20,5.30,5.40,5.50,5.60,5.70,5.80,5.90,6.00,6.10,6.20,6.30,6.40,6.50,6.60,6.70,6.80,6.90,7.00,7.10,7.20,7.30,7.40,7.50,7.60,7.70,7.80,7.90,8.00,8.10,8.20,8.30,8.40,8.50,8.60,8.70,8.80,8.90,9.00,9.10,9.20,9.30,9.40,9.50,9.60,9.70,9.80,9.90,10.00,10.10,10.20,10.30,10.40,10.50,10.60,10.70,10.80,10.90,11.00,11.10,11.20,11.30,11.40,11.50,11.60,11.70,11.80,11.90,12.00
 # 
 # The list of predictions must begin with the "Prediction:" keyword, as illustrated here.
