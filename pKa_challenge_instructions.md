@@ -24,7 +24,7 @@ Then experimentally measured macroscopic pKa will have contributions from multip
 Cysteine is an example of this behaviour with its two macroscopic pKas observable by spectrophotometric or potentiometric pKa measurement experiments. While 4 microscopic pKas can be defined for cysteine, experimentally observed pKas can't be assigned to individual functional groups directly and requires more advanced techniques such as NMR.
 
 On the other hand, when there is a large difference between microscopic pKas of a molecule, proton dissociations won't overlap and macroscopic pKas observed by experiments can be assigned to individual titratable groups. 
-pKa values of glycine is a good example for this case.   pK.'s of an
+pKa values of glycine is a good example for this case.
 
 For better clarity on the concept of microscopic and macroscopic pKas refer to:
 1. Darvey, I.G. (1995). The assignment of pKa values to functional groups in amino acids (Wiley Online Library).
@@ -101,7 +101,7 @@ At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules 
 #### Prediction Type III - macroscopic pKas
 Predicting the value of  macroscopic pKas based between 2 and 12.
 - Fill one `typeIII_macroscopic_pKas.csv` template file for all predicted molecules.
-- For each molecule, report as many macroscopic pKas as your method predicts.
+- For each molecule, report as many macroscopic pKas as your method predicts. For each macroscopic pKa create a new line that starts with molecule ID as identifier.
 - Report pKa values to two decimal places (e.g. 10.71).
 - Reporting the standard error of the mean (SEM) is optional, but if reported, two decimal places should be provided (e.g. 1.02).
 
