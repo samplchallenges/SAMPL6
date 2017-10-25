@@ -13,13 +13,16 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - `host_guest`: Directory containing inputs for the host-guest challenges, as well as supporting files and a README detailing their organization
 - [Host-guest challenge instructions](host_guest_instructions.md): Detailed instructions on the host-guest component of the challenge.
 - [Detailed host-guest description](host_guest_description.md): Detailed description of the hosts, guests, and background information.
-- [Physical properties preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the physical properties component of the challenge, and previews of some of the potential compounds.
+- Physical properties:
+    - [pKa challenge instructions](pKa_challenge_instructions.md): etailed instructions on the pKa prediction component of the challenge.
+    - [logD challenge preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the distribution coefficient of the challenge, and previews of some of the potential compounds.
 - SAMPLing challenge files for host-guest challenge: Input files for the host-guest component of the SAMPLing challenge, see [description](#sampling-challenge) below.
 
 ## What's forthcoming
-- Physical property challenge files, specifically for pKa prediction (see description, below) 
 - SAMPLing challenge files in alternate formats, along with energy validation data
-- Submission formats for pKa prediction and SAMPLing challenge
+- Submission template examples for pKa prediction challenge
+- Submission formats for logD prediction and SAMPLing challenge
+- LogD challenge files and instructions (see description, below) 
 
 ## Changes and Data Set Versions So Far:
 (all major versions available under [releases](https://github.com/MobleyLab/SAMPL6/releases) above)
@@ -28,6 +31,7 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - Version 1.0: Data set as originally posted Aug. 24
 - Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
 - Version 1.2: Adds host-guest SAMPLing challenge explanation and inputs, describes these in README files; adds draft submission files for host-guest predictions in `host_guest/(hostname)AndGuests` directories; updates the discussion of the physical property challenge to reflect the current status.
+- Version 1.3: Add pKa prediction challenge instructions, input files, submission template files, update on the future plans of logD challenge.
 
 ### Changes not yet in a release
  
@@ -83,7 +87,7 @@ Three formats of pKa prediction results will be evaluated:
 
 Detailed instructions for the pKa challenge can be found here: [pKa_challenge_instructions.md](pKa_challenge_instructions.md)
 
-Challenge start date: Oct 24, 2017   
+Challenge start date: Oct 25, 2017   
 Challenge submission due: Jan 10, 2018  
 
 #### logD prediction
