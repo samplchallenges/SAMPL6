@@ -1,15 +1,23 @@
-# Physical Properties
+# SAMPL6 Physicochemical Propery Prediction Challenges
 
-## Manifest
-- `potential_molecules_for_logD_challenge.xlsx`: Table of potential molecules for logD challenge, that includes structures and SMILES strings.
-- `potential_molecules_for_logD_challenge.pdf`: : Table of potential molecules for logD challenge, that includes structures and SMILES strings.
+## pKa Challenge
 
-## Potential molecules for logD challenge
+This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules. 
+These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
+Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions.
 
-SAMPL6 Physical Property prediction challenge will consist of predicting distribution coefficients of kinase inhibitor fragment-like small molecules.
-Currently Mehtap Isik from Dr. John Chodera's group is measuring experimental pKa and logD, in collaboration with Merck's Preformulation Group at Rahway.
+For detailed instructions for pKa challenge: [SAMPL6/pKa_challenge_instructions.md](https://github.com/MobleyLab/SAMPL6/blob/pKa/pKa_challenge_instructions.md)
 
-14 compounds from the larger small molecule set, that are currently experimented on, are provided in `potential_molecules_for_logD_challenge.xlsx` as examples. These should be regarded as potential compounds for logD challenge until experiments are finalized. Future updates will be posted regarding final small molecule set for logD prediction challenge upon completion of pKa and logD experiments.   
+Challenge start date: Oct 25, 2017 
+Challenge submission due: Jan 10, 2018  
 
 
+## logD Challenge
 
+SAMPL6 Physical Property prediction challenge will include distribution coefficients prediction of kinase inhibitor fragment-like small molecules.
+Currently Mehtap Isik from Dr. John Chodera's group is measuring experimental logD values, in collaboration with Merck's Preformulation Group at Rahway.
+The decision on challenge timeframe will be made once the collection of experimental data is completed. 
+logD prediction challenge will most likely take place in early 2018, after SAMPL8 workshop. 
+This repo will be updated accordingly.
+
+ 

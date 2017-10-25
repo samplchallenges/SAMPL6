@@ -1,0 +1,13 @@
+microstate ID,canonical isomeric SMILES
+SM04_micro001,c1ccc2c(c1)c(=NCc3ccc(cc3)Cl)[n-]c[nH+]2
+SM04_micro002,c1ccc2c(c1)c(=[NH+]Cc3ccc(cc3)Cl)nc[nH]2
+SM04_micro003,c1ccc2c(c1)c(ncn2)NCc3ccc(cc3)Cl
+SM04_micro004,c1ccc2c(c1)c(=NCc3ccc(cc3)Cl)nc[nH]2
+SM04_micro005,c1ccc2c(c1)c(ncn2)[N-]Cc3ccc(cc3)Cl
+SM04_micro006,c1ccc2c(c1)c([nH+]cn2)NCc3ccc(cc3)Cl
+SM04_micro007,c1ccc2c(c1)/c(=N/Cc3ccc(cc3)Cl)/nc[nH]2
+SM04_micro008,c1ccc2c(c1)c(ncn2)[NH2+]Cc3ccc(cc3)Cl
+SM04_micro009,c1ccc2c(c1)/c(=N\Cc3ccc(cc3)Cl)/[nH]cn2
+SM04_micro010,c1ccc2c(c1)c(=[NH+]Cc3ccc(cc3)Cl)[n-]c[nH+]2
+SM04_micro011,c1ccc2c(c1)/c(=N/Cc3ccc(cc3)Cl)/[nH]cn2
+SM04_micro012,c1ccc2c(c1)/c(=N\Cc3ccc(cc3)Cl)/nc[nH]2

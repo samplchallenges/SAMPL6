@@ -1,0 +1,13 @@
+microstate ID,canonical isomeric SMILES
+SM06_micro001,c1cc2cccnc2c(c1)NC(=O)c3cc(cnc3)Br
+SM06_micro002,c1cc2ccc[nH+]c2c(c1)NC(=O)c3cc(c[nH+]c3)Br
+SM06_micro003,c1cc2ccc[nH+]c2c(c1)[N-]C(=[OH+])c3cc(cnc3)Br
+SM06_micro004,c1cc2ccc[nH+]c2c(c1)/N=C(/c3cc(c[nH+]c3)Br)\[O-]
+SM06_micro005,c1cc2cccnc2c(c1)[NH+]=C(c3cc(c[nH+]c3)Br)[O-]
+SM06_micro006,c1cc2cccnc2c(c1)NC(=[OH+])c3cc(cnc3)Br
+SM06_micro007,c1cc2ccc[nH+]c2c(c1)NC(=O)c3cc(cnc3)Br
+SM06_micro008,c1cc2cccnc2c(c1)/N=C(/c3cc(cnc3)Br)\[O-]
+SM06_micro009,c1cc2ccc[nH+]c2c(c1)/N=C(/c3cc(cnc3)Br)\[O-]
+SM06_micro010,c1cc2cccnc2c(c1)/N=C(/c3cc(c[nH+]c3)Br)\[O-]
+SM06_micro011,c1cc2cccnc2c(c1)[N-]C(=[OH+])c3cc(cnc3)Br
+SM06_micro012,c1cc2ccc[nH+]c2c(c1)NC(=[OH+])c3cc(cnc3)Br

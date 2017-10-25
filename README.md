@@ -13,13 +13,16 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - `host_guest`: Directory containing inputs for the host-guest challenges, as well as supporting files and a README detailing their organization
 - [Host-guest challenge instructions](host_guest_instructions.md): Detailed instructions on the host-guest component of the challenge.
 - [Detailed host-guest description](host_guest_description.md): Detailed description of the hosts, guests, and background information.
-- [Physical properties preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the physical properties component of the challenge, and previews of some of the potential compounds.
+- Physical properties:
+    - [pKa challenge instructions](pKa_challenge_instructions.md): etailed instructions on the pKa prediction component of the challenge.
+    - [logD challenge preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the distribution coefficient of the challenge, and previews of some of the potential compounds.
 - SAMPLing challenge files for host-guest challenge: Input files for the host-guest component of the SAMPLing challenge, see [description](#sampling-challenge) below.
 
 ## What's forthcoming
-- Physical property challenge files, specifically for pKa prediction (see description, below) 
 - SAMPLing challenge files in alternate formats, along with energy validation data
-- Submission formats for pKa prediction and SAMPLing challenge
+- Submission template examples for pKa prediction challenge
+- Submission formats for logD prediction and SAMPLing challenge
+- LogD challenge files and instructions (see description, below) 
 
 ## Changes and Data Set Versions So Far:
 (all major versions available under [releases](https://github.com/MobleyLab/SAMPL6/releases) above)
@@ -28,6 +31,7 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - Version 1.0: Data set as originally posted Aug. 24
 - Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
 - Version 1.2: Adds host-guest SAMPLing challenge explanation and inputs, describes these in README files; adds draft submission files for host-guest predictions in `host_guest/(hostname)AndGuests` directories; updates the discussion of the physical property challenge to reflect the current status.
+- Version 1.3: Add pKa prediction challenge instructions, input files, submission template files, update on the future plans of logD challenge.
 
 ### Changes not yet in a release
  
@@ -68,8 +72,29 @@ Background information on CB8 may be found in a number of publications, includin
 
 ### Physical properties
 Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phases.
-The first phase, for SAMPL6, will focus on pKa prediction for the upcoming workshop.
-Then the pKa data for this challenge will be provided to participants and used as part of a second challenge centering on predicting physicochemical properties for 25-50 fragment- and drug-like small molecules that small molecule protein kinase inhibitors (or fragments thereof) -- specifically, distribution coefficients and potentially also solubilities.
+The first phase, for SAMPL6, will focus on pKa prediction for the upcoming workshop. Then the pKa data for this challenge will be provided to participants and used as part of a second challenge centering on predicting distribution coefficients.
+
+#### pKa prediction
+This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules. 
+These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
+Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions. 
+This is the first time a pKa prediction challenge is being conducted as a part of SAMPL.
+
+Three formats of pKa prediction results will be evaluated:
+1. microscopic pKa values and related microstates
+2. microstate populations as a function of pH
+3. macroscopic pKa values
+
+Detailed instructions for the pKa challenge can be found here: [pKa_challenge_instructions.md](pKa_challenge_instructions.md)
+
+Challenge start date: Oct 25, 2017   
+Challenge submission due: Jan 10, 2018  
+
+#### logD prediction
+Distribution coefficients for about 25 fragment- and drug-like small molecules that resemble small molecule protein kinase inhibitors (or fragments thereof).
+
+logD prediction challenge will take place in early 2018, after SAMPL8 workshop.
+
 Because the SAMPL5 logD challenge highlighted the difficulty in correctly predicting transfer free energies involving protonation states, we will provide participants with experimental pKa values for these compounds.
 We will ask participants to predict distribution coefficients (logD) at a single pH and (as a separate challenge), provided the measurements can be completed in time, pH-dependent solubilities for these compounds.
 
@@ -83,7 +108,6 @@ An initial batch of ~25 fragment-like compounds is currently being assayed, with
 Post-challenge follow-up experiments are possible and will be conducted as needed.
 A preliminary list of compounds is now available in the `physical_properties` directory to give participants an idea of what types of compounds may be included, but this list is expected to change to some degree.
 The final challenge will include logD and, if available, solubility prediction.
-
 
 Distribution coefficients were included in the SAMPL5 challenge (overview doi:10.1007/s10822-016-9954-8 and experiment doi:10.1007/s10822-016-9971-7; JCAMD special issue https://link.springer.com/journal/10822/30/11/page/1); in many cases, they were predicted as if they were partition coefficients, using solvation free energies in the relevant solvents.
 The difference between distribution coefficients (logD, which reflects the transfer free energy at a given pH including the effects of accessing all equilibrium  protonation states of the solute in each phase) and partition coefficients (logP, which reflects the free energy of transfer for the neutral form only) proved particularly important.

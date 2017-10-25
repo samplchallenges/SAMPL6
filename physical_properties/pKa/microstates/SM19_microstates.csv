@@ -1,0 +1,20 @@
+microstate ID,canonical isomeric SMILES
+SM19_micro001,CCOc1ccc2c(c1)sc([nH+]2)N/C(=C\c3ccc(c(c3)Cl)Cl)/O
+SM19_micro002,CCOc1ccc2c(c1)s/c(=N/C(=O)Cc3ccc(c(c3)Cl)Cl)/[nH]2
+SM19_micro003,CCOc1ccc2c(c1)sc([nH+]2)N=C(Cc3ccc(c(c3)Cl)Cl)[O-]
+SM19_micro004,CCOc1ccc2c(c1)sc(n2)[N-]/C(=C\c3ccc(c(c3)Cl)Cl)/O
+SM19_micro005,CCOc1ccc2c(c1)s/c(=N/C(=[OH+])Cc3ccc(c(c3)Cl)Cl)/[nH]2
+SM19_micro006,CCOc1ccc2c(c1)sc([nH+]2)NC(=O)Cc3ccc(c(c3)Cl)Cl
+SM19_micro007,CCOc1ccc2c(c1)sc(n2)NC(=O)Cc3ccc(c(c3)Cl)Cl
+SM19_micro008,CCOc1ccc2c(c1)s/c(=N/C(=C\c3ccc(c(c3)Cl)Cl)/[O-])/[nH]2
+SM19_micro009,CCOc1ccc2c(c1)[s+]c([nH]2)N=C(Cc3ccc(c(c3)Cl)Cl)[O-]
+SM19_micro010,CCOc1ccc2c(c1)sc(n2)[N-]/C(=C\c3ccc(c(c3)Cl)Cl)/[O-]
+SM19_micro011,CCOc1ccc2c(c1)sc(n2)NC(=[OH+])[CH-]c3ccc(c(c3)Cl)Cl
+SM19_micro012,CCOc1ccc2c(c1)sc(n2)/N=C(/Cc3ccc(c(c3)Cl)Cl)\[O-]
+SM19_micro013,CCOc1ccc2c(c1)sc(n2)N/C(=C\c3ccc(c(c3)Cl)Cl)/[O-]
+SM19_micro014,CCOc1ccc2c(c1)sc(n2)N/C(=C\c3ccc(c(c3)Cl)Cl)/O
+SM19_micro015,CCOc1ccc2c(c1)sc([nH+]2)N/C(=C\c3ccc(c(c3)Cl)Cl)/[O-]
+SM19_micro016,CCOc1ccc2c(c1)s/c(=N/C(=[OH+])[CH-]c3ccc(c(c3)Cl)Cl)/[nH]2
+SM19_micro017,CCOc1ccc2c(c1)sc(n2)[N-]C(=[OH+])[CH-]c3ccc(c(c3)Cl)Cl
+SM19_micro018,CCOc1ccc2c(c1)sc(n2)[N-]C(=[OH+])Cc3ccc(c(c3)Cl)Cl
+SM19_micro019,CCOc1ccc2c(c1)sc(n2)NC(=[OH+])Cc3ccc(c(c3)Cl)Cl

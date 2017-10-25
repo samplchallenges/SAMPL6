@@ -1,0 +1,13 @@
+microstate ID,canonical isomeric SMILES
+SM12_micro001,c1ccc2c(c1)c([nH+]cn2)Nc3cccc(c3)Cl
+SM12_micro002,c1ccc2c(c1)/c(=N\c3cccc(c3)Cl)/[nH]cn2
+SM12_micro003,c1ccc2c(c1)c(=[NH+]c3cccc(c3)Cl)[n-]cn2.[Cl-]
+SM12_micro004,c1ccc2c(c1)/c(=N/c3cccc(c3)Cl)/nc[nH]2
+SM12_micro005,c1ccc2c(c1)/c(=N/c3cccc(c3)Cl)/[nH]cn2
+SM12_micro006,c1ccc2c(c1)c(nc[nH+]2)Nc3cccc(c3)Cl
+SM12_micro007,c1ccc2c(c1)c(ncn2)Nc3cccc(c3)Cl.[Cl-]
+SM12_micro008,c1ccc2c(c1)c(ncn2)[NH2+]c3cccc(c3)Cl
+SM12_micro009,c1ccc2c(c1)c(ncn2)[N-]c3cccc(c3)Cl
+SM12_micro010,c1ccc2c(c1)c(nc[nH+]2)[NH2+]c3cccc(c3)Cl
+SM12_micro011,c1ccc2c(c1)/c(=N\c3cccc(c3)Cl)/nc[nH]2
+SM12_micro012,c1ccc2c(c1)c(ncn2)Nc3cccc(c3)Cl

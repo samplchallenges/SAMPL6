@@ -1,0 +1,6 @@
+microstate ID,canonical isomeric SMILES
+SM17_micro001,c1ccc(cc1)CSC2=[O+]C(=C3C=CNC=C3)N=N2
+SM17_micro002,c1ccc(cc1)C[S+]=c2[n-]nc(o2)c3ccncc3
+SM17_micro003,c1ccc(cc1)C[S+]=c2[n-]nc(o2)c3cc[nH+]cc3
+SM17_micro004,c1ccc(cc1)CSc2[nH+]nc(o2)c3ccncc3
+SM17_micro005,c1ccc(cc1)CSc2n[nH+]c(o2)c3ccncc3
