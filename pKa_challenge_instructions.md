@@ -13,18 +13,19 @@ Three formats of pKa prediction results will be evaluated:
 
 The following subsections describe the molecules included in this challenge, the experimental conditions and measurements, the quantities to be predicted, and how prediction results must be submitted.
 
-## On the concept of microscopic and macroscopic pKas
-In molecules with multiple titratable groups, protonation state of one group can affect the proton dissociation propensity of another functional group. 
-**Microscopic pKa** refers to the pKa of deprotonation of single titratable group while all the other titratable and tautomerizable functional groups of the same molecule are at a certain protonation state (microstate). 
-**Macroscopic pKa** defines acid dissociation constant related to the loss of a proton from a molecule regardless of which functional group the proton is dissociating from, so it doesn't necessarily convey structural information.
+## On the concept of microscopic and macropscopic pKas
+In molecules with multiple titratable groups, the protonation state of one group can affect the proton dissociation propensity of another functional group. 
+In such cases, the **microscopic pKa** refers to the pKa of deprotonation of single titratable group while all the other titratable and tautomerizable functional groups of the same molecule are at a certain protonation state (microstate). 
+The **macroscopic pKa** defines the acid dissociation constant related to the loss of a proton from a molecule regardless of which functional group the proton is dissociating from, so it doesn't necessarily convey structural information.
 
-For a molecule with only one protonatable group microscopic pKa is always equal to macroscopic pKa. 
-But for a molecule with multiple titratable groups, throughout a titration from acidic to basic pH, deprotonation of some functional groups can take place almost at the same time. 
-Then experimentally measured macroscopic pKa will have contributions from multiple microscopic pKas with similar values (i.e. acid dissociation of multiple microstates). 
-Cysteine is an example of this behaviour with its two macroscopic pKas observable by spectrophotometric or potentiometric pKa measurement experiments. While 4 microscopic pKas can be defined for cysteine, experimentally observed pKas can't be assigned to individual functional groups directly and requires more advanced techniques such as NMR.
+For a molecule with only one protonatable group, the microscopic pKa is always equal to the macroscopic pKa. 
+But for a molecule with multiple titratable groups, throughout a titration from acidic to basic pH, the deprotonation of some functional groups can take place almost at the same time. 
+Then the experimentally measured macroscopic pKa will have contributions from multiple microscopic pKas with similar values (i.e. acid dissociation of multiple microstates). 
+Cysteine provides an example of this behaviour with its two macroscopic pKas observable by spectrophotometric or potentiometric pKa measurement experiments.
+While 4 microscopic pKas can be defined for cysteine, experimentally observed pKas can't be assigned to individual functional groups directly and requires more advanced techniques such as NMR.
 
-On the other hand, when there is a large difference between microscopic pKas of a molecule, proton dissociations won't overlap and macroscopic pKas observed by experiments can be assigned to individual titratable groups. 
-pKa values of glycine is a good example for this case.
+On the other hand, when there is a large difference between microscopic pKas of a molecule, the proton dissociations won't overlap and macroscopic pKas observed by experiments can be assigned to individual titratable groups. 
+The pKa values of glycine provide a good example of this scenario.
 
 For better clarity on the concept of microscopic and macroscopic pKas refer to:
 1. Darvey, I.G. (1995). The assignment of pKa values to functional groups in amino acids (Wiley Online Library).
