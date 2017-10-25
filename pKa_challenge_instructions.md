@@ -44,22 +44,30 @@ Small molecules were purchased in powder form.
 10 mg/ml DMSO solutions were prepared and used as stock solutions for preparation of samples, where 1-5 uL of 10 mg/ml DMSO stock solution is diluted in 1.5 mL ionic-strength adjusted water (0.15 M KCl). 
 pH titrations with acid (0.5 M HCl, 0.15 M KCl) and base (0.5 M KOH, 0.15 M KCl) and cosolvent addition (80% methanol, 0.15 M KCl) were performed in an automated fashion with with a [Sirius T3 instrument (Sirius Analytical)](http://www.sirius-analytical.com/products/t3).
 
-[The UV-metric pKa measurement protocol of Sirius T3](http://www.sirius-analytical.com/science/pka) measures the change in multiwavelength absorbance in the 250-450 nm UV region of the spectrum while the pH is titrated between pH 1.8 and 12.2 to evaluate pKas. 
+[The UV-metric pKa measurement protocol of Sirius T3](http://www.sirius-analytical.com/science/pka) measures the change in multiwavelength absorbance in the 250-450 nm UV region of the spectrum while the pH is titrated between pH 1.8 and 12.2 to evaluate pKas[1,2].
 Protonation state change of titratable sites near chromophores will modulate the UV absorbance spectra of these chromophores, allowing populations of distinct UV-active species to be resolved as a function of pH. 
 To do this, basis spectra are identified and populations extracted via analysis of the pH-dependent multi-wavelength absorbance.
 The number of pKas is determined based on the quality of fit between experimental and modeled microstate pH-dependent populations. 
 
-This method is capable of measuring pKas between 2 and 12, when protonatable groups are at a maximum distance of 4-5 atoms away from chromophores, so that a change of protonation state affects the absorbance of UV-chromophore. 
-We have selected compounds where titratable groups are close to potential chromophores (conjugated rings), but it is possible to completely miss detection of a pKa value if a titratable group is not in interaction with a UV-chromophore.  
+This method is capable of measuring pKas between 2 and 12 when protonatable groups are at most 4-5 atoms away from chromophores such that a change in protonation state alters the absorbance spectrum of the chromophore. 
+We have selected compounds where titratable groups are close to potential chromophores (generally aromatic ring systems), but it is possible to completely miss detection of a pKa value if a titratable group is not proximal to a UV-chromophore.  
 
 pKa measurements of soluble compounds were performed in ionic-strength adjusted water with 0.15 M KCl. 
-Indications for precipitation was observed by visual inspection of samples and also by inspection of UV-spectra plots as a function of pH at 500-600 nm region of the spectra. 
-For compounds with insufficient solubility, cosolvent protocol is used where 3 UV-metric pKa measurements were done at different cosolvent:water ratios (typically 30%, 40% and 50% methanol) and  Yasuda-Shedlovsky extrapolation method is used to estimate pKa value at 0% cosolvent.
+Visual inspection of samples and inspection of UV spectra at 500-600 nm was used to verify no detectable precipitation occurred during the course of measurement. 
+For compounds with insufficient solubility to accurately determine a pKa directly in a UV-metric titration,
+a cosolvent protocol was used in which three UV-metric titrations were performed in different cosolvent:water
+ratios (typically 30%, 40%, and 50% methanol) and the Yasuda-Shedlovsky extrapolation method[3] was used
+to estimate the pKa at 0% cosolvent.
 
 Three replicate pKa measurements were made for all compounds at room temperature (25°C). 
 Replicate measurements were set up from the same compound stock solutions (~10 mg/ml in DMSO) and independent aliquotes were taken to prepare samples for Sirius T3 titration.
 Multiwavelength absorbance analysis of Sirius T3 allows for very good resolution of pKas but essentially this method measures macroscopic pKas. 
 Microscopic pKas with very close pKa values and overlapping changes in absorbance spectra could be measured as one macroscopic pKa value.
+
+[1] Tam, K.Y., and Takács-Novák, K. (2001). Multi-wavelength spectrophotometric determination of acid dissociation constants: a validation study. Analytica Chimica Acta 434, 157–167.
+[2] Allen, R.I., Box, K.J., Comer, J.E.A., Peake, C., and Tam, K.Y. (1998). Multiwavelength spectrophotometric determination of acid dissociation constants of ionizable drugs. Journal of Pharmaceutical and Biomedical Analysis 17, 699–712.
+[3] Avdeef, A., Box, K.J., Comer, J.E.A., Gilges, M., Hadley, M., Hibbert, C., Patterson, W., and Tam, K.Y. (1999). PH-metric logP 11. pKa determination of water-insoluble drugs in organic solvent–water mixtures. Journal of Pharmaceutical and Biomedical Analysis 20, 631–641.
+
 
 ## Due Date
 
