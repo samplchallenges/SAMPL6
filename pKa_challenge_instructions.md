@@ -50,7 +50,7 @@ To do this, basis spectra are identified and populations extracted via analysis 
 The number of pKas is determined based on the quality of fit between experimental and modeled microstate pH-dependent populations. 
 
 This method is capable of measuring pKas between 2 and 12 when protonatable groups are at most 4-5 atoms away from chromophores such that a change in protonation state alters the absorbance spectrum of the chromophore. 
-We have selected compounds where titratable groups are close to potential chromophores (generally aromatic ring systems), but it is possible to completely miss detection of a pKa value if a titratable group is not proximal to a UV-chromophore.  
+We have selected compounds where titratable groups are close to potential chromophores (generally aromatic ring systems), but it is possible that our experimental results will not detect the titration of certain cites (and will thereby neglect the pKa of those sites) if a titratable group is not proximal to a UV-chromophore.  
 
 pKa measurements of soluble compounds were performed in ionic-strength adjusted water with 0.15 M KCl. 
 Visual inspection of samples and inspection of UV spectra at 500-600 nm was used to verify no detectable precipitation occurred during the course of measurement. 
@@ -105,7 +105,7 @@ Predicting the fractional microstate populations between pH interval 2 to 12 wit
 e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent percentage of microstate populations of A and B.   
 At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30e0`.  
 - If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`, but note that attempting to resolve the log-population of low-population states is important for some of the evaluation metrics.
-- Do not report SEM in this submission type in the "Prediction" section for type II submission template. It is optional to report it in "Methods" section.
+- Do not report SEM in this submission type in the "Prediction" section of type II submission template. It is optional to report uncertainty estimates in "Methods" section.
 - For pH values or microstates which you don't have an estimate, leave that cell or line of the csv table empty.
 
 #### Prediction Type III - macroscopic pKas
@@ -113,7 +113,7 @@ Predicting the value of  macroscopic pKas based between 2 and 12.
 - Fill one `typeIII_macroscopic_pKas.csv` template file for all predicted molecules.
 - For each molecule, report as many macroscopic pKas as your method predicts. For each macroscopic pKa create a new line that starts with molecule ID as identifier.
 - Report pKa values to two decimal places (e.g. 10.71).
-- Reporting the standard error of the mean (SEM) is optional, but if it is reported, should be reported to two decimal places (e.g. 1.02).
+- Reporting the standard error of the mean (SEM) is optional and encouraged. If it is reported, SEM should be reported to two decimal places (e.g. 1.02).
 - For values for which you don't have an estimate, leave that cell of the csv table empty.
 
 ## A warning about enumerated microstates and requesting the missing microstates
@@ -162,7 +162,7 @@ More detailed instructions will be provided on the challenge submission site on 
 ## Evaluation strategy for computational pKa predictions
 
 Macroscopic pKa predictions will be directly compared to experimental pKa measurements. 
-Microscopic pKas and predicted microstates will be evaluated by comparison to each other and how well they recapitulate experimental macroscopic pKas, as well as pKa predictions of ACD which uses a data-trained pKa predictions method.
+Microscopic pKas and predicted microstates will be evaluated by comparison to each other and how well they recapitulate experimental macroscopic pKas, as well as pKa predictions of ACD which uses an empirical pKa predictions method.
 
 ## Anonymous versus public participation
 
