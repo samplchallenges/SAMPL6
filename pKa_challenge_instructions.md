@@ -2,7 +2,7 @@
 
 Challenge timeframe: Oct 24, 2017 to Jan 10, 2018  
 
-This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules. 
+This challenge consists of predicting microscopic and macroscopic acid dissociation constants(pKa)s of 24 small organic molecules. 
 These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
 Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions.
 
@@ -13,7 +13,25 @@ Three formats of pKa prediction results will be evaluated:
 
 The following subsections describe the molecules included in this challenge, the experimental conditions and measurements, the quantities to be predicted, and how prediction results must be submitted.
 
-## 24 small molecules included in the pKa challenge
+## On the concept of microscopic and macropscopic pKas
+In molecules with multiple titratable groups, protonation state of one group can affect the proton dissociation propensity of another functional group. 
+**Microscopic pKa** refers to the pKa of deprotonation of single titratable group while all the other titratable and tautomerizable functional groups of the same molecule are at a certain protonation state (microstate). 
+**Macroscopic pKa** defines acid dissociation constant related to the loss of a proton from a molecule regardless of which functional group the proton is dissociating from, so it doesn't necessarily convey structural information.
+
+For a molecule with only one protonatable group microscopic pKa is always equal to macroscopic pKa. 
+But for a molecule with multiple titratable groups, throughout a titration from acidic to basic pH, deprotonation of some functional groups can take place almost at the same time. 
+Then experimentally measured macroscopic pKa will have contributions from multiple microscopic pKas with similar values (i.e. acid dissociation of multiple microstates). 
+Cysteine is an example of this behaviour with its two macroscopic pKas observable by spectrophotometric or potentiometric pKa measurement experiments. While 4 microscopic pKas can be defined for cysteine, experimentally observed pKas can't be assigned to individual functional groups directly and requires more advanced techniques such as NMR.
+
+On the other hand, when there is a large difference between microscopic pKas of a molecule, proton dissociations won't overlap and macroscopic pKas observed by experiments can be assigned to individual titratable groups. 
+pKa values of glycine is a good example for this case.   pK.'s of an
+
+For better clarity on the concept of microscopic and macroscopic pKas refer to:
+1. Darvey, I.G. (1995). The assignment of pKa values to functional groups in amino acids (Wiley Online Library).
+2. Bodner, G.M. (1986). Assigning the pKa’s of polyprotic acids. J. Chem. Educ 63, 246.
+3. Murray, R. (1995). Microscopic Equilibria. Analytical Chemistry 67, 462a – 462a.
+
+## 24 small molecules are included in the pKa challenge
 ![pKa_challenge_small_molecules](images/pKa_challenge_small_molecules.jpg)
 A list of SAMPL6 pKa challenge small molecules canonical isomeric SMILES and molecule IDs can be found here: [/physical_properties/pKa/molecule_ID_and_SMILES.csv](physical_properties/pKa/molecule_ID_and_SMILES.csv). 
 Counterions, where present in solid formulations (see experimental details below), were included in canonical isomeric SMILES for the sake of completeness, although no significant effect is expected from the presence of chloride counterions as experiments were conducted in ionic-strength adjusted medium with KCl.
