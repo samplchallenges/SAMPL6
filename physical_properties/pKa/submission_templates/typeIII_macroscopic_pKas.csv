@@ -3,6 +3,7 @@
 # PREDICTION SECTION
 #
 # Add new lines for each predicted molecule.
+# If you predict multiple macroscopic pKas for a molecule, add new lines for each pKa with the same molecular ID as identifier(first column).
 # Leave csv sections you don't have estimates for empty.
 # Report pKas with 2 decimal places.
 # 
