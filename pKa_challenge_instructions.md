@@ -1,6 +1,6 @@
 # SAMPL6 pKa Challenge Instructions
 
-Challenge timeframe: Oct 24, 2017 to Jan 10, 2018  
+Challenge timeframe: Oct 25, 2017 to Jan 10, 2018  
 
 This challenge consists of predicting microscopic and macroscopic acid dissociation constants(pKa)s of 24 small organic molecules. 
 These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
@@ -86,41 +86,45 @@ Participants are encouraged to submit their results in all or multiple submissio
 #### Prediction Type I - microscopic pKas and related microstates
 Predicting microscopic pKas and related microstate structures. 
 Different protonation states and tautomers constitute different microstates. 
-- Fill the `typeI_microscopic_pKas_and_microstates.csv` template for all molecules.
+- Fill one `typeI_microscopic_pKas_and_microstates.csv` template for all molecules.
 - For each molecule, report as many microscopic pKas as your method predicts.
 - Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated with each microscopic pKa. To determine the microstate ID for your predicted structure, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
-- If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
+- If your predicted structure is not included in the list, contact us [to make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
 - Report microscopic pKa values to two decimal places (e.g. 10.71).
 - Reporting the standard error of the mean (SEM) is optional, but if reported, two decimal places should be provided (e.g. 1.02).
+- For values which you don't have an estimate, leave that cell of the csv table empty.
 
 #### Prediction Type II - microstate populations as a function of pH
 Predicting the fractional microstate populations between pH interval 2 to 12 with 0.1 pH increments.
 
-- Fill the `typeII_microstate_fractional_populations.csv` template file for all molecules and microstates you have predictions for.
+- Fill one `typeII_microstate_fractional_populations.csv` template file for all molecules and microstates you have predictions for.
 - For each molecule, report as many microstates as your method predicts.
 - To determine the microstate ID for your predicted microstate populations, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
 - If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
 - For each pH, report the *natural logarithm* of the fractional micrstate populations in scientific notation with three decimals of precision (e.g., 1.02e-4).
 e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent percentage of microstate populations of A and B.   
-At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30E+00`.  
-- If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`.
+At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30e0`.  
+- If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`, but note that attempting to resolve the log-population of low-population states is important for some of the evaluation metrics.
 - Do not report SEM in this submission type in the "Prediction" section for type II submission template. It is optional to report it in "Methods" section.
-- For pH value or microstates which you don't have any estimates for, leave the csv table cell empty. 
+- For pH values or microstates which you don't have an estimate, leave that cell or line of the csv table empty.
 
 #### Prediction Type III - macroscopic pKas
 Predicting the value of  macroscopic pKas based between 2 and 12.
 - Fill one `typeIII_macroscopic_pKas.csv` template file for all predicted molecules.
 - For each molecule, report as many macroscopic pKas as your method predicts. For each macroscopic pKa create a new line that starts with molecule ID as identifier.
 - Report pKa values to two decimal places (e.g. 10.71).
-- Reporting the standard error of the mean (SEM) is optional, but if reported, two decimal places should be provided (e.g. 1.02).
+- Reporting the standard error of the mean (SEM) is optional, but if it is reported, should be reported to two decimal places (e.g. 1.02).
+- For values for which you don't have an estimate, leave that cell of the csv table empty.
 
 ## A warning about enumerated microstates and requesting the missing microstates
+
 A list of microstates and microstate IDs were generated for each molecule to aid parsing of submissions. 
-Enumerated list of microstates was not created with the intend to guide computational predictions. 
+The enumerated list of microstates was not created with the intent to guide computational predictions. 
 It is possible that some relevant microscopic species are missing from these lists. 
-If your predicted structure is not already included in the microstates list, contact Mehtap Isik (mehtap.isik@choderalab.org). 
-Please send us 2D structure depiction and canonical isomeric SMILES of your proposed microstate. 
+If your predicted microstate is not already included in the microstates list, contact Mehtap Isik (mehtap.isik@choderalab.org). 
+Please send us a 2D structure depiction and canonical isomeric SMILES of your proposed microstate. 
 We will assign a unique microstate ID and include it in the analysis.  
+Newly added microstates will also be shared with participants and microstates lists in this repository will be updated.
 
 Please do not create a microstate ID yourself. 
 It is important that challenge organizers assign unique microstate IDs and keep track.  
@@ -128,15 +132,15 @@ It is important that challenge organizers assign unique microstate IDs and keep 
 ## Submission of multiple predictions
 
 Some participants use SAMPL to help evaluate various computational methods. 
-To accommodate this, multiple prediction sets from a single research group or company are allowed, even for same type of predictions if they are made by different methods.
+To accommodate this, multiple prediction sets from a single research group or company are allowed, even for the same type of predictions if they are made by different methods.
 
 ## Uploading your predictions
 
 D3R is currently outfitting the SAMPL6 page with the ability to accept your uploaded predictions. 
 As soon as this is ready, you may upload your predictions. 
-If you want to upload more than one type predictions (see description of three pKa prediction types above) or different set of predictions (same type but generated by different methods), each must be uploaded as a separate file. 
+If you want to upload more than one type of predictions (see description of three pKa prediction types above) or a different set of predictions (same type but generated by different methods), each must be uploaded as a separate file. 
 Please use the template provided, as the predictions will be parsed and analyzed with automated scripts. 
-Please include predictions related all molecules with same method and same submission type in one file. 
+Please include all predictions made with same method and same submission type in one file. 
 
 We encourage submitting predictions in all three formats and for all 24 molecules when possible. 
 Incomplete submissions - such as for a subset of compounds - will also be accepted, but will not necessarily be evaluated together with the rest of the submissions. 
@@ -164,10 +168,10 @@ Microscopic pKas and predicted microstates will be evaluated by comparison to ea
 
 When you upload your submission, you will have the option of having it treated anonymously. 
 Anonymous submission means that we may report on your predictions and methods, but not your identity. 
-Public participations means we may also say who you are. 
+Public participants means we may also include identifying information.
 Please note that, although we will work to protect the identity of anonymous participants, we cannot make any guarantees. 
 You may use the D3R website to change your submission’s anonymous/public status until the challenge has closed. 
-However, after the challenge has closed, you may not change its anonymous/public status.
+However, after the challenge has closed, the anonymous/public status can no longer be changed.
 
 ## SAMPL6 workshop February 22-23, 2018
 
@@ -183,7 +187,7 @@ Note that the workshop immediately follows the Biophysical Society National Meet
 ## Problems, questions and contact
 
 If you notice any issues with any of these files, please contact us via the GitHub issue tracker. 
-You are also strongly advised to both sign up for the SAMPL e-mail list via the D3R site and sign up for notifications on this GitHub repository in case we have updates.
+You are also strongly advised to both sign up for the SAMPL6 e-mail list via the D3R site and sign up for notifications on this GitHub repository in case we have updates.
 
 Please feel free to contact us if you notice any errors in the information provided or have questions about SAMPL6; please use the issue tracker connected with this repository, or use our e-mail: samplchallenge@gmail.com. 
 For specific questions about pKa challenge, use the following email: mehtap.isik@choderalab.org.
