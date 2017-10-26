@@ -15,7 +15,7 @@ The following subsections describe the molecules included in this challenge, the
 
 ## On the concept of microscopic and macropscopic pKas
 In molecules with multiple titratable groups, the protonation state of one group can affect the proton dissociation propensity of another functional group. 
-In such cases, the **microscopic pKa** refers to the pKa of deprotonation of single titratable group while all the other titratable and tautomerizable functional groups of the same molecule are at a certain protonation state (microstate). 
+In such cases, the **microscopic pKa** refers to the pKa of deprotonation of a single titratable group while all the other titratable and tautomerizable functional groups of the same molecule are held fixed. Different protonation states and tautomer combinations constitute different microstates. 
 The **macroscopic pKa** defines the acid dissociation constant related to the loss of a proton from a molecule regardless of which functional group the proton is dissociating from, so it doesn't necessarily convey structural information.
 
 For a molecule with only one protonatable group, the microscopic pKa is always equal to the macroscopic pKa. 
@@ -38,14 +38,14 @@ A list of SAMPL6 pKa challenge small molecules canonical isomeric SMILES and mol
 Counterions, where present in solid formulations (see experimental details below), were included in canonical isomeric SMILES for the sake of completeness, although no significant effect is expected from the presence of chloride counterions as experiments were conducted in ionic-strength adjusted medium with KCl.
 
 ## Experimental details
-pKa measurements were collected using spectrophotometric pKa measurements with Sirius T3 instrument by Mehtap Isik from the Chodera Lab at MSKCC with the support of Merck Rahway, Preformulation Department, especially Dorothy Levorse, Timothy Rhodes and Brad Sherborne. 
+pKa measurements were collected using spectrophotometric pKa measurements with a Sirius T3 instrument by Mehtap Isik from the Chodera Lab at MSKCC with the support of the Merck Rahway, Preformulation Department, especially Dorothy Levorse, Timothy Rhodes and Brad Sherborne. 
 
 Small molecules were purchased in powder form. 
-10 mg/ml DMSO solutions were prepared and used as stock solutions for preparation of samples, where 1-5 uL of 10 mg/ml DMSO stock solution is diluted in 1.5 mL ionic-strength adjusted water (0.15 M KCl). 
+10 mg/ml DMSO solutions were prepared and used as stock solutions for the preparation of samples, where 1-5 uL of 10 mg/ml DMSO stock solution is diluted in 1.5 mL ionic-strength adjusted water (0.15 M KCl). 
 pH titrations with acid (0.5 M HCl, 0.15 M KCl) and base (0.5 M KOH, 0.15 M KCl) and cosolvent addition (80% methanol, 0.15 M KCl) were performed in an automated fashion with with a [Sirius T3 instrument (Sirius Analytical)](http://www.sirius-analytical.com/products/t3).
 
-[The UV-metric pKa measurement protocol of Sirius T3](http://www.sirius-analytical.com/science/pka) measures the change in multiwavelength absorbance in the 250-450 nm UV region of the spectrum while the pH is titrated between pH 1.8 and 12.2 to evaluate pKas[1,2].
-Protonation state change of titratable sites near chromophores will modulate the UV absorbance spectra of these chromophores, allowing populations of distinct UV-active species to be resolved as a function of pH. 
+[The UV-metric pKa measurement protocol of the Sirius T3](http://www.sirius-analytical.com/science/pka) measures the change in multiwavelength absorbance in the 250-450 nm UV region of the spectrum while the pH is titrated between pH 1.8 and 12.2 to evaluate pKas[1,2].
+A protonation state change of titratable sites near chromophores will modulate the UV absorbance spectra of these chromophores, allowing populations of distinct UV-active species to be resolved as a function of pH. 
 To do this, basis spectra are identified and populations extracted via analysis of the pH-dependent multi-wavelength absorbance.
 The number of pKas is determined based on the quality of fit between experimental and modeled microstate pH-dependent populations. 
 
@@ -61,8 +61,9 @@ to estimate the pKa at 0% cosolvent.
 
 Three replicate pKa measurements were made for all compounds at room temperature (25°C). 
 Replicate measurements were set up from the same compound stock solutions (~10 mg/ml in DMSO) and independent aliquotes were taken to prepare samples for Sirius T3 titration.
-Multiwavelength absorbance analysis of Sirius T3 allows for very good resolution of pKas but essentially this method measures macroscopic pKas. 
-Microscopic pKas with very close pKa values and overlapping changes in absorbance spectra could be measured as one macroscopic pKa value.
+Multiwavelength absorbance analysis on thw Sirius T3 allows for very good resolution of pKas, but it is important to note that this method produces estimates of macroscopic pKas.
+If multiple microscopic pKas have close pKa values and overlapping changes in UV absorbance spectra associated with protonation/deprotonaton event, the spectral analysis could produce a single macroscopic pKa that represents an aggregation of multiple microscopic pKas.
+
 
 [1] Tam, K.Y., and Takács-Novák, K. (2001). Multi-wavelength spectrophotometric determination of acid dissociation constants: a validation study. Analytica Chimica Acta 434, 157–167.
 [2] Allen, R.I., Box, K.J., Comer, J.E.A., Peake, C., and Tam, K.Y. (1998). Multiwavelength spectrophotometric determination of acid dissociation constants of ionizable drugs. Journal of Pharmaceutical and Biomedical Analysis 17, 699–712.
@@ -85,7 +86,7 @@ Participants are encouraged to submit their results in all or multiple submissio
 
 #### Prediction Type I - microscopic pKas and related microstates
 Predicting microscopic pKas and related microstate structures. 
-Different protonation states and tautomers constitute different microstates. 
+Different protonation states and tautomer combinations constitute different microstates. 
 - Fill one `typeI_microscopic_pKas_and_microstates.csv` template for all molecules.
 - For each molecule, report as many microscopic pKas as your method predicts.
 - Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated with each microscopic pKa. To determine the microstate ID for your predicted structure, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
@@ -95,13 +96,13 @@ Different protonation states and tautomers constitute different microstates.
 - For values which you don't have an estimate, leave that cell of the csv table empty.
 
 #### Prediction Type II - microstate populations as a function of pH
-Predicting the fractional microstate populations between pH interval 2 to 12 with 0.1 pH increments.
+Predicting the fractional microstate populations between pH interval 2 to 12 in 0.1 pH increments.
 
 - Fill one `typeII_microstate_fractional_populations.csv` template file for all molecules and microstates you have predictions for.
 - For each molecule, report as many microstates as your method predicts.
 - To determine the microstate ID for your predicted microstate populations, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
 - If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
-- For each pH, report the *natural logarithm* of the fractional micrstate populations in scientific notation with three decimals of precision (e.g., 1.02e-4).
+- For each pH, report the *natural logarithm* of the fractional microstate populations in scientific notation with three decimals of precision (e.g., 1.02e-4).
 e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent percentage of microstate populations of A and B.   
 At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30e0`.  
 - If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`, but note that attempting to resolve the log-population of low-population states is important for some of the evaluation metrics.
@@ -109,7 +110,7 @@ At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules 
 - For pH values or microstates which you don't have an estimate, leave that cell or line of the csv table empty.
 
 #### Prediction Type III - macroscopic pKas
-Predicting the value of  macroscopic pKas based between 2 and 12.
+Predicting the value of  macroscopic pKas between 2 and 12.
 - Fill one `typeIII_macroscopic_pKas.csv` template file for all predicted molecules.
 - For each molecule, report as many macroscopic pKas as your method predicts. For each macroscopic pKa create a new line that starts with molecule ID as identifier.
 - Report pKa values to two decimal places (e.g. 10.71).
