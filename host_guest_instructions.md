@@ -10,29 +10,29 @@ Additional information on using these templates is provided below.
 ## Anonymous versus public participation
 When you upload your submission, you will have the option of having it treated anonymously.
 Anonymous submission means that we may report on your predictions and methods, but not your identity.
-Public participations means we may also say who you are. 
+Public participation means we may also say who you are.
 Please note that, although we will work to protect the identity of anonymous participants, we cannot make any guarantees.
 You may use the D3R website to change your submission’s anonymous/public status until the challenge has closed.
 However, after the challenge has closed, you may not change its anonymous/public status.  
 
 ## Submission of multiple predictions
 Some participants use SAMPL to help evaluate various computational methods.
-To accommodate this, multiple prediction set from a single research group or company are allowed. 
+To accommodate this, multiple prediction set from a single research group or company are allowed.
 
 ## SAMPL6 workshop February 22-23, 2018
 Participants are invited to share and discuss their results, as well as the D3R and SAMPL projects more broadly, at the second in-person D3R and SAMPL workshop, which is scheduled for February 22-23, 2018, at UC San Diego, La Jolla, CA.
 Note that the workshop immediately follows the Biophysical Society National Meeting in San Francisco.
 
 ## Molecular systems
-Three aqueous host-guest series are provided. 
+Three aqueous host-guest series are provided.
 The first two comprise hosts OA and TEMOA, each with the same set of 8 guests. (These hosts also appeared in SAMPL5, where they were named OctaAcidH (OAH) and OctaAcidMe (OAMe), respectively.
 The name change here is to improve consistency with the experimental literature.)
-Measured binding free energies are available for all 16 cases, and binding enthalpies are also expected to be available. 
+Measured binding free energies are available for all 16 cases, and binding enthalpies are also expected to be available.
 The third set comprises host cucurbit[7]uril (CB7), with a different set of 14 guests; of these, 11 form the main challenge, and the remaining 3 are regarded as a bonus challenge, due to the special complications they pose.
 (See [detailed host-guest description](host_guest_description.md).)
 
 ## Computational methods
-You may use any method(s) you like to generate your predictions; e.g., MD with implicit or explicit solvent; quantum methods; docking; etc. 
+You may use any method(s) you like to generate your predictions; e.g., MD with implicit or explicit solvent; quantum methods; docking; etc.
 
 ## Files provided
 All hosts and guests are provided in mol2, PDB and SDfile formats, prepared by David Mobley (UCI).
@@ -45,15 +45,15 @@ Guest files are provided using the same frame of reference as the host files aft
 **Some of the provided files deserve special caveats/particular attention**:
 - *CB8 bonus challenge*:
    - For oxaliplatin, CB8-G13, the provided 3D geometry is likely incorrect due to issues with the platinum. If you choose to predict this compound, you will likely need to give this compound particular attention.
-   - For aricept, CB8-G12, the nitrogen was protonated by our tools; the proton was arbitrarily placed so that the substituent is equatorial. It could also have been axial. Participants wishing to predict this compound will need to determine whether a proton is expected to be present and, if so, where. 
+   - For aricept, CB8-G12, the nitrogen was protonated by our tools; the proton was arbitrarily placed so that the substituent is equatorial. It could also have been axial. Participants wishing to predict this compound will need to determine whether a proton is expected to be present and, if so, where.
 
 The organizers plan to carry out a complete set of binding free energy and enthalpy calculations; these will form the basis of a separate host-guest ``SAMPLing'' challenge where the goal is to reproduce computed reference values as efficiently as possible.
-Details and input files (converted to formats for a wide variety of simulation packages) will be posted separately as soon as they are available, likely around mid-September.  
+Input files for this component of the challenge are available in `host_guest/SAMPLing` in selected formats, with additional formats being generated.  
 
 The `host_guest` directory/data is organized as follows (with more detail in the README.md there):
 - `README.md`: README file describing contents of directory and their organization/how they were generated
 - CB8AndGuests: CB8 challenge files, including:
-  - mol2 and sdf files for all of the guests (nomenclature: CB8-GN.sdf and .mol2, where N runs from 0 to 13), using the same frame of reference as the host 
+  - mol2 and sdf files for all of the guests (nomenclature: CB8-GN.sdf and .mol2, where N runs from 0 to 13), using the same frame of reference as the host
   - mol2, sdf and PDB files for CB8
   - README.md briefly describing provenance of files
   - CB8.txt: Template (example) file for submissions.
@@ -75,9 +75,9 @@ As soon as this is ready, you may upload your predictions.
  If you want to upload more than one set of predictions, generated by different methods, each set must be uploaded as a separate file.
 Please use the template provided, as the predictions will be parsed and analyzed with automated scripts.
 A complete set of predictions constitutes predicted binding free energies for all host-guest pairs, with predicted numerical uncertainties.
-We also encourage predictions of the binding enthalpies, and of the binding free energies and enthalpies of the CB8 bonus cases. 
+We also encourage predictions of the binding enthalpies, and of the binding free energies and enthalpies of the CB8 bonus cases.
 Incomplete submissions - such as for a subset of compounds - will also be accepted, but will not necessarily be evaluated together with the rest of the submissions.
-However, we would emphasize that omission of enthalpies and/or bonus cases will not cause a submission to be regarded as incomplete. 
+However, we would emphasize that omission of enthalpies and/or bonus cases will not cause a submission to be regarded as incomplete.
 
 Names of the prediction files must begin with the name of the host molecule for which it contains predictions (i.e., OA, TEMOA or CB8, case-independently), and must end with an integer indicating which of your predictions for this host it contains.
 For example, if you want to submit one prediction file for CB8, you might name it CB8-myname-1.csv, where myname is arbitrary text of your choice. If you submit two prediction files for CB8, you might name them CB8-myname-1.txt and CB8-myname-2.txt
@@ -86,7 +86,7 @@ The file will be machine parsed, so correct formatting is essential.
 
 Lines beginning with a hash-tag (#) may be included as comments. These and blank lines will be ignored.
 
-The file must contain the following four components in the following order: your predictions, a name for your computational protocol, a list of the major software packages used, and a long-form methods description. Each of these components must begin with a line containing only the corresponding keyword: Predictions:, Name:, Software:, and Method:, as illustrated in the example files. 
+The file must contain the following four components in the following order: your predictions, a name for your computational protocol, a list of the major software packages used, and a long-form methods description. Each of these components must begin with a line containing only the corresponding keyword: Predictions:, Name:, Software:, and Method:, as illustrated in the example files.
 More detailed instructions will be provided on the challenge submission site on the D3R website.
 
 ## Problems
@@ -100,7 +100,5 @@ We will attempt to notify you (and update this repository) during the challenge 
 - Updates regarding completion of the experimental studies
 - Template for uploading your predictions
 - Workshop details
-- Availability of files for the SAMPLing challenge
 
 Please feel free to contact us if you notice any errors in the information provided or have questions about SAMPL6; please use the issue tracker connected with this repository, or use our e-mail: samplchallenge@gmail.com
-
