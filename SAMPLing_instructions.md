@@ -23,10 +23,9 @@ The challenge consists in computing the relative binding free energy of the tran
 
 ## Data submission
 For each calculation (15/5 for absolute/relative free energy methods), you will have to submit the following information:
-- Binding free energy predictions using 1%, 2%, 3%, ..., 100% of the sequential data (i.e., _not_ bootstrapped).
-- Integrated autocorrelation time of the _reduced_ potential energies of the bound thermodynamic state after the first 10ns of the simulation. The `pymbar` Python package exposes a function `statisticalInefficiency()` in its `timeseries` module which can be used for this task..
+- Binding free energy estimates using 1%, 2%, 3%, ..., 100% of the sequential data (i.e., _not_ bootstrapped).
 - Description of the thermodynamic cycle, in particular the number of thermodynamic states (e.g. lambda/umbrella sampling windows).
-- Total computer time, total wall clock time, total number of energy evaluations, and hardware used to perform the simulations.
+- Total CPU time, total wall clock time, total number of energy evaluations, and hardware used to perform the simulations.
 
 The file format for these will be made available in the near future.
 
@@ -61,7 +60,7 @@ where `unique_atoms_G3` is a list of atom indices that do not match any G6 atom,
 
 ### Files preparation
 All the host-guest system files in the `SAMPLing/` directory were prepared using the protocol below.
-- Protonation states and initial starting configurations were taken as given by the original `mol2` files in the `OctaAcidsAndGuests/` and `CB8AndGuests/` directories.
+- We used the most likely protonation states as predicted by Epik `4.0013` from the Schrodinger toolkit at experimental pH. These are identical to those given in the `mol2` files in `host_guest/OctaAcidsAndGuests/` and `host_guest/CB8AndGuests/`.
 - 5 docked complexes were generated with OpenEye `2017.6.1`.
 - Hosts and guests were both parametrized with GAFF v1.8 and antechamber. AM1-BCC charges were generated using OpenEye's QUACPAC toolkit through `openmoltools 0.8.1`.
 - The systems were solvated in a 12A buffer of TIP3P water molecules using tleap. ParmEd `2.7.3` was used to remove some of the water molecules from the OA complexes to reduce them to have the same number of waters.
