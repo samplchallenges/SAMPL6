@@ -1,0 +1,10 @@
+microstate ID,canonical isomeric SMILES,remarks
+SM18_micro006,c1ccc2c(c1)c(=O)[n-]c([nH+]2)CCC(=O)[NH+]=c3[nH]cc(s3)Cc4ccc(c(c4)F)F,deprecated
+SM18_micro012,c1ccc2c(c1)c(nc([nH+]2)CCC(=O)Nc3ncc(s3)Cc4ccc(c(c4)F)F)[O-],deprecated
+SM18_micro014,c1ccc2c(c1)c(=O)nc([nH]2)CCC(=[NH+]c3[nH]cc([s+]3)Cc4ccc(c(c4)F)F)[O-],deprecated
+SM18_micro018,c1ccc2c(c1)c(=O)[n-]c([nH+]2)CCC(=[NH+]c3[n-]cc([s+]3)Cc4ccc(c(c4)F)F)[O-],deprecated
+SM18_micro022,c1ccc2c(c1)c(=O)nc([nH]2)CCC(=[NH+]c3[n-]cc([s+]3)Cc4ccc(c(c4)F)F)[O-],deprecated
+SM18_micro023,c1ccc2c(c1)c(nc([nH+]2)CCC(=O)[N-]c3ncc(s3)Cc4ccc(c(c4)F)F)[O-],deprecated
+SM18_micro024,c1ccc2c(c1)c(nc([nH+]2)CCC(=Nc3[n-]cc([s+]3)Cc4ccc(c(c4)F)F)[O-])[O-],deprecated
+SM18_micro036,c1ccc2c(c1)c(=O)nc([nH]2)CCC(=Nc3ncc(s3)Cc4ccc(c(c4)F)F)[O-],deprecated
+SM18_micro051,c1ccc2c(c1)c(=O)[nH]c(n2)CCC(=O)/N=c/3\[nH]cc(s3)Cc4ccc(c(c4)F)F,deprecated

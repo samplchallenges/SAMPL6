@@ -1,0 +1,5 @@
+microstate ID,canonical isomeric SMILES,remarks
+SM19_micro003,CCOc1ccc2c(c1)sc([nH+]2)N=C(Cc3ccc(c(c3)Cl)Cl)[O-],deprecated
+SM19_micro009,CCOc1ccc2c(c1)[s+]c([nH]2)N=C(Cc3ccc(c(c3)Cl)Cl)[O-],deprecated
+SM19_micro011,CCOc1ccc2c(c1)sc(n2)NC(=[OH+])[CH-]c3ccc(c(c3)Cl)Cl,deprecated
+SM19_micro017,CCOc1ccc2c(c1)sc(n2)[N-]C(=[OH+])[CH-]c3ccc(c(c3)Cl)Cl,deprecated

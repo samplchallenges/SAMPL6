@@ -7,7 +7,7 @@ For detailed instructions for pKa challenge: [SAMPL6/pKa_challenge_instructions.
 ## Manifest
 
 - `/molecule_ID_and_SMILES.csv` - CSV file that indicates SAMPL6 pKa challenge molecule IDs and canonical isomeric SMILES.
-- `/microstates/` - This directory contains files that list of microstate IDs and canonical isomeric SMILES of microstates. Files are separated by molecule ID.
+- `/microstates/` - This directory contains files that list of microstate IDs and canonical isomeric SMILES of microstates. Files are separated by molecule ID. Updated microstates and their microstate IDs can be found in `SMXX_microstates.csv` files. Deprecated microstates and their microstate IDs are listed in `SMXX_microstates_deprecated.csv` files.
 - `/submission_templates/` - Empty prediction submission template files are located here.
 - `/example_submission_files/` - Soon this directory will contain example submission files filled with random values to illustrate expected format.
 
