@@ -167,6 +167,9 @@ These and blank lines will be ignored.
 
 The file must contain the following four components in the following order: your predictions, a name for your computational protocol, a list of the major software packages used, and a long-form methods description. 
 Each of these components must begin with a line containing only the corresponding keyword: `Predictions:`, `Name:`, `Software:`, and `Method:`, as illustrated in the example files. 
+
+Example submission files can be found in `physical_properties/pKa/example_submission_files/` directory to illustrate expected format when filling submission templates of the pKa challenge.
+
 More detailed instructions will be provided on the challenge submission site on the D3R website.  
 
 ## Evaluation strategy for computational pKa predictions
