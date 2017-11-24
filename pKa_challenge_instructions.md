@@ -2,7 +2,7 @@
 
 Challenge timeframe: Oct 25, 2017 to Jan 10, 2018  
 
-This challenge consists of predicting microscopic and macroscopic acid dissociation constants(pKa)s of 24 small organic molecules. 
+This challenge consists of predicting microscopic and macroscopic acid dissociation constants (pKas) of 24 small organic molecules. 
 These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
 Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions.
 
@@ -129,6 +129,15 @@ Newly added microstates will also be shared with participants and microstates li
 
 Please do not create a microstate ID yourself. 
 It is important that challenge organizers assign unique microstate IDs and keep track.  
+
+### Updates on microstates lists
+
+Microstate SMILES strings and microstate IDs can be found in `physical_properties/pKa/microstates/` directory. 
+Due to replicate and missing microstates present in the first release of microstate lists, we have updated `SMXX_microstates.csv` files with necessary corrections in Version 1.4 of this repository. 
+The main correction of this update was the removal of resonance structures that were causing dublicate representation of same microstates. 
+We have also added new microstates suggested by participants.
+Newly added microstates were assigned unique microstate IDs, as recorded in `SMXX_microstates.csv` files.
+Deprecated microstates were removed from `SMXX_microstates.csv` files.  Deprecated microstates and their microstate IDs were listed in `SMXX_microstates_deprecated.csv` files with "deprecated" note in the "remarks" column.
 
 ## Submission of multiple predictions
 
