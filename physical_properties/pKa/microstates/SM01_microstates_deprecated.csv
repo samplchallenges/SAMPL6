@@ -1,0 +1,3 @@
+microstate ID,canonical isomeric SMILES,remarks
+SM01_micro003,c1cc2=[O+]C3=C(NCCCC3=c2cc1O)[O-],deprecated
+SM01_micro007,c1cc2=[O+]C3=C(NCCCC3=c2cc1[O-])[O-],deprecated

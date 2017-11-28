@@ -2,7 +2,7 @@
 
 Challenge timeframe: Oct 25, 2017 to Jan 10, 2018  
 
-This challenge consists of predicting microscopic and macroscopic acid dissociation constants(pKa)s of 24 small organic molecules. 
+This challenge consists of predicting microscopic and macroscopic acid dissociation constants (pKas) of 24 small organic molecules. 
 These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
 Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions.
 
@@ -87,7 +87,7 @@ Participants are encouraged to submit their results in all or multiple submissio
 #### Prediction Type I - microscopic pKas and related microstates
 Predicting microscopic pKas and related microstate structures. 
 Different protonation states and tautomer combinations constitute different microstates. 
-- Fill one `typeI_microscopic_pKas_and_microstates.csv` template for all molecules.
+- Fill one `typeI_microscopic_pKas_and_microstates.csv` template for all molecules predicted with one method. You may submit predictions from multiple methods, but you should fill a separate template file for each different method. 
 - For each molecule, report as many microscopic pKas as your method predicts.
 - Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated with each microscopic pKa. To determine the microstate ID for your predicted structure, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
 - If your predicted structure is not included in the list, contact us [to make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
@@ -98,7 +98,7 @@ Different protonation states and tautomer combinations constitute different micr
 #### Prediction Type II - microstate populations as a function of pH
 Predicting the fractional microstate populations between pH interval 2 to 12 in 0.1 pH increments.
 
-- Fill one `typeII_microstate_fractional_populations.csv` template file for all molecules and microstates you have predictions for.
+- Fill one `typeII_microstate_fractional_populations.csv` template file for all molecules and microstates predicted with one method. You may submit predictions from multiple methods, but you should fill a separate template file for each different method.
 - For each molecule, report as many microstates as your method predicts.
 - To determine the microstate ID for your predicted microstate populations, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
 - If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
@@ -106,12 +106,12 @@ Predicting the fractional microstate populations between pH interval 2 to 12 in 
 e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent percentage of microstate populations of A and B.   
 At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30e0`.  
 - If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`, but note that attempting to resolve the log-population of low-population states is important for some of the evaluation metrics.
-- Do not report SEM in this submission type in the "Prediction" section of type II submission template. It is optional to report uncertainty estimates in "Methods" section.
+- Do not report SEM in this submission type in the "Prediction" section of type II submission template. It is optional to report uncertainty estimates in "Methods" section, but we do not plan to analyze uncertainty estimates for this submission type.
 - For pH values or microstates which you don't have an estimate, leave that cell or line of the csv table empty.
 
 #### Prediction Type III - macroscopic pKas
 Predicting the value of  macroscopic pKas between 2 and 12.
-- Fill one `typeIII_macroscopic_pKas.csv` template file for all predicted molecules.
+- Fill one `typeIII_macroscopic_pKas.csv` template file for all predicted molecules with one method. You may submit predictions from multiple methods, but you should fill a separate template file for each different method.
 - For each molecule, report as many macroscopic pKas as your method predicts. For each macroscopic pKa create a new line that starts with molecule ID as identifier.
 - Report pKa values to two decimal places (e.g. 10.71).
 - Reporting the standard error of the mean (SEM) is optional and encouraged. If it is reported, SEM should be reported to two decimal places (e.g. 1.02).
@@ -130,10 +130,19 @@ Newly added microstates will also be shared with participants and microstates li
 Please do not create a microstate ID yourself. 
 It is important that challenge organizers assign unique microstate IDs and keep track.  
 
+### Updates on microstates lists
+
+Microstate SMILES strings and microstate IDs can be found in [physical_properties/pKa/microstates/](physical_properties/pKa/microstates/) directory. 
+Due to replicate and missing microstates present in the first release of microstate lists, we have updated `SMXX_microstates.csv` files with necessary corrections in Version 1.4 of this repository. 
+The main correction of this update was the removal of resonance structures that were causing dublicate representation of same microstates. 
+We have also added new microstates suggested by participants.
+Newly added microstates were assigned unique microstate IDs, as recorded in `SMXX_microstates.csv` files.
+Deprecated microstates were removed from `SMXX_microstates.csv` files.  Deprecated microstates and their microstate IDs were listed in `SMXX_microstates_deprecated.csv` files with "deprecated" note in the "remarks" column.
+
 ## Submission of multiple predictions
 
 Some participants use SAMPL to help evaluate various computational methods. 
-To accommodate this, multiple prediction sets from a single research group or company are allowed, even for the same type of predictions if they are made by different methods.
+To accommodate this, multiple prediction sets from a single research group or company are allowed, even for the same type of predictions if they are made by different methods. If you would like to submit predictions from multiple methods, you should fill a separate submission template files for each different method. See "Uploading your predictions" section below for requirements on how to name submission files.
 
 ## Uploading your predictions
 
@@ -158,6 +167,9 @@ These and blank lines will be ignored.
 
 The file must contain the following four components in the following order: your predictions, a name for your computational protocol, a list of the major software packages used, and a long-form methods description. 
 Each of these components must begin with a line containing only the corresponding keyword: `Predictions:`, `Name:`, `Software:`, and `Method:`, as illustrated in the example files. 
+
+Example submission files can be found in [physical_properties/pKa/example_submission_files/](physical_properties/pKa/example_submission_files/) directory to illustrate expected format when filling submission templates of the pKa challenge.
+
 More detailed instructions will be provided on the challenge submission site on the D3R website.  
 
 ## Evaluation strategy for computational pKa predictions

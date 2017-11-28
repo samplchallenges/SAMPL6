@@ -1,0 +1,3 @@
+microstate ID,canonical isomeric SMILES,remarks
+SM20_micro001,c1cc(cc(c1)OCc2ccc(cc2Cl)Cl)/C=C/3\C(=O)[N-]C(=[S+]3)[O-],deprecated
+SM20_micro002,c1cc(cc(c1)OCc2ccc(cc2Cl)Cl)/C=C/3\C(=[NH+]C(=[S+]3)[O-])[O-],deprecated

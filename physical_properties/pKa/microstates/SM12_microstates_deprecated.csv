@@ -1,0 +1,5 @@
+microstate ID,canonical isomeric SMILES,remarks
+SM12_micro003,c1ccc2c(c1)c(=[NH+]c3cccc(c3)Cl)[n-]cn2.[Cl-],deprecated
+SM12_micro004,c1ccc2c(c1)/c(=N/c3cccc(c3)Cl)/nc[nH]2,deprecated
+SM12_micro005,c1ccc2c(c1)/c(=N/c3cccc(c3)Cl)/[nH]cn2,deprecated
+SM12_micro007,c1ccc2c(c1)c(ncn2)Nc3cccc(c3)Cl.[Cl-],deprecated

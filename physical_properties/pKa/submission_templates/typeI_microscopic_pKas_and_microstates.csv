@@ -1,8 +1,10 @@
 # Submission Type I
 #
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
 # PREDICTION SECTION
 #
-# Fill one typeI_microscopic_pKas_and_microstates.csv template for all molecules predicted with the same method.
+# Each submission (method) must have a completed `typeI_microscopic_pKas_and_microstates.csv` file for all molecules the prediction encompasses.
 # For each molecule, report as many microscopic pKas as your method predicts.
 # Add new lines for each microstate pair.
 # Report microscopic pKa values to two decimal places (e.g. 10.71).

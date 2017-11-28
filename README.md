@@ -32,6 +32,7 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
 - Version 1.2: Adds host-guest SAMPLing challenge explanation and inputs, describes these in README files; adds draft submission files for host-guest predictions in `host_guest/(hostname)AndGuests` directories; updates the discussion of the physical property challenge to reflect the current status.
 - Version 1.3: Add pKa prediction challenge instructions, input files, submission template files, update on the future plans of logD challenge.
+- Version 1.4: Update microstate lists of pKa challenge.
 
 ### Changes not yet in a release
 

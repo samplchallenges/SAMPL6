@@ -1,8 +1,10 @@
 # Submission Type III
 #
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
 # PREDICTION SECTION
 #
-# Fill one typeIII_macroscopic_pKas.csv template file for all predicted molecules.
+# Each submission (method) must have a completed `typeIII_macroscopic_pKas.csv` file for all molecules the prediction encompasses.
 # For each molecule, report as many macroscopic pKas as your method predicts. 
 # Add new lines for each predicted molecule.
 # For molecules with multiple macroscopic pKas report each macroscopic pKa in a new line.
