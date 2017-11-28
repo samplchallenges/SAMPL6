@@ -1,5 +1,7 @@
 # Submission Type II
 #
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
 # PREDICTION SECTION
 #
 # Fill one typeII_microstate_fractional_populations.csv template file for all molecules and microstates you have predictions for.
