@@ -12,7 +12,7 @@
 # e.g. In column 3 report ln(fractional microstate population) at pH 2.10 of your predicted microstate.
 # Use scientific notation with 3 decimals of precision (e.g. -2.30e0 or 3.14e-4).
 # For microstates predicted to have 0 populations, instead of ln(0), report as "-infinity".
-# Do not report error estimates in this section. You can report error estimates in Method secton.
+# Do not report error estimates in this section.
 # For pH values which you don't have an estimate of ln(fractional microstate population), leave that cell or line of the csv table empty.
 # 
 # The ln(fractional microstate population) data in each prediction line should be structured as follows:
