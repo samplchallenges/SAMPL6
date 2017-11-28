@@ -4,7 +4,7 @@
 #
 # PREDICTION SECTION
 #
-# Fill one typeII_microstate_fractional_populations.csv template file for all molecules and microstates you have predictions for.
+# Each submission (method) must have a completed `typeII_microstate_fractional_populations.csv` file for all molecules the prediction encompasses.
 # For each molecule, report as many microstates as your method predicts.
 # Add new lines for each predicted microstate.
 # Microstate ID of the predicted microstate should be recorded in the first column.
