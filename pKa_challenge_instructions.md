@@ -106,7 +106,7 @@ Predicting the fractional microstate populations between pH interval 2 to 12 in 
 e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent percentage of microstate populations of A and B.   
 At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30e0`.  
 - If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`, but note that attempting to resolve the log-population of low-population states is important for some of the evaluation metrics.
-- Do not report SEM in this submission type in the "Prediction" section of type II submission template. It is optional to report uncertainty estimates in "Methods" section.
+- Do not report SEM in this submission type in the "Prediction" section of type II submission template. It is optional to report uncertainty estimates in "Methods" section, but we do not plan to analyze uncertainty estimates for this submission type.
 - For pH values or microstates which you don't have an estimate, leave that cell or line of the csv table empty.
 
 #### Prediction Type III - macroscopic pKas
