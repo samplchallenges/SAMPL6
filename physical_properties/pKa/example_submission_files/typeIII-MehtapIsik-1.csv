@@ -1,5 +1,7 @@
 # Submission Type III
 #
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
 # PREDICTION SECTION
 #
 # Fill one typeIII_macroscopic_pKas.csv template file for all predicted molecules.
