@@ -1,0 +1,69 @@
+# SAMPLing Challenge Instructions
+
+## Challenge overview
+
+The purpose of the SAMPLing challenge component is to evaluate and compare the performance of different sampling methodologies in the context of free energy calculations of biomolecular systems. Participants are invited to compute the free energy of binding of few host-guest systems taken from the main SAMPL6 challenge. We will be running extremely long calculations with the provided input files in an attempt to obtain "gold standard" results, and then assess how well different methods approach/converge to these results.
+
+Force field parameters, and ideally treatment of long-range interactions, should be identical for all participants to allow a more objective comparison of the sampling methods. For this purpose, equilibrated system files that include topologies and initial configurations are provided in [`host_guest/SAMPLing/`](host_guest/SAMPLing) in various formats (i.e., Amber, Gromacs, OpenMM, PDB). Five different initial configurations are given for each host-guest system. See section [Files description](#files-description) for more details about the input files and the setup protocol.
+
+The specific instructions are slightly different for absolute and relative free energy methods.
+
+### Absolute free energy methods
+
+The challenge consists in computing the standard free energy of binding of three host-guest systems:
+- CB8-G3 (quinine),
+- OA-G3 (5-hexenoic acid), and
+- OA-G6 (4-methylpentanoic acid).
+
+A total of 15 free energy calculations have to be performed, starting from the 5 different initial configurations provided for each host-guest system.
+
+### Relative free energy methods
+
+The challenge consists in computing the relative binding free energy of the transformation OA-G3 (5-hexenoic acid) to OA-G6 (4-methylpentanoic acid). The specific transformation is described by the atom map provided in JSON format with the input files (see section [Files description](#files-description)). A total of 5 free energy calculations have to be performed, starting from the 5 initial configurations provided for OA-G3.
+
+## Data submission
+For each calculation (15/5 for absolute/relative free energy methods), you will have to submit the following information:
+- Binding free energy estimates using 1%, 2%, 3%, ..., 100% of the sequential data (i.e., _not_ bootstrapped).
+- Description of the thermodynamic cycle, in particular the number of thermodynamic states (e.g. lambda/umbrella sampling windows).
+- Total CPU time, total wall clock time, total number of energy evaluations, and hardware used to perform the simulations.
+
+The file format for these will be made available in the near future.
+
+## Reference calculations
+
+The reference absolute free energy calculations will be performed using YANK and the following methods/parameters:
+- Hamiltonian Replica-Exchange and Langevin dynamics (BAOAB splitting) with the temperature set to 298.15K.
+- A Monte Carlo barostat set at 1atm
+- The OpenMM's implementation of PME for long-range electrostatic interactions with a cutoff of 10A.
+- VdW interactions used the same 10A cutoff and a switching distance of 9A.
+
+Further details will be provided in the near future.
+
+## Files description
+
+Equilibrated systems are provided for OA-G3 (5-hexenoic acid), OA-G6 (4-methylpentanoic acid) and CB8-G3 (quinine), and they are located at [`host_guest/SAMPLing/`](host_guest/SAMPLing). Five different initial configurations are given for each system. The files are available in Amber (`prmtop`/`rst7`), Gromacs (`top`/`gro`), OpenMM (`xml`) and PDB formats. Each sub-folder `HOST-GUEST-X/`, where `X` is a digit labeling one of the 5 initial configurations, contains solvated system files for both the host-guest complex (e.g. `complex.prmtop`, `complex.gro`) and the guest alone (e.g. `solvent.prmtop`, `solvent.gro`).
+
+The `host_guest/SAMPLing/` folder includes also an atom map in JSON format that has to be used for relative free energy calculations. The ligand atoms of OA-G3 that match the ligand atoms in OA-G6 are given for the systems in complex and in solvent. The file has the following format:
+```json
+"complex":
+   "unique_atoms_G3": [184, 185, 187, 192, 193, 194, 195, 196]
+   "unique_atoms_G6": [185, 186, 189, 192, 193, 194, 195, 196, 197, 202]
+   "atom_map_G3_to_G6":
+      "197": 198
+      "198": 199
+      "199": 201
+      ...
+"solvent":
+   ...
+```
+where `unique_atoms_G3` is a list of atom indices that do not match any G6 atom, and `atom_map_G3_to_G6` maps atoms of G3 to those of G6 by atom index. _All indices are 0-based_. This map can be used with any of the 5 replicates of `OA-G3-X` and `OA-G6-X`.
+
+### Files preparation
+All the host-guest system files in the `SAMPLing/` directory were prepared using the protocol below.
+- We used the most likely protonation states as predicted by Epik `4.0013` from the Schrodinger toolkit at experimental pH. These are identical to those given in the `mol2` files in `host_guest/OctaAcidsAndGuests/` and `host_guest/CB8AndGuests/`.
+- 5 docked complexes were generated with OpenEye `2017.6.1`.
+- Hosts and guests were both parametrized with GAFF v1.8 and antechamber. AM1-BCC charges were generated using OpenEye's QUACPAC toolkit through `openmoltools 0.8.1`.
+- The systems were solvated in a 12A buffer of TIP3P water molecules using tleap. ParmEd `2.7.3` was used to remove some of the water molecules from the OA complexes to reduce them to have the same number of waters.
+- The systems' net charge was neutralized with Na+ and Cl- ions. More Na+ and Cl- ions were added to reach the ionic strength of 60mM for OA/TEMOA systems and 150mM for CB8 to simulate the effect of the 10mM and 25mM sodium phosphate buffer used in their respective experiments.
+- The system was minimized with the L-BFGS optimization algorithm and equilibrated by running 1ns of Langevin dynamics (BAOAB splitting, 1fs time step) at 298.15K with a Monte Carlo barostat set at 1atm using `OpenMM 7.1.1`. PME was used for long-range electrostatic interactions with a cutoff of 10A. VdW interactions used the same 10A cutoff and a switching distance of 9A.
+- After the equilibration, the `System` was serialized into the OpenMM `xml` format. The `rst7` file was generated during the equilibration using the `RestartReporter` in the `parmed.openmm` module. The AMBER `prmtop` and `rst7` files were then converted to GROMACS `top`/`gro` and PDB formats by ParmEd and MDTraj `1.9.1` respectively.
