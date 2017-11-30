@@ -31,7 +31,7 @@ The thermodynamic parameters (Ka, ΔG˚, ΔH˚ and –TΔS˚) for guest binding 
 If this proves problematic in any cases, 1H NMR titrations will be used instead to determine the Ka values for guest association.  
 
 The main challenge for this series is to compute the 16 binding free energies (or association constants), and participants are also invited to compute the binding enthalpies.
-All measurements are being carried out in aqueous 10 mM sodium phosphate buffer at pH 11.7 ± 0.1, at 298 K.
+All measurements are being carried out in aqueous 10 mM sodium phosphate buffer at pH 11.7 ± 0.1, at 298 K. The buffer was obtained by dissolving Na3PO4 and Na2HPO4 in water.
 A review of some of the known challenges in predicting binding to OA/TEMOA is provided at http://github.com/mobleylab/benchmarksets and may be useful.
 
 ## Cucurbit[8]uril (CB8)
@@ -54,7 +54,7 @@ Oxaliplatin is also potentially complex due to the platinum atom it contains.
 As a consequence,  these three compounds are not being included in our main challenge.
 Accordingly, the **main challenge** is to compute the 11 binding free energies (or association constants) of the remaining compounds with CB8, and participants are also invited to compute the binding enthalpies.
 A **bonus challenge** is to also predict binding affinities for aricept, cyclohexane diamine, and oxaliplatin (highlighted in magenta in the image).
-All measurements were carried out in aqueous 25 mM sodium phosphate buffer at pH 7.2, at 298 K.
+All measurements were carried out in aqueous 25 mM sodium phosphate buffer at pH 7.4, at 298 K. The buffer was obtained by dissolving NaH2PO4 in water and titrating NaOH.
 Measurements are currently complete for all compounds shown, except Detrol and gallamine triethiodate.
 You may wish to do these last, just in case unexpected difficulties are encountered for these last two.
 We will let you know of any updates regarding the experimental work (assuming you either sign up for the SAMPL e-mail list or monitor this GitHub repository).
