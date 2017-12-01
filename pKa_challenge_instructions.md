@@ -175,7 +175,7 @@ More detailed instructions will be provided on the challenge submission site on 
 ## Evaluation strategy for computational pKa predictions
 
 Macroscopic pKa predictions will be directly compared to experimental pKa measurements. 
-Microscopic pKas and predicted microstates will be evaluated by comparison to each other and how well they recapitulate experimental macroscopic pKas, as well as pKa predictions of ACD which uses an empirical pKa predictions method.
+Microscopic pKas and predicted microstates will be evaluated by comparison to each other and how well they recapitulate experimental macroscopic pKas, as well as pKa predictions of reference calculations.
 
 ## Anonymous versus public participation
 
