@@ -83,6 +83,7 @@ You may use any method(s) you like to generate your predictions; e.g., molecular
 ## Instructions and Submission Templates
 Three types of predictions will be accepted. 
 Participants are encouraged to submit their results in all or multiple submission types if their prediction methods allow it.
+Prediction template files can be found in [physical_properties/pKa/submission_templates](/physical_properties/pKa/submission_templates/) directory.
 
 #### Prediction Type I - microscopic pKas and related microstates
 Predicting microscopic pKas and related microstate structures. 
