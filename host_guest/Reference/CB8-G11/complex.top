@@ -1,8 +1,8 @@
 ;
 ;   File ../../host_guest/Reference/CB8-G11/complex.top  was generated
 ;   By user: andrrizzi (20065)
-;   On host: lt04
-;   At date: Sat. November  6 17:18:34 2017
+;   On host: ls15
+;   At date: Wed. November  3 15:47:33 2017
 ;
 ;   This is a standalone topology file
 ;
@@ -2275,6 +2275,6 @@ Generic title
 HST                  1
 GST                  1
 Cl-                  2
-Na+                  6
-Cl-                  6
-WAT               2176
+Na+                  2
+Cl-                  2
+WAT               2184

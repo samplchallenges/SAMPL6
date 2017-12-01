@@ -1,8 +1,8 @@
 ;
 ;   File ../../host_guest/Reference/TEMOA-G2/complex.top  was generated
 ;   By user: andrrizzi (20065)
-;   On host: lt04
-;   At date: Sat. November  6 17:18:52 2017
+;   On host: ls15
+;   At date: Wed. November  3 15:47:49 2017
 ;
 ;   This is a standalone topology file
 ;
@@ -2387,6 +2387,6 @@ Generic title
 ; Compound       #mols
 HST                  1
 GST                  1
-Na+                 12
-Cl-                  3
-WAT               2876
+Na+                 11
+Cl-                  2
+WAT               2878
