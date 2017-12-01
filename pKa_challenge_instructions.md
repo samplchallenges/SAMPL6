@@ -65,9 +65,9 @@ Multiwavelength absorbance analysis on thw Sirius T3 allows for very good resolu
 If multiple microscopic pKas have close pKa values and overlapping changes in UV absorbance spectra associated with protonation/deprotonaton event, the spectral analysis could produce a single macroscopic pKa that represents an aggregation of multiple microscopic pKas.
 
 
-[1] Tam, K.Y., and Takács-Novák, K. (2001). Multi-wavelength spectrophotometric determination of acid dissociation constants: a validation study. Analytica Chimica Acta 434, 157–167.
-[2] Allen, R.I., Box, K.J., Comer, J.E.A., Peake, C., and Tam, K.Y. (1998). Multiwavelength spectrophotometric determination of acid dissociation constants of ionizable drugs. Journal of Pharmaceutical and Biomedical Analysis 17, 699–712.
-[3] Avdeef, A., Box, K.J., Comer, J.E.A., Gilges, M., Hadley, M., Hibbert, C., Patterson, W., and Tam, K.Y. (1999). PH-metric logP 11. pKa determination of water-insoluble drugs in organic solvent–water mixtures. Journal of Pharmaceutical and Biomedical Analysis 20, 631–641.
+[1] Tam, K.Y., and Takács-Novák, K. (2001). Multi-wavelength spectrophotometric determination of acid dissociation constants: a validation study. Analytica Chimica Acta 434, 157–167.  
+[2] Allen, R.I., Box, K.J., Comer, J.E.A., Peake, C., and Tam, K.Y. (1998). Multiwavelength spectrophotometric determination of acid dissociation constants of ionizable drugs. Journal of Pharmaceutical and Biomedical Analysis 17, 699–712.  
+[3] Avdeef, A., Box, K.J., Comer, J.E.A., Gilges, M., Hadley, M., Hibbert, C., Patterson, W., and Tam, K.Y. (1999). PH-metric logP 11. pKa determination of water-insoluble drugs in organic solvent–water mixtures. Journal of Pharmaceutical and Biomedical Analysis 20, 631–641.  
 
 
 ## Due Date
@@ -83,14 +83,15 @@ You may use any method(s) you like to generate your predictions; e.g., molecular
 ## Instructions and Submission Templates
 Three types of predictions will be accepted. 
 Participants are encouraged to submit their results in all or multiple submission types if their prediction methods allow it.
+Prediction template files can be found in [physical_properties/pKa/submission_templates](/physical_properties/pKa/submission_templates/) directory.
 
 #### Prediction Type I - microscopic pKas and related microstates
 Predicting microscopic pKas and related microstate structures. 
 Different protonation states and tautomer combinations constitute different microstates. 
 - Fill one `typeI_microscopic_pKas_and_microstates.csv` template for all molecules predicted with one method. You may submit predictions from multiple methods, but you should fill a separate template file for each different method. 
 - For each molecule, report as many microscopic pKas as your method predicts.
-- Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated with each microscopic pKa. To determine the microstate ID for your predicted structure, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
-- If your predicted structure is not included in the list, contact us [to make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
+- Record the pair of microstates IDs of microstate structures pairs (protonated HA and deprotonated A) associated with each microscopic pKa. To determine the microstate ID for your predicted structure, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](physical_properties/pKa/microstates) that list microscopic species.
+- If your predicted structure is not included in the list, contact us to make a request for new microstate. See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
 - Report microscopic pKa values to two decimal places (e.g. 10.71).
 - Reporting the standard error of the mean (SEM) is optional, but if reported, two decimal places should be provided (e.g. 1.02).
 - For values which you don't have an estimate, leave that cell of the csv table empty.
@@ -100,8 +101,8 @@ Predicting the fractional microstate populations between pH interval 2 to 12 in 
 
 - Fill one `typeII_microstate_fractional_populations.csv` template file for all molecules and microstates predicted with one method. You may submit predictions from multiple methods, but you should fill a separate template file for each different method.
 - For each molecule, report as many microstates as your method predicts.
-- To determine the microstate ID for your predicted microstate populations, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](SAMPL6/physical_properties/pKa/microstates) that list microscopic species.
-- If your predicted structure is not included in the list, contact us to [make a request for new microstate](mehtap.isik@choderalab.org). See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
+- To determine the microstate ID for your predicted microstate populations, check the csv files and spreadsheets in [SAMPL6/physical_properties/pKa/microstates](physical_properties/pKa/microstates) that list microscopic species.
+- If your predicted structure is not included in the list, contact us to make a request for new microstate. See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
 - For each pH, report the *natural logarithm* of the fractional microstate populations in scientific notation with three decimals of precision (e.g., 1.02e-4).
 e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent percentage of microstate populations of A and B.   
 At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30e0`.  
@@ -175,7 +176,7 @@ More detailed instructions will be provided on the challenge submission site on 
 ## Evaluation strategy for computational pKa predictions
 
 Macroscopic pKa predictions will be directly compared to experimental pKa measurements. 
-Microscopic pKas and predicted microstates will be evaluated by comparison to each other and how well they recapitulate experimental macroscopic pKas, as well as pKa predictions of ACD which uses an empirical pKa predictions method.
+Microscopic pKas and predicted microstates will be evaluated by comparison to each other and how well they recapitulate experimental macroscopic pKas, as well as pKa predictions of reference calculations.
 
 ## Anonymous versus public participation
 
