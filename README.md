@@ -35,6 +35,7 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - Version 1.4: Update microstate lists of pKa challenge.
 
 ### Changes not yet in a release
+- Correct outdated CB8 sodium phosphate buffer concentration which appeared in an image (it was already correct in the text).
 
 ## Challenge Overview
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
