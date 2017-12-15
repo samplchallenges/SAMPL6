@@ -5,7 +5,6 @@ SM24_micro004,COc1ccc(cc1)c2c3c(ncnc3oc2c4ccc(cc4)OC)NCC[OH2+]
 SM24_micro005,COc1ccc(cc1)c2c\3c([nH]cn/c3=N\CC[OH2+])oc2c4ccc(cc4)OC
 SM24_micro006,COc1ccc(cc1)c2c3c(ncnc3oc2c4ccc(cc4)OC)NCCO
 SM24_micro007,COc1ccc(cc1)c2c3c(=NCCO)[nH]cnc3oc2c4ccc(cc4)OC
-SM24_micro008,COc1ccc(cc1)c2c3/c(=N/CCO)/[nH]cnc3oc2c4ccc(cc4)OC
 SM24_micro009,COc1ccc(cc1)c2c3c(ncnc3oc2c4ccc(cc4)OC)[NH2+]CC[O-]
 SM24_micro010,COc1ccc(cc1)c2c3c([nH+]cnc3NCCO)oc2c4ccc(cc4)OC
 SM24_micro011,COc1ccc(cc1)c2c3c(=[NH+]CCO)[nH]cnc3oc2c4ccc(cc4)OC

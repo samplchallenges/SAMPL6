@@ -24,7 +24,6 @@ SM10_micro024,c1ccc(cc1)C(=[OH+])NCC(=O)/N=c/2\[nH]c3ccccc3s2
 SM10_micro026,c1ccc(cc1)C(=O)N/C=C(\Nc2[nH+]c3ccccc3s2)/O
 SM10_micro027,c1ccc(cc1)C(=O)N/C=C(\[N-]c2nc3ccccc3s2)/[O-]
 SM10_micro028,c1ccc(cc1)C(=O)NCC(=O)Nc2[nH+]c3ccccc3s2
-SM10_micro029,c1ccc(cc1)C(=O)N/C=C(\Nc2nc3ccccc3s2)/O
 SM10_micro030,c1ccc(cc1)/C(=N/C=C(\N=c\2/[nH]c3ccccc3s2)/[O-])/[O-]
 SM10_micro031,c1ccc(cc1)C(=O)N/C=C(\Nc2[nH+]c3ccccc3s2)/[O-]
 SM10_micro032,c1ccc(cc1)C(=O)NC/C(=[NH+]/c2nc3ccccc3s2)/O

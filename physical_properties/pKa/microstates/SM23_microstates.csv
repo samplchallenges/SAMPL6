@@ -1,15 +1,8 @@
 microstate ID,canonical isomeric SMILES
-SM23_micro001,CCOC(=O)c1ccc(cc1)Nc2cc([nH+]c(=Nc3ccc(cc3)C(=O)OCC)[n-]2)C
-SM23_micro004,CCOC(=O)c1ccc(cc1)Nc2[nH]c(c/c(=N/c3ccc(cc3)C(=O)OCC)/n2)C
 SM23_micro005,CCOC(=O)c1ccc(cc1)Nc2[nH]/c(=N/c3ccc(cc3)C(=O)OCC)/cc(n2)C
-SM23_micro006,CCOC(=O)c1ccc(cc1)[N-]c2[nH]/c(=N\c3ccc(cc3)C(=O)OCC)/cc(n2)C
 SM23_micro007,CCOC(=O)c1ccc(cc1)Nc2[nH]c(cc(=[NH+]c3ccc(cc3)C(=O)OCC)n2)C
-SM23_micro008,CCOC(=O)c1ccc(cc1)Nc2cc([nH]/c(=N\c3ccc(cc3)C(=O)OCC)/n2)C
 SM23_micro011,CCOC(=O)c1ccc(cc1)Nc2[nH]c(c/c(=N\c3ccc(cc3)C(=O)OCC)/n2)C
 SM23_micro012,CCOC(=O)c1ccc(cc1)Nc2cc(nc(n2)Nc3ccc(cc3)C(=O)OCC)C
-SM23_micro014,CCOC(=O)c1ccc(cc1)[N-]c2cc(n/c(=N/c3ccc(cc3)C(=O)OCC)/[nH]2)C
-SM23_micro015,CCOC(=O)c1ccc(cc1)[N-]c2cc([nH]/c(=N\c3ccc(cc3)C(=O)OCC)/n2)C
-SM23_micro016,CCOC(=O)c1ccc(cc1)Nc2[nH]/c(=N\c3ccc(cc3)C(=O)OCC)/cc(n2)C
 SM23_micro019,CC[OH+]C(=O)c1ccc(cc1)Nc2nc(cc(n2)Nc3ccc(cc3)C(=O)OCC)C
 SM23_micro020,CCOC(=O)c1ccc(cc1)Nc2cc([nH]/c(=N/c3ccc(cc3)C(=O)OCC)/n2)C
 SM23_micro021,CCOC(=O)c1ccc(cc1)[NH2+]c2cc(nc(n2)Nc3ccc(cc3)C(=O)OCC)C
@@ -17,9 +10,7 @@ SM23_micro022,CCOC(=O)c1ccc(cc1)Nc2cc(n/c(=N/c3ccc(cc3)C(=O)OCC)/[nH]2)C
 SM23_micro024,CCOC(=O)c1ccc(cc1)[NH2+]c2nc(cc(n2)Nc3ccc(cc3)C(=O)OCC)C
 SM23_micro025,CCOC(=O)c1ccc(cc1)Nc2cc(nc([nH+]2)Nc3ccc(cc3)C(=O)OCC)C
 SM23_micro026,CCOC(=O)c1ccc(cc1)Nc2cc([nH+]c(n2)Nc3ccc(cc3)C(=O)OCC)[CH2-]
-SM23_micro027,CCOC(=O)c1ccc(cc1)[N-]c2cc([nH]/c(=N/c3ccc(cc3)C(=O)OCC)/n2)C
 SM23_micro028,CCOC(=O)c1ccc(cc1)[N-]c2[nH]/c(=N/c3ccc(cc3)C(=O)OCC)/cc(n2)C
-SM23_micro029,CCOC(=O)c1ccc(cc1)[N-]c2[nH]c(c/c(=N/c3ccc(cc3)C(=O)OCC)/n2)C
 SM23_micro030,CC[OH+]C(=O)c1ccc(cc1)Nc2cc(nc(n2)Nc3ccc(cc3)C(=O)OCC)C
 SM23_micro034,CCOC(=O)c1ccc(cc1)Nc2nc(cc(n2)[N-]c3ccc(cc3)C(=O)OCC)C
 SM23_micro035,CCOC(=O)c1ccc(cc1)Nc2cc(nc(n2)[N-]c3ccc(cc3)C(=O)OCC)C
