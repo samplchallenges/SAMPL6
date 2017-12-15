@@ -49,11 +49,11 @@ It is also worth emphasizing that some of these compounds, particularly quinine,
 We have endeavored to provide correct starting structures, but would advise checking our work, and keeping an eye on the stereochemistry during all cheminformatics and modeling steps, to avoid inadvertent changes in stereochemistry.
 
 CB8 has a larger binding cavity than CB7, and there is the possibility of 1:1 and/or 1:2 CB[8]:guest binding.
-This has been assessed experimentally and aricept (CB8-G11) and cyclohexane diamine (CB8-G12) were found bind in 1:2 complexes, whereas the other compounds do not.
+This has been assessed experimentally and aricept (CB8-G12) and cyclohexane diamine (CB8-G11) were found bind in 1:2 complexes, whereas the other compounds do not.
 Oxaliplatin (CB8-G13) is also potentially complex due to the platinum atom it contains.
 As a consequence,  these three compounds are not being included in our main challenge.
 Accordingly, the **main challenge** is to compute the 11 binding free energies (or association constants) of the remaining compounds with CB8, and participants are also invited to compute the binding enthalpies.
-A **bonus challenge** is to also predict binding affinities for aricept (CB8-G11), cyclohexane diamine (CB8-G12), and oxaliplatin (CB8-G13) (all are highlighted in magenta in the image).
+A **bonus challenge** is to also predict binding affinities for aricept (CB8-G12), cyclohexane diamine (CB8-G11), and oxaliplatin (CB8-G13) (all are highlighted in magenta in the image).
 All measurements were carried out in aqueous 25 mM sodium phosphate buffer at pH 7.4, at 298 K. The buffer was obtained by dissolving NaH2PO4 in water and titrating with NaOH.
 Measurements are currently complete for all compounds shown, except Detrol and gallamine triethiodate.
 You may wish to do these last, just in case unexpected difficulties are encountered for these last two.
