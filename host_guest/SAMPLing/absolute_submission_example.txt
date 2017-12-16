@@ -1,12 +1,17 @@
-# SAMPLing challenge results
+# SAMPLing challenge results for absolute free energy calculations
 #
 # This file will be automatically parsed. It must contain the following five sections: predictions, computational cost,
 # software listing, technical details, and method description. These elements must be provided in the order shown.
 #
-# The data in each prediction line should be a comma-separated list of exactly 201 values, 100 of which are optional.
+# The data in each prediction line should be a comma-separated list of exactly 201 values, 100 of which may or may not be filled.
 # Each line must be structured as follows: system ID, F(1%), dF(1%), F(2%), dF(2%), ..., F(100%), dF(100%), where
 # F(X%) and dF(X%) are respectively the free energy estimate and free energy uncertainty, both in kcal/mol, after X% of
 # the calculation. The free energy uncertainties are optional (see example below).
+#
+# The "Prediction" section should have at least 15 lines: 5 replicates starting from the provided initial configurations
+# for each of the 3 host-guest systems in the challenge (i.e., CB8-G3, OA-G3, and OA-G6). Data submission for further replicates
+# or different systems is welcomed, although not required.
+#
 # The list of predictions must begin with the "Prediction:" keyword, as illustrated here.
 Predictions:
 CB8-G3-0, -9.47,, -10.72,, -9.71,, -9.89,, -9.98,, -10.41,, -10.00,, -9.54,, -9.76,, -9.86,, -9.34,, -9.80,, -9.54,, -10.17,, -9.79,, -10.32,, -9.68,, -9.64,, -9.16,, -10.01,, -10.39,, -10.59,, -10.32,, -9.31,, -10.17,, -10.41,, -10.26,, -10.23,, -9.36,, -11.26,, -9.43,, -10.35,, -9.81,, -9.71,, -9.90,, -9.05,, -9.63,, -9.68,, -9.96,, -9.43,, -8.95,, -9.47,, -10.20,, -10.82,, -10.45,, -9.51,, -9.98,, -10.06,, -10.25,, -9.81,, -10.68,, -10.34,, -9.94,, -9.74,, -10.09,, -10.18,, -10.42,, -9.77,, -8.50,, -9.79,, -9.78,, -10.64,, -10.46,, -10.06,, -9.75,, -9.71,, -9.86,, -10.26,, -9.32,, -10.11,, -9.95,, -10.11,, -10.07,, -10.50,, -10.52,, -10.48,, -10.16,, -9.23,, -9.33,, -9.73,, -10.19,, -10.25,, -9.90,, -9.68,, -10.26,, -10.03,, -10.01,, -10.23,, -10.08,, -10.23,, -10.30,, -9.81,, -9.73,, -10.65,, -9.86,, -9.91,, -9.99,, -10.38,, -10.03,, -10.57,
@@ -25,7 +30,7 @@ OA-G6-2, -2.90,, -4.15,, -3.21,, -2.64,, -4.10,, -3.42,, -1.99,, -2.25,, -3.62,,
 OA-G6-3, -1.74,, -3.79,, -2.04,, -3.33,, -2.69,, -3.02,, -3.47,, -3.45,, -3.02,, -3.46,, -2.94,, -3.68,, -2.07,, -2.97,, -3.51,, -2.85,, -3.64,, -3.21,, -3.80,, -2.77,, -3.40,, -3.13,, -2.90,, -3.63,, -3.30,, -3.19,, -3.64,, -2.12,, -4.65,, -3.52,, -3.76,, -3.41,, -3.67,, -2.89,, -3.69,, -2.64,, -2.17,, -2.89,, -2.65,, -2.37,, -4.33,, -3.11,, -3.12,, -2.75,, -2.47,, -3.97,, -2.59,, -2.40,, -3.32,, -3.06,, -3.70,, -2.08,, -3.17,, -3.62,, -2.30,, -2.61,, -2.20,, -3.66,, -3.70,, -2.71,, -2.39,, -3.68,, -3.06,, -3.33,, -4.26,, -2.41,, -2.26,, -2.84,, -3.37,, -4.05,, -2.09,, -2.13,, -3.62,, -3.02,, -4.34,, -4.28,, -3.37,, -3.54,, -3.26,, -1.52,, -2.37,, -3.49,, -3.71,, -3.72,, -2.08,, -2.68,, -3.37,, -3.63,, -2.93,, -3.01,, -2.53,, -3.05,, -4.13,, -2.36,, -2.45,, -3.96,, -2.47,, -2.95,, -2.29,, -4.09,
 OA-G6-4, -3.45,, -2.74,, -3.76,, -3.52,, -3.24,, -2.23,, -3.77,, -3.35,, -2.45,, -4.36,, -2.09,, -4.23,, -3.33,, -3.84,, -2.93,, -2.99,, -1.89,, -3.24,, -2.64,, -2.94,, -3.78,, -3.06,, -2.52,, -3.17,, -2.35,, -3.66,, -2.41,, -3.34,, -2.86,, -2.07,, -4.38,, -2.28,, -4.18,, -3.77,, -2.97,, -2.36,, -3.50,, -4.24,, -2.60,, -2.49,, -3.10,, -1.98,, -3.93,, -3.49,, -2.72,, -3.47,, -2.86,, -3.42,, -2.73,, -2.67,, -2.87,, -2.57,, -2.63,, -4.20,, -2.23,, -3.33,, -2.44,, -2.92,, -3.56,, -3.18,, -2.04,, -3.05,, -2.93,, -2.62,, -3.99,, -1.28,, -1.45,, -2.38,, -1.93,, -2.82,, -2.56,, -3.02,, -3.03,, -3.40,, -3.03,, -3.27,, -2.17,, -2.98,, -2.42,, -1.47,, -2.14,, -3.37,, -2.85,, -3.39,, -3.37,, -3.49,, -3.52,, -2.49,, -2.35,, -3.88,, -3.18,, -3.24,, -3.73,, -2.57,, -2.86,, -3.43,, -3.19,, -3.72,, -3.65,, -2.84,
 #
-# Each line should include the following four elements in this order: system ID, total number of energy evaluations,
+# Each line of the "Cost" section below should include the following four elements in this order: system ID, total number of energy evaluations,
 # total wall-clock time (in seconds), and total CPU time (in seconds). The CPU time is optional (the example below
 # does not report it). The "Cost:" keyword is required.
 #
