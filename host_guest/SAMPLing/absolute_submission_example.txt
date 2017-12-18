@@ -79,8 +79,11 @@ approximately 95%/5% respectively.
 #
 # Methodology and computational details.
 # The level of detail should be at least that used in a publication. Please include the values of key parameters,
-# with units, and explain how any statistical uncertainties were estimated. Use as many lines of text as you need.
-# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+# with units, and explain how any statistical uncertainties were estimated. In particular, be sure to include a
+# complete description of the thermodynamic cycle and the number of states (or windows) employed.
+#
+# Use as many lines of text as you need. All text following the "Method:" keyword will be regarded as part of your
+# free text methods description.
 Method:
 The alchemical free energy calculations were performed using the Hamiltonian Replica Exchange method.
 First, ligand charges were annihilated and then van der Waals were decoupled using a linear protocol
