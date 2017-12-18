@@ -3,7 +3,7 @@
 # This file will be automatically parsed. It must contain the following five sections: predictions, computational cost,
 # software listing, technical details, and method description. These elements must be provided in the order shown.
 #
-# The data in each prediction line should be a comma-separated list of exactly 201 values, 100 of which may or may not be filled.
+# The data in each prediction line should be a comma-separated list of exactly 201 fields, 100 of which are optional.
 # Each line must be structured as follows: system ID, F(1%), dF(1%), F(2%), dF(2%), ..., F(100%), dF(100%), where
 # F(X%) and dF(X%) are respectively the free energy estimate and free energy uncertainty, both in kcal/mol, after X% of
 # the calculation. The free energy uncertainties are optional (see example below).
