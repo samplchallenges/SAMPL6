@@ -1,7 +1,7 @@
 # SAMPLing Challenge Instructions
 
 ## Due date
-Your predictions must be uploaded on the [D3R SAMPL6 web-page(https://drugdesigndata.org/about/sampl6) by January 12, 2018.
+Your predictions must be uploaded on the [D3R SAMPL6 web-page](https://drugdesigndata.org/about/sampl6) by January 12, 2018.
 Templates for the submission of the prediction data are provided at
 [`host_guest/SAMPLing/absolute_submission_example.txt`](host_guest/SAMPLing/absolute_submission_example.txt) and
 [`host_guest/SAMPLing/relative_submission_example.txt`](host_guest/SAMPLing/relative_submission_example.txt).
