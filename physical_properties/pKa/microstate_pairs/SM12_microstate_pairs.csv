@@ -1,0 +1,18 @@
+microstate ID 1,microstate ID 2
+SM12_micro001,SM12_micro002
+SM12_micro001,SM12_micro012
+SM12_micro013,SM12_micro001
+SM12_micro014,SM12_micro001
+SM12_micro002,SM12_micro009
+SM12_micro010,SM12_micro006
+SM12_micro006,SM12_micro011
+SM12_micro006,SM12_micro012
+SM12_micro013,SM12_micro006
+SM12_micro010,SM12_micro008
+SM12_micro008,SM12_micro012
+SM12_micro014,SM12_micro008
+SM12_micro011,SM12_micro009
+SM12_micro012,SM12_micro009
+SM12_micro015,SM12_micro010
+SM12_micro015,SM12_micro013
+SM12_micro015,SM12_micro014
