@@ -33,6 +33,7 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - Version 1.2: Adds host-guest SAMPLing challenge explanation and inputs, describes these in README files; adds draft submission files for host-guest predictions in `host_guest/(hostname)AndGuests` directories; updates the discussion of the physical property challenge to reflect the current status.
 - Version 1.3: Add pKa prediction challenge instructions, input files, submission template files, update on the future plans of logD challenge.
 - Version 1.4: Update microstate lists of pKa challenge.
+- Version 1.5: Update microstate lists of pKa challenge. Clarification to pKa microstate definition: Resonance structures or geometric isomers with the same bound hydrogen pattern do not constitute different microstates. Add canonical SMILES column to microstate list files. Add suggested microstate pairs for physically meaningful microscopic pKas for type I submissions.
 
 ### Changes not yet in a release
 - Correct outdated CB8 sodium phosphate buffer concentration which appeared in an image (it was already correct in the text).
