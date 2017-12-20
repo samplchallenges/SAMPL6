@@ -32,6 +32,12 @@ For better clarity on the concept of microscopic and macroscopic pKas refer to:
 2. Bodner, G.M. (1986). Assigning the pKa’s of polyprotic acids. J. Chem. Educ 63, 246.
 3. Murray, R. (1995). Microscopic Equilibria. Analytical Chemistry 67, 462a – 462a.
 
+### Working pKa microstate definition for this challenge
+Physically meaningful microscopic pKas are defined between microstate pairs that can interconvert by single protonation/deprotonation event of only one titrable group. 
+So, physical microstate pairs should have total charge difference of |1| and only one heavy atom that differs in the number of bound hydrogens, regardless of resonance state or geometric isomerism.
+All geometric isomer and resonance structure pairs that have the same number of hydrogens bound to equivalent heavy atoms are related to the same microstate. 
+Pairs of resonance structures and geometric isomers (cis/trans, stereo) won't be considered as different microstates, as long as there is no change in the number of hydrogens bound to each heavy atom in these structures. 
+
 ## 24 small molecules are included in the pKa challenge
 ![pKa_challenge_small_molecules](images/pKa_challenge_small_molecules.jpg)
 A list of SAMPL6 pKa challenge small molecules canonical isomeric SMILES and molecule IDs can be found here: [/physical_properties/pKa/molecule_ID_and_SMILES.csv](physical_properties/pKa/molecule_ID_and_SMILES.csv). 
@@ -95,6 +101,7 @@ Different protonation states and tautomer combinations constitute different micr
 - Report microscopic pKa values to two decimal places (e.g. 10.71).
 - Reporting the standard error of the mean (SEM) is optional, but if reported, two decimal places should be provided (e.g. 1.02).
 - For values which you don't have an estimate, leave that cell of the csv table empty.
+- A list of suggested microstate pairs that consitute physically meaningful microscopic pKas are available in `SMXX_microstate_pairs.csv` files in  [SAMPL6/physical_properties/pKa/microstate_pairs](physical_properties/pKa/microstate_pairs) directory.
 
 #### Prediction Type II - microstate populations as a function of pH
 Predicting the fractional microstate populations between pH interval 2 to 12 in 0.1 pH increments.
@@ -133,12 +140,17 @@ It is important that challenge organizers assign unique microstate IDs and keep 
 
 ### Updates on microstates lists
 
-Microstate SMILES strings and microstate IDs can be found in [physical_properties/pKa/microstates/](physical_properties/pKa/microstates/) directory. 
-Due to replicate and missing microstates present in the first release of microstate lists, we have updated `SMXX_microstates.csv` files with necessary corrections in Version 1.4 of this repository. 
-The main correction of this update was the removal of resonance structures that were causing dublicate representation of same microstates. 
+Canonical isomeric SMILES, canonical SMILES, and microstate IDs of microstates can be found in [physical_properties/pKa/microstates/](physical_properties/pKa/microstates/) directory. 
+Due to replicate and missing microstates present in the first release of microstate lists, we have updated `SMXX_microstates.csv` files with necessary corrections in Version 1.5 of this repository. 
+
+The main correction of the update for Version 1.5 was the removal of resonance structures and geometric isomers that were causing duplicate representation of same microstates. 
 We have also added new microstates suggested by participants.
 Newly added microstates were assigned unique microstate IDs, as recorded in `SMXX_microstates.csv` files.
 Deprecated microstates were removed from `SMXX_microstates.csv` files.  Deprecated microstates and their microstate IDs were listed in `SMXX_microstates_deprecated.csv` files with "deprecated" note in the "remarks" column.
+
+Because resonance and geometric isomerism should be ignored when matching predicted structures microstate IDs (except SM20 which should be modelled as E-isomer), we have also provided a canonical SMILES column in `SMXX_microstates.csv` files.
+
+A list of suggested microstate ID pairs that consitute physically meaningful microscopic pKas are available in `SMXX_microstate_pairs.csv` files in  [SAMPL6/physical_properties/pKa/microstate_pairs](physical_properties/pKa/microstate_pairs) directory.
 
 ## Submission of multiple predictions
 

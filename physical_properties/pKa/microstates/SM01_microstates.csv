@@ -1,9 +1,9 @@
-microstate ID,canonical isomeric SMILES
-SM01_micro001,c1cc2c(cc1O)c3c(o2)C(=[OH+])NCCC3
-SM01_micro002,c1cc2c(cc1[O-])c3c(o2)C(=NCCC3)[O-]
-SM01_micro004,c1cc2c(cc1[O-])c3c(o2)C(=O)NCCC3
-SM01_micro005,c1cc2c(cc1O)c3c(o2)C(=O)NCCC3
-SM01_micro006,c1cc2c(cc1[O-])c3c(o2)C(=[OH+])NCCC3
-SM01_micro008,c1cc2c(cc1[O-])c3c(o2)C(=O)[NH2+]CCC3
-SM01_micro009,c1cc2c(cc1O)c3c(o2)C(=O)[NH2+]CCC3
-SM01_micro010,c1cc2c(cc1O)c3c(o2)C(=NCCC3)[O-]
+microstate ID,canonical isomeric SMILES,canonical SMILES
+SM01_micro001,c1cc2c(cc1O)c3c(o2)C(=[OH+])NCCC3,c1cc2c(cc1O)c3c(o2)C(=[OH+])NCCC3
+SM01_micro002,c1cc2c(cc1[O-])c3c(o2)C(=NCCC3)[O-],c1cc2c(cc1[O-])c3c(o2)C(=NCCC3)[O-]
+SM01_micro004,c1cc2c(cc1[O-])c3c(o2)C(=O)NCCC3,c1cc2c(cc1[O-])c3c(o2)C(=O)NCCC3
+SM01_micro005,c1cc2c(cc1O)c3c(o2)C(=O)NCCC3,c1cc2c(cc1O)c3c(o2)C(=O)NCCC3
+SM01_micro006,c1cc2c(cc1[O-])c3c(o2)C(=[OH+])NCCC3,c1cc2c(cc1[O-])c3c(o2)C(=[OH+])NCCC3
+SM01_micro008,c1cc2c(cc1[O-])c3c(o2)C(=O)[NH2+]CCC3,c1cc2c(cc1[O-])c3c(o2)C(=O)[NH2+]CCC3
+SM01_micro009,c1cc2c(cc1O)c3c(o2)C(=O)[NH2+]CCC3,c1cc2c(cc1O)c3c(o2)C(=O)[NH2+]CCC3
+SM01_micro010,c1cc2c(cc1O)c3c(o2)C(=NCCC3)[O-],c1cc2c(cc1O)c3c(o2)C(=NCCC3)[O-]
