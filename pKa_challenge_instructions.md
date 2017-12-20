@@ -142,10 +142,15 @@ It is important that challenge organizers assign unique microstate IDs and keep 
 
 Canonical isomeric SMILES, canonical SMILES, and microstate IDs of microstates can be found in [physical_properties/pKa/microstates/](physical_properties/pKa/microstates/) directory. 
 Due to replicate and missing microstates present in the first release of microstate lists, we have updated `SMXX_microstates.csv` files with necessary corrections in Version 1.5 of this repository. 
-The main correction of the update for Version 1.5  was the removal of resonance structures and geometric isomers that were causing dublicate representation of same microstates. 
+
+The main corrections of the update for Version 1.5  was the removal of resonance structures and geometric isomers that were causing dublicate representation of same microstates. 
 We have also added new microstates suggested by participants.
 Newly added microstates were assigned unique microstate IDs, as recorded in `SMXX_microstates.csv` files.
 Deprecated microstates were removed from `SMXX_microstates.csv` files.  Deprecated microstates and their microstate IDs were listed in `SMXX_microstates_deprecated.csv` files with "deprecated" note in the "remarks" column.
+
+Because resonance and geometric isomerism should be ignored when matching predicted structures microstate IDs (except SM20 which should be modelled as E-isomer), we have also provided a canonical SMILES column in `SMXX_microstates.csv` files.
+
+A list of suggested microstate ID pairs that consitute physically meaningful microscopic pKas are available in `SMXX_microstate_pairs.csv` files in  [SAMPL6/physical_properties/pKa/microstate_pairs](physical_properties/pKa/microstate_pairs) directory.
 
 ## Submission of multiple predictions
 
