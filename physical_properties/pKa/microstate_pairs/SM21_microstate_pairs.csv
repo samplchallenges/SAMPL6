@@ -1,9 +1,11 @@
 microstate ID 1,microstate ID 2
 SM21_micro001,SM21_micro014
 SM21_micro001,SM21_micro018
+SM21_micro001,SM21_micro020
 SM21_micro026,SM21_micro001
 SM21_micro027,SM21_micro001
 SM21_micro030,SM21_micro001
+SM21_micro002,SM21_micro020
 SM21_micro029,SM21_micro002
 SM21_micro030,SM21_micro002
 SM21_micro031,SM21_micro002
@@ -11,15 +13,19 @@ SM21_micro003,SM21_micro005
 SM21_micro003,SM21_micro015
 SM21_micro024,SM21_micro003
 SM21_micro018,SM21_micro005
+SM21_micro020,SM21_micro005
 SM21_micro005,SM21_micro021
 SM21_micro006,SM21_micro012
 SM21_micro006,SM21_micro015
 SM21_micro024,SM21_micro006
 SM21_micro014,SM21_micro012
+SM21_micro020,SM21_micro012
 SM21_micro012,SM21_micro021
 SM21_micro014,SM21_micro025
 SM21_micro015,SM21_micro021
 SM21_micro018,SM21_micro025
+SM21_micro022,SM21_micro020
+SM21_micro024,SM21_micro020
 SM21_micro025,SM21_micro021
 SM21_micro027,SM21_micro022
 SM21_micro028,SM21_micro022
