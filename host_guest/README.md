@@ -13,7 +13,7 @@
 
 ## SAMPLing challenge files
 
-Equilibrated systems are provided for OA-G3 (5-hexenoic acid), OA-G6 (4-methylpentanoic acid) and CB8-G3 (quinine). 5 different initial configurations are given for each complex. Files are available in Amber (`prmtop`/`rst7`), Gromacs (`top`/`gro`), OpenMM (`xml`) and PDB formats. Solvated system files are available both for the host-guest complex (e.g. `complex`) and the guest alone (e.g. `solvent`).
+Equilibrated systems are provided for OA-G3 (5-hexenoic acid), OA-G6 (4-methylpentanoic acid) and CB8-G3 (quinine). 5 different initial configurations are given for each complex. Files are available in Amber (`prmtop`/`rst7`), Gromacs (`top`/`gro`), OpenMM (`xml`), LAMMPS (`input`/`lmp`), DESMOND (`cms`), CHARMM (`inp`/`crd`/`prm`/`psf`/`rtf'), and PDB formats. Solvated system files are available both for the host-guest complex (e.g. `complex`) and the guest alone (e.g. `solvent`).
 
 The `SAMPLing/` folder includes an atom map in JSON format for relative free energy calculations. The ligand atoms of OA-G3 that match the ligand atoms in OA-G6 are given for the systems in complex and in solvent. The file has this format
 ```json
@@ -39,3 +39,4 @@ All the host-guest system files in the `SAMPLing/` directory were prepared using
 - The systems' net charge was neutralized with Na+ and Cl- ions. More ions were added to reach the ionic strength of 10mM for OA/TEMOA systems and 25mM for CB8.
 - The system was minimized with the L-BFGS optimization algorithm and equilibrated by running 1ns of Langevin dynamics (BAOAB splitting, 1fs time step) at 298.15K with a Monte Carlo barostat set at 1atm using `OpenMM 7.1.1`. PME was used for long-range electrostatic interactions with a cutoff of 10A. VdW interactions used the same 10A cutoff and a switching distance of 9A.
 - After the equilibration, the `System` was serialized into the OpenMM `xml` format. The `rst7` file was generated during the equilibration using the `RestartReporter` in the `parmed.openmm` module. The AMBER `prmtop` and `rst7` files were then converted to GROMACS `top`/`gro` and PDB formats by ParmEd and MDTraj `1.9.1` respectively.
+- The AMBER `prmtop` and `rst7' files were converted into DESMOND, LAMMPS, CHARMM, and GROMACS files by [InterMol](https://github.com/shirtsgroup/InterMol)
