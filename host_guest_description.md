@@ -26,12 +26,12 @@ However, we have endeavored to provide the correct enantiomer here except for 2-
 As of this writing, isothermal titration calorimetry (ITC) measurements have been completed for all guests except 2,2-dimethyl-4-pentenoic acid and the perillic acid.
 You may wish to start with the other guests, just in case difficulties are encountered with these two.
 If this happens, we plan to substitute other guest molecules.
-In all cases, confirmation of the formation of the different 1:1 complexes will be carried out using 1H NMR. 
+In all cases, confirmation of the formation of the different 1:1 complexes will be carried out using 1H NMR.
 The thermodynamic parameters (Ka, ΔG˚, ΔH˚ and –TΔS˚) for guest binding will be measured by ITC.
 If this proves problematic in any cases, 1H NMR titrations will be used instead to determine the Ka values for guest association.  
 
 The main challenge for this series is to compute the 16 binding free energies (or association constants), and participants are also invited to compute the binding enthalpies.
-All measurements are being carried out in aqueous 10 mM sodium phosphate buffer at pH 11.7 ± 0.1, at 298 K.
+All measurements are being carried out in aqueous 10 mM sodium phosphate buffer at pH 11.7 ± 0.1, at 298 K. The buffer was obtained by dissolving Na3PO4 and Na2HPO4 in water.
 A review of some of the known challenges in predicting binding to OA/TEMOA is provided at http://github.com/mobleylab/benchmarksets and may be useful.
 
 ## Cucurbit[8]uril (CB8)
@@ -49,16 +49,14 @@ It is also worth emphasizing that some of these compounds, particularly quinine,
 We have endeavored to provide correct starting structures, but would advise checking our work, and keeping an eye on the stereochemistry during all cheminformatics and modeling steps, to avoid inadvertent changes in stereochemistry.
 
 CB8 has a larger binding cavity than CB7, and there is the possibility of 1:1 and/or 1:2 CB[8]:guest binding.
-This has been assessed experimentally and aricept and cyclohexane diamine were found bind in 1:2 complexes, whereas the other compounds do not.
-Oxaliplatin is also potentially complex due to the platinum atom it contains.
+This has been assessed experimentally and aricept (CB8-G12) and cyclohexane diamine (CB8-G11) were found bind in 1:2 complexes, whereas the other compounds do not.
+Oxaliplatin (CB8-G13) is also potentially complex due to the platinum atom it contains.
 As a consequence,  these three compounds are not being included in our main challenge.
 Accordingly, the **main challenge** is to compute the 11 binding free energies (or association constants) of the remaining compounds with CB8, and participants are also invited to compute the binding enthalpies.
-A **bonus challenge** is to also predict binding affinities for aricept, cyclohexane diamine, and oxaliplatin (highlighted in magenta in the image).
-All measurements were carried out in aqueous 25 mM sodium phosphate buffer at pH 7.2, at 298 K.
+A **bonus challenge** is to also predict binding affinities for aricept (CB8-G12), cyclohexane diamine (CB8-G11), and oxaliplatin (CB8-G13) (all are highlighted in magenta in the image).
+All measurements were carried out in aqueous 25 mM sodium phosphate buffer at pH 7.4, at 298 K. The buffer was obtained by dissolving NaH2PO4 in water and titrating with NaOH.
 Measurements are currently complete for all compounds shown, except Detrol and gallamine triethiodate.
 You may wish to do these last, just in case unexpected difficulties are encountered for these last two.
 We will let you know of any updates regarding the experimental work (assuming you either sign up for the SAMPL e-mail list or monitor this GitHub repository).
 
 Previous studies of CB7 have revealed that salt concentration can strongly influence both measured and computed binding free energies; e.g. see review in https://github.com/MobleyLab/benchmarksets, and it seems likely that this will also hold for  for CB8.
-
-

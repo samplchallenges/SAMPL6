@@ -32,8 +32,11 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - Version 1.1: Updates `host_guest_description.md` to reflect corrected CB8 phosphate buffer concentration; adds input files (and scripts) from Andrea Rizzi for host-guest challenge reference calculations; adds `physical_properties` with preview information on the potential physical properties component of the challenge.
 - Version 1.2: Adds host-guest SAMPLing challenge explanation and inputs, describes these in README files; adds draft submission files for host-guest predictions in `host_guest/(hostname)AndGuests` directories; updates the discussion of the physical property challenge to reflect the current status.
 - Version 1.3: Add pKa prediction challenge instructions, input files, submission template files, update on the future plans of logD challenge.
+- Version 1.4: Update microstate lists of pKa challenge.
+- Version 1.5: Update microstate lists of pKa challenge. Clarification to pKa microstate definition: Resonance structures or geometric isomers with the same bound hydrogen pattern do not constitute different microstates. Add canonical SMILES column to microstate list files. Add suggested microstate pairs for physically meaningful microscopic pKas for type I submissions.
 
 ### Changes not yet in a release
+- Correct outdated CB8 sodium phosphate buffer concentration which appeared in an image (it was already correct in the text).
 
 ## Challenge Overview
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
@@ -115,26 +118,7 @@ In some cases, other effects like the presence of small amount of water in cyclo
 
 
 ### SAMPLing challenge
-The purpose of the SAMPLing challenge component is to evaluate and compare the performance of different sampling methodologies in the context of free energy calculations of biomolecular systems; we will be running extremely long calculations with the provided input files in an attempt to obtain "gold standard" results, and then assess how well different methods/approaches converge to these results.
-The challenge consists in computing the free energy of binding of three host-guest systems taken from the main SAMPL6 challenge: CB8-G3 (quinine), OA-G3 (5-hexenoic acid), and OA-G6 (4-methylpentanoic acid).
-Force field parameters, and ideally long-range treatment, should be the same for all participants to allow a more objective comparison of sampling methods.
-For this purpose, equilibrated system files that include topologies and initial configurations are provided in [`host_guest/SAMPLing/`](host_guest/SAMPLing) in various formats (i.e., Amber, Gromacs, OpenMM, PDB).
-Five different initial configurations are provided for each host-guest systems (see [`host_guest/README.md`](host_guest/README.md#sampling-challenge-files) for the setup protocol).
+The purpose of the SAMPLing challenge component is to evaluate and compare the performance of different sampling methodologies in the context of free energy calculations of biomolecular systems. Participants are invited to compute the free energy of binding of few host-guest systems taken from the main SAMPL6 challenge. We will be running extremely long calculations with the provided input files in an attempt to obtain "gold standard" results, and then assess how well different methods approach/converge to these results. See [`SAMPLing_instructions.md`](SAMPLing_instructions.md) for more details.
 
-To participate in the challenge, you will have to submit the following information for each of the 5 replicates of the 3 host-guest systems:
-- Binding free energy predictions using 1%, 2%, 3%, ..., 100% of the sequential data (i.e., _not_ bootstrapped).
-- Integrated autocorrelation time of the _reduced_ potential energies of the bound thermodynamic state after the first 10ns of the simulation. The `pymbar` Python package exposes a function `statisticalInefficiency()` in its `timeseries` module which can be used for this task..
-- Description of the thermodynamic cycle, in particular the number of thermodynamic states (e.g. lambda/umbrella sampling windows).
-- Total computer time, total wall clock time, total number of energy evaluations, and hardware used to perform the simulations.
-The file format for these will be made available in the near future.
-
-For relative free energy methods, only the five replicates of the transformation OA-G3 to OA-G6 are required. An atom map is provided in JSON format in [`host_guest/SAMPLing/`](host_guest/SAMPLing).
-
-The reference absolute free energy calculations will be performed using YANK and the following methods/parameters:
-- Hamiltonian Replica-Exchange and Langevin dynamics (BAOAB splitting) with the temperature set to 298.15K.
-- A Monte Carlo barostat set at 1atm
-- The OpenMM's implementation of PME for long-range electrostatic interactions with a cutoff of 10A.
-- VdW interactions used the same 10A cutoff and a switching distance of 9A.
-
-This SAMPLing challenge is a bit of an experiment, as it is entirely possible that different methods/packages may *not* agree even when apparently converged, requiring participating groups to work together to track down discrepancies. However, if agreement is obtained, it should be very instructive to compare rate of convergence.
+This SAMPLing challenge is a bit of an experiment, as it is entirely possible that different methods/packages may *not* agree even when apparently converged, requiring participating groups to work together to track down discrepancies. However, if agreement is obtained, it should be very instructive to compare the rate of convergence.
 We expect that analysis of this challenge component will focus even more than usual on "lessons learned" rather than on which methods performed "best" by some metric, but we hope it will also pave the way for future iterations of such challenges.
