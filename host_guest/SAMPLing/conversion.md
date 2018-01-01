@@ -57,19 +57,25 @@ runfiles/
 
 Conversion was carried out from the AMBER files listed above to the
 GROMACS, LAMMPS, CHARMM, and DESMOND using InterMol
-(https://github.com/shirtsgroup/InterMol, git hash XXXX), using the
-ParmED library (https://github.com/shirtsgroup/InterMol, git hash XXXX, (with PR )
+(https://github.com/shirtsgroup/InterMol, git hash git hash  f691465, May 24,2017), using the
+ParmED library (https://github.com/ParmEd/Parmed, git hash  0bab490, Dec 11, 2017, with PR #935 merged in for increased energy precision).
 
 The command used was `python convert.py --odir $PROGRAMDIR --gromacs --charmm --lammps --desmond --amber --energy --amb_in AMBER/$SYSTEMTYPE.prmtop AMBER/$SYSTEMTYPE.rst --gropath $GROPATH --amberpath $AMBERPATH --lmppath $LMPSPATH --charmmpath $CHARMMPATH --inefile runfiles/min_default.in -gs runfiles/grompp_default.mdp -ds runfiles/onepoint_default.cfg -as runfiles/min_default.in -ls pair_style lj/cut/coul/long 9.0 9.0\npair_modify tail yes\nkspace_style pppm 1.0e-5\n\n -cs nbond inbfrq -1 imgfrq -1 -\nelec ewald pmew fftx 48 ffty 48 fftz 48 kappa 0.34 order 4 -\nvdw vips cutnb 12. cutim 12. ctofnb 10. ctonnb 9.`
 
-Where $PROGRAMDIR is the program (one of 'GROMACS', 'DESMOND', 'LAMMPS', 'CHARMM'), $SYSTEMTYPE is one of 'complex' or 'solvent', $GROPATH is the path of the `bin` GROMACS binary used for , $AMBERPATH is the path of the `sander` binary used to calculate energies, $LMPPATH is the path of the LAMMPS binary used to calculate energies, and $CHARMMPATH is the path of CHARMM binary used to calculate energies.  Desmond usage uses the `desmond` binary that is in the $SCHRODINGER path.
+Where $PROGRAMDIR is the program (one of 'GROMACS', 'DESMOND', 'LAMMPS', 'CHARMM'), $SYSTEMTYPE is one of 'complex' or 'solvent', $GROPATH is the path of the `bin` GROMACS binary used for , $AMBERPATH is the path of the `sander` binary used to calculate energies, $LMPPATH is the path of the LAMMPS binary used to calculate energies, and $CHARMMPATH is the path of CHARMM binary used to calculate energies.  Desmond usage uses the `desmond` binary that is in the user-defined $SCHRODINGER path.
 
 Programs used were:
+
+* AMBER: Amber 16 release, `sander` binary
+* CHARMM: Developmental Version 40b2   February 15, 2016  
+* DESMOND: Part of the academic release of Schrodinger2016-1.
+* LAMMPS: Downloaded on 16 Feb 2016
+* GROMACS: gmx mdrun, VERSION 5.1.2 (double precision)
 
 For the energy comparisons in `SAMPL6_energyoutput_conversion_longcutoff.txt`, the same command was used except differences in the options `--inefile runfiles/min_SAMPL6.in -gs runfiles/grompp_SAMPL6.mdp -ds runfiles/onepoint_SAMPL6.cfg -as runfiles/min_SAMPL6.in -ls pair_style lj/cut/coul/long 14.0 14.0\npair_modify tail yes\nkspace_style pppm 1e-8\n\n -cs nbond inbfrq -1 imgfrq -1 -\nelec ewald pmew fftx 48 ffty 48 fftz 48 kappa 0.22310095 order 4 -\nvdw vips cutnb 14. cutim 14. ctofnb 14. ctonnb 14.`
 
 The OPENMM, GROAMCS_old, and PDB files were converted using the
-default options of ParmEd (Git hash ). The parameters for GROMACS are
+default options of ParmEd (Git hash ???). The parameters for GROMACS are
 therefore slightly more accurate the the parameters in the GROMACS_old
 file.
 
