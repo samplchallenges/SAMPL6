@@ -3,57 +3,57 @@
 For each of the 5 configurations (0 through 4) of the three
 compounds (CB8-G3, OA-G3, OA-G6), the following files are included:
 
-AMBER/
-	complex.prmtop
-	complex.rst7
-	solvent.prmtop
-	solvent.rst7
-CHARMM/
-	complex.inp
-	complex.psf
-	complex.crd
-	complex.rtf
-	complex.prm
-	solvent.inp
-	solvent.psf
-	solvent.crd
-	solvent.rtf
-	solvent.prm
-DESMOND/
-	complex.cms
-	solvent.cms
-GROMACS/
-	complex.top
-	complex.gro
-	solvent.top
-	solvent.gro
-GROMACS_old/
-	complex.top
-	complex.gro
-	solvent.top
-	solvent.gro
-OPENMM/
-	complex.xml
-	solvent.xml
-LAMMPS/
-	complex.lmp
-	complex.input
-	solvent.lmp
-	solvent.input
-PDB/
-	complex.pdb
-	solvent.pdb
+* `AMBER/`
+     complex.prmtop
+     complex.rst7
+     solvent.prmtop
+     solvent.rst7
+* `CHARMM/`
+    complex.inp
+    complex.psf
+    complex.crd
+    complex.rtf
+    complex.prm
+    solvent.inp
+    solvent.psf
+    solvent.crd
+    solvent.rtf
+    solvent.prm
+* `DESMOND/`
+    complex.cms
+    solvent.cms
+* `GROMACS/`
+    complex.top
+    complex.gro
+    solvent.top
+    solvent.gro
+* `GROMACS_old/`
+    complex.top
+    complex.gro
+    solvent.top
+    solvent.gro
+* `OPENMM/`
+    complex.xml
+    solvent.xml
+* `LAMMPS/`
+    complex.lmp
+    complex.input
+    solvent.lmp
+    solvent.input
+* `PDB/`
+    complex.pdb
+    solvent.pdb
 
-SAMPL6_energyoutput_conversion_longcutoff.txt
-SAMPL6_energyoutput_conversion_shortcutoff.txt
+* `SAMPL6_energyoutput_conversion_longcutoff.txt`
+* `SAMPL6_energyoutput_conversion_shortcutoff.txt`
 
-runfiles/
-	min_SAMPL6.in
-	grompp_SAMPL6.mdp
-	onepoint_SAMPL6.cfg	 
-	min_default.in
-	grompp_default.mdp
-	onepoint_default.cfg  
+* `runfiles/`
+    min_SAMPL6.in
+    grompp_SAMPL6.mdp
+    onepoint_SAMPL6.cfg	 
+    min_default.in
+    grompp_default.mdp
+    onepoint_default.cfg  
 
 # Explanation
 
