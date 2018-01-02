@@ -57,6 +57,9 @@ runfiles/
 
 # Explanation
 
+Files in `OPENMM/`, `AMBER/`, `PDB/` and `GROMACS_old` were generated as describe
+in `SAMPLing_instructions.md`. Other simulation input files are generated as described here.
+
 The SAMPL6_energyoutput_conversion files contain the outputs of
 InterMol called with two different cutoff schemes, and the runfiles/
 directories contain the parameter files used to generated the energies.
@@ -82,10 +85,13 @@ Programs used were:
 
 For the energy comparisons in `SAMPL6_energyoutput_conversion_longcutoff.txt`, the same command was used except for the following differences in the options: `--inefile runfiles/min_SAMPL6.in -gs runfiles/grompp_SAMPL6.mdp -ds runfiles/onepoint_SAMPL6.cfg -as runfiles/min_SAMPL6.in -ls pair_style lj/cut/coul/long 14.0 14.0\npair_modify tail yes\nkspace_style pppm 1e-8\n\n -cs nbond inbfrq -1 imgfrq -1 -\nelec ewald pmew fftx 48 ffty 48 fftz 48 kappa 0.22310095 order 4 -\nvdw vips cutnb 14. cutim 14. ctofnb 14. ctonnb 14.`
 
-The OPENMM, GROMACS_old, and PDB files were converted using the
-default options of ParmEd (version or Git hash ???). The parameters for GROMACS are
-therefore slightly more accurate the the parameters in the GROMACS_old
-file.
+The AMBER `prmtop` and `rst7` files were converted to GROMACS
+`top`/`gro` and PDB formats by ParmEd version 2.7.3. These were the
+first originally converted, but used a less precise coversion metric,
+and are stored in `GROMACS_old/`.  The parameters in the `GROMACS/`
+folder are more accurate in energies, the the parameters in the
+`GROMACS_old/` folder, but the difference should be negligible
+compared to the statistical error in the free energy calculations.
 
 The energies in the `amber` entries were the energies obtained by
 converting the AMBER files to GROMACS, and then back to AMBER using
