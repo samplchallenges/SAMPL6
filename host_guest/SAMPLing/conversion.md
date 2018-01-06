@@ -87,7 +87,7 @@ For the energy comparisons in `SAMPL6_energyoutput_conversion_longcutoff.txt`, t
 
 The AMBER `prmtop` and `rst7` files were converted to GROMACS
 `top`/`gro` and PDB formats by ParmEd version 2.7.3. These were the
-first originally converted, but used a less precise coversion metric,
+first originally converted, but used a less precise conversion metric,
 and are stored in `GROMACS_old/`.  The parameters in the `GROMACS/`
 folder are more accurate in energies, the the parameters in the
 `GROMACS_old/` folder, but the difference should be negligible
@@ -122,8 +122,7 @@ the others.)
 
 We have not corrected the topology files for this difference in
 Coulomb's law constant, as it is not expected that these differences
-with significantly affect free energies calculated. The difference is
+will significantly affect free energies calculated. The difference is
 an overall scaling to the Coulomb energy, and will mostly cancel when
 taking free energy differences, resulting in an error that is of
 order of 1 part in 20,000.
-
