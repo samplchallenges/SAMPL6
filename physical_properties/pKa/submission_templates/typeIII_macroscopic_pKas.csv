@@ -14,7 +14,7 @@
 #
 # The data in each prediction line should be structured as follows:
 # Molecule ID, macroscopic pKa, macroscopic pKa SEM
-# The list of predictions must begin with the "Prediction:" keyword, as illustrated here.
+# The list of predictions must begin with the "Predictions:" keyword, as illustrated here.
 Predictions:
 
 

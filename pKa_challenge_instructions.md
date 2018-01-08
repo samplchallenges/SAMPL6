@@ -1,6 +1,6 @@
 # SAMPL6 pKa Challenge Instructions
 
-Challenge timeframe: Oct 25, 2017 to Jan 10, 2018  
+Challenge timeframe: Oct 25, 2017 to Jan 19, 2018  
 
 This challenge consists of predicting microscopic and macroscopic acid dissociation constants (pKas) of 24 small organic molecules. 
 These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
@@ -78,7 +78,7 @@ If multiple microscopic pKas have close pKa values and overlapping changes in UV
 
 ## Due Date
 
-Your predictions must be uploaded on the D3R SAMPL6 web-page by January 10, 2018. 
+Your predictions must be uploaded on the D3R SAMPL6 web-page by January 19, 2018. 
 The experimental results will be released immediately after the challenge closes. 
 You must use the provided templates to upload your predictions to the [SAMPL website](https://drugdesigndata.org/about/sampl6). Additional information on using these templates is provided below.
 
@@ -112,10 +112,24 @@ Predicting the fractional microstate populations between pH interval 2 to 12 in 
 - If your predicted structure is not included in the list, contact us to make a request for new microstate. See more details in the section below ("A warning about enumerated microstates and requesting the missing microstates").
 - For each pH, report the *natural logarithm* of the fractional microstate populations in scientific notation with three decimals of precision (e.g., 1.02e-4).
 e.g. For a molecule with only two possible microstates A and B `ln(fractional microstate population) = ln(N_A/(N_A+N_B))` where `N_A` and `N_B` represent percentage of microstate populations of A and B.   
-At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30e0`.  
+At a pH where 90.0% of the molecules are in microstate B and 10.0% of molecules are in state A  `ln(fractional microstate A population) = ln(0.100/(0.100+0.900)) = -2.30`.  
+This value must be reported as `-2.30e0` or `-2.30E+00` in your submission files.
+- Please follow scientific notation used by Python programming language, where e or E indicates the decimal base of the scientific notation (not the irrational number "e"). 
 - If your estimate of `fractional microstate population` is 0, thus `ln(fractional microstate population) = ln(0)`, report as `-infinity`, but note that attempting to resolve the log-population of low-population states is important for some of the evaluation metrics.
 - Do not report SEM in this submission type in the "Prediction" section of type II submission template. It is optional to report uncertainty estimates in "Methods" section, but we do not plan to analyze uncertainty estimates for this submission type.
 - For pH values or microstates which you don't have an estimate, leave that cell or line of the csv table empty.
+
+##### Warning for Prediction Type II template file
+Predictions section column headers:  
+`# Microstate ID,2.00,2.10,2.20,2.30,2.40,2.50,2.60,2.70,2.80,2.90,3.00,3.10,3.20,3.30,3.40,3.50,3.60,3.70,3.80,3.90,4.00,4.10,4.20,4.30,4.40,4.50,4.60,4.70,4.80,4.90,5.00,5.10,5.20,5.30,5.40,5.50,5.60,5.70,5.80,5.90,6.00,6.10,6.20,6.30,6.40,6.50,6.60,6.70,6.80,6.90,7.00,7.10,7.20,7.30,7.40,7.50,7.60,7.70,7.80,7.90,8.00,8.10,8.20,8.30,8.40,8.50,8.60,8.70,8.80,8.90,9.00,9.10,9.20,9.30,9.40,9.50,9.60,9.70,9.80,9.90,10.00,10.10,10.20,10.30,10.40,10.50,10.60,10.70,10.80,10.90,11.00,11.10,11.20,11.30,11.40,11.50,11.60,11.70,11.80,11.90,12.00`
+
+The commented-out line above regarding the predictions section of type II submission template describes the column titles of the predictions section. 
+Starting from column 2 to the end, numerical values in the title line indicate the pH at which `ln(fractional microstate populations)` should be reported. 
+
+This line is not an example submission line that illustrate the expected numerical format for predicted values. 
+In the column title line  `2.00`, `2.10`... values mean `ln(fractional population at pH 2.00)`, `ln(fractional population at pH 2.10)` etc.
+Please follow the scientific notation as described above for type II submissions. 
+
 
 #### Prediction Type III - macroscopic pKas
 Predicting the value of  macroscopic pKas between 2 and 12.

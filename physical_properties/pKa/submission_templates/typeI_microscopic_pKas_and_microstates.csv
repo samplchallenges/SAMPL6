@@ -13,7 +13,7 @@
 #
 # The data in each prediction line should be structured as follows:
 # microstate ID of protonated state(HA), microstate ID of deprotonated state(A), microscopic pKa, microscopic pKa SEM
-# The list of predictions must begin with the "Prediction:" keyword, as illustrated here.
+# The list of predictions must begin with the "Predictions:" keyword, as illustrated here.
 Predictions:
 
 
