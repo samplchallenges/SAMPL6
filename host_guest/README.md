@@ -11,3 +11,4 @@
 - `GenerateInputs.ipynb`: Jupyter notebook using the OpenEye toolkits to generate molecule structure files from the other inputs noted above. NOTE: This is provided for informational purposes; the output files are already available here so it is unnecessary for you to use this notebook.
 - `Reference/`: System files used to run the reference calculations for the main SAMPL challenge. See [`host_guest_instructions.md`](../host_guest_instructions.md#reference-calculations) for a detailed description of the files.
 - `SAMPLing/`: Equilibrated system files for the SAMPLing challenge. See [`SAMPLing_instructions.md`](../SAMPLing_instructions.md#files-description) for a detailed description of the files.
+

@@ -1,0 +1,16 @@
+! CHARMM Energy for converted_OA-G6-1/solvent_converted.inp
+BOMLEV  -1
+open read card unit 10 name "converted_OA-G6-1/solvent_converted.rtf"
+read rtf card unit 10
+open read card unit 20 name "converted_OA-G6-1/solvent_converted.prm"
+read para card unit 20
+read psf card name "converted_OA-G6-1/solvent_converted.psf"
+read coor card name "converted_OA-G6-1/solvent_converted.crd"
+read coor card comp name "converted_OA-G6-1/solvent_converted.crd"
+crystal define orthorombic 31.10318460 30.90852180 30.97477660 90.00000000 90.00000000 90.00000000
+crystal build noper 0
+nbond inbfrq -1 imgfrq -1 -
+elec ewald pmew fftx 48 ffty 48 fftz 48 kappa 0.34 order 4 -
+vdw vips cutnb 12. cutim 12. ctofnb 10. ctonnb 9.
+energy
+stop
