@@ -1,7 +1,7 @@
 # SAMPL6 Detailed Host-Guest Instructions
 
 ## Due date
-Your predictions must be uploaded on the D3R SAMPL5 web-page by January 12, 2018.
+Your predictions must be uploaded on the D3R SAMPL5 web-page by January 19, 2018.
 The experimental results will be released immediately after the challenge closes.
 You must use the provided template to upload your predictions to the [SAMPL website](https://drugdesigndata.org/about/sampl6).
 A draft template (example) is available for each of the host-guest systems; it is placed in the relevant directory and labeled by the host name; ([host_guest/CB8AndGuests/CB8.txt](host_guest/CB8AndGuests/CB8.txt), [host_guest/OctaAcidsAndGuests/OA.txt](host_guest/OctaAcidsAndGuests/OA.txt), and [host_guest/OctaAcidsAndGuests/TEMOA.txt](host_guest/OctaAcidsAndGuests/TEMOA.txt)).
