@@ -37,6 +37,11 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 
 ### Changes not yet in a release
 - Correct outdated CB8 sodium phosphate buffer concentration which appeared in an image (it was already correct in the text).
+- Update due dates
+- Include input files converted to other formats (from Michael Shirts)
+- Fix a compound name for one CB8 compound, SMILES NC1CCCCCCCCCCC1, which is cyclododecanamine; this should have no functional importance (as all of the files here were generated from SMILES) unless someone re-generated inputs from the compound names (which likely would have been difficult).
+- Correct a pKa microstate
+- Fix a submission template issue
 
 ## Challenge Overview
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
