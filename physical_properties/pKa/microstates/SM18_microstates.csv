@@ -50,3 +50,5 @@ SM18_micro070,c1ccc2c(c1)c(=O)[nH]c(n2)C/C=C(/Nc3ncc(s3)Cc4ccc(c(c4)F)F)\[O-],c1
 SM18_micro071,c1ccc2c(c1)c(nc(n2)CCC(=O)Nc3ncc(s3)Cc4ccc(c(c4)F)F)[O-],c1ccc2c(c1)c(nc(n2)CCC(=O)Nc3ncc(s3)Cc4ccc(c(c4)F)F)[O-]
 SM18_micro072,c1ccc2c(c1)c(=O)[nH]c(n2)CCC(=[OH+])[N-]c3ncc(s3)Cc4ccc(c(c4)F)F,c1ccc2c(c1)c(=O)[nH]c(n2)CCC(=[OH+])[N-]c3ncc(s3)Cc4ccc(c(c4)F)F
 SM18_micro074,c1ccc2c(c1)c(=[OH+])[nH]c(n2)CCC(=O)Nc3ncc(s3)Cc4ccc(c(c4)F)F,c1ccc2c(c1)c(=[OH+])[nH]c(n2)CCC(=O)Nc3ncc(s3)Cc4ccc(c(c4)F)F
+SM18_micro075,c1ccc2c(c1)c(nc(n2)C/C=C(/N=c/3\[nH]cc(s3)Cc4ccc(c(c4)F)F)\[O-])O,c1ccc2c(c1)c(nc(n2)CC=C(N=c3[nH]cc(s3)Cc4ccc(c(c4)F)F)[O-])O
+SM18_micro076,c1ccc2c(c1)c(=[OH+])nc([nH]2)CCC(=O)Nc3[nH+]cc(s3)Cc4ccc(c(c4)F)F,c1ccc2c(c1)c(=[OH+])nc([nH]2)CCC(=O)Nc3[nH+]cc(s3)Cc4ccc(c(c4)F)F
