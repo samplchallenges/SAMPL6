@@ -93,7 +93,7 @@ Three formats of pKa prediction results will be evaluated:
 Detailed instructions for the pKa challenge can be found here: [pKa_challenge_instructions.md](pKa_challenge_instructions.md)
 
 Challenge start date: Oct 25, 2017   
-Challenge submission due: Jan 19, 2018  
+Challenge submission due: Jan 23, 2018  
 
 #### logD prediction
 Distribution coefficients for about 25 fragment- and drug-like small molecules that resemble small molecule protein kinase inhibitors (or fragments thereof).
