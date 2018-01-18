@@ -1,6 +1,6 @@
 # SAMPL6 pKa Challenge Instructions
 
-Challenge timeframe: Oct 25, 2017 to Jan 19, 2018  
+Challenge timeframe: Oct 25, 2017 to Jan 23, 2018  
 
 This challenge consists of predicting microscopic and macroscopic acid dissociation constants (pKas) of 24 small organic molecules. 
 These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
@@ -78,7 +78,7 @@ If multiple microscopic pKas have close pKa values and overlapping changes in UV
 
 ## Due Date
 
-Your predictions must be uploaded on the D3R SAMPL6 web-page by January 19, 2018. 
+Your predictions must be uploaded on the D3R SAMPL6 web-page by January 23, 2018. 
 The experimental results will be released immediately after the challenge closes. 
 You must use the provided templates to upload your predictions to the [SAMPL website](https://drugdesigndata.org/about/sampl6). Additional information on using these templates is provided below.
 
