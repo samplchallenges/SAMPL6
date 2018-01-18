@@ -8,8 +8,8 @@ Our aim is to evaluate how well current pKa prediction methods perform with drug
 
 For detailed instructions for pKa challenge: [SAMPL6/pKa_challenge_instructions.md](https://github.com/MobleyLab/SAMPL6/blob/pKa/pKa_challenge_instructions.md)
 
-Challenge start date: Oct 25, 2017 
-Challenge submission due: Jan 10, 2018  
+Challenge start date: Oct 25, 2017   
+Challenge submission due: Jan 23, 2018  
 
 
 ## logD Challenge
