@@ -35,7 +35,8 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - Version 1.4: Update microstate lists of pKa challenge.
 - Version 1.5: Update microstate lists of pKa challenge. Clarification to pKa microstate definition: Resonance structures or geometric isomers with the same bound hydrogen pattern do not constitute different microstates. Add canonical SMILES column to microstate list files. Add suggested microstate pairs for physically meaningful microscopic pKas for type I submissions.
 - Version 1.6: Corrects outdated CB8 sodium phosphate buffer concentration which appeared in an image (it was already correct in the text); include input files converted to other formats; fixes a compound name for one CB8 compound; corrects a pKa microstate; fixes a submission template issue.
-- Version 1.7: Update microstate lists of pKa challenge. Add new microstate IDs for SM18 and SM20.
+- Version 1.7: Update microstate lists of pKa challenge. Add new microstate IDs for SM18 and SM20.  
+- Version 1.8: Update microstate lists of pKa challenge. Add new microstate ID for SM10.  
 
 ### Changes not yet in a release
 
