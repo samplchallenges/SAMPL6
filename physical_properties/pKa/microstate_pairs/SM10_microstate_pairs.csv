@@ -32,6 +32,7 @@ SM10_micro033,SM10_micro009
 SM10_micro009,SM10_micro034
 SM10_micro010,SM10_micro011
 SM10_micro010,SM10_micro036
+SM10_micro038,SM10_micro010
 SM10_micro016,SM10_micro011
 SM10_micro011,SM10_micro023
 SM10_micro013,SM10_micro027
@@ -42,6 +43,7 @@ SM10_micro015,SM10_micro017
 SM10_micro026,SM10_micro015
 SM10_micro032,SM10_micro015
 SM10_micro015,SM10_micro034
+SM10_micro038,SM10_micro016
 SM10_micro019,SM10_micro017
 SM10_micro017,SM10_micro027
 SM10_micro031,SM10_micro017
@@ -63,4 +65,5 @@ SM10_micro034,SM10_micro027
 SM10_micro028,SM10_micro031
 SM10_micro028,SM10_micro036
 SM10_micro028,SM10_micro037
+SM10_micro038,SM10_micro028
 SM10_micro032,SM10_micro036
