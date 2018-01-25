@@ -1,0 +1,32 @@
+ID;name;SMILES;Ka;dKa;DH;dDH;TDS;dTDS;n;DG;dDG
+OA-G0;cyclopentyl acetic acid;OC(CC1CCCC1)=O;14700.0;700.0;-4.8;-0.2;0.8;0.2;1;-5.68;0.03
+OA-G1;trans-2-hexenoic acid;O=C(O)/C=C/CCC;2600.0;100.0;-5.5;-0.2;-0.9;0.2;1;-4.65;0.02
+OA-G2;(s)-(-)-perillic acid;OC(C1=CC[C@@H](C(C)=C)CC1)=O;1400000.0;60000.0;-12.1;-0.5;-3.7;0.5;1;-8.38;0.02
+OA-G3;5-hexenoic acid;C=CCCCC(O)=O;6200.0;200.0;-7.5;-0.3;-2.4;0.3;1;-5.18;0.02
+OA-G4;(s)-(-)-citronellic acid;C/C(C)=C/CC[C@H](C)CC(O)=O;164000.0;7000.0;-6.9;-0.3;0.2;0.3;1;-7.11;0.02
+OA-G5;2-methyl-4-pentenoic acid;C=CC[C@H](C(O)=O)C;2330.0;90.0;-5.3;-0.2;-0.7;0.2;1;-4.59;0.02
+OA-G6;4-methylpentanoic acid;OC(CCC(C)C)=O;4400.0;200.0;-5.3;-0.2;-0.3;0.2;1;-4.97;0.02
+OA-G7;2,2-dimethyl-4-pentenoic acid;C=CCC(C)(C)C(O)=O;36000.0;1000.0;-7.4;-0.3;-1.2;0.3;1;-6.22;0.02
+TEMOA-G0;cyclopentyl acetic acid;OC(CC1CCCC1)=O;28000.0;1000.0;-7.8;-0.4;-1.8;0.4;1;-6.06;0.02
+TEMOA-G1;trans-2-hexenoic acid;O=C(O)/C=C/CCC;24000.0;2000.0;-8.2;-0.6;-2.3;0.6;1;-5.97;0.04
+TEMOA-G2;(s)-(-)-perillic acid;OC(C1=CC[C@@H](C(C)=C)CC1)=O;98000.0;4000.0;-9.3;-0.4;-2.5;0.4;1;-6.81;0.02
+TEMOA-G3;5-hexenoic acid;C=CCCCC(O)=O;12800.0;900.0;-8.9;-0.4;-3.2;0.4;1;-5.6;0.04
+TEMOA-G4;(s)-(-)-citronellic acid;C/C(C)=C/CC[C@H](C)CC(O)=O;510000.0;20000.0;-8.9;-0.4;-1.1;0.4;1;-7.79;0.02
+TEMOA-G5;2-methyl-4-pentenoic acid;C=CC[C@H](C(O)=O)C;1130.0;50.0;-8.0;-0.3;-3.8;0.3;1;-4.16;0.02
+TEMOA-G6;4-methylpentanoic acid;OC(CCC(C)C)=O;9100.0;500.0;-6.2;-0.2;-0.8;0.2;1;-5.4;0.03
+TEMOA-G7;2,2-dimethyl-4-pentenoic acid;C=CCC(C)(C)C(O)=O;1070.0;40.0;-8.3;-0.3;-4.2;0.3;1;-4.13;0.02
+CB8-G0;lexapro;CN(C)CCC[C@]1(C2=CC=C(F)C=C2)C3=CC=C(C#N)C=C3CO1;81000.0;6000.0;-4.2;-0.2;2.5;0.2;1;-6.69;0.05
+CB8-G1;detrol;CC(C)N(C(C)C)CC[C@H](C1=CC=CC=C1)C2=CC(C)=CC=C2O;400000.0;30000.0;-5.0;-0.2;2.6;0.2;0.5;-7.65;0.04
+CB8-G2;palonosetron;O=C(C1=CC=CC(CCC2)=C1[C@]2([H])C3)N3[C@H]4[C@H]5CC[N@](CC5)C4;410000.0;40000.0;-6.5;-0.3;1.2;0.3;1;-7.66;0.05
+CB8-G3;quinine;COC1=CC=C(N=CC=C2[C@](O)([H])[C@]3([N@](C[C@]4([H])C=C)CC[C@H]4C3)[H])C2=C1;53000.0;5000.0;-2.5;-0.1;4.0;0.2;1;-6.45;0.06
+CB8-G4;gallamine triethiodate;O(c1c(OCC[N+](CC)(CC)CC)cccc1OCC[N+](CC)(CC)CC)CC[N+](CC)(CC)CC;510000.0;40000.0;-9.8;-0.4;-2.0;0.4;0.33;-7.8;0.04
+CB8-G5;(1R,2S,4R)-1,7,7-trimethylbicyclo[2.2.1]heptan-2-amine;CC1(C)[C@@]2(C)CC[C@@H]1C[C@@H]2N;990000.0;90000.0;-3.2;-0.1;5.0;0.1;1;-8.18;0.05
+CB8-G6;cycloheptanamine;NC1CCCCCC1;1300000.0;100000.0;-5.7;-0.2;2.6;0.2;1;-8.34;0.05
+CB8-G7;cyclooctanamine;NC1CCCCCCC1;21000000.0;4000000.0;-6.5;-0.3;3.5;0.3;1;-10.0;0.1
+CB8-G8;cyclododecanamine;NC1CCCCCCCCCCC1;8300000000.0;600000000.0;-14.4;-0.6;-0.9;0.6;1;-13.5;0.04
+CB8-G9;(2R,3as,5S,6as)-hexahydro-2,5-methanopentalen-3a(1H)-amine;N[C@@]12C[C@@H]3C[C@H](C2)C[C@H]1C3;2300000.0;300000.0;-4.6;-0.2;4.0;0.2;1;-8.68;0.08
+CB8-G10;(1s,3r,5R,7S)-3-aminoadamantan-1-ol;N[C@]12C[C@@H]3C[C@H](C1)C[C@@](C2)(O)C3;1000000.0;100000.0;-2.0;-0.08;6.2;0.1;1;-8.22;0.07
+CB8-G11;cyclohexane diamine;N[C@H]1CC[C@H](N)CC1;500000.0;40000.0;-2.11;-0.08;5.67;0.1;1;-7.77;0.05
+CB8-G12a;aricept;O=C1[C@H](CC2CCN(CC3=CC=CC=C3)CC2)CC4=C1C=C(OC)C(OC)=C4;16700000.0;900000.0;-9.2;-0.4;0.7;0.4;1;-9.86;0.03
+CB8-G12b;aricept;O=C1[C@H](CC2CCN(CC3=CC=CC=C3)CC2)CC4=C1C=C(OC)C(OC)=C4;146000.0;6000.0;-4.8;-0.2;2.2;0.2;2;-7.05;0.02
+CB8-G13;oxaliplatin;O=C(C(O1)=O)O[Pt]21[NH2][C@@H]3CCCC[C@H]3[NH2]2;161000.0;8000.0;-6.8;-0.3;0.3;0.3;1;-7.11;0.03
