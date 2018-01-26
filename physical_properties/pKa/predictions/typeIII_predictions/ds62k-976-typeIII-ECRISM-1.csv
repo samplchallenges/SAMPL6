@@ -1,0 +1,119 @@
+# Submission Type III
+Predictions:
+SM01, -3.36,1.77
+SM01,  8.84,1.77
+SM01, 15.44,1.77
+SM02,-33.50,1.77
+SM02, -8.56,1.77
+SM02,  3.94,1.77
+SM02, 11.66,1.77
+SM03,-17.35,1.77
+SM03, -1.10,1.77
+SM03,  9.76,1.77
+SM03, 25.15,1.77
+SM04,-27.12,1.77
+SM04, -8.55,1.77
+SM04,  4.52,1.77
+SM04, 15.92,1.77
+SM05,-11.30,1.77
+SM05,  6.21,1.77
+SM05, 13.65,1.77
+SM06, -2.82,1.77
+SM06,  0.39,1.77
+SM06, 12.46,1.77
+SM07,-26.39,1.77
+SM07, -6.54,1.77
+SM07,  2.82,1.77
+SM07, 15.93,1.77
+SM08, -2.21,1.77
+SM08,  5.11,1.77
+SM08, 13.23,1.77
+SM09,-32.18,1.77
+SM09, -7.08,1.77
+SM09,  4.52,1.77
+SM09, 11.74,1.77
+SM10,-12.69,1.77
+SM10, -0.43,1.77
+SM10, 10.74,1.77
+SM10, 18.24,1.77
+SM10, 24.19,1.77
+SM11,-39.59,1.77
+SM11,-18.14,1.77
+SM11, -9.44,1.77
+SM11,  2.33,1.77
+SM11, 14.91,1.77
+SM12,-32.65,1.77
+SM12, -7.55,1.77
+SM12,  3.57,1.77
+SM12, 11.59,1.77
+SM13,-25.99,1.77
+SM13, -6.81,1.77
+SM13,  5.57,1.77
+SM13, 11.97,1.77
+SM14, -1.40,1.77
+SM14,  3.74,1.77
+SM14, 18.61,1.77
+SM15,  3.33,1.77
+SM15,  8.35,1.77
+SM16,-13.48,1.77
+SM16,  4.40,1.77
+SM16, 11.75,1.77
+SM17,-27.28,1.77
+SM17, -7.34,1.77
+SM17,  2.47,1.77
+SM18, -2.84,1.77
+SM18,  0.95,1.77
+SM18,  9.43,1.77
+SM18, 12.75,1.77
+SM19, -0.48,1.77
+SM19, 11.91,1.77
+SM19, 24.21,1.77
+SM20,  8.23,1.77
+SM21,-42.03,1.77
+SM21,-32.26,1.77
+SM21,-11.12,1.77
+SM21, -0.36,1.77
+SM21, 13.83,1.77
+SM21, 16.62,1.77
+SM22, -3.77,1.77
+SM22,  4.23,1.77
+SM23,-40.70,1.77
+SM23,-29.28,1.77
+SM23, -7.60,1.77
+SM23,  3.81,1.77
+SM23, 14.61,1.77
+SM24,-25.65,1.77
+SM24, -9.00,1.77
+SM24,  2.37,1.77
+SM24, 12.90,1.77
+
+
+Name:
+EC-RISM/MP2/6-311+G(d,p)-P3NI-q-noThiols-2par
+
+
+Software:
+Maestro 2017-2/Macromodel (Schroedinger)
+Gaussian 09 Rev A.02
+Gaussian 09 Rev E.01
+3D RISM (inhouse development)
+EC-RISM (inhouse development)
+Python 2.7
+Mathematica 11.0.1 (Wolfram)
+
+
+Method:
+A single geometry per microstate (or two if a formal E-/Z-isomer was not specified in the SMILES string) was generated using Maestro 2017-2/Macromodel with the OPLS3/Water force field with mixed torsional/low-mode sampling, 100 steps per RB and 1000 steps max (default parameters).
+The resulting conformations were optimized using Gaussian 09revE01 with IEF-PCM using default settings for water and B3LYP/6-311+G(d,p). Due to the limitations of the basis set, iodine was replaced with bromine in compounds where it occured.
+
+These conformations were treated with EC-RISM/MP2/6-311+G(d,p)/PSE2 [REF1] and the resulting free energies of solvation reparametrized with respect to the MNSol hydration free energies [REF2] as min[deltaG_exp-((E_{EC-RISM}+c1*mu_{ex}+c2*PMV_{EC-RISM}+c3*q)-E_{vac}] with E_{EC-RISM} being the QM-energy of the molecule after convergence of the EC-RISM cycle, mu_{ex} the excess chemical potential, PMV_{EC-RISM} the partial molar volume as calculated by EC-RISM, q being the net charge of the molecule and E_{vac} taken from the same quantum chemical level of theory in vacuum. This correction (c1*mu_{ex}+c2*PMV_{EC-RISM}+c3*q) was then applied to the raw EC-RISM energies.
+These yield G_{mtc} where m refers to the ionization state, t to the tautomer (microstate per ionization state) and c to the respective conformation. The different statistical weights of conformations were taken into account by computing the free energy of the resulting discrete partition function G_{mt}=-RT*ln[sum_c(exp(-G_{mtc}/RT))]. Using a similar partition function over tautomer states yields the ionization state-specific free energy G_{m}. For deprotonation processes, pKa_{raw}=(G_{k}-G_{k-1})/(RT ln(10)) and the bulk pKa follows from m*pKa_{raw}+b where parameters m and b are calculated within the chosen level of theory by fitting to the reference data set from [REF3].
+
+Type 3: Macrostate pKa's between two ionization states (i,j) of the same compound differing by one elementary charge were calculated similarly to the pKa parametrization by pKa=m*(G_{i}-G_{j})/(RT ln(10))+b, where G_{m} refers to the partition function estimate of the ionization state-specific free energy by summing over the tautomer states.
+
+The uncertainty was estimated as the maximum RMSE of all submitted methods from the pKa training dataset.
+
+References:
+REF1: N. Tielker, D. Tomazic, J. Heil, T. Kloss, S. Ehrhart, S. Güssregen, K. F. Schmidt, S. M. Kast, J. Comput.-Aided Mol. Des. 30, 1035-1044 (2016).
+REF2: Marenich, A. V., Kelly, C. P., Thompson, J. D., Hawkins, G. D., Chambers, C. C., Giesen, D. J., Winget, P., Cramer, C. J., Truhlar, D. G. Minnesota Solvation Database - version 2012, University of Minnesota, Minneapolis, 2012.
+REF3: Klicic, J. J., Friesner, R. A., Liu, S., Guida, W. C., J. Phys. Chem. A 106, 1327-1335 (2002).
