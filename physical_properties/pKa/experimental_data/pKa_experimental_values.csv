@@ -1,0 +1,25 @@
+Molecule ID,pKa1 mean,pKa1 SEM,pKa2 mean,pKa2 SEM,pKa3 mean,pKa3 SEM,Assay Type,Experimental Molecule ID
+SM01,9.53,0.01,nan,nan,nan,nan,UV-metric pKa,M01
+SM02,5.03,0.01,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",M02
+SM03,7.02,0.01,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",M03
+SM04,6.02,0.01,nan,nan,nan,nan,UV-metric pKa,M04
+SM05,4.59,0.01,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",M05
+SM06,3.03,0.04,11.74,0.01,nan,nan,UV-metric pKa,M06
+SM07,6.08,0.01,nan,nan,nan,nan,UV-metric pKa,M07
+SM08,4.22,0.01,nan,nan,nan,nan,UV-metric pKa,M08
+SM09,5.37,0.01,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",M09
+SM10,9.02,0.01,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",M10
+SM11,3.89,0.01,nan,nan,nan,nan,UV-metric pKa,M11
+SM12,5.28,0.01,nan,nan,nan,nan,UV-metric pKa,M12
+SM13,5.77,0.01,nan,nan,nan,nan,UV-metric pKa,M13
+SM14,2.58,0.01,5.30,0.01,nan,nan,UV-metric pKa,M15
+SM15,4.70,0.01,8.94,0.01,nan,nan,UV-metric pKa,M16
+SM16,5.37,0.01,10.65,0.01,nan,nan,UV-metric pKa,M18
+SM17,3.16,0.01,nan,nan,nan,nan,UV-metric pKa,M19
+SM18,2.15,0.02,9.58,0.03,11.02,0.04,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",D01
+SM19,9.56,0.02,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",D02
+SM20,5.70,0.03,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",D05
+SM21,4.10,0.01,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",D06
+SM22,2.40,0.02,7.43,0.01,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",D07
+SM23,5.45,0.01,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",D08
+SM24,2.60,0.01,nan,nan,nan,nan,"UV-metric psKa, Yasuda-Shedlovsky Extrapolation",D09
