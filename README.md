@@ -20,7 +20,6 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 
 ## What's forthcoming
 - SAMPLing challenge files in alternate formats, along with energy validation data
-- Submission template examples for pKa prediction challenge
 - Submission formats for logD prediction and SAMPLing challenge
 - LogD challenge files and instructions (see description, below)
 
@@ -96,7 +95,9 @@ Three formats of pKa prediction results will be evaluated:
 Detailed instructions for the pKa challenge can be found here: [pKa_challenge_instructions.md](pKa_challenge_instructions.md)
 
 Challenge start date: Oct 25, 2017   
-Challenge submission due: Jan 23, 2018  
+Challenge submission due: Jan 23, 2018 
+
+Experimental pKa measurements were added to this repository after the pKa challenge deadline and can be found here: [physical_properties/pKa/experimental_data/](physical_properties/pKa/experimental_data/) 
 
 #### logD prediction
 Distribution coefficients for about 25 fragment- and drug-like small molecules that resemble small molecule protein kinase inhibitors (or fragments thereof).
