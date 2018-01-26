@@ -39,6 +39,7 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 - Version 1.8: Update microstate lists of pKa challenge. Add new microstate ID for SM10.  
 
 ### Changes not yet in a release
+- Included the binding experimental measurements for the host-guest challenge.
 
 
 ## Challenge Overview
