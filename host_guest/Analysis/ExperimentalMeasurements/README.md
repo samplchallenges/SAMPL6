@@ -1,4 +1,4 @@
-## Manifesto
+## Manifest
 
 - `experimental_measurements.pdf`: Summary table of the experimental data after error propagation.
 - `experimental_measurements.csv`: Summary table of the experimental data after error propagation in CSV format.
