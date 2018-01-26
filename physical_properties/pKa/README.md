@@ -4,6 +4,8 @@ This challenge consists of predicting microscopic and macroscopic pKas of 24 sma
 
 For detailed instructions for pKa challenge: [SAMPL6/pKa_challenge_instructions.md](../../pKa_challenge_instructions.md)
 
+Experimental pKa measurements were made available in this repository after the pKa challenge deadline and can be found under `experimental_data/` directory.
+
 ## Manifest
 
 - `/molecule_ID_and_SMILES.csv` - CSV file that indicates SAMPL6 pKa challenge molecule IDs and canonical isomeric SMILES.
