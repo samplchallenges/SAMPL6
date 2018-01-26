@@ -40,6 +40,7 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
 
 ### Changes not yet in a release
 - Included the binding experimental measurements for the host-guest challenge.
+- Included experimental pKa measurements for pKa challenge.
 
 
 ## Challenge Overview
