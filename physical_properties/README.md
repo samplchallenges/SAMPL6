@@ -11,6 +11,7 @@ For detailed instructions for pKa challenge: [SAMPL6/pKa_challenge_instructions.
 Challenge start date: Oct 25, 2017   
 Challenge submission due: Jan 23, 2018  
 
+Experimental pKa measurements were made available in this repository after the pKa challenge deadline and can be found here: [pKa/experimental_data/](pKa/experimental_data/)
 
 ## logD Challenge
 
