@@ -1,5 +1,5 @@
 # Calculating Uncertainties in Experimental pKas
-# Mehtap Isik, 2018/01/25
+# Mehtap Isik, 2018/01/26
 #
 # Usage: python calc_pKa_value_statistics.py
 
@@ -16,7 +16,7 @@ def reduce_to_first_significant_digit(quantity, uncertainty):
 
 
 # Input experimental data and output csv file
-path_to_experimental_results = "pKa_replicate_experimental_results.csv"
+path_to_experimental_results = "pKa_results_of_replicate_experiments.csv"
 path_to_experimental_pKa_values = "pKa_experimental_values.csv"
 
 # Read experimental results with 3 replicate measurements
@@ -34,6 +34,7 @@ df_exp_pKa["pKa3 mean"] = np.NaN
 df_exp_pKa["pKa3 SEM"] = np.NaN
 df_exp_pKa["Assay Type"] = np.NaN
 df_exp_pKa["Experimental Molecule ID"] = np.NaN
+df_exp_pKa["canonical isomeric SMILES"] = np.NaN
 
 
 # Iterate over every 3rd experiment to get molecule IDs
@@ -42,7 +43,8 @@ for i in index_range:
     molecule_ID = df_exp_results.loc[i,"Molecule ID"]
     assay_type = df_exp_results.loc[i,"Assay Type"]
     exp_molecule_ID = df_exp_results.loc[i,"Experimental Molecule ID"]
-    s = pd.Series([molecule_ID, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, assay_type, exp_molecule_ID], index = df_exp_pKa.columns)
+    smiles = df_exp_results.loc[i,"canonical isomeric SMILES"]
+    s = pd.Series([molecule_ID, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, assay_type, exp_molecule_ID, smiles], index = df_exp_pKa.columns)
     df_exp_pKa = df_exp_pKa.append(s, ignore_index=True)
 
 
@@ -102,6 +104,35 @@ for i, row in enumerate(df_exp_pKa.iterrows()):
     df_exp_pKa.loc[i, "pKa1 SEM"] =  str(format(pKa1_SEM, '.2f'))
     df_exp_pKa.loc[i, "pKa2 SEM"] =  str(format(pKa2_SEM, '.2f'))
     df_exp_pKa.loc[i, "pKa3 SEM"] =  str(format(pKa3_SEM, '.2f'))
+
+# Replace "nan" strings with empty cells in the dataframe.
+for i,row in enumerate(df_exp_pKa.iterrows()):
+    pKa1_mean = row[1]["pKa1 mean"]
+    pKa1_SEM = row[1]["pKa1 SEM"]
+    pKa2_mean = row[1]["pKa2 mean"]
+    pKa2_SEM = row[1]["pKa2 SEM"]
+    pKa3_mean = row[1]["pKa3 mean"]
+    pKa3_SEM = row[1]["pKa3 SEM"]
+
+    if pKa1_mean == "nan":
+        pKa1_mean = ""
+    if pKa1_SEM == "nan":
+        pKa1_SEM = ""
+    if pKa2_mean == "nan":
+        pKa2_mean = ""
+    if pKa2_SEM == "nan":
+        pKa2_SEM = ""
+    if pKa3_mean == "nan":
+        pKa3_mean = ""
+    if pKa3_SEM == "nan":
+        pKa3_SEM = ""
+
+    df_exp_pKa.loc[i, "pKa1 mean"] = pKa1_mean
+    df_exp_pKa.loc[i, "pKa1 SEM"] = pKa1_SEM
+    df_exp_pKa.loc[i, "pKa2 mean"] = pKa2_mean
+    df_exp_pKa.loc[i, "pKa2 SEM"] = pKa2_SEM    
+    df_exp_pKa.loc[i, "pKa3 mean"] = pKa3_mean
+    df_exp_pKa.loc[i, "pKa3 SEM"] = pKa3_SEM
 
 # Save pKa mean and SEM values in a CSV file.
 df_exp_pKa.to_csv(path_to_experimental_pKa_values, index=False) 
