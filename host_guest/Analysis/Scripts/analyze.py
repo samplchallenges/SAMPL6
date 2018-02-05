@@ -166,7 +166,7 @@ class SamplSubmission:
     # Sections in CSV format with columns names.
     CSV_SECTIONS = {}
 
-    def __init__(self, file_path):
+    def __init__(self, file_path, user_map):
         file_name = os.path.splitext(os.path.basename(file_path))[0]
         file_data = file_name.split('-')
 
@@ -175,13 +175,24 @@ class SamplSubmission:
             raise IgnoredSubmissionError('This submission was deleted.')
 
         # Check if this is a test submission.
-        self.submission_id = file_data[0]
-        if self.submission_id in self.TEST_SUBMISSIONS:
+        self.receipt_id = file_data[0]
+        if self.receipt_id in self.TEST_SUBMISSIONS:
             raise IgnoredSubmissionError('This submission has been used for tests.')
 
         # Check this is the correct challenge.
         self.challenge_id = int(file_data[1])
         assert self.challenge_id in self.CHALLENGE_IDS
+
+        # Store user map information.
+        user_map_record = user_map[user_map.receipt_id == self.receipt_id]
+        assert len(user_map_record) == 1
+        user_map_record = user_map_record.iloc[0]
+
+        self.id = user_map_record.id
+        self.participant = user_map_record.firstname + ' ' + user_map_record.lastname
+        self.participant_id = user_map_record.uid
+        self.participant_email = user_map_record.email
+        assert self.challenge_id == user_map_record.component
 
     @classmethod
     def _read_lines(cls, file_path):
@@ -272,8 +283,8 @@ class HostGuestSubmission(SamplSubmission):
     CSV_SECTIONS = {'Predictions': ('System ID', '$\Delta$G', 'SEM $\Delta$G', 'd$\Delta$G',
                                     '$\Delta$H', 'SEM $\Delta$H', 'd$\Delta$H')}
 
-    def __init__(self, file_path):
-        super().__init__(file_path)
+    def __init__(self, file_path, user_map):
+        super().__init__(file_path, user_map)
 
         file_name = os.path.splitext(os.path.basename(file_path))[0]
         file_data = file_name.split('-')
@@ -306,11 +317,11 @@ class HostGuestSubmission(SamplSubmission):
 # UTILITY FUNCTIONS
 # =============================================================================
 
-def load_submissions(directory_path):
+def load_submissions(directory_path, user_map):
     submissions = []
     for file_path in glob.glob(os.path.join(directory_path, '*.txt')):
         try:
-            submission = HostGuestSubmission(file_path)
+            submission = HostGuestSubmission(file_path, user_map)
         except IgnoredSubmissionError:
             continue
         submissions.append(submission)
@@ -329,9 +340,9 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     statistics_plot = []
 
     for i, submission in enumerate(submissions):
-        submission_id = submission.submission_id
+        receipt_id = submission.receipt_id
         print('\rGenerating bootstrap statistics for submission {} ({}/{})'
-              ''.format(submission_id, i+1, len(submissions)), end='')
+              ''.format(receipt_id, i+1, len(submissions)), end='')
 
         bootstrap_statistics = submission.compute_free_energy_statistics(experimental_data, stats_funcs)
 
@@ -348,12 +359,12 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
 
             # For the violin plot, we need all the bootstrap statistics series.
             for bootstrap_sample in bootstrap_samples:
-                statistics_plot.append(dict(ID=submission_id, name=submission.name,
+                statistics_plot.append(dict(ID=receipt_id, name=submission.name,
                                             statistics=stats_name_latex, value=bootstrap_sample))
 
-        statistics_csv.append({'ID': submission_id, 'name': submission.name, **record_csv})
+        statistics_csv.append({'ID': receipt_id, 'name': submission.name, **record_csv})
         escaped_name = submission.name.replace('_', '\_')
-        statistics_latex.append({'ID': submission_id, 'name': escaped_name, **record_latex})
+        statistics_latex.append({'ID': receipt_id, 'name': escaped_name, **record_latex})
     print()
 
     # Convert dictionary to Dataframe to create tables/plots easily.
@@ -404,7 +415,7 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         # Plot ordering submission by statistics.
         ordering_function = ordering_functions.get(stats_name, lambda x: x)
         order = sorted(statistics_csv[stats_name].items(), key=lambda x: ordering_function(x[1]))
-        order = [submission_id for submission_id, value in order]
+        order = [receipt_id for receipt_id, value in order]
         sns.violinplot(x='value', y='ID', data=data, ax=ax,
                        order=order, palette='PuBuGn_r')
         ax.set_xlabel(stats_name_latex)
@@ -429,7 +440,8 @@ class HostGuestSubmissionCollection:
             for system_id, free_energy_calc in submission.data['$\Delta$G'].items():
                 free_energy_expt = experimental_data.loc[system_id, '$\Delta$G']
                 data.append({
-                    'submission_id': submission.submission_id,
+                    'receipt_id': submission.receipt_id,
+                    'participant': submission.participant,
                     'name': submission.name,
                     'system_id': system_id,
                     '$\Delta$G (calc)': free_energy_calc,
@@ -449,16 +461,16 @@ class HostGuestSubmissionCollection:
         output_dir_path = os.path.join(self.output_directory_path,
                                        self.SUBMISSION_CORRELATION_PLOT_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
-        for submission_id in self.data.submission_id.unique():
-            data = self.data[self.data.submission_id == submission_id]
-            title = '{} ({})'.format(submission_id, data.name.unique()[0])
+        for receipt_id in self.data.receipt_id.unique():
+            data = self.data[self.data.receipt_id == receipt_id]
+            title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 
             plt.close('all')
             plot_correlation(x='$\Delta$G (expt)', y='$\Delta$G (calc)',
                              data=data, title=title, kind='joint')
             plt.tight_layout()
             # plt.show()
-            output_path = os.path.join(output_dir_path, '{}.pdf'.format(submission_id))
+            output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
             plt.savefig(output_path)
 
     def generate_molecules_plot(self):
@@ -493,6 +505,10 @@ if __name__ == '__main__':
     for col in experimental_data.columns[3:]:
         experimental_data[col] = pd.to_numeric(experimental_data[col], errors='coerce')
 
+    # Import user map.
+    with open('../Submissions/SAMPL6_user_map.csv', 'r') as f:
+        user_map = pd.read_csv(f)
+
     # Configuration: statistics to compute.
     stats_funcs = collections.OrderedDict([
         ('RMSE', rmse),
@@ -514,11 +530,11 @@ if __name__ == '__main__':
     }
 
     # Load submissions data. We do OA and TEMOA together.
-    submissions_cb = load_submissions(HOST_GUEST_CB_SUBMISSIONS_DIR_PATH)
-    submissions_oa = load_submissions(HOST_GUEST_OA_SUBMISSIONS_DIR_PATH)
-
+    submissions_cb = load_submissions(HOST_GUEST_CB_SUBMISSIONS_DIR_PATH, user_map)
     collection_cb = HostGuestSubmissionCollection(submissions_cb, experimental_data,
                                                   output_directory_path='CB8')
+
+    submissions_oa = load_submissions(HOST_GUEST_OA_SUBMISSIONS_DIR_PATH, user_map)
     collection_oa = HostGuestSubmissionCollection(submissions_oa, experimental_data,
                                                   output_directory_path='OA')
 
