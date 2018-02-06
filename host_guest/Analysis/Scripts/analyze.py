@@ -7,7 +7,6 @@
 import os
 import io
 import glob
-import math
 import collections
 
 import numpy as np
@@ -233,7 +232,7 @@ class SamplSubmission:
             csv_str = io.StringIO('\n'.join(sections[section_name]))
             columns = cls.CSV_SECTIONS[section_name]
             id_column = columns[0]
-            section = pd.read_csv(csv_str, index_col=id_column, names=columns)
+            section = pd.read_csv(csv_str, index_col=id_column, names=columns, skipinitialspace=True)
             sections[section_name] = section
         return sections
 
@@ -274,7 +273,8 @@ class HostGuestSubmission(SamplSubmission):
 
     # The IDs of the submissions used for testing the validation.
     TEST_SUBMISSIONS = {'egte7', '6odqw', 'q6igp', '2fpb5',
-                        'dofcg', 'iw8mj', '5dbnp', 'exb60'}
+                        'dofcg', 'iw8mj', '5dbnp', 'exb60',
+                        'gjdze', 'hkgxh', 'd7xde'}
 
     # Section of the submission file.
     SECTIONS = {'Predictions', 'Name', 'Software', 'Method'}
@@ -386,6 +386,7 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     statistics_latex = statistics_latex[['ID', 'name'] + stats_names_latex]
 
     # Create CSV and JSON tables (correct LaTex syntax in column names).
+    os.makedirs(directory_path)
     file_base_path = os.path.join(directory_path, file_base_name)
     with open(file_base_path + '.csv', 'w') as f:
         statistics_csv.to_csv(f)
@@ -397,12 +398,13 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     os.makedirs(latex_directory_path, exist_ok=True)
     with open(os.path.join(latex_directory_path, file_base_name + '.tex'), 'w') as f:
         f.write('\\documentclass{article}\n'
-                '\\usepackage[a4paper,margin=0.4in,tmargin=0.5in,landscape]{geometry}\n'
+                '\\usepackage[a4paper,margin=0.005in,tmargin=0.5in,landscape]{geometry}\n'
                 '\\usepackage{booktabs}\n'
+                '\\usepackage{longtable}\n'
                 '\\pagenumbering{gobble}\n'
                 '\\begin{document}\n'
                 '\\begin{center}\n')
-        statistics_latex.to_latex(f, column_format='|ccccccc|', escape=False)
+        statistics_latex.to_latex(f, column_format='|ccccccc|', escape=False, index=False, longtable=True)
         f.write('\end{center}\n'
                 '\end{document}\n')
 
@@ -422,31 +424,38 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         ax.set_ylabel('')
     plt.tight_layout()
     # plt.show()
-    plt.savefig(file_base_path + '_bootstrap.pdf')
+    plt.savefig(file_base_path + '_bootstrap_distributions.pdf')
 
 
 class HostGuestSubmissionCollection:
     """A collection of HostGuestSubmissions."""
 
-    SUBMISSION_CORRELATION_PLOT_DIR = 'SubmissionsCorrelationPlots'
+    FREE_ENERGY_CORRELATION_PLOT_DIR = 'FreeEnergyCorrelationPlots'
+    ENTHALPIES_CORRELATION_PLOT_DIR = 'EnthalpiesCorrelationPlots'
     MOLECULE_CORRELATION_PLOT_PATH = 'molecules_error.pdf'
 
     def __init__(self, submissions, experimental_data, output_directory_path):
         # Build full free energy table.
         data = []
 
-        # Submissions free energies.
+        # Submissions free energies and enthalpies.
         for submission in submissions:
-            for system_id, free_energy_calc in submission.data['$\Delta$G'].items():
+            for system_id, series in submission.data[['$\Delta$G', '$\Delta$H']].iterrows():
                 free_energy_expt = experimental_data.loc[system_id, '$\Delta$G']
+                enthalpy_expt = experimental_data.loc[system_id, '$\Delta$H']
+                free_energy_calc = series['$\Delta$G']
+                enthalpy_calc = series['$\Delta$H']
                 data.append({
                     'receipt_id': submission.receipt_id,
                     'participant': submission.participant,
                     'name': submission.name,
                     'system_id': system_id,
-                    '$\Delta$G (calc)': free_energy_calc,
-                    '$\Delta$G (expt)': free_energy_expt,
-                    '$\Delta\Delta$G': free_energy_calc - free_energy_expt
+                    '$\Delta$G (calc) [kcal/mol]': free_energy_calc,
+                    '$\Delta$G (expt) [kcal/mol]': free_energy_expt,
+                    '$\Delta\Delta$G error (calc - expt)  [kcal/mol]': free_energy_calc - free_energy_expt,
+                    '$\Delta$H (calc) [kcal/mol]': enthalpy_calc,
+                    '$\Delta$H (expt) [kcal/mol]': enthalpy_expt,
+                    '$\Delta\Delta$H error (calc - expt)  [kcal/mol]': enthalpy_calc - enthalpy_expt
                 })
 
         # Transform into Pandas DataFrame.
@@ -457,16 +466,36 @@ class HostGuestSubmissionCollection:
         os.makedirs(self.output_directory_path, exist_ok=True)
 
     def generate_correlation_plots(self):
-        # Correlation plot by submission.
+        # Free energy correlation plots.
         output_dir_path = os.path.join(self.output_directory_path,
-                                       self.SUBMISSION_CORRELATION_PLOT_DIR)
+                                       self.FREE_ENERGY_CORRELATION_PLOT_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
         for receipt_id in self.data.receipt_id.unique():
             data = self.data[self.data.receipt_id == receipt_id]
             title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 
             plt.close('all')
-            plot_correlation(x='$\Delta$G (expt)', y='$\Delta$G (calc)',
+            plot_correlation(x='$\Delta$G (expt) [kcal/mol]', y='$\Delta$G (calc) [kcal/mol]',
+                             data=data, title=title, kind='joint')
+            plt.tight_layout()
+            # plt.show()
+            output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
+            plt.savefig(output_path)
+
+        # Enthalpies correlation plots.
+        output_dir_path = os.path.join(self.output_directory_path,
+                                       self.ENTHALPIES_CORRELATION_PLOT_DIR)
+        os.makedirs(output_dir_path, exist_ok=True)
+        for receipt_id in self.data.receipt_id.unique():
+            data = self.data[self.data.receipt_id == receipt_id]
+            title = '{} ({})'.format(receipt_id, data.name.unique()[0])
+
+            # Check if enthalpies were computed.
+            if data['$\Delta$H (calc) [kcal/mol]'].isnull().any():
+                continue
+
+            plt.close('all')
+            plot_correlation(x='$\Delta$H (expt) [kcal/mol]', y='$\Delta$H (calc) [kcal/mol]',
                              data=data, title=title, kind='joint')
             plt.tight_layout()
             # plt.show()
@@ -476,7 +505,7 @@ class HostGuestSubmissionCollection:
     def generate_molecules_plot(self):
         # Correlation plot by molecules.
         plt.close('all')
-        sns.violinplot(y='system_id', x='$\Delta\Delta$G', data=self.data, inner='point')
+        sns.violinplot(y='system_id', x='$\Delta\Delta$G error (calc - expt)  [kcal/mol]', data=self.data, inner='point')
         plt.tight_layout()
         # plt.show()
         plt.savefig(os.path.join(self.output_directory_path, self.MOLECULE_CORRELATION_PLOT_PATH))
@@ -489,6 +518,7 @@ class HostGuestSubmissionCollection:
 if __name__ == '__main__':
     # TODO:     I had to fix the index CB8-G12a -> CB8-G12 to make the analysis work
     # TODO:     ../Submissions/974/tb3ck-974-CB8-WGatMSU-1.txt: has an extra - in CB8-G6 enthalpy
+    # TODO:     ../Submissions/974/d7xde-974-CB8-NHLBI-2.txt was ignored as it is identical to 6jsye-974-CB8-NHLBI-2.txt (from two different people!)
 
     sns.set_style('whitegrid')
     sns.set_context('paper')
@@ -531,19 +561,20 @@ if __name__ == '__main__':
 
     # Load submissions data. We do OA and TEMOA together.
     submissions_cb = load_submissions(HOST_GUEST_CB_SUBMISSIONS_DIR_PATH, user_map)
-    collection_cb = HostGuestSubmissionCollection(submissions_cb, experimental_data,
-                                                  output_directory_path='CB8')
-
     submissions_oa = load_submissions(HOST_GUEST_OA_SUBMISSIONS_DIR_PATH, user_map)
-    collection_oa = HostGuestSubmissionCollection(submissions_oa, experimental_data,
-                                                  output_directory_path='OA')
 
+    collection_cb = HostGuestSubmissionCollection(submissions_cb, experimental_data,
+                                                  output_directory_path='../CB8')
+    collection_oa = HostGuestSubmissionCollection(submissions_oa, experimental_data,
+                                                  output_directory_path='../OA-TEMOA')
+
+    # Generate plots and tables.
     for collection in [collection_cb, collection_oa]:
         collection.generate_correlation_plots()
         collection.generate_molecules_plot()
 
-    # Generate plots and tables.
-    for submissions, host in zip([submissions_cb, submissions_oa], ['CB8', 'OA']):
-        generate_statistics_tables(submissions, stats_funcs, directory_path='StatisticsTables',
-                                   file_base_name=host, sort_stat='RMSE', ordering_functions=ordering_functions,
+    for submissions, host in zip([submissions_cb, submissions_oa], ['CB8', 'OA-TEMOA']):
+        generate_statistics_tables(submissions, stats_funcs, directory_path='../' + host + '/StatisticsTables',
+                                   file_base_name='statistics', sort_stat='RMSE',
+                                   ordering_functions=ordering_functions,
                                    latex_header_conversions=latex_header_conversions)
