@@ -375,9 +375,13 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
 
     # Sort by the given statistics.
     if sort_stat is not None:
-        statistics_csv.sort_values(by=sort_stat, inplace=True)
-        statistics_latex.sort_values(by=latex_header_conversions.get(sort_stat, sort_stat),
-                                     inplace=True)
+        ordering_function = ordering_functions.get(sort_stat, lambda x: x)
+        order = sorted(statistics_csv[sort_stat].items(), key=lambda x: ordering_function(x[1]))
+        order = [receipt_id for receipt_id, value in order]
+        statistics_csv = statistics_csv.reindex(order)
+        statistics_latex.ID = statistics_latex.ID.astype('category')
+        statistics_latex.ID.cat.set_categories(order, inplace=True)
+        statistics_latex.sort_values(by='ID', inplace=True)
 
     # Reorder columns that were scrambled by going through a dictionaries.
     stats_names_csv = [name + suffix for name in stats_names for suffix in ci_suffixes]
@@ -386,7 +390,7 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     statistics_latex = statistics_latex[['ID', 'name'] + stats_names_latex]
 
     # Create CSV and JSON tables (correct LaTex syntax in column names).
-    os.makedirs(directory_path)
+    os.makedirs(directory_path, exist_ok=True)
     file_base_path = os.path.join(directory_path, file_base_name)
     with open(file_base_path + '.csv', 'w') as f:
         statistics_csv.to_csv(f)
