@@ -401,15 +401,16 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     latex_directory_path = os.path.join(directory_path, file_base_name + 'LaTex')
     os.makedirs(latex_directory_path, exist_ok=True)
     with open(os.path.join(latex_directory_path, file_base_name + '.tex'), 'w') as f:
-        f.write('\\documentclass{article}\n'
-                '\\usepackage[a4paper,margin=0.005in,tmargin=0.5in,landscape]{geometry}\n'
+        f.write('\\documentclass[9pt]{article}\n'
+                '\\usepackage[a4paper,margin=0.4in,tmargin=0.5in,landscape]{geometry}\n'
                 '\\usepackage{booktabs}\n'
                 '\\usepackage{longtable}\n'
                 '\\pagenumbering{gobble}\n'
                 '\\begin{document}\n'
-                '\\begin{center}\n')
-        statistics_latex.to_latex(f, column_format='|ccccccc|', escape=False, index=False, longtable=True)
-        f.write('\end{center}\n'
+                '\\begin{small}\n')
+        statistics_latex.to_latex(f, column_format='|ccccccc|', escape=False,
+                                  index=False, longtable=True, bold_rows=True)
+        f.write('\end{small}\n'
                 '\end{document}\n')
 
     # Violin plots by statistics across submissions.
