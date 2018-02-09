@@ -14,5 +14,6 @@ Experimental pKa measurements were made available in this repository after the p
 - `/submission_templates/` - Empty prediction submission template files are located here.
 - `/example_submission_files/` - This directory contains example submission files filled with random values to illustrate expected format.
 - `/experimental_data/` - Experimental measurements of pKa values.
+- `/analysis/` - Analysis pKa predictions.
 
 

@@ -1,0 +1,90 @@
+# Submission Type III
+#
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
+# PREDICTION SECTION
+#
+# Each submission (method) must have a completed `typeIII_macroscopic_pKas.csv` file for all molecules the prediction encompasses.
+# For each molecule, report as many macroscopic pKas as your method predicts. 
+# Add new lines for each predicted molecule.
+# For molecules with multiple macroscopic pKas report each macroscopic pKa in a new line.
+# Report pKa values to two decimal places (e.g. 10.71).
+# Reporting the standard error of the mean (SEM) is optional and encouraged. If it is reported, SEM should be reported to two decimal places (e.g. 1.02).
+# For values for which you don't have an estimate, leave that cell of the csv table empty.
+#
+# The data in each prediction line should be structured as follows:
+# Molecule ID, macroscopic pKa, macroscopic pKa SEM
+# The list of predictions must begin with the "Predictions:" keyword, as illustrated here.
+Predictions:
+SM01,10.61
+SM02,13.34
+SM02,3.50
+SM03,6.13
+SM04,5.94
+SM05,13.85
+SM05,1.21
+SM06,13.40
+SM06,0.06
+SM07,5.25
+SM08,13.60
+SM08,2.16
+SM09,13.97
+SM09,3.58
+SM10,6.83
+SM11,1.99
+SM12,13.03
+SM12,3.52
+SM13,14.56
+SM13,4.69
+SM14,4.11
+SM14,-1.33
+SM15,9.21
+SM15,2.77
+SM16,10.24
+SM16,3.62
+SM17,1.22
+SM18,7.59
+SM18,9.51
+SM18,1.41
+SM19,8.97
+SM20,3.18
+SM21,13.18
+SM21,1.38
+SM22,7.56
+SM22,1.66
+SM23,14.83
+SM23,4.83
+SM24,2.25
+
+# NAME SECTION
+#
+# Please provide an informal yet informative name of the method used.
+# The "Name:" keyword is required, as shown here.
+Name:
+Adiabatic scheme with single point correction for type III submission
+
+# SOFTWARE SECTION
+#
+# All major software packages used and their versions.
+# Create a new line for each software.
+# The "Software:" keyword is required.
+Software: 
+Gaussian 16 Rev. A.03
+
+# METHODS SECTION
+#
+# Methodology and computational details. 
+# Level of detail should be at least that used in a publication.  
+# Please include the values of key parameters, with units, and explain how any statistical uncertainties were estimated.
+# Use as many lines of text as you need. 
+# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+Method: 
+Frequency calculations for all the microstates are done at their optimized structures in gas phase and implicit solvent model (SMD model is used here) to obtain the free energy in aqueous solution phase.
+M06-2X/6-31G* is used for neutral (NEU) and positively (POS) charged microstates, and M06-2X/6-31+G* is used for neutral (NEU) and negatively (NEG) charged microstates.
+Single point correction has been made by doing an additional single point energy calculation using larger basis set.
+
+The free energy in aqueous solution for each microstate is, for NEU and POS, G=E(SMD)(6-311G**)-E(GAS)(6-311G**)+G(GAS)(6-31G*); for NEU and NEG, G=E(SMD)(6-311++G**)-E(GAS)(6-311++G**)+G(GAS)(6-31+G*).
+Then the partition function for each microstate is exp(-G/kT). Here T is the temperature at Kelvin (which is set as 298.15), k is the Boltzmann constant (0.0019872036 kcal/(mol*K)).
+
+So the macroscopic pKa will be pKa(n+1/n)=-\lg\sum\exp(-G(n)/kT)+\lg\sum\exp(-G(n+1)/kT)+G(H)/(kT\ln(10)). Here G(H) is the free energy of a proton in aqueous solution, which is set to -271.88 kcal/mol.
+

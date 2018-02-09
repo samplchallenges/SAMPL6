@@ -1,0 +1,121 @@
+# Submission Type III
+Predictions:
+SM01, -1.27,1.77
+SM01,  9.72,1.77
+SM01, 15.19,1.77
+SM02,-26.49,1.77
+SM02, -5.91,1.77
+SM02,  3.74,1.77
+SM02, 10.97,1.77
+SM03,-12.94,1.77
+SM03, -0.35,1.77
+SM03, 11.34,1.77
+SM03, 18.71,1.77
+SM04,-22.04,1.77
+SM04, -5.82,1.77
+SM04,  4.45,1.77
+SM04, 13.49,1.77
+SM05, -7.62,1.77
+SM05,  5.34,1.77
+SM05, 12.57,1.77
+SM06, -2.43,1.77
+SM06,  1.04,1.77
+SM06, 13.83,1.77
+SM07,-21.55,1.77
+SM07, -3.59,1.77
+SM07,  3.03,1.77
+SM07, 13.84,1.77
+SM08, -1.23,1.77
+SM08,  6.51,1.77
+SM08, 11.38,1.77
+SM09,-25.30,1.77
+SM09, -4.72,1.77
+SM09,  4.21,1.77
+SM09, 11.18,1.77
+SM10,-10.89,1.77
+SM10,  0.19,1.77
+SM10, 12.79,1.77
+SM10, 17.32,1.77
+SM10, 25.35,1.77
+SM11,-29.42,1.77
+SM11,-12.10,1.77
+SM11, -6.98,1.77
+SM11,  3.27,1.77
+SM11, 13.97,1.77
+SM12,-30.03,1.77
+SM12, -7.71,1.77
+SM12,  3.85,1.77
+SM12, 12.83,1.77
+SM13,-20.43,1.77
+SM13, -4.36,1.77
+SM13,  5.01,1.77
+SM13, 11.77,1.77
+SM14,  0.42,1.77
+SM14,  3.81,1.77
+SM14, 18.84,1.77
+SM15,  3.08,1.77
+SM15, 10.46,1.77
+SM16, -9.52,1.77
+SM16,  4.54,1.77
+SM16, 11.10,1.77
+SM17,-19.87,1.77
+SM17, -5.63,1.77
+SM17,  3.47,1.77
+SM18,  1.09,1.77
+SM18,  2.05,1.77
+SM18,  9.70,1.77
+SM18, 10.39,1.77
+SM19,  2.01,1.77
+SM19, 12.13,1.77
+SM19, 18.29,1.77
+SM20,  7.24,1.77
+SM21,-38.57,1.77
+SM21,-29.66,1.77
+SM21,-11.07,1.77
+SM21,  0.99,1.77
+SM21, 14.14,1.77
+SM21, 17.31,1.77
+SM22,  1.57,1.77
+SM22,  8.34,1.77
+SM23,-37.27,1.77
+SM23,-27.71,1.77
+SM23, -7.47,1.77
+SM23,  3.52,1.77
+SM23, 15.25,1.77
+SM24,-23.40,1.77
+SM24, -7.60,1.77
+SM24,  3.15,1.77
+SM24, 15.76,1.77
+
+
+Name:
+EC-RISM/MP2/cc-pVTZ-P3NI-phi-noThiols-2par
+
+
+Software:
+Maestro 2017-2/Macromodel (Schroedinger)
+Gaussian 09 Rev A.02
+Gaussian 09 Rev E.01
+3D RISM (inhouse development)
+EC-RISM (inhouse development)
+Python 2.7
+Mathematica 11.0.1 (Wolfram)
+
+
+Method:
+A single geometry per microstate (or two if a formal E-/Z-isomer was not specified in the SMILES string) was generated using Maestro 2017-2/Macromodel with the OPLS3/Water force field with mixed torsional/low-mode sampling, 100 steps per RB and 1000 steps max (default parameters).
+The resulting conformations were optimized using Gaussian 09revE01 with IEF-PCM using default settings for water and B3LYP/6-311+G(d,p). Due to the limitations of the basis set, iodine was replaced with bromine in compounds where it occured.
+
+These conformations were treated with EC-RISM/MP2/cc-pVTZ/PSE2 [REF1] and the resulting free energies of solvation reparametrized with respect to the MNSol hydration free energies [REF2] as min[deltaG_exp-((E_{EC-RISM}+c1*mu_{ex}+c2*PMV_{EC-RISM}+c3*q)-E_{vac}] with E_{EC-RISM} being the QM-energy of the molecule after convergence of the EC-RISM cycle, mu_{ex} the excess chemical potential, PMV_{EC-RISM} the partial molar volume as calculated by EC-RISM, q being the net charge of the molecule and E_{vac} taken from the same quantum chemical level of theory in vacuum. This correction (c1*mu_{ex}+c2*PMV_{EC-RISM}+c3*q) was then applied to the raw EC-RISM energies.
+These yield G_{mtc} where m refers to the ionization state, t to the tautomer (microstate per ionization state) and c to the respective conformation. The different statistical weights of conformations were taken into account by computing the free energy of the resulting discrete partition function G_{mt}=-RT*ln[sum_c(exp(-G_{mtc}/RT))]. Using a similar partition function over tautomer states yields the ionization state-specific free energy G_{m}. For deprotonation processes, pKa_{raw}=(G_{k}-G_{k-1})/(RT ln(10)) and the bulk pKa follows from m*pKa_{raw}+b where parameters m and b are calculated within the chosen level of theory by fitting to the reference data set from [REF3].
+
+Data for SM06, SM10, SM12, SM21, SM23 and SM24 were replaced by the data from the corresponding q-model. All microstate pairs involving SM05_micro003, SM05_micro005, SM19_micro010 and SM18_micro076, as well as their fractional microstate populations, were similarly replaced. For SM19 the macrostate pKa for the deprotonation from ionization state -1 to -2 and for SM05 the macrostate pKa for the deprotonation from ionization state 2 to 1 were also replaced. The results for microstate SM18_micro076 were replaced by those calculated at the MP2/6-311+G(d,p) level of theory.
+
+Type 3: Macrostate pKa's between two ionization states (i,j) of the same compound differing by one elementary charge were calculated similarly to the pKa parametrization by pKa=m*(G_{i}-G_{j})/(RT ln(10))+b, where G_{m} refers to the partition function estimate of the ionization state-specific free energy by summing over the tautomer states.
+
+The uncertainty was estimated as the maximum RMSE of all submitted methods from the pKa training dataset.
+
+References:
+REF1: N. Tielker, D. Tomazic, J. Heil, T. Kloss, S. Ehrhart, S. Güssregen, K. F. Schmidt, S. M. Kast, J. Comput.-Aided Mol. Des. 30, 1035-1044 (2016).
+REF2: Marenich, A. V., Kelly, C. P., Thompson, J. D., Hawkins, G. D., Chambers, C. C., Giesen, D. J., Winget, P., Cramer, C. J., Truhlar, D. G. Minnesota Solvation Database - version 2012, University of Minnesota, Minneapolis, 2012.
+REF3: Klicic, J. J., Friesner, R. A., Liu, S., Guida, W. C., J. Phys. Chem. A 106, 1327-1335 (2002).
