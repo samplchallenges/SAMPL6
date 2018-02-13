@@ -22,3 +22,44 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
 - Submissions with submission IDs nb001, nb002, nb003, nb004, nb005 and nb005 include non-blind corrections to pKa predictions of only SM22 molecule. pKas of the rest of the molecules in these submissions were blindly predicted before experimental data was released.
 
 - pKa predictions of Epik-sequencial method (submission ID: nb007) were not blind. They were submitted after the submission deadline to be used as a reference method.
+
+## Submission IDs
+### Submission IDs for Type III Submissions
+| Submission ID | Method Name |  
+|---------------|-------------|
+| xvxzd | Full quantum chemical calculation of free energies and fit to experimental pKa |  
+| gyuhx |	S+pKa |  
+| xmyhm |	ACD/pKa Classic |  
+| yqkga |	ReSCoSS conformations // COSMOtherm pKa |
+| nb007 | Epik-sequential|
+| 8xt50 |	ReSCoSS conformations // DSD-BLYP-D3 reranking // COSMOtherm pKa |
+| p0jba |	macroscopic pKa prediction from microscopic pKa predicted with Gaussian and separate fitting for neutral to negative and for positive to neutral transformations |
+| 37xm8	| ACD/pKa GALAS | 
+| hytjn	| OE Gaussian Process | 
+| q3pfp	| OE Gaussian Process Resampled |
+| mkhqa	| EC-RISM/MP2/cc-pVTZ-P2-phi-all-2par |
+| 2ii2g	| EC-RISM/MP2/cc-pVTZ-P2-q-noThiols-2par |
+| nb001	| EC-RISM/MP2/6-311+G(d,p)-P2-phi-all-2par |
+| 35bdm |	macroscopic pKa prediction from microscopic pKa predicted with Gaussian and global fitting |
+| nb002	| EC-RISM/MP2/6-311+G(d,p)-P2-phi-noThiols-2par |
+| ryzue	| Adiabatic scheme with single point correction for type III submission |
+| yc70m	| PCM/B3LYP/6-311+G(d,p) |
+| 5byn6	| Adiabatic scheme for type III submission |
+| y75vj	| Direct scheme for type III submission |
+| np6b4	| EC-RISM/B3LYP/6-311+G(d,p)-P2-phi-noThiols-2par |
+| w4iyd	| Vertical scheme for type III submission |
+| pwn3m	| Analog_search |
+| f0gew	| EC-RISM/B3LYP/6-311+G(d,p)-P3NI-phi-noThiols-2par |
+| xikp8	| Direct scheme with single point correction for type III submission |
+| 5nm4j	| Substructure matches from experimental data |
+| ad5pu	| EC-RISM/B3LYP/6-311+G(d,p)-P3NI-q-noThiols-2par |
+| 0hxtm	| COSMOtherm_FINE17 |
+| ds62k |	EC-RISM/MP2/6-311+G(d,p)-P3NI-q-noThiols-2par |
+| ttjd0	| EC-RISM/MP2/cc-pVTZ-P2-phi-noThiols-2par |
+| mpwiy |	EC-RISM/MP2/cc-pVTZ-P3NI-phi-noThiols-2par |
+| nb004	| EC-RISM/MP2/6-311+G(d,p)-P3NI-phi-noThiols-2par |
+| nb003	| EC-RISM/MP2/6-311+G(d,p)-P3NI-phi-all-2par |
+| nb005	| EC-RISM/MP2/6-311+G(d,p)-P2-phi-all-1par |
+| nb006	| EC-RISM/MP2/6-311+G(d,p)-P3NI-phi-all-1par|
+
+
