@@ -66,8 +66,6 @@ def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootst
         stats_funcs = [stats_funcs]
 
     # Compute mean statistics.
-    #print("\nSamples:\n", samples)
-
     statistics = [stats_func(samples) for stats_func in stats_funcs]
 
     # Generate bootstrap statistics.
@@ -96,7 +94,6 @@ def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootst
 def plot_correlation(x, y, data, title=None, color=None, kind='joint', ax=None):
     # Extract only pKa values.
     data = data[[x, y]]
-    #print(data)
 
     # Find extreme values to make axes equal.
     min_limit = np.ceil(min(data.min()) - 2)
@@ -229,8 +226,6 @@ class SamplSubmission:
             id_column = columns[0]
             section = pd.read_csv(csv_str, index_col=id_column, names=columns, skipinitialspace=True)
             #section = pd.read_csv(csv_str, names=columns, skipinitialspace=True)
-            #print("\nsection: \n", section)
-            #print("\nsection shape: \n", section.shape )
             sections[section_name] = section
         return sections
 
@@ -286,11 +281,9 @@ class pKaTypeIIISubmission(SamplSubmission):
 
         file_name = os.path.splitext(os.path.basename(file_path))[0]
         file_data = file_name.split('-')
-        #print(file_name)
 
         # Check if this is a type III submission
         self.submission_type = file_data[2]
-        #print(self.submission_type)
         assert self.submission_type in ['typeIII']
 
         self.file_name, self.index = file_data[3:]
@@ -303,10 +296,6 @@ class pKaTypeIIISubmission(SamplSubmission):
 
     def compute_pKa_statistics(self, experimental_data, stats_funcs):
         data = self._create_comparison_dataframe('pKa mean', self.data_matched, experimental_data)
-        #print('\ncollection.data_matched:\n')
-        #print(self.data_matched)
-        #print('\ndata:\n')
-        #print(data)
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
@@ -402,7 +391,6 @@ def load_submissions(directory_path, user_map):
     for file_path in glob.glob(os.path.join(directory_path, '*.csv')):
         try:
             submission = pKaTypeIIISubmission(file_path, user_map)
-            #print(submission.data)
 
         except IgnoredSubmissionError:
             continue
@@ -431,9 +419,6 @@ def match_exp_and_pred_pKas(pred_pKas, exp_pKas, exp_pKa_SEMs, exp_pKa_IDs):
     # create a dataframe to store absolute errors for all possible experimental and predicted pKa matches
     # columns: experimental pKa
     # rows: predicted pKa
-    # print(exp_pKas)
-    # print(pred_pKas)
-
 
     df_abs_error = pd.DataFrame(index=pred_pKas, columns=exp_pKas)
 
@@ -442,8 +427,6 @@ def match_exp_and_pred_pKas(pred_pKas, exp_pKas, exp_pKa_SEMs, exp_pKa_IDs):
         for j, exp_pKa in enumerate(exp_pKas):
             absolute_error = np.abs(pred_pKa - exp_pKa)
             df_abs_error.loc[pred_pKa, exp_pKa] = absolute_error
-    #print("Data frame of absolute error:")
-    #print(df_abs_error)
 
     # Find the nearest experimental pKa for each predicted pKa
     df_pKa_match = pd.DataFrame()
@@ -456,7 +439,6 @@ def match_exp_and_pred_pKas(pred_pKas, exp_pKas, exp_pKa_SEMs, exp_pKa_IDs):
 
         # Find the column name (experimental pKa) that corresponds to minimum absolute error
         matched_exp_pKa = df_abs_error.loc[:, df_abs_error.loc[pred_pKa, :].values == min_abs_error].columns.values[0]
-        # print("pred pKa: ", pred_pKa, " exp pKa: ", matched_exp_pKa)
         df_pKa_match.loc[i, "pred pKa"] = pred_pKa
         df_pKa_match.loc[i, "matched exp pKa"] = matched_exp_pKa
         df_pKa_match.loc[i, "absolute error"] = min_abs_error
@@ -471,7 +453,6 @@ def match_exp_and_pred_pKas(pred_pKas, exp_pKas, exp_pKa_SEMs, exp_pKa_IDs):
         df_dublicate_matches = df_pKa_match_to_each_exp_pKa.loc[df_pKa_match_to_each_exp_pKa["duplicate_match"] == True]
 
         if df_dublicate_matches.shape[0] > 1:
-            # print(df_dublicate_matches)
             min_abs_error_of_duplicates = min(df_dublicate_matches.loc[:, "absolute error"])
         elif df_dublicate_matches.shape[0] == 1:
             min_abs_error_of_duplicates = df_pKa_match.loc[:, "absolute error"].values
@@ -500,7 +481,6 @@ def match_exp_and_pred_pKas(pred_pKas, exp_pKas, exp_pKa_SEMs, exp_pKa_IDs):
         # find the matching experimental pKa SEM and pKa ID
         for j, pKa in enumerate(exp_pKas):
             if pKa == matched_exp_pKa:
-                # print("index: ",j)
                 exp_pKa_SEM = exp_pKa_SEMs[j]
                 exp_pKa_ID = exp_pKa_IDs[j]
 
@@ -532,7 +512,6 @@ def add_pKa_IDs_to_matching_predictions(df_pred, df_exp):
     for i, row in enumerate(df_pred.iterrows()):
         #mol_id = row[0]
         mol_id = row[1]["Molecule ID"]
-        #print("\nMolecule ID: ", mol_id)
 
         # slice prediction and experimental data dataframes by molecule ID to detect the number of predicted pKas for each molecule
         #df_pred_mol = df_pred[df_pred["Molecule ID"] == mol_id]
@@ -558,7 +537,6 @@ def add_pKa_IDs_to_matching_predictions(df_pred, df_exp):
         for index, row in enumerate(df_pKa_match.iterrows()):
             pred_pKa = row[1]["pred pKa"]
             pKa_ID = row[1]["pKa ID"]
-            # print(pred_pKa, pKa_ID)
 
             # store in the correct position in prediction dataframe
 
@@ -588,24 +566,21 @@ class pKaTypeIIISubmissionCollection:
             #submission.data_matched["pKa ID"] = submission.data_matched.index
 
             #submission.data_matched = submission.data_matched.set_index("pKa ID", drop=False)
-            #print("Dataframe matched: \n", submission.data_matched)
+
 
         # Submissions free energies and enthalpies.
         for submission in submissions:
-            #print("Dataframe matched: \n", submission.data_matched)
 
             for series in submission.data_matched.iterrows():
                 #pKa_ID = series[1]["pKa ID"]
                 pKa_ID = series[0]
                 mol_ID = series[1]["Molecule ID"]
-                #print("pKa ID: ", pKa_ID)
 
                 #pKa_mean_exp = experimental_data.loc[experimental_data["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
                 pKa_mean_exp = experimental_data.loc[pKa_ID, 'pKa mean']
-                #print(pKa_mean_exp)
+
                 #pKa_mean_pred = submission.data_matched.loc[submission.data_matched["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
                 pKa_mean_pred = submission.data_matched.loc[pKa_ID, "pKa mean"]
-                #print(pKa_mean_pred)
 
                 data.append({
                     'receipt_id': submission.receipt_id,
@@ -649,7 +624,6 @@ class pKaTypeIIISubmissionCollection:
         # Correlation plot by molecules.
         plt.close('all')
         data_ordered_by_pKa_ID = self.data.sort_values(["pKa ID"], ascending=["True"])
-        #print("pKa ID ordered data: ", data_ordered_by_pKa_ID)
         sns.set(rc={'figure.figsize': (8.27,11.7)})
         sns.violinplot(y='pKa ID', x='$\Delta$pKa error (calc - exp)', data=data_ordered_by_pKa_ID,
                            inner='point', linewidth=1, width=1.2)
@@ -675,8 +649,6 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
                   ''.format(receipt_id, i + 1, len(submissions)), end='')
 
         bootstrap_statistics = submission.compute_pKa_statistics(experimental_data, stats_funcs)
-        #print("\n bootstrap_statistics \n")
-        #print(bootstrap_statistics)
 
 
         record_csv = {}
