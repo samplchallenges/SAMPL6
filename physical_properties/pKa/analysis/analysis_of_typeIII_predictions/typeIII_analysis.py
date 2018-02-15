@@ -119,6 +119,47 @@ def plot_correlation(x, y, data, title=None, color=None, kind='joint', ax=None):
     ax.fill_between(axes_limits, axes_limits - 0.5, axes_limits + 0.5, alpha=0.2, color=palette[2])
     ax.fill_between(axes_limits, axes_limits - 1, axes_limits + 1, alpha=0.2, color=palette[3])
 
+
+def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=None, color=None, ax=None):
+    # Extract only pKa values.
+    x_error = data.loc[:, x_err_lab]
+    y_error = data.loc[:, y_err_lab]
+    x_values = data.loc[:, x_lab]
+    y_values = data.loc[:, y_lab]
+    data = data[[x_lab, y_lab]]
+
+    # Find extreme values to make axes equal.
+    min_limit = np.ceil(min(data.min()) - 2)
+    max_limit = np.floor(max(data.max()) + 2)
+    axes_limits = np.array([min_limit, max_limit])
+
+    # Color
+    current_palette = sns.color_palette()
+    sns_blue = current_palette[0]
+
+    # Plot
+    plt.figure(figsize=(6, 6))
+    grid = sns.regplot(x=x_values, y=y_values, data=data, color=color, ci=None)
+    plt.errorbar(x=x_values, y=y_values, xerr=x_error, yerr=y_error, fmt="o", ecolor=sns_blue, capthick='2',
+                 label='SEM', alpha=0.75)
+    plt.axis("equal")
+
+    if len(title) > 70:
+        plt.title(title[:70]+"...")
+    else:
+        plt.title(title)
+
+    # Add diagonal line.
+    grid.plot(axes_limits, axes_limits, ls='--', c='black', alpha=0.8, lw=0.7)
+
+    # Add shaded area for 0.5-1 pKa error.
+    palette = sns.color_palette('BuGn_r')
+    grid.fill_between(axes_limits, axes_limits - 0.5, axes_limits + 0.5, alpha=0.2, color=palette[2])
+    grid.fill_between(axes_limits, axes_limits - 1, axes_limits + 1, alpha=0.2, color=palette[3])
+
+    plt.xlim(axes_limits)
+    plt.ylim(axes_limits)
+
 # =============================================================================
 # UTILITY CLASSES
 # =============================================================================
@@ -233,6 +274,7 @@ class SamplSubmission:
     def _create_comparison_dataframe(cls, column_name, submission_data, experimental_data):
         """Create a single dataframe with submission and experimental data."""
         # Filter only the systems IDs in this submissions.
+
 
         experimental_data = experimental_data[experimental_data.index.isin(submission_data.index)] # match by column index
         # Fix the names of the columns for labelling.
@@ -545,6 +587,7 @@ def add_pKa_IDs_to_matching_predictions(df_pred, df_exp):
     # Drop predicted pKas that didn't match to experimental values
     df_pred_matched = df_pred.dropna(subset=["pKa ID"]).reset_index(drop=True)
 
+
     return df_pred_matched
 
 
@@ -552,56 +595,95 @@ class pKaTypeIIISubmissionCollection:
     """A collection of TypeIII pKa submissions."""
 
     PKA_CORRELATION_PLOT_BY_METHOD_PATH_DIR = 'pKaCorrelationPlots'
+    PKA_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR = 'pKaCorrelationPlotsWithSEM'
     PKA_CORRELATION_PLOT_BY_PKA_PATH_DIR = 'error_for_each_macroscopic_pKa.pdf'
 
     def __init__(self, submissions, experimental_data, output_directory_path):
-        # Build full free energy table.
-        data = []
 
-        # Match predicted pKas to experimental pKa IDs and update submissions with pKa ID column
-        for submission in submissions:
-            submission.data_matched = add_pKa_IDs_to_matching_predictions(df_pred =submission.data, df_exp = experimental_data)
-            submission.data_matched.set_index("pKa ID", inplace=True)
-            # recreate pKa ID column
-            #submission.data_matched["pKa ID"] = submission.data_matched.index
+        PKA_TYPEIII_SUBMISSION_COLLECTION_FILE_PATH = './analysis_outputs/typeIII_submission_collection.csv'
 
-            #submission.data_matched = submission.data_matched.set_index("pKa ID", drop=False)
+        # Check if submission collection file already exists.
+        if os.path.isfile(PKA_TYPEIII_SUBMISSION_COLLECTION_FILE_PATH):
+            print("Analysis will be done using the existing typeIII_submission_collection.csv file.")
+
+            self.data = pd.read_csv(PKA_TYPEIII_SUBMISSION_COLLECTION_FILE_PATH)
+            print("\n SubmissionCollection: \n")
+            print(self.data)
+
+            # Populate submission.data_matched dataframes parsing sections of collection file.
+            for submission in submissions:
+                data = []
+
+                receipt_ID = submission.receipt_id
+                df_collection_of_each_submission = self.data.loc[self.data["receipt_id"] == receipt_ID ]
+
+                # Transform into Pandas DataFrame.
+                submission.data_matched = pd.DataFrame()
+                submission.data_matched["pKa mean"] = df_collection_of_each_submission["pKa (calc)"]
+                submission.data_matched["pKa SEM"] = df_collection_of_each_submission["pKa SEM (calc)"]
+                submission.data_matched["pKa ID"] = df_collection_of_each_submission["pKa ID"]
+                submission.data_matched["Molecule ID"] = df_collection_of_each_submission["Molecule ID"]
+
+                submission.data_matched.set_index("pKa ID", inplace=True)
+
+            # Transform into Pandas DataFrame.
+            self.output_directory_path = output_directory_path
+
+        else: # Build collection dataframe from the beginning.
+            # Build full pKa collection table.
+            data = []
+
+            # Match predicted pKas to experimental pKa IDs and update submissions with pKa ID column
+            for submission in submissions:
+                submission.data_matched = add_pKa_IDs_to_matching_predictions(df_pred =submission.data, df_exp = experimental_data)
+                submission.data_matched.set_index("pKa ID", inplace=True)
+                # recreate pKa ID column
+                #submission.data_matched["pKa ID"] = submission.data_matched.index
+
+                #submission.data_matched = submission.data_matched.set_index("pKa ID", drop=False)
 
 
-        # Submissions free energies and enthalpies.
-        for submission in submissions:
+            # Submissions free energies and enthalpies.
+            for submission in submissions:
 
-            for series in submission.data_matched.iterrows():
-                #pKa_ID = series[1]["pKa ID"]
-                pKa_ID = series[0]
-                mol_ID = series[1]["Molecule ID"]
+                for series in submission.data_matched.iterrows():
+                    #pKa_ID = series[1]["pKa ID"]
+                    pKa_ID = series[0]
+                    mol_ID = series[1]["Molecule ID"]
 
-                #pKa_mean_exp = experimental_data.loc[experimental_data["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
-                pKa_mean_exp = experimental_data.loc[pKa_ID, 'pKa mean']
+                    #pKa_mean_exp = experimental_data.loc[experimental_data["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
+                    pKa_mean_exp = experimental_data.loc[pKa_ID, 'pKa mean']
+                    pKa_SEM_exp = experimental_data.loc[pKa_ID, 'pKa SEM']
 
-                #pKa_mean_pred = submission.data_matched.loc[submission.data_matched["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
-                pKa_mean_pred = submission.data_matched.loc[pKa_ID, "pKa mean"]
+                    #pKa_mean_pred = submission.data_matched.loc[submission.data_matched["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
+                    pKa_mean_pred = submission.data_matched.loc[pKa_ID, "pKa mean"]
+                    pKa_SEM_pred = submission.data_matched.loc[pKa_ID, "pKa SEM"]
 
-                data.append({
-                    'receipt_id': submission.receipt_id,
-                    'participant': submission.participant,
-                    'name': submission.name,
-                    'Molecule ID': mol_ID,
-                    'pKa ID': pKa_ID,
-                    'pKa (calc)': pKa_mean_pred,
-                    'pKa (exp)': pKa_mean_exp,
-                    '$\Delta$pKa error (calc - exp)': pKa_mean_pred - pKa_mean_exp
-                })
+                    data.append({
+                        'receipt_id': submission.receipt_id,
+                        'participant': submission.participant,
+                        'name': submission.name,
+                        'Molecule ID': mol_ID,
+                        'pKa ID': pKa_ID,
+                        'pKa (calc)': pKa_mean_pred,
+                        'pKa SEM (calc)': pKa_SEM_pred,
+                        'pKa (exp)': pKa_mean_exp,
+                        'pKa SEM (exp)': pKa_SEM_exp,
+                        '$\Delta$pKa error (calc - exp)': pKa_mean_pred - pKa_mean_exp
+                    })
 
-        # Transform into Pandas DataFrame.
-        self.data = pd.DataFrame(data=data)
-        self.output_directory_path = output_directory_path
-        self.data.to_csv("./analysis_outputs/submission_collection.csv")
-        print("\n SubmissionCollection: \n")
-        print(self.data)
+            # Transform into Pandas DataFrame.
+            self.data = pd.DataFrame(data=data)
+            self.output_directory_path = output_directory_path
 
-        # Create general output directory.
-        os.makedirs(self.output_directory_path, exist_ok=True)
+            print("\n SubmissionCollection: \n")
+            print(self.data)
+
+            # Create general output directory.
+            os.makedirs(self.output_directory_path, exist_ok=True)
+
+            # Save collection.data dataframe in a CSV file.
+            self.data.to_csv(PKA_TYPEIII_SUBMISSION_COLLECTION_FILE_PATH)
 
     def generate_correlation_plots(self):
         # pKa correlation plots.
@@ -615,6 +697,24 @@ class pKaTypeIIISubmissionCollection:
             plt.close('all')
             plot_correlation(x='pKa (exp)', y='pKa (calc)',
                              data=data, title=title, kind='joint')
+            plt.tight_layout()
+            # plt.show()
+            output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
+            plt.savefig(output_path)
+
+    def generate_correlation_plots_with_SEM(self):
+        # pKa correlation plots.
+        output_dir_path = os.path.join(self.output_directory_path,
+                                       self.PKA_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR)
+        os.makedirs(output_dir_path, exist_ok=True)
+        for receipt_id in self.data.receipt_id.unique():
+            data = self.data[self.data.receipt_id == receipt_id]
+            title = '{} ({})'.format(receipt_id, data.name.unique()[0])
+
+            plt.close('all')
+            plot_correlation_with_SEM(x_lab='pKa (exp)', y_lab='pKa (calc)',
+                                      x_err_lab='pKa SEM (exp)', y_err_lab='pKa SEM (calc)',
+                                      data=data, title=title)
             plt.tight_layout()
             # plt.show()
             output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
@@ -759,9 +859,6 @@ if __name__ == '__main__':
     experimental_data.set_index("pKa ID", inplace=True)
     experimental_data["pKa ID"] = experimental_data.index
     print("Experimental data: \n", experimental_data)
-    #print("Experimental data index: \n", experimental_data.index)
-
-
 
     # Import user map.
     with open('../../predictions/SAMPL6_user_map_pKa.csv', 'r') as f:
@@ -796,6 +893,7 @@ if __name__ == '__main__':
     # Generate plots and tables.
     for collection in [collection_typeIII]:
         collection.generate_correlation_plots()
+        collection.generate_correlation_plots_with_SEM()
         collection.generate_molecules_plot()
 
     for submissions, type in zip([submissions_typeIII], ['typeIII']):
