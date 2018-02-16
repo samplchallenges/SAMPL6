@@ -613,7 +613,9 @@ def hungarian_matching(pred_pKas, exp_pKa_means, exp_pKa_SEMs, exp_pKa_IDs):
         for j in range(sz):
             # Calculate mapping cost as an absolute diff. between exp. and pred. pKa values
             if i < len(experimental) and j < len(predicted):
-                cost[i].append(abs(predicted[j]-experimental[i]))
+                # Cost is defined as squared error
+                cost_se = (predicted[j]-experimental[i])**2
+                cost[i].append(cost_se)
             # Assign zero cost if we are out of bounds
             else:
                 cost[i].append(0)
@@ -905,7 +907,12 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
                 '\\begin{document}\n'
                 '\\begin{center}\n')
         statistics_latex.to_latex(f, column_format='|ccccccc|', escape=False, index=False, longtable=True)
-        f.write('\end{center}\n'
+        f.write('\end{center}\n' 
+                '\nNotes\n\n'
+                '- Mean and 95\% confidence intervals of statistic values were calculated by bootstrapping.\n\n'
+                '- Submissions with submission IDs nb001, nb002, nb003, nb004, nb005 and nb005 include non-blind corrections to pKa predictions of only SM22 molecule.\n\n'
+                'pKas of the rest of the molecules in these submissions were blindly predicted before experimental data was released.\n\n'
+                '- pKa predictions of Epik-sequencial method (submission ID: nb007) were not blind. They were submitted after the submission deadline to be used as a reference method.\n\n'
                 '\end{document}\n')
 
     # Violin plots by statistics across submissions.
