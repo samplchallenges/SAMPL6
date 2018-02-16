@@ -1,4 +1,4 @@
-# Analysis of the typeIII macroscopic pKa predictions
+# Analysis of the type III macroscopic pKa predictions
 
 General analysis of typeIII macroscopic pKa predictions include calculated vs predicted pKa correlation plots and 5 performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m) ) for all the submissions. 
 95%-percentile bootstrap confidence intervals of all the statistics were reported. 
@@ -7,7 +7,7 @@ One-to-one matching of predicted pKas to experimental pKas was performed with tw
 1. **Closest**: Each predicted pKa is matched to experimental pKa values that minimize the absolute error of that pair.
 When more than one predicted pKa match to the same experimental pKa, only the predicted pka that has the lowest absolute error is kept. 
 Predicted pKas that were not matched to experimental pKas were excluded from this analysis.
-2. **Hungarian**: Experimental pKas and predicted pKas are matched following Hungarian algorithm. It finds the optimum assignment between experimental and predicted set of pKas that minimizes linear sum of squared errors of all pairwise matches. Cost is defined as squared error instead of absolute error to minimize the effect of extra predicted pKas to overall matching. We acknowledge Kiril Lanevskij for suggesting this alternative assignment of experimental pKas.
+2. **Hungarian**: Experimental pKas and predicted pKas are matched following [Hungarian algorithm](https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.optimize.linear_sum_assignment.html) which aims to minimize the global cost of assigning the one-to-one correspondences between two sets. It finds the optimum assignment between experimental and predicted set of pKas that minimizes linear sum of squared errors of all pairwise matches. Cost is defined as squared error instead of absolute error to minimize the effect of extra predicted pKas to overall matching. We acknowledge Kiril Lanevskij for suggesting this alternative assignment of experimental pKas.
 
 ## Manifest
 - `typeIII_analysis.py` - Python script that parses submissions and performs the analysis.
