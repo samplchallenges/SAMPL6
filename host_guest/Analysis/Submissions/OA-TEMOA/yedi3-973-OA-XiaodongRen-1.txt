@@ -1,0 +1,28 @@
+# Results for OA
+# Author: Xiaodong Ren (rxdcpu@hotmail.com)
+Predictions:
+OA-G0, -8.4,,,   0.1,,
+OA-G1, -7.9,,,   0.1,,
+OA-G2, -13.7,,,   0.1,,
+OA-G3, -5.9,,,   0.1,,
+OA-G4, -6.6,,,   0.2,,
+OA-G5, -8.2,,,   0.1,,
+OA-G6, -3.8,,,   0.2,,
+OA-G7, -6.6,,,   0.1,,
+
+Name:
+DDM/GAFF/AM1-BCC/TIP3P
+
+Software: 
+Autodock 4.2.6
+Gromacs 2016.4
+AmberTools17
+Acpype
+
+Method:
+The binding free energy calculations was performed based on the double decoupling method(DDM), which requires alchemical free energy calculations of the guests in the bound and free states. 
+The starting structure were obtained by molecular docking. AutoDock 4.2.6 program package was used for molecular docking and AutoDock Tools 1.5.6 (ADT) was used to prepare the PDBQT file format of hosts and guests. 100 independent docking runs were performed for each docking simulation with 2,500,000 energy evaluations for each run. Other docking parameters were set to default. 
+Free energy calculation were carried out using GROMACS 2016.4 package. Autodock generated docking conformation of host-guest complexes with lowest binding energy were taken as the initial conformation for MD simulation. The hosts and guests were parameterized with the general AMBER force field (GAFF) and AM1-BCC charge model was used to assign charges using AmberTools17. Gromacs topologies and coordinates were generated from the AMBER ones using ACPYPE. TIP3P model was used for water molecules and all the complexes were solvated in a cubic box, with periodic boundary conditions and a minimum distance between the solute and the box of 10 Angstroms. Sodium and chloride ions were added to neutralize the systems.
+The guest van der Waals interactions were decoupled and the charges annihilated using a linear alchemical pathway with delta lambda = 0.05 for the van der Waals and delta lambda = 0.1 for the Coulombic transformations. For the addition of the guest restraints, 12 nonuniformly distributed lambda values were used. A total of 42 windows for the complex(bound state) simulations and 31 windows for the guest(free state) simulations were therefore employed. For each window, 10,000 energy minimization steps were carried out using a steepest descent algorithm. The system was subsequently simulated for 0.5 ns in the canonical ensemble with harmonic position restraints applied to the solute heavy atoms. Temperature was coupled using Langevin dynamics with 298.15 K as the reference temperature. A 0.5 ns position restrained run in the isothermal-isobaric ensemble was then performed using the Berendsen coupling algorithm and with a target pressure of 1 atm. Several 1 ns unrestrained production runs were performed for data collection in the NPT ensemble with the Parrinello-Rahman pressure coupling scheme. The relative position and orientation of the bound guest with respect to the host was restrained by means of one distance, two angles, and three dihedral harmonic potentials. In all simulations, the particle mesh Ewald (PME) algorithm was used for electrostatic interactions with a cutoff of 12 Angstroms. The Verlet cutoff scheme was used with a van der Waals interaction cutoff of 12 Angstroms.  
+Free energy and uncertainty estimates were obtained with the implementation of the multiple Bennet acceptance ratio (MBAR) provided with the python package pymbar (https://github.com/choderalab/pymbar) and using the alchemical analysis tool (https://github.com/MobleyLab/alchemical-analysis).The final binding free energy is the difference between the decoupling of the guest from the solution and from the solvated complex, also adding the contribution of the restraints to the free energy. The final uncertainty in the binding free energies is the root sum square of the uncertainties of free and complex calculations. 
+

@@ -1,0 +1,72 @@
+#
+# Results for OA Host-Guest Systems
+#
+# This file will be automatically parsed. It must contain the following four
+#    elements: predictions, name of method, software listing, and method.
+#
+# The data in each prediction line should be structured as follows, with all
+#    numbers in kcal/mol: Guest ID, Free energy, free energy SEM, free energy
+#    method error, enthalpy, enthalpy SEM, enthalpy method uncertainty
+#
+Predictions:
+OA-G0,   -7.23,,0.24,,, 
+OA-G1,   -3.79,,0.24,,, 
+OA-G2,   -3.54,,0.26,,,
+OA-G3,   -5.91,,0.31,,,
+OA-G4,   -4.12,,0.27,,,
+OA-G5,   -5.35,,0.24,,,
+OA-G6,   -5.92,,0.24,,,
+OA-G7,   -4.75,,0.25,,,
+#
+# Please provide an informal yet informative name of the method used
+#
+Name:
+AMOEBA/BAR/Tinker
+#
+# All major software packages used and their versions
+#
+Software:
+Tinker 8.3
+Tinker-OpenMM
+Psi4
+Gaussian09
+#
+# Methodology and computational details
+#
+Method:
+Marie Laury, Zhi Wang, Aaron Gordon and Jay Ponder, Dept. of Chemistry,
+Washington University in St. Louis, St. Louis, MO 63130 U.S.A.
+
+Molecular dynamics-based free energy calculations using AMOEBA force field
+and TINKER software; Absolute binding energies via full explicit solvent
+simulations computed for each system; Bennett Acceptance Ratio (BAR) used
+to find free energy values; Statistical error computed from a standard
+bootstrapping technique
+
+Free energies computed via a window-based double decoupling method. About
+40-50 total simulations were run for each ligand/guest; roughly half of them
+to disappear the molecule in water, and half to disappear the ligand when
+bound to the host. Initial windows were used to scale the multipole moments
+and polarizability of all guest atoms to zero, followed by windows to scale
+the vdw interactions between the guest and the rest of the system to zero.
+All molecules were modeled as simple inclusion complexes of 1:1 stoichiometry.
+A flat-bottomed harmonic restraint was used to keep each ligand inside the
+host. The restraint range was chosen such that it was never violated during
+an unrestrained host-guest simulation with the full potential. An analytical
+correction used to account for restraint removal in the fully decoupled system.
+
+Simulation windows were typically run for 10 ns. Molecular dynamics simulations
+were performed in the NPT ensemble at 298K on NVIDIA 970 and 1070 GPUs with the
+Tinker-OpenMM "DYNAMIC" program in "mixed" precision using a simple two-stage
+RESPA integrator and a 2.0 fs time step for nonbonded terms and 0.25 fs for
+valence terms. AMOEBA induced dipoles converged to an RMS change per atom of
+0.00001 Debye via a DIIS method. Simulation systems were cubic boxes of about
+40 Angstroms on a side. Free energies calculated via post-processing using the
+Tinker 8.3 "BAR" program in double precision with error computed via a standard
+bootstrap technique. The organic carboxylate sites of guests were deprotonated.
+Eight extra sodium ions were added to octaacid simulations resulting in a net
+neutral host system.
+
+AMOEBA parameters for the host and all guests were generated standard
+published protocols. Atomic multipoles were determined from MP2/6-311G(1d,1p)
+and MP2/aug-cc-pVTZ calculations.

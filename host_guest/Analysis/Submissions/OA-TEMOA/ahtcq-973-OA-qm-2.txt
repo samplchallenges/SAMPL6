@@ -1,0 +1,35 @@
+# Results for OA
+#
+Predictions:
+OA-G0, -4.49, 0.19,,,, 
+OA-G1, -2.54, 0.11,,,, 
+OA-G2, -6.45, 0.18,,,,
+OA-G3, -3.56, 0.11,,,,
+OA-G4, -6.98, 0.52,,,,
+OA-G5, -2.33, 0.17,,,,
+OA-G6, -3.84, 0.17,,,,
+OA-G7, -3.87, 0.22,,,,
+#
+Name:
+FEP-QM/MM
+#
+Software: 
+Amber 16
+#
+Method:
+Relative free energies calculated at QM/MM level of theory with FEP and the reference-potential approach. 
+Force field GAFF2 and TIP3P. RESP charges from HF/6-31G* calculation.
+Ligands built by hand inside the host.
+Equilibrated 2 ns.
+FEP calculations performed with 3-6 independent calculations.
+Each with 13 lambda values (0, 0.05, 0.1, 0.2, ... 0.8, 0.9, 0.95, 1.0).
+1 ns equlibration and 2 ns production for each lambda value.
+Constant temperature (Langevin) and pressure (Berendsen).
+Particle mesh Ewald with a cutoff of 8 A.
+Time step 2 fs with bonds involving H constrained with SHAKE.
+Free energies calculated by MBAR using PYMBAR.
+Absolute affinities obtained by using experimental data for caproic acid and caprylic acid.
+Free energies at MM level corrected by a FEP from MM to QM/MM at the end states and four lambda values (0, 0.33, 0.66, and 1) with explicit QM/MM MD simulations.
+Each with 0.5 ns equilibration and 1.0 ns production.
+Only ligand in QM system.
+QM level PM6-DH+ (Amber software).

@@ -1,0 +1,56 @@
+﻿# Results for CB8
+#
+# This file will be automatically parsed.  It must contain the following four elements: predictions, name of method, software listing, and method.
+# These elements must be provided in the order shown. 
+#
+# The data in each prediction line should be structured as follows, with all (up to six) numbers in kcal/mol.
+# Guest ID, Free energy, free energy SEM, free energy method error, enthalpy, enthalpy SEM, enthalpy method uncertainty
+# The list of predictions must begin with the "Prediction:" keyword, as illustrated here.
+Predictions:
+CB8-G0, -8.05,0.88,,,, 
+CB8-G1, -1.43,1.51,,,, 
+CB8-G2, -10.25,0.20,,,,
+CB8-G3, -10.82,0.85,,,,
+CB8-G4, -5.42,0.51,,,,
+CB8-G5, -16.29,0.34,,,,
+CB8-G6, -11.73,0.23,,,,
+CB8-G7, -13.34,0.14,,,,
+CB8-G8, -19.67,0.30,,,,
+CB8-G9, -13.87,0.13,,,,
+CB8-G10, -11.76,0.20,,,,
+CB8-G11, -7.70,0.21,,,,
+CB8-G12, -13.90,2.40,,,,
+CB8-G13, -4.45,0.19,,,,
+#
+# Please provide an informal yet informative name of the method used.
+# The "Name:" keyword is required, as shown here.
+Name:
+HREM/BAR/RESP/Force-Matching/TIP3P
+#
+# All major software packages used and their versions
+# The "Software:" keyword is required.
+Software: 
+CHARMM (c41b1) 
+Q-CHEM 5.0
+Gaussian 16
+Antechamber
+GalaxyDock-HG
+#
+# Methodology and computational details. 
+# Level of detail should be at least that used in a publication.  
+# Please include the values of key parameters, with units, and explain how any statistical uncertainties were estimated.
+# Use as many lines of text as you need. 
+# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+Method: 
+Parameters were developed using our own method. 
+Partial atomic charges and the bonded parameters were generated using QM calculations with force-matching. 
+Lennard-Jones parameters were obtained from CHARMM Force Field. 
+Initial biding poses were determined via docking using GalaxyDock-HG. 
+All simulations were performed with CHARMM.
+Each system was solvated with ~3000 TIP3P waters in a cubic box whose dimensions were approximately 46 x 46 x 46 cubic Angstroms. 
+Non-bonded interactions were truncated with a 12.0 Angstrom cutoff. 
+Long-range electrostatics were handled with PME method. 
+SHAKE constraints were applied to bonds involving hydrogen.
+Simulation time step was set to 1 fs.    
+Free energy calculations were done with Double Decoupling Method combined with Hamiltonian Replica Exchange Method(HREM)/Bennett Acceptance Ratio(BAR). 
+ 

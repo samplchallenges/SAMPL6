@@ -1,0 +1,76 @@
+# Results for CB8
+#
+# This file will be automatically parsed.  It must contain the following four elements: predictions, name of method, software listing, and method.
+# These elements must be provided in the order shown. 
+#
+# The data in each prediction line should be structured as follows, with all (up to six) numbers in kcal/mol.
+# Guest ID, Free energy, free energy SEM, free energy method error, enthalpy, enthalpy SEM, enthalpy method uncertainty
+# The list of predictions must begin with the "Prediction:" keyword, as illustrated here.
+Predictions:
+TEMOA-G0, -43.7478,0.00000,,-57.8674,0.00000,
+TEMOA-G1, -41.9757,0.00000,,-59.9514,0.00000,
+TEMOA-G2, -51.2347,0.00000,,-66.7750,0.00000,
+TEMOA-G3, -43.5610,0.00000,,-57.2301,0.00000,
+TEMOA-G4, -51.9783,0.00000,,-66.3929,0.00000,
+TEMOA-G5, -37.0383,0.00000,,-53.9008,0.00000,
+TEMOA-G6, -41.0502,0.00000,,-55.9103,0.00000,
+TEMOA-G7, -45.9838,0.00000,,-60.7083,0.00000,
+#
+# Please provide an informal yet informative name of the method used.
+# The "Name:" keyword is required, as shown here.
+Name:
+BSSE-corrected RI-B3PW91-D3 (SMD)/CBS
+#
+# All major software packages used and their versions
+# The "Software:" keyword is required.
+Software: 
+MOE 2016.08
+AMBER16.7
+Gaussian 16
+ORCA 4.0
+#
+# Methodology and computational details. 
+# Level of detail should be at least that used in a publication.  
+# Please include the values of key parameters, with units, and explain how any statistical uncertainties were estimated.
+# Use as many lines of text as you need. 
+# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+Method: 
+All simulations were performed with the pmemd.cuda program from
+AMBER16.7. 
+
+The guest molecules were noncovalently docked to the host molecule using the docking program of MOE 2016.08. The produced 
+complexes were minimized under the Amber10:EHT force field in MOE. The systems were then prepared using the Leap module 
+of AmberTools16 under the AMBER ff14SB and GAFF force fields. To create force field parameters, the geometry of the host 
+was optimized using Gaussian 16 with the AM1 method. The geometry of guest 13 was optimized with the density functional 
+method B3LYP implemented within Gaussian 16. The Lan2L2DZ basis set was used for the platinum atom and 6-31G(d) basis set 
+was used for the rest of the atoms. The obtained AM1 Mulliken charges were used with the antechamber suite of Amber16 to 
+generate AM1-BCC charges and parameters. Sodium or chloride counter ions, with parameters from Joung and Cheatham 
+(10.1021/jp8001614), were added to neutralize the system. Each system was solvated in a 14.0 Å cube of TIP4P-Ew water 
+beyond the solute and 150 mM sodium chloride.
+ 
+The systems were relaxed under NVT conditions over six minimization procedures with decreasing restraints on the host 
+of 500.0, 200.0, 20.0, 10.0, 5.0 kcal/mol(Å ^2).
+The systems then were heated to 300 K over 30 ps. The temperature was kept at 300 K using Langevin dynamics and pressure 
+was coupled to 1 atm using isotropic position scaling. Atomistic MD simulations were performed for 10 ns in triplicate. 
+Nonbonded interactions were truncated with a 10.0 Angstrom cutoff, whereas long-range electrostatics were handled with the 
+particle-mesh Ewald (PME) method, using default AMBER settings. SHAKE constraints were applied to bonds involving hydrogen, 
+and the simulation time step was set to 2 fs. All simulations were performed with AMBER16.7. 
+ 
+Cluster analyses were performed to identify the most representative structure for each host-guest complex. 
+ 
+Quantum chemical calculations were carried out using ORCA 4.0 on each representative structure. Calculations were done using 
+the B3PW91 density functional since B3PW91 has been shown to treat long-range covalent interactions well. To treat the use of 
+exact exchange in the functional, the RIJCOSX approximation (10.1016/j.chemphys.2008.10.036) is used with the def2 auxiliary 
+basis set(10.1016/0009-2614(95)00621-A) to reduce the computational cost (CPU time, memory) associated with the number of atoms 
+in the host system. The SMD solvation model (10.1021/jp810292n) was used to include solvated effects. Grimme's D3 dispersion 
+correction was used to investigate long-range interactions (10.1063/1.3382344). The thermal corrections for all molecules are 
+calculated at the HF/6-31G(d) level of theory in Gaussian 16.
+ 
+To extrapolate to the Kohn-Sham limit, the cc-pVnZ basis sets were used where n = D, T. The extrapolation scheme 
+(10.1063/1.1465405) used was E(l_max) = E_CBS + A(l_max+1)exp(-B*sqrt(n_s)) where l_max is the maximum angular momentum function 
+in the basis set, and n_s is the number of s functions in the basis set. 
+ 
+The B-parameter is set to 5.5 in agreement with Jensen to have a two-point extrapolation scheme(10.1063/1.1465405). Since these 
+are weak molecular interactions between host-guest binding and the abundance of  weak molecular interactions in biomolecules,
+(10.1063/1.3641894) the Boys and Bernardi formula (10.1080/00268977000101561) for basis set superposition error (BSSE) is used 
+for the host-guest complexes.

@@ -1,0 +1,39 @@
+# Results for TEMOA
+#
+Predictions:
+TEMOA-G0,  -8.45, ,,,, 
+TEMOA-G1,  -6.83, ,,,, 
+TEMOA-G2, -10.33, ,,,,
+TEMOA-G3,  -4.61, ,,,,
+TEMOA-G4, -11.48, ,,,,
+TEMOA-G5,  -8.05, ,,,,
+TEMOA-G6,  -6.66, ,,,,
+TEMOA-G7,  -9.91, ,,,,
+#
+Name:
+SQM-opt
+#
+Software: 
+Amber 16
+Turbomole 7.0
+COSMO-RS
+#
+Method:
+Absolute free energies calculated with structures minimised with SQM/MM and then energies evaluated with PM6-DH+ + COSOM-RS solvation free energies + Frequencies from MM.
+
+Ligands built by hand inside the host and then equilibrated for 100 ns.
+10-20 equidistant snapshots were minimised by SQM/MM.
+Single-point energy was calculated in vacuum by PM6-DH+.
+Solvation free energies were calculated by COSMO-RS at BP/TZP level.
+Frequencies were calculated on structures optimised freely with MM.
+Thermal corrections were estimated from these frequencies (1 M reference state).
+These three terms were summed for complex - host - guest.
+The individual terms were Boltzmann-weighted to get a final free energy.
+
+Force field GAFF2 and TIP3P. RESP charges from HF/6-31G* calculation.
+Constant temperature (Langevin) and pressure (Berendsen).
+Particle mesh Ewald with a cutoff of 8 A.
+Time step 2 fs with bonds involving H constrained with SHAKE.
+
+Ligand+host+4 water molecules (forming 2 H-bonds to each carboxylate atom) in QM system.
+QM level PM6-DH+ (Amber software).

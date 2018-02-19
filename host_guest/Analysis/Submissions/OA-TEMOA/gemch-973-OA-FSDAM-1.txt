@@ -1,0 +1,87 @@
+# Results for OA
+#
+# This file will be automatically parsed.  It must contain the following four elements: predictions, name of method, software listing, and method.
+# These elements must be provided in the order shown. 
+#
+# The data in each prediction line should be structured as follows, with all (up to six) numbers in kcal/mol.
+# Guest ID, Free energy, free energy SEM, free energy method error, enthalpy, enthalpy SEM, enthalpy method uncertainty
+# The list of predictions must begin with the "Predictions:" keyword, as illustrated here.
+Predictions:
+OA-G0,     -7.06 ,, 0.44  ,,,
+OA-G1,     -6.19 ,, 0.51  ,,,
+OA-G2,    -11.39 ,, 0.47  ,,,
+OA-G3,     -5.77 ,, 0.45  ,,,
+OA-G4,    -11.19 ,, 0.51  ,,,
+OA-G5,     -5.73 ,, 0.36  ,,,
+OA-G6,     -5.46 ,, 0.44  ,,,
+OA-G7,     -6.38 ,, 0.49  ,,,
+#
+# Please provide an informal yet informative name of the method used.
+# The "Name:" keyword is required, as shown here.
+Name:
+FS-DAM/GAFF2/TIP3P
+#
+# All major software packages used and their versions
+# The "Software:" keyword is required.
+Software: 
+Orac 6.0 
+PrimaDORAC 1.0
+MOPAC7 
+#
+# Methodology and computational details. 
+# Level of detail should be at least that used in a publication.  
+# Please include the values of key parameters, with units, and explain how any statistical uncertainties were estimated.
+# Use as many lines of text as you need. 
+# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+Method: 
+All simulations were performed in explicit solvent and PBC with the
+ORAC6.0 program (doi: 10.1021/acs.jcim.6b00151) using the fast
+switching double annihilation method with no restraints.  (doi:
+10.1039/c5cp05521k). In the REST stage (Replica Exchange with Solute
+Tempering) we scaled the torsional and 14 non bonded interactions of
+the solute (host+guest) from 1.0 (target state) down to 0.1
+(i.e. equivalent to a maximal "torsional" temperature of 3000 K) using
+eight replicas with the scaling protocol described in
+10.1002/jcc.21388. Average exchange rate was 30%. The REST simulations
+lasted (per replica state) 30 ns, sampling about 400 configurations
+for the bound host-guest state and for the free guest in the solvent.
+In the bound state, a weak COM-COM harmonic tethering potential
+(k=0.026 kcal mol-1 Angs^-2 ) was imposed to prevent the guest
+molecule from drifting off into the solvent. In the FS-DAM stage, the
+guest, both in the bound and unbound state, was annihilated in 0.36 ns
+in 400 independent annihilation trajectories starting from the points
+sampled in the REST stage.  The annihilation Free energies of the
+bound and unbound guest molecule were calculated from the work
+distributions using in all cases the simple Gaussian estimate DG_ann=
+<w> - beta*<sigma_w^2>/2.  The Dissociation FS-DAM free energy was
+computed from the difference between the bound and unbound
+annihilation free energies plus a standard state volume correction of
+the form SSVC= k_BT ln (V_site/V_0) where V_0=1661 Angs^3 is the
+standard state molecular volume.  V_site (i.e. the translational
+binding site volume) was evaluated from the oscillation of the COM-COM
+host-guest distance, sampled in the REST target state. Reported errors
+on DG were computed by bootstrapping samples of 40 work values out of
+the collection of 400 NE works.
+
+The force field parameters and topology of the host and guests
+molecules were prepared using the PrimaDORAC 1.0 web interface ( doi:
+10.1021/acs.jcim.7b00145).  PrimaDORAC uses GAFF2 and AM1/BCC charges
+(see DOI: 10.1002/jcc.10128).  All carboxylate groups were assumed to
+be deprotonated. No counterions were used.  A background neutralizing
+plasma was assumed within the PBC Ewald method (PME). Each system was
+solvated with ~1300 water molecular (TIP3 model) in a cubic box of ~34
+sidelight. A finite size correction due to the net charges was 
+calculated as described in DOI: 10.1063/1.477788.
+  
+Production simulations (both for the equilibrium REST stage and
+non-equilibrium FS-DAM stage) were run in the NPT ensemble, with
+temperature control (T=298 K) using a Nose-Hoover thermostat and
+pressure control (P=1 atm) provided by a Parrinello-Rhaman barostat
+with cubic constraints. Lennard-Jones nonbonded interactions were
+truncated with a 13.0 Angstrom cutoff, whereas long-range
+electrostatics were handled with the PME method using alpha=0.37 and 1
+Angs grid spacing in the direct space.  SHAKE constraints were applied
+to bonds involving hydrogen atoms, and the simulations were integrated
+using a five step RESPA integrator as described in
+DOI:10.1021/jp960295w.
+
