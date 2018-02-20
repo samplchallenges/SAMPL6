@@ -1,0 +1,51 @@
+# Results for TEMOA
+#
+# This file will be automatically parsed.  It must contain the following four elements: predictions, name of method, software listing, and method.
+# These elements must be provided in the order shown. 
+#
+# The data in each prediction line should be structured as follows, with all (up to six) numbers in kcal/mol.
+# Guest ID, Free energy, free energy SEM, free energy method error, enthalpy, enthalpy SEM, enthalpy method uncertainty
+# The list of predictions must begin with the "Predictions:" keyword, as illustrated here.
+Predictions:
+TEMOA-G0, -5.193, 0.61,,,,
+TEMOA-G1, -5.087, 0.82,,,,
+TEMOA-G2, -6.754, 0.52,,,,
+TEMOA-G3, -3.296, 0.51,,,,
+TEMOA-G4, -9.791, 0.48,,,,   
+TEMOA-G5, -3.968, 0.55,,,,
+TEMOA-G6, -5.358, 0.56,,,,
+TEMOA-G7, -5.908, 0.45,,,,
+#
+# Please provide an informal yet informative name of the method used.
+# The "Name:" keyword is required, as shown here.
+Name:
+Umbrella Sampling/TIP3P
+#
+# All major software packages used and their versions
+# The "Software:" keyword is required.
+Software: 
+CHARMM
+CGenFF
+GalaxyDock-HG
+#
+# Methodology and computational details. 
+# Level of detail should be at least that used in a publication.  
+# Please include the values of key parameters, with units, and explain how any statistical uncertainties were estimated.
+# Use as many lines of text as you need. 
+# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+Method: 
+Parameters were generated using CHARMM General Force Field (CGenFF) program.
+Initial binding poses were determined by docking simulations (GalaxyDock-HG).
+All simulations were performed with CHARMM.
+Production simulations were run in the NPT ensemble. 
+Nonbonded interactions were truncated with a 12.0 Angstrom cutoff
+whereas long-range electrostatics were handled with the PME method. 
+SHAKE constraints were applied to bonds involving hydrogen
+and the simulation time step was set to 1 fs.
+Free energy calculations were performed by using umbrella sampling simulations.
+The reaction coordinate for umbrella sampling was set to the distance between 
+the centers of mass of the guest and the host.
+Force constant of the umbrella potential is set to 10 kcal/angstrom^2.
+40 consecutive umbrella sampling simulations were performed by changing 
+the center position of the umbrella potential.
+10 indipendent umbrella sampling simulations were performed for the error calculation.

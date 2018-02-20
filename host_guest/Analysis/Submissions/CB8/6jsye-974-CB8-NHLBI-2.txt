@@ -1,0 +1,50 @@
+# Results for CB8
+#
+# This file will be automatically parsed.  It must contain the following four elements: predictions, name of method, software listing, and method.
+# These elements must be provided in the order shown. 
+#
+# The data in each prediction line should be structured as follows, with all (up to six) numbers in kcal/mol.
+# Guest ID, Free energy, free energy SEM, free energy method error, enthalpy, enthalpy SEM, enthalpy method uncertainty
+# The list of predictions must begin with the "Prediction:" keyword, as illustrated here.
+Predictions:
+CB8-G0,    2.98, 1.56,,,,
+CB8-G1,   -2.01, 1.55,,,,
+CB8-G2,  -10.66, 1.05,,,,
+CB8-G3,  -10.60, 1.35,,,,
+CB8-G4,  -12.42, 1.29,,,,
+CB8-G5,  -16.32, 0.36,,,,
+CB8-G6,  -10.95, 0.26,,,,
+CB8-G7,  -12.73, 0.15,,,,
+CB8-G8,  -19.84, 0.35,,,,
+CB8-G9,  -13.72, 0.16,,,,
+CB8-G10, -11.98, 0.21,,,,
+CB8-G11,  -8.64, 0.68,,,,
+CB8-G12,  -1.10, 2.41,,,,
+CB8-G13,  -5.68, 0.47,,,,
+#
+# Please provide an informal yet informative name of the method used.
+# The "Name:" keyword is required, as shown here.
+Name:
+DDM/Force-Matching/FEP/HREM/MBAR
+#
+# All major software packages used and their versions
+# The "Software:" keyword is required.
+Software:
+CHARMM (c41b1) 
+Q-CHEM 5.0
+Gaussian 16
+Antechamber
+GalaxyDock-HG
+ForceSolve
+#
+# Methodology and computational details. 
+# Level of detail should be at least that used in a publication.  
+# Please include the values of key parameters, with units, and explain how any statistical uncertainties were estimated.
+# Use as many lines of text as you need. 
+# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+Method: 
+Parameters for the systems of interest were generated in the same spirit as the popular CGenFF force field. However, instead of fitting partial charges based on explicit water interactions and generating intramolecular parameteres via potential energy scans, we opted to employ RESP charges found through MP2/6-31G* calculations in SMD implicit solvent model. To generate the parameters for conformational degrees of freedom, we employed the initial parameter set as provided by CGENFF as a means to generate conformational sampling and refining the classical parameters through use of intramolecular (i.e., excluding VDW and charge terms) force matching. The major exceptional case to this approach was the G13 guest molecule. As a work around, we exchanged the platinum in the compound with palladium, and performed MNDO(d) dynamics (available in CHARMM) as a means of generating an ensemble with appreciable similarity to the platinum complex. After conformational sampling was generated, force matching was performed through the ForceSolve software using B3LYP/6-31G* forces (B3LYP/LANL2DZ for G13, and later refined with B3LYP/DZP). Charges and VDW terms are avoided in this approach by subtracting them from the QM forces prior to the fitting procedure. Simulations to compute the low level binding free energy employed the Hamiltonian Replica Exchange Method (HREM), and simulations at the end points (Host and Guest combined, and Guest alone in solutions) were continued for another 10 ns each, with a time step of 1 fs, and coordinate snapshot saving frequency of half a picosecond. The snapshots were then "corrected" energetically through use of free energy perturbation, which although is generally prohibited due to mismatch between QM and MM levels of theory, actually converged fairly well since the use of force matching inherently bolsters the overlap between the configurational space of interest. 
+
+Each system was solvated with ~3300 TIP3 waters, and a box size of around 46-47 A. QM/MM Ewalds were not employed, and long range electrostatic effects were assumed to be roughly on the same order as classical represenations, and the use of a COM potential to keep the system in the center of the box helped prevent the QM region, composed of only the guest molecule , from being subjected to vacuum effects along the edges of the periodic box.
+
+All errors accumulated through the free energy corrections was encapsulated with block averaging approach, which demonstrated consistency with errors found in more sophisticated methods, such as the multistate Bennett's Acceptance Ratio (MBAR).

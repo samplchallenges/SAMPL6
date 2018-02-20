@@ -1,0 +1,52 @@
+# Results for CB8
+#
+# This file will be automatically parsed.  It must contain the following four elements: predictions, name of method, software listing, and method.
+# These elements must be provided in the order shown. 
+#
+# The data in each prediction line should be structured as follows, with all (up to six) numbers in kcal/mol.
+# Guest ID, Free energy, free energy SEM, free energy method error, enthalpy, enthalpy SEM, enthalpy method uncertainty
+# The list of predictions must begin with the "Predictions:" keyword, as illustrated here.
+Predictions:
+CB8-G0,  -12.79,0.85,1.90,,, 				
+CB8-G1,  -7.51,0.27,1.72,,, 				
+CB8-G2,  -13.62,1.73,2.43,,,				
+CB8-G3,  -17.84,1.28,2.13,,,				
+CB8-G4,  -16.35,1.18,2.07,,,			
+CB8-G5,  -16.52,0.16,1.71,,,				
+CB8-G6,  -14.41,0.74,1.85,,,					
+CB8-G7,  -13.16,0.21,1.71,,,
+CB8-G8,  -19.01,0.74,1.85,,,
+CB8-G9,  -13.01,0.25,1.72,,,
+CB8-G10, -14.54,0.17,1.71,,,				
+#
+# Please provide an informal yet informative name of the method used.
+# The "Name:" keyword is required, as shown here.
+Name:
+SOMD/AM1BCC-GAFF-TIP3P-NOBUFFER/MBAR/C
+#
+# All major software packages used and their versions
+# The "Software:" keyword is required.
+Software: 
+Sire/OpenMM6.3 software (revision 2017.1.0)
+#
+# Methodology and computational details. 
+# Level of detail should be at least that used in a publication.  
+# Please include the values of key parameters, with units, and explain how any statistical uncertainties were estimated.
+# Use as many lines of text as you need. 
+# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+Method: 
+The estimation of binding free energy of a molecule from Molecular Dynamics simulations is performed through the double annihilation approach by using the thermodynamic cycle. In the first step, called discharging step, the charges of the guest are turned off both in free phase (only the ligand) and in bound phase (ligand and receptor together), providing the discharging free energy changes. In the second step, called vanishing step, the guest becomes "non-interacting", as the van der Waals terms are also switched off both in solvent and complex phase, giving the vanishing free energy changes in both phases. Furthermore, to prevent the ligand to drift off from the host cavity a flat-bottom restraining potential is used between one ligand’s atom close to the center of mass and four carbon atoms of the host. These steps are performed with a series of alchemical intermediate states based on a coupling parameter 0 < λ < 1. So we compute the binding free energy by subtracting the sum of the free energy changes in the bound phase from the sum of the free energy changes in the free phase. The above calculations can be referred to as Model A
+
+SAMPL6 organizers provided CB8 mol2 files for host-guest systems.In these simulations, referred to as no buffer,  buffer was neglected and the force field parameters were extracted from the topologies provided by the SAMPLing challenge. Using the system tleap, the systems were solvated in a rectangular box of TIP3P water molecules, with a cutoff radius between the solute and the box of 12Å. Ions were added to neutralize the overall charge of the box and the systems were energy minimized with the steepest decent procedure for 2ps and equilibrated in an NVT ensemble for 200ps at 298K, followed by an NPT equilibration for a further 200ps and a pressure of 1 atm using the Amber module Sander. Ultimately, 2 ns of NPT simulation was run with Sire/OpenMM6.3 software (revision 2017.1.0), in order to have a final density of about 1 g/cm3 using a timestep of 1 fs. The final coordinate files were retrieved with CPPTRAJ.
+
+For the discharging step, 9 equidistant λ windows were used for the bound and the free phase, while for the free vanishing step 11 equidistant lambda windows were used, and an additional window was added at 0.950, to capture large fluctuations  in the free energy changes towards the end of the decoupling process and for the bound vanishing step, 0.000, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.700, 0.850, 1.000 were used, in order to capture large fluctuations  in the free energy changes towards the beginning of the decoupling process. All simulations were run for 8 ns with Sire/OpenMM6.3 (SOMD) software (revision 2016.1.0), in an NPT ensemble and temperature control was achieved with an Andersen Thermostat with a coupling constant of 10 ps-1. Pressure was maintained by a Monte Carlo barostat that attempted isotropic box edge scaling every 100 fs. Periodic boundary conditions were imposed with a 12 Å atom-based cutoff distance for the non-bonded interactions, using a Barker Watts reaction field with dielectric constant of 78.3.
+
+Analysis was carried out using the multi Bennet acceptance ratio (MBAR). For the better estimation of the computed binding free energy in terms of accuracy and stability, each simulation was repeated three times using different initial velocities drawn from the Maxwell-Boltzmann distribution. So, the final binding free energies are calculated as the average of the three runs and the statistical uncertainties were computed using the standard error, which is the ratio of the standard deviation divided by the square root of the number of runs. The free energy method error was calculated as the the square root of the addition of the standard error computed above in the power of two plus the square root of the mean unsigned error in the power of two, as it was calculated for Model C in the SAMPL5 challenge for the OAMe systems.
+
+Model A does not take into consideration the contribution of long range dispersions, because we set a cutoff limit for the Lennard Jones interaction to 12Å, so that we can accelerate our simulations. However, it is possible to compute the corrected free energy of binding, with the assistance of a long-range dispersion correction term to the free energy of binding. The Lennard Jones dispersion correction term can be calculated in a post processing step of the ‘vanishing’ trajectories generated at λ = 0 and λ = 1, by expanding the range of the typical Lennard Jones cutoff radius in the simulation from 12Å to cover almost the entire box. In addition, Model A does not have a well-defined reference state in its definition of the free energy change upon binding of the molecules of the ligand. That is why we need a standard state definition, that is going to be substracted from the free energy of binding. The above corrections to the binding free energy can be referred to as Model C.
+
+The absolute free energies of binding obtained by use of the above protocol were corrected to account for specific errors:
+
+Protocol A) No other additional corrections were performed.
+Protocol C) A correction term for missing long-range dispersion interactions was evaluated for each guest in water and in the solvated host, and the difference was added to the free energy of binding. Also, a correction term for the use of the flat-bottom distance restraints was also applied to bring the decoupled guest to a standard concentration. This term was evaluated by numerical integration of the configuration integral of a potential energy function that solely contains contributions from the flat-bottom distance restraints.
+

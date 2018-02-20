@@ -1,0 +1,43 @@
+# Results for OA
+#
+Predictions:
+OA-G0,  -3.80, ,,,, 
+OA-G1,  -3.61, ,,,, 
+OA-G2,  -9.88, ,,,,
+OA-G3,  -4.17, ,,,,
+OA-G4, -11.45, ,,,,
+OA-G5,  -5.24, ,,,,
+OA-G6,  -1.84, ,,,,
+OA-G7,  -4.51, ,,,,
+#
+Name:
+DFT-opt
+#
+Software: 
+Amber 16
+Turbomole 7.0
+COSMO-RS
+#
+Method:
+Absolute free energies calculated with structures selected by SQM/MM and optimised by DFT and energies evaluated with DFT + COSOM-RS solvation free energies + Frequencies from MM.
+
+Ligands built by hand inside the host and then equilibrated for 100 ns.
+10-20 equidistant snapshots were minimised by SQM/MM.
+Single-point energy was calculated in vacuum by PM6-DH+.
+Solvation free energies were calculated by COSMO-RS at BP/TZP level.
+Frequencies were calculated on structures optimised freely with MM.
+Thermal corrections were estimated from these frequencies (1 M reference state).
+These three terms were summed for complex - host - guest.
+
+For the complex with the most favourabled binding free energy, structures were reoptimised by QM/MM (TPSS-D3/def2-SV(P).
+Then energies were calculated in vacuum with TPSS-D3(BJ,abc)/def2-QZVP'.
+Solvation free energies and thermal corrections were calculated as above.
+
+Force field GAFF2 and TIP3P. RESP charges from HF/6-31G* calculation.
+Constant temperature (Langevin) and pressure (Berendsen).
+Particle mesh Ewald with a cutoff of 8 A.
+Time step 2 fs with bonds involving H constrained with SHAKE.
+
+Ligand+host+4 water molecules (forming 2 H-bonds to each carboxylate atom) in QM system.
+MM system fixed in QM/MM optimisation.
+No water molecules in energy calculation.

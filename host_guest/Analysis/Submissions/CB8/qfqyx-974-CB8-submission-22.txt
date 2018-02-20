@@ -1,0 +1,77 @@
+# Results for CB8
+#
+# This file will be automatically parsed.  It must contain the following four elements: predictions, name of method, software listing, and method.
+# These elements must be provided in the order shown. 
+#
+# The data in each prediction line should be structured as follows, with all (up to six) numbers in kcal/mol.
+# Guest ID, Free energy, free energy SEM, free energy method error, enthalpy, enthalpy SEM, enthalpy method uncertainty
+# The list of predictions must begin with the "Predictions:" keyword, as illustrated here.
+Predictions:
+CB8-G0,  -13.01,,,,, 
+CB8-G1,  -12.74,,,,, 
+CB8-G2,  -13.45,,,,,
+CB8-G3,  -8.60 ,,,,,
+CB8-G4,  -11.71,,,,,
+CB8-G5,  -16.46,,,,,
+CB8-G6,  -13.02,,,,,
+CB8-G7,  -13.97,,,,,
+CB8-G8,  -15.47,,,,,
+CB8-G9,  -16.16,,,,,
+CB8-G10, -13.16,,,,,
+#
+# Please provide an informal yet informative name of the method used.
+# The "Name:" keyword is required, as shown here.
+Name:
+US/PMF/MT/MD_22
+#
+# All major software packages used and their versions
+# The "Software:" keyword is required.
+Software: 
+Schrodinger
+AMBER16
+AMBERTOOlS 16
+MATLAB
+#
+# Methodology and computational details. 
+# Level of detail should be at least that used in a publication.  
+# Please include the values of key parameters, with units, and explain how any statistical uncertainties were estimated.
+# Use as many lines of text as you need. 
+# All text following the "Method:" keyword will be regarded as part of your free text methods description. 
+Method: 
+We have made a number of submissions using two major strategies: Umbrella Sampling-PMF and a MT-MD strategy. The detailed description of the approaches is delineated in the subsequent paragraphs. 
+
+Umbrella Sampling PMF Strategy
+OA/TEMOA:
+Structure preparation: All structures for the SAMPL6 main challenge were taken from the organizers, along with the partial charges for the receptors, which were AM1-BCC charges calculated using Open Eye software. The charges for the ligands were AM1-BCC charges calculated using AmberTools16. GAFF1.8 was used to describe the atom types and generate the bonded parameters for all the receptors and ligands. TIP3P water was used as the solvent model. Na+ and Cl- ions were used to neutralize the system and to maintain experimental ion concentrations. Besides SAMPL6 ligands, we also prepared another set of ligands from the SAMPL5 challenge for benchmarking purposes. The ligands from the benchmark set were docked into the receptors using Glide from the Schrodinger suite 2015-4 with the standard precision (SP) methodology. All the other preparation protocols for the benchmark set were the same as for SAMPL6 ligand set.
+
+Potential of Mean Force study: A dummy particle that has no charge and van-der Waals properties was bound in the cavity with six carbon atoms at the bottom of the cavity with harmonic distance restraints of 64 kcal/ (mol*Å2). The restraints were chosen to minimize the affect the dynamics of the OAs. The distance between the dummy atom and one atom of the ligand was chosen as the reaction coordinate for the PMF. One-dimensional Umbrella Sampling studies were done, with the restraint being 16 kcal/ (mol*Å2) for all the windows along the reaction coordinate. The ligands were “pushed” from their initial position in the receptor into the aqueous solution until the reaction coordinate reached 20 Å. The US windows were spaced every 0.2 Å, and 2ns NPT simulation were run for each window with the first 200ps of equilibration being discarded for the generation of the PMF. The Weighted Histogram Analysis Method was used to generate the PMFs. For each ligand, 4 PMF studies were run with different initial velocities and average binding free energy was calculated. The PMF studies were done for both the SAMPL6 set and the benchmark set. Raw and scaled binding free energies for the SAMPL6 ligands are reported. AMBER16-CUDA was used to run all simulations.
+
+CB8:
+Structure preparation: All structures for SAMPL6 main challenge were taken from the organizers, along with the partial charges for the receptors, which were AM1-BCC charges calculated using Open Eye software. The charges for the ligands were AM1-BCC charges calculated using AmberTools16. GAFF1.8 was used to describe the atom types and generate the bonded parameters for all the receptors and ligands. The TIP3P water model was used. Na+ and Cl- ions were used to neutralize the system and to maintain experimental ion concentrations. Besides the SAMPL6 ligands, we also prepared another set of ligands from two previous experimental papers for benchmarking purposes. The ligands of the benchmarking sets were docked into the receptors using Glide from the Schrodinger suite 2015-4 with the standard precision (SP) methodology. All the other preparation protocols for the benchmark set were the same as SAMPL6 ligand set.
+
+Potential of Mean Force study: The distance between the center of mass of equatorial
+ carbons and one atom of the ligand was chosen as the reaction coordinate for the PMF study. One-dimensional Umbrella Sampling simulations were carried out, with the restraint being 16 kcal/ (mol*Å2) for all windows along the reaction coordinate. The ligands were “pushed” from their initial position in the receptor into the aqueous solution until the reaction coordinate reached 15 Å. The US windows were spaced every 0.2 Å (or 0.1 Å for some distance intervals where the PMF was rapidly changing), and 4ns NPT simulations were run for each window with the first 1ns of equilibration being discarded. The Weighted Histogram Analysis Method was used to generate the PMFs. For each ligand, 4 PMF studies were run using different initial velocities and the average binding free energy was calculated. The above PMF studies were done for both SAMPL6 set and benchmark set, and raw and scaled binding free energies are reported. AMBER16-CUDA was used to run all simulations.
+
+
+MT-MD strategy
+
+Conformer generation:  Using the prepared structures from the Umbrella Sampling-PMF study, classical molecular dynamic (MD) simulations were performed on the SAMPL6 test set and the benchmark set for OA, TEMOA and CB8 systems. MD simulations were performed for the free hosts, free guests and host-guest bound complex conformations generating a total of 49 sets of simulations for the SAMPL6 test set and 45 sets of simulations for the benchmark set. Each simulation was covered 100 ns using AMBER 16-CUDA. The conformational ensembles were selected by performing hierarchal agglomerative clustering on the generated trajectories using the Cpptraj utility from AmberTools. A root mean square deviation of 0.5 Å was used as the clustering criteria to generate an ensemble of conformations for each of the systems.
+
+
+Free energy calculations: Free energies of all the generated conformations were calculated by using Movable type free energy method using two different models: a 3 state and a single state model. 
+
+In the 3-state model, binding free energies were evaluated by considering conformational changes in the host and guest during the binding process. Therefore, free energies of free guests, free hosts and host-guest bound complexes were used to evaluate the net binding free energy using the following equation:   
+
+ΔGbind = ΔGcomplex – ΔGfree-host – ΔGfree-guest
+
+In the single state model, binding free energies were calculated without considering the conformational changes in the host and guest conformations during the binding process and only the bound complex conformations were used to evaluate the binding free energy change. 
+
+Both the models included solvation using the KMTISM solvation model. Using the above-mentioned models, several set of calculations were performed:
+
+a.	Single conformation 
+i.	Lowest free energy conformation predicted by MT
+ii.	MD relaxed conformation
+iii.	PMF-minima (observed in the umbrella sampling studies) scored using MT
+b.	 Ensemble of conformations
+
+The four sets of calculations were evaluated using both the single state and 3-state model. The reported free energy calculations for SAMPL6 set were calculated by scaled using input from the benchmark set. Both raw and scaled binding free energies are reported.

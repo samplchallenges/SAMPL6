@@ -1,0 +1,31 @@
+# Results for TEMOA
+#
+Predictions:
+TEMOA-G0, -4.58, 0.11,,,, 
+TEMOA-G1, -3.84, 0.03,,,, 
+TEMOA-G2, -6.38, 0.19,,,,
+TEMOA-G3, -3.14, 0.03,,,,
+TEMOA-G4, -7.62, 0.50,,,,
+TEMOA-G5, -2.46, 0.08,,,,
+TEMOA-G6, -4.02, 0.06,,,,
+TEMOA-G7, -4.89, 0.10,,,,
+#
+Name:
+FEP-MM
+#
+Software: 
+Amber 16
+#
+Method:
+Relative free energies calculated at MM level of theory with FEP. 
+Force field GAFF2 and TIP3P. RESP charges from HF/6-31G* calculation.
+Ligands built by hand inside the host.
+Equilibrated 2 ns.
+FEP calculations performed with 3-6 independent calculations.
+Each with 13 lambda values (0, 0.05, 0.1, 0.2, ... 0.8, 0.9, 0.95, 1.0).
+1 ns equlibration and 2 ns production for each lambda value.
+Constant temperature (Langevin) and pressure (Berendsen).
+Particle mesh Ewald with a cutoff of 8 A.
+Time step 2 fs with bonds involving H constrained with SHAKE.
+Free energies calculated by MBAR using PYMBAR.
+Absolute affinities obtained by using experimental data for caproic acid, caprylic acid and p-Me-hexanoic acid.
