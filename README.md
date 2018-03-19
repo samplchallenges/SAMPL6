@@ -1,12 +1,13 @@
 # The SAMPL6 Blind Prediction Challenge for Computational Chemistry
 
-This repository gives challenge details and inputs for the SAMPL6 challenge.
+This repository gives challenge details and inputs for the SAMPL6 challenge (which has now ended, but the files are maintained here for the record).
 This cycle we have migrated the data download package to GitHub so it will be version controlled and more broadly acccessible.
 **Because these files are available publicly, we have no record of who downloads them. Therefore, you should sign up for notifications**.
 Specifically, if you want to receive updates if we uncover any problems, it is imperative that you either (a) sign up for the SAMPL e-mail list via the D3R site, or (b) sign up for notifications of changes to this GitHub repository (the ``Watch'' button, above); ideally you would do both.
 **Join our e-mail list** by visiting the [D3R SAMPL6 Site](https://drugdesigndata.org/about/sampl6) and click "Join Challenge".
 
-The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
+The challenge culminated with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
+A special issue of JCAMD is being planned (see below) with a submission deadline of June 1, 2018.
 
 ## What's Here
 - [Challenge Overview](#challenge-overview)
@@ -17,9 +18,9 @@ The challenge culminates with a [joint D3R/SAMPL workshop](https://drugdesigndat
     - [pKa challenge instructions](pKa_challenge_instructions.md): etailed instructions on the pKa prediction component of the challenge.
     - [logD challenge preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the distribution coefficient of the challenge, and previews of some of the potential compounds.
 - SAMPLing challenge files for host-guest challenge: Input files for the host-guest component of the SAMPLing challenge, see [description](#sampling-challenge) below.
-
-## What's forthcoming
 - SAMPLing challenge files in alternate formats, along with energy validation data
+
+## What will be in a future challenge
 - Submission formats for logD prediction and SAMPLing challenge
 - LogD challenge files and instructions (see description, below)
 
@@ -53,7 +54,6 @@ The SAMPLing challenge is expected to include one or more cases from each challe
 
 **As of August 24, all of the information and data files needed to start on the host-guest component, including machine-readable structure files for the hosts and guests are posted, so this challenge is open!
 Files are hosted at github.com/mobleylab/SAMPL6.**
-We estimate that the physical property and SAMPling parts of SAMPL6 will open in October 2017.
 Status updates will be posted here and announced by email to the D3R SAMPL list and on the D3R Twitter account; we also encourage participants to “watch” the GitHub repository for notifications of file changes/availability and relevant discussions.
 
 Further information on both the host-guest and physical property components of SAMPL6 follow.
@@ -127,3 +127,20 @@ The purpose of the SAMPLing challenge component is to evaluate and compare the p
 
 This SAMPLing challenge is a bit of an experiment, as it is entirely possible that different methods/packages may *not* agree even when apparently converged, requiring participating groups to work together to track down discrepancies. However, if agreement is obtained, it should be very instructive to compare the rate of convergence.
 We expect that analysis of this challenge component will focus even more than usual on "lessons learned" rather than on which methods performed "best" by some metric, but we hope it will also pave the way for future iterations of such challenges.
+
+
+## The SAMPL special issue
+
+We have arranged for a SAMPL special issue to appear in the Journal of Computer-Aided Molecular Design, thanks to editor Terry Stouch. The submission deadline is **June 1, 2018**.
+David Mobley will serve as guest editor for the SAMPL6 special issue. 
+Please submit on-time; the goal is to publish before the end of 2018.
+
+To submit: 
+1) If you don't already have an account with JCAMD, register with JCAMD at:  http://www.editorialmanager.com/jcam
+2) In your title, please include SAMPL6 and use them as keywords if possible
+3) During submission  you will be asked to select an article "type." Please select the issue’s assigned article type, e.g. "SI:SAMPL6"
+4) Submit on time! 
+5) Review fellow participant's papers (promptly please) as requested. 
+Some of the best reviewers of the challenges are those who participate and understand the nature of the papers.  Fellow participants are most familiar with the topic and have a vested interest in moving the paper quickly, hence many/most of the reviewers will chosen from participants.
+6) Please submit reviews (or your revisions) ASAP to help maintain our chosen publication dates.
+
