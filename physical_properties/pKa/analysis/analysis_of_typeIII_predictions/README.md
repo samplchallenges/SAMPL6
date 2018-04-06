@@ -18,6 +18,7 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
   - `error_for_each_macroscopic_pKa.pdf` - Violin plots that show error distribution of predictions related to each experimental pKa. 
   - `pKaCorrelationPlots/` - This directory contains plots of predicted vs. experimental pKa values with linear regression line (blue) for each method. Files are named by submission ID of each method, which can be found in `statistics_table.pdf`. In correlation plots, dashed black line has slope of 1. Dark and light green shaded areas indicate +-0.5 and +-1.0 pKa unit error regions, respectively.
   - `pKaCorrelationPlotsWithSEM/` - This directory contains similar plots to the `pKaCorrelationPlots/` directory with error bars added for Standard Error of the Mean(SEM) of experimental and predicted values for submissions that reported these values. Since experimental pKa SEM values are less than 0.05 pKa units horizontal error bars are not visible.
+  - `AbsoluteErrorPlots\` - This directory contains bar plots for each method that shows absolute error of macroscopic pKa prediction for each molecule (or each pKa if a molecule has more than one experimental pKa).
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table and bootstrap distributions of performance statistics.  
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
     
@@ -26,6 +27,7 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
   - `error_for_each_macroscopic_pKa.pdf` - Violin plots that show error distribution of predictions related to each experimental pKa. 
   - `pKaCorrelationPlots/` - This directory contains plots of predicted vs. experimental pKa values with linear regression line (blue) for each method. Files are named by submission ID of each method, which can be found in `statistics_table.pdf`. In correlation plots, dashed black line has slope of 1. Dark and light green shaded areas indicate +-0.5 and +-1.0 pKa unit error regions, respectively.
   - `pKaCorrelationPlotsWithSEM/` - This directory contains similar plots to the `pKaCorrelationPlots/` directory with error bars added for Standard Error of the Mean(SEM) of experimental and predicted values for submissions that reported these values. Since experimental pKa SEM values are less than 0.05 pKa units horizontal error bars are not visible.
+  - `AbsoluteErrorPlots\` - This directory contains bar plots for each method that shows absolute error of macroscopic pKa prediction for each molecule (or each pKa if a molecule has more than one experimental pKa).
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table and bootstrap distributions of performance statistics.  
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
 
