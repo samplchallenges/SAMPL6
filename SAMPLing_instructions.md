@@ -64,7 +64,7 @@ distributed over multiple processes/CPUs/GPUs, a description of the parallelizat
 The reference absolute free energy calculations will be performed using YANK and the following methods/parameters:
 - Hamiltonian Replica-Exchange and Langevin dynamics (BAOAB splitting) with the temperature set to 298.15K.
 - A Monte Carlo barostat set at 1atm
-- The OpenMM's implementation of PME for long-range electrostatic interactions with a cutoff of 10A.
+- The OpenMM's implementation of PME for long-range electrostatic interactions with a cutoff of 10A, Ewald tolerance 1e-4, and 5th order B-splines (see [OpenMM documentation](http://docs.openmm.org/latest/userguide/theory.html#coulomb-interaction-with-particle-mesh-ewald) for more implementation details). A counterion is alchemically decoupled together with the ligand to preserve the neutral net charge of the system.
 - VdW interactions used the same 10A cutoff and a switching distance of 9A.
 
 Further details will be provided in the near future.
