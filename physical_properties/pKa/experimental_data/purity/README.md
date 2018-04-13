@@ -17,7 +17,7 @@ Nebulizer press=35psi
 Drying temperature=350C  
 Mass range: 5-~1350Da; Fraggmentor:70;  Threshold:100
 
-The area% for main peak is calculated based on the area of main peak divided by the total area of all peaks. 
+The percent area for main peak is calculated based on the area of main peak divided by the total area of all peaks. The percent area of the main peak is reported as an estimate of sample purity. 
 
 ## Manifest
 - `purity_of_SAMPL6_pKa_compounds_determined_by_LCMS.csv`
