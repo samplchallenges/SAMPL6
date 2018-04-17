@@ -7,7 +7,7 @@ One-to-one matching of predicted pKas to experimental pKas was performed with tw
 1. **Closest**: Each predicted pKa is matched to experimental pKa values that minimize the absolute error of that pair.
 When more than one predicted pKa match to the same experimental pKa, only the predicted pka that has the lowest absolute error is kept. 
 Predicted pKas that were not matched to experimental pKas were excluded from this analysis.
-2. **Hungarian**: Experimental pKas and predicted pKas are matched following [Hungarian algorithm](https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.optimize.linear_sum_assignment.html) which aims to minimize the global cost of assigning the one-to-one correspondences between two sets. It finds the optimum assignment between experimental and predicted set of pKas that minimizes linear sum of squared errors of all pairwise matches. Cost is defined as squared error instead of absolute error to minimize the effect of extra predicted pKas to overall matching. We acknowledge Kiril Lanevskij for suggesting this alternative assignment of experimental pKas.
+2. **Hungarian**: Experimental pKas and predicted pKas are matched following the [Hungarian algorithm](https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.optimize.linear_sum_assignment.html). It finds the optimum pairing of experimental and predicted pKas to minimize the linear sum of squared errors for each molecule. We chose to minimize the squared error instead of absolute error to minimize the effect of extra predicted pKas to overall matching. We acknowledge Kiril Lanevskij for suggesting this alternative assignment of experimental pKas.
 
 ## Manifest
 - `typeIII_analysis.py` - Python script that parses submissions and performs the analysis.
@@ -18,6 +18,7 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
   - `error_for_each_macroscopic_pKa.pdf` - Violin plots that show error distribution of predictions related to each experimental pKa. 
   - `pKaCorrelationPlots/` - This directory contains plots of predicted vs. experimental pKa values with linear regression line (blue) for each method. Files are named by submission ID of each method, which can be found in `statistics_table.pdf`. In correlation plots, dashed black line has slope of 1. Dark and light green shaded areas indicate +-0.5 and +-1.0 pKa unit error regions, respectively.
   - `pKaCorrelationPlotsWithSEM/` - This directory contains similar plots to the `pKaCorrelationPlots/` directory with error bars added for Standard Error of the Mean(SEM) of experimental and predicted values for submissions that reported these values. Since experimental pKa SEM values are less than 0.05 pKa units horizontal error bars are not visible.
+  - `AbsoluteErrorPlots\` - This directory contains a bar plot for each method showing the absolute error for each macroscopic pKa prediction compared to experiment.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table and bootstrap distributions of performance statistics.  
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
     
@@ -26,6 +27,7 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
   - `error_for_each_macroscopic_pKa.pdf` - Violin plots that show error distribution of predictions related to each experimental pKa. 
   - `pKaCorrelationPlots/` - This directory contains plots of predicted vs. experimental pKa values with linear regression line (blue) for each method. Files are named by submission ID of each method, which can be found in `statistics_table.pdf`. In correlation plots, dashed black line has slope of 1. Dark and light green shaded areas indicate +-0.5 and +-1.0 pKa unit error regions, respectively.
   - `pKaCorrelationPlotsWithSEM/` - This directory contains similar plots to the `pKaCorrelationPlots/` directory with error bars added for Standard Error of the Mean(SEM) of experimental and predicted values for submissions that reported these values. Since experimental pKa SEM values are less than 0.05 pKa units horizontal error bars are not visible.
+  - `AbsoluteErrorPlots\` - This directory contains a bar plot for each method showing the absolute error for each macroscopic pKa prediction compared to experiment.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table and bootstrap distributions of performance statistics.  
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
 
