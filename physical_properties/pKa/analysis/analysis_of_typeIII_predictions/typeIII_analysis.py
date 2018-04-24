@@ -417,7 +417,7 @@ class pKaTypeIIISubmission(SamplSubmission):
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=1000)
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000)
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
@@ -662,7 +662,11 @@ def add_pKa_IDs_to_matching_predictions(df_pred, df_exp):
             df_pred.loc[(df_pred["Molecule ID"] == mol_id) & (df_pred["pKa mean"] == pred_pKa), "pKa ID"] = pKa_ID
 
     # Save unmatched pKas in df_pred_unmatched dataframe
-    df_pred_unmatched = df_pred.loc[np.isnan(df_pred["pKa ID"])]
+    print(" df_pred[`pKa ID`] ")
+    print(df_pred["pKa ID"])
+    #print(np.isnan(df_pred["pKa ID"]))
+
+    df_pred_unmatched = df_pred.loc[pd.isnull(df_pred["pKa ID"])]
 
     # Drop predicted pKas that didn't match to experimental values
     df_pred_matched = df_pred.dropna(subset=["pKa ID"]).reset_index(drop=True)
@@ -759,7 +763,7 @@ def add_pKa_IDs_to_matching_predictions_hungarian(df_pred, df_exp):
             df_pred.loc[(df_pred["Molecule ID"] == mol_id) & (df_pred["pKa mean"] == pred_pKa), "pKa ID"] = pKa_ID
 
     # Save unmatched pKas in df_pred_unmatched dataframe
-    df_pred_unmatched = df_pred.loc[np.isnan(df_pred["pKa ID"])]
+    df_pred_unmatched = df_pred.loc[pd.isnull(df_pred["pKa ID"])]
 
     # Drop predicted pKas that didn't match to experimental values
     df_pred_matched = df_pred.dropna(subset=["pKa ID"]).reset_index(drop=True)
@@ -1120,7 +1124,7 @@ if __name__ == '__main__':
         pka_typeiii_submission_collection_file_path = '{}/typeIII_submission_collection.csv'.format(output_directory_path)
 
         collection_typeIII= pKaTypeIIISubmissionCollection(submissions_typeIII, experimental_data,
-                                                     output_directory_path, pka_typeiii_submission_collection_file_path,algorithm)
+                                                     output_directory_path, pka_typeiii_submission_collection_file_path, algorithm)
 
         # Generate plots and tables.
         for collection in [collection_typeIII]:
