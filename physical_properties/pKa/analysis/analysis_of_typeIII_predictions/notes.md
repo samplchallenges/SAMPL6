@@ -1,6 +1,15 @@
+## 2018/01/29
+
+path to submitted pKa predictions: /Users/isikm/lab/SAMPL6-repos/sampl6-physicochemical-properties/predictions/typeIII_predictions
+
+relative path to pKa predictions: ../../predictions/typeIII_predictions
+
+relative path to experimental data: ../../experimental_data/pKa_experimental_values.csv
+
+
 ## 2018/02/2
 
-### These notes will be manually added to statistics table before compiling LaTeX file.
+### Note that will be manually added to statistics table.
 
 Notes
 
