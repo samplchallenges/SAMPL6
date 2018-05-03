@@ -1,11 +1,11 @@
 # Analysis of the type I microscopic pKa predictions
 
+In the absence of direct experimental measurement of microscopic pKas, the analysis of microscopic pKa predictions was performed with the assumption that experimentally determined pKas of molecules with **only 1 pKa** or **well separated multiple pKas** (more than 3 pKa units apart) are equal to microscopic pKas. Type I predictions of molecules SM14 and SM18 were excluded from this analysis, since their experimental pKa values don't satisfy these criteria.  
+
+In this microscopic pKa value based analysis approach, reported microstate ID pairs were not considered. Instead predicted and experimental pKas were paired based on similarity of pKa values using closest and hungarian matching algorithms. 
+
 General analysis of typeI microscopic pKa predictions include calculated vs predicted pKa correlation plots and 5 performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m) ) for all the submissions. 
 95%-percentile bootstrap confidence intervals of all the statistics were reported. 
-
-In this analysis approach we ignored stated microstate IDs and paired predicted and experimental pKas based on pKa values only using ith closest and hungarian matching. 
-We assume experimentally determined pKas of molecules with **only 1 pKa** or **well separated multiple pKas** (more than 3 pKa units apart) are equal to microscopic pKas. 
-Type I predictions of molecules SM14 and SM18 were not included in this analysis, since their experimental pKa values don't satisfy these criteria.  
 
 One-to-one matching of predicted pKas to experimental pKas was performed with two different methods based on minimum error principle:
 1. **Closest**: Each predicted pKa is matched to experimental pKa values that minimize the absolute error of that pair.
