@@ -2,7 +2,7 @@
 
 NMR characterization of SM07 microstates were performed by Ikenna Ndukwe and Xiao Wang from Merck NMR Structure Elucidation Group.
 
-## Rationalle
+## Rationale
 The goal of this NMR characterization was collecting information on microscopic states related to experimental pKa measurements, i.e. determining sites of protonation.
 pKa measurements performed with spectrophotometric method provides macroscopic pKa values, but does not provide information site of protonation. 
 On the other hand, most computational prediction methods predict primarily microscopic pKa values. 
@@ -15,7 +15,7 @@ We investigated microstates existed at pH values lower and higher than macroscop
 Distribution of species and pKa value of SM07 was determined with UV-metric pKa measurement with Sirius T3.
 NMR characterization of SM07 showed that pKa 6.08 ± 0.01 was related to a microscopic protonation state transition between **SM07_micro006** and **SM07_microo004** microstates.
 
-![SM07_microstates](SM07_microstates.png)
+![SM07_microstates](SM07_microstates.png | width=100)
 
 ## Manifest
 - `NMR_characterization_of_SM07_microstates.pdf` - Summary experimental report of SM07 microstate characterization.
