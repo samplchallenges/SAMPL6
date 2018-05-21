@@ -15,7 +15,7 @@ We investigated microstates existed at pH values lower and higher than macroscop
 Distribution of species and pKa value of SM07 was determined with UV-metric pKa measurement with Sirius T3.
 NMR characterization of SM07 showed that pKa 6.08 ± 0.01 was related to a microscopic protonation state transition between **SM07_micro006** and **SM07_microo004** microstates.
 
-![SM07_microstates](SM07_microstates.png | width=100)
+![SM07_microstates](SM07_microstates.png = 250x)
 
 ## Manifest
 - `NMR_characterization_of_SM07_microstates.pdf` - Summary experimental report of SM07 microstate characterization.
