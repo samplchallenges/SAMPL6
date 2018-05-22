@@ -17,6 +17,15 @@ NMR characterization of SM07 showed that pKa 6.08 ± 0.01 was related to a micro
 
 ![SM07_microstates](SM07_microstates.png)
 
+There are 5 other 4-amino quinazoline derivatives in SAMPL6 dataset. Based on structural similarity, we can infer that spectrometric pKa values measured for other 4-amino quinazoline compounds as microscopic pKa related to the protonation of the same quinazoline nitrogen with the same neutral background protonation states.
+
+The set of 4-amino quinazoline compounds from SAMPL6 pKa challenge:
+
+![4-amino-quinazoline_series.png](4-amino-quinazoline_series.png)
+
+`microscopic_pKas_of_4-amino-quinazoline_series.csv` file lists microscopic pKas and microstate ID pairs based on this interpretation.
+
 ## Manifest
 - `NMR_characterization_of_SM07_microstates.pdf` - Summary experimental report of SM07 microstate characterization.
+- `microscopic_pKas_of_4-amino-quinazoline_series.csv` - Table of microscopic pKa values of 4-amino quinazoline compounds and pairs of microstate IDs. 
 
