@@ -81,20 +81,27 @@ def mean_confidence_interval(data, confidence=0.95):
 # BOOTSTRAP
 # =============================================================================
 
-def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootstrap_samples=10000):
+def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95,
+                                 n_bootstrap_samples=10000, sems=None):
     """Compute bootstrap confidence interval for the given statistics functions.
 
     Parameters
     ----------
-    samples : array-like
+    samples : np.ndarray
         The series of samples that will be bootstrapped. Each bootstrap
         sample is passed to the estimator as stat_func(samples[bootstrap_indices]).
     stats_funcs : list of callables
         The statistics estimators functions with signature stat_func(samples).
     percentile : float, optional
-        The bootstrap percentile.
-    n_bootstrap_samples : int
-        The number of bootstrap samples to sample.
+        The bootstrap percentile. Default is 0.95.
+    n_bootstrap_samples : int, optional
+        The number of bootstrap samples to sample. Default is 10000.
+    sems : np.ndarray, optional
+        The standard error of the means of the samples. If passed, each
+        bootstrap cycle will re-sample each data point from a normal
+        distribution with its standard deviation. This must have the same
+        shape of samples. Data points for which SEMs is 0.0 won't be
+        re-sampled.
 
     Returns
     -------
@@ -117,9 +124,19 @@ def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootst
     # Generate bootstrap statistics.
     bootstrap_samples_statistics = np.zeros((len(statistics), n_bootstrap_samples))
     for bootstrap_sample_idx in range(n_bootstrap_samples):
+        # Re-sample from a normal distribution if the SEMs are given.
+        if sems is None:
+            bootstrap_samples = samples
+        else:
+            bootstrap_samples = resample_from_normal(samples, stds=sems)
+
+        # Re-sample with replacement.
         samples_indices = np.random.randint(low=0, high=len(samples), size=len(samples))
+        bootstrap_samples = bootstrap_samples[samples_indices]
+
+        # Compute statistics for the bootstrap sample.
         for stats_func_idx, stats_func in enumerate(stats_funcs):
-            bootstrap_samples_statistics[stats_func_idx][bootstrap_sample_idx] = stats_func(samples[samples_indices])
+            bootstrap_samples_statistics[stats_func_idx][bootstrap_sample_idx] = stats_func(bootstrap_samples)
 
     # Compute confidence intervals.
     percentile_index = int(np.floor(n_bootstrap_samples * (1 - percentile) / 2)) - 1
@@ -132,3 +149,35 @@ def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootst
         bootstrap_statistics.append([statistics[stats_func_idx], confidence_interval, samples_statistics])
 
     return bootstrap_statistics
+
+
+def resample_from_normal(samples, stds):
+    """Resample from a normal distribution.
+
+    This handle SEMs == 0.0 that make numpy.random.normal throw an exception.
+
+    Parameters
+    ----------
+    samples : 2D np.ndarray
+        The series of samples that will be re-sampled..
+    sems : 2D np.ndarray, optional
+        The standard deviations of each sample. It must have the same shape
+        of samples. Samples for which the standard deviations is 0.0 are not
+        re-sampled.
+
+    Returns
+    -------
+    new_samples : np.ndarray
+        The samples resampled from a normal distribution with mean old_sample
+        and standard deviation std.
+    """
+    new_samples = np.empty(samples.shape, dtype=samples.dtype)
+    for sample_idx, (sample, std) in enumerate(zip(samples, stds)):
+        # Handle case where individual samples are tuples and only a
+        # subset of them has std 0.0
+        for sample_subidx, (sample_i, std_i) in enumerate(zip(sample, std)):
+            if std_i == 0.0:
+                new_samples[sample_idx][sample_subidx] = sample_i
+            else:
+                new_samples[sample_idx][sample_subidx] = np.random.normal(loc=sample_i, scale=std_i)
+    return new_samples
