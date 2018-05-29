@@ -38,6 +38,7 @@ A special issue of JCAMD is being planned (see below) with a submission deadline
 - Version 1.7: Update microstate lists of pKa challenge. Add new microstate IDs for SM18 and SM20.  
 - Version 1.8: Update microstate lists of pKa challenge. Add new microstate ID for SM10.
 - Version 1.9: Include experimental measurements for the pKa challenge and the binding host-guest challenge.
+- Version 1.10: Include the analysis of binding host-guest, pKa, and SAMPLing challenge, as well as microstate characterization of SM07 with NMR experiments.
 
 ### Changes not yet in a release
 
