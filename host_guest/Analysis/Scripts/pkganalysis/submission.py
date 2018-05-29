@@ -164,9 +164,6 @@ class SamplSubmission:
             if line[:-1] in cls.SECTIONS:
                 current_section = line[:-1]
             else:
-                if current_section is None:
-                    import pdb
-                    pdb.set_trace()
                 try:
                     sections[current_section].append(line)
                 except KeyError:
