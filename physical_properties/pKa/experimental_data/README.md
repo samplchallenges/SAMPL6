@@ -16,3 +16,5 @@ Since pKa values measured by Sirius T3 were reported with 2 decimal places, we h
 - `comparing_water_vs_cosolvent_pKa_values.xlsx` - This spreadsheet compares experimental pKas for molecules measured with both 100% water and the cosolvent extrapolation based method. The absolute difference between water and cosolvent pKa values were observed to be up to 0.4 pKa units, although on average the difference is 0.05 and without any obvious bias. 
 - `experimental_ID_and_SAMPL6_molecule_ID_table.csv` - A table that matches experimental molecule IDs to SAMPL6 molecule IDs.
 - `purity\` - This directory contains purity values of solid powder stocks of SAMPL6 pKa compounds. Purity of compounds were measured by Heather Wang with the LC-MS method.
+- `NMR_microstate_determination\` - This directory contains NMR based microstate characterization of SM07 and SM14.
+
