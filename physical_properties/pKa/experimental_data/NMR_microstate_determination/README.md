@@ -9,7 +9,7 @@ pKa measurements performed with spectrophotometric method provides macroscopic p
 On the other hand, most computational prediction methods predict primarily microscopic pKa values. 
 Protonation sites can be determined by NMR methods, although these measurements are very laborious in terms of data collection and interpretation compared to pKa measurements with Sirius T3. 
 Moreover, not all SAMPL6 molecules were suitable for NMR measurements due to high sample concentration requirements (for methods other than proton NMR) and analyte solubility issues. 
-Thus we performed NMR based microstate characterization only for SM07 and SM11.
+Thus we performed NMR based microstate characterization only for SM07 and SM14.
 We investigated microstates existed at pH values lower and higher than macroscopic pKa value with the goal of evaluating if spectroscopicly measured pKa was microscopic (related to single protonation site).
 
 ## Results
@@ -38,5 +38,5 @@ NMR characterization of SM14 showed that pKa 2.58 ± 0.01 is related to a micros
 ## Manifest
 - `NMR_characterization_of_SM07_microstates.pdf` - Summary experimental report of SM07 microstate characterization.
 - `NMR_characterization_of_SM14_microstates.pdf` - Summary experimental report of SM14 microstate characterization.
-- `microscopic_pKas_of_SM14_and_4-amino-quinazoline_series.csv` - Table of microscopic pKa values and pairs of microstate IDs of 4-amino quinazoline derivatives and SM14. 
+- `microscopic_pKas_of_SM14_and_4-amino-quinazoline_series.csv` - Table of microscopic pKa values and pairs of microstate IDs of SM14, SM07 and 4-amino quinazoline derivatives. 
 
