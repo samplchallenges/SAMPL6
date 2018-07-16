@@ -348,7 +348,7 @@ if __name__ == '__main__':
             # Incorporate the relative concentration uncertainties into quantities.
             relative_uncertainty += RELATIVE_TITRANT_CONC_ERROR
             # Convert relative to absolute errors.
-            system_data['d' + k] = quantity * relative_uncertainty
+            system_data['d' + k] = abs(quantity * relative_uncertainty)
 
         # Propagate Ka and DH error into DG and TDS.
         DG, dDG = compute_DG(system_data['Ka'], system_data['dKa'])
@@ -435,16 +435,16 @@ if __name__ == '__main__':
                         row += '$^{{{{{}}}}}$'.format(first_significant_digit)
 
                 # Check if we used the upperbound.
-                apix = ''
+                superscript = ''
                 # if k != 'DG' and csv_dict['ID'] in upper_bound_molecules[k]:
-                #     apix += 'a'
+                #     superscript += 'a'
                 if k == 'Ka':
                     if csv_dict['n'] == 0.33:
-                        apix += 'd'
+                        superscript += 'd'
                     elif csv_dict['n'] == 0.5 or csv_dict['n'] == 2:
-                        apix += 'c'
-                if apix != '':
-                    row += ' $^{{(' + apix + ')}}$'
+                        superscript += 'c'
+                if superscript != '':
+                    row += ' $^{{(' + superscript + ')}}$'
 
             row += (' & {n} \\\\\n'
                     '\\hline\n')
@@ -457,8 +457,8 @@ if __name__ == '__main__':
                 'data [1]. This is exact only for the OA/TEMOA sets (with the exception of OA-G5, TEMOA-G5, and TEMOA G7). '
                 'For the other guests, we may expand the error analysis to include also the effect of the uncertainties '
                 'in titrand concentration and cell volume. \\\\\n'
-                '(a) Statistical errors were propagated from the $K_a$ measurements. \\\\\n'
-                '(b) All experiments were performed at 298 K. \\\\\n'
-                '(c) Units of M$^{-2}$. \\\\\n'
-                '(d) Units of M$^{-3}$.\n'
+                '($^a$) Statistical errors were propagated from the $K_a$ measurements. \\\\\n'
+                '($^b$) All experiments were performed at 298 K. \\\\\n'
+                '($^c$) Units of M$^{-2}$. \\\\\n'
+                '($^d$) Units of M$^{-3}$.\n'
                 '\end{document}\n')
