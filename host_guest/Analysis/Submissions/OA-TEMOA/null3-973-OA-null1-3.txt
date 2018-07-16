@@ -1,0 +1,26 @@
+# Results for OA
+#
+Predictions:
+OA-G0, -32.58567159,,,,, 
+OA-G1, -30.39634188,,,,, 
+OA-G2, -41.37830685,,,,,
+OA-G3, -24.09193016,,,,,
+OA-G4, -41.25728435,,,,,
+OA-G5, -20.06602834,,,,,
+OA-G6, -29.96944836,,,,,
+OA-G7, -26.39773872,,,,,
+#
+Name:
+NULL
+#
+Software: 
+Schrodinger Prime
+#
+Method: 
+Docked with OpenEye FRED and scored with Prime MM-GBSA.
+Solvation model: VSGB
+Force field OPLS3
+"Use input ligand partial charges" and "Use implicit membrane" unchecked.
+Distance from ligand (A)
+Sampling method: Minimize.
+No constraints on flexible residues.
