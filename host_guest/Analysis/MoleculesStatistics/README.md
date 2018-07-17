@@ -1,6 +1,7 @@
 # Analysis by molecule
 
-Statistics across methods grouped by host-guest system.
+Statistics across methods grouped by host-guest system. The statistics were generated using only the 10 methods scoring
+the lowest RMSE either in the combined OA/TEMOA or CB8-NOBONUS guest set.
 
 ## Manifest
 - `StatisticsTables/`: Tables reporting RMSE, mean absolute error, mean error, Pearson coefficient of determination,

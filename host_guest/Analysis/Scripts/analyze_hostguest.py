@@ -29,6 +29,14 @@ HOST_GUEST_OA_SUBMISSIONS_DIR_PATH = '../SubmissionsDoNotUpload/973/'
 HOST_GUEST_CB_SUBMISSIONS_DIR_PATH = '../SubmissionsDoNotUpload/974/'
 EXPERIMENTAL_DATA_FILE_PATH = '../ExperimentalMeasurements/experimental_measurements.csv'
 
+HOST_PALETTE = {
+    'OA': '#FFBE0C',
+    'CB8': 'C0',
+    'TEMOA': 'C2',
+    'other1': '#1C0F13',  # Licorice
+    'other2': '#93A3B1'  # Cadet grey
+}
+
 
 # =============================================================================
 # MAIN CHALLENGE HOST-GUEST SUBMISSION
@@ -127,7 +135,7 @@ class HostGuestSubmissionCollection:
     ENTHALPIES_CORRELATION_PLOT_DIR = 'EnthalpiesCorrelationPlots'
     MOLECULE_CORRELATION_PLOT_PATH = 'molecules_error.pdf'
 
-    _ROW_HEIGHT = 0.6
+    _ROW_HEIGHT = 0.25
 
     def __init__(self, submissions, experimental_data, output_directory_path):
         # Build full free energy table.
@@ -206,18 +214,18 @@ class HostGuestSubmissionCollection:
     def _assign_paper_method_name(name):
         # Convert from submission method name to the name used in the paper.
         method_names = {
-            'DDM/GAFF/AM1-BCC/TIP3P': 'FEP-GAFF',
-            'HREM/BAR/RESP/Force-Matching/TIP3P': 'ForceMatch',
-            'DDM/Force-Matching/FEP/HREM/MBAR': 'ForceMatch-QMMM',
+            'DDM/GAFF/AM1-BCC/TIP3P': 'DDM-GAFF',
+            'HREM/BAR/RESP/Force-Matching/TIP3P': 'DDM-FM',
+            'DDM/Force-Matching/FEP/HREM/MBAR': 'DDM-FM-QMMM',
             'BSSE-corrected RI-B3PW91 (SMD)/CBS': 'DFT(B3PW91)',
             'BSSE-corrected RI-B3PW91-D3 (SMD)/CBS': 'DFT(B3PW91)-D3',
             'DFT-opt': 'DFT(TPSS)-D3',
-            'FEP-MM': 'RelFEP-GAFF2',
-            'FEP-QM/MM': 'RelFEP-GAFF2-QMMM',
-            'FS-DAM/GAFF2/TIP3P': 'FastSwitch',
-            'EKEN-DIAZ/MD/MMPBSA': 'MMPBSA',
+            'FEP-MM': 'RFEC-GAFF2',
+            'FEP-QM/MM': 'RFEC-QMMM',
+            'FS-DAM/GAFF2/TIP3P': 'FSDAM',
+            'EKEN-DIAZ/MD/MMPBSA': 'MMPBSA-GAFF',
             'SQM-opt': 'SQM(PM6-DH+)',
-            'AMOEBA/BAR/Tinker': 'Tinker-BAR',
+            'AMOEBA/BAR/Tinker': 'DDM-AMOEBA',
             'Umbrella Sampling/TIP3P': 'US-CGenFF',
             'US/PMF/MT/MD_1': 'US-GAFF',
             'US/PMF/MT/MD_2': 'US-GAFF-C',
@@ -232,8 +240,41 @@ class HostGuestSubmissionCollection:
             if 'NOBUFFER' in name:
                 paper_name += '-nobuffer'
         if name.startswith('US/PMF/MT/MD'):
-            submission_number = name.rsplit('_', 1)[-1]
-            paper_name = 'MovTyp-' + submission_number
+            submission_number = int(name.rsplit('_', 1)[-1])
+            identifier = ''
+            # Potential
+            if 18 <= submission_number <= 19:
+                identifier += 'K'
+            else:
+                identifier += 'G'
+            # Input structure identifier
+            if 3 <= submission_number <= 7:  # MD_relaxed
+                identifier += 'D'
+            elif 8 <= submission_number <= 12:  # minimum from Umbrella Sampling
+                identifier += 'U'
+            elif 13 <= submission_number <= 19 or 26 <= submission_number <= 27:  # MT_minimum
+                identifier += 'T'
+            else:  # Ensemble calculation
+                identifier += 'E'
+            # States
+            if submission_number in [3, 4, 8, 9, 13, 14, 20, 21, 22, 23, 24, 25, 26, 27]:
+                identifier += '3'
+            else:
+                identifier += '1'
+            # Correction
+            if submission_number in [3, 5, 8, 10, 13, 15, 18, 20]:  # No
+                identifier += 'N'
+            elif submission_number in [4, 6, 9, 11, 14, 16, 19, 21]:  # Yes (linear)
+                identifier += 'L'
+            elif submission_number in [7, 12, 17, 22]:  # Yes only intercept
+                identifier += 'O'
+            elif submission_number in [23, 26]:  # Yes^1
+                identifier += 'U'
+            elif submission_number in [27, 24]:  # Yes^2
+                identifier += 'S'
+            else:  # Yes^2 only intercept
+                identifier += 'Z'
+            paper_name = 'MovTyp-' + identifier
         if 'NULL' in name:
             paper_name = name
         return paper_name
@@ -267,7 +308,7 @@ class HostGuestSubmissionCollection:
 
             plt.close('all')
             plot_correlation(x=x, y=y, data=data, title=title, hue=hue)
-            plt.tight_layout()
+            plt.tight_layout(pad=0.2)
             # plt.show()
             output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
             plt.savefig(output_path)
@@ -279,8 +320,8 @@ class HostGuestSubmissionCollection:
         n_rows = len(self.data.system_id.unique())
         fig, ax = plt.subplots(figsize=(6, 0.4*n_rows))
         sns.violinplot(y='system_id', x='$\Delta\Delta$G error (calc - expt)  [kcal/mol]',
-                       data=self.data, linewidth=1.0, inner='point', ax=ax)
-        plt.tight_layout()
+                       data=self.data, linewidth=1.0, inner='point', cut=0, ax=ax)
+        plt.tight_layout(pad=0.2)
         # plt.show()
         plt.savefig(os.path.join(self.output_directory_path, self.MOLECULE_CORRELATION_PLOT_PATH))
 
@@ -411,7 +452,9 @@ class HostGuestSubmissionCollection:
 
     def plot_bootstrap_distributions(self, stats_funcs, subdirectory_path, groupby,
                                      ordering_functions=None, latex_header_conversions=None,
-                                     stats_limits=None, **violinplot_kwargs):
+                                     stats_limits=None, exclusions=frozenset(),
+                                     shaded=frozenset(), figure_width=7.25, output_file_suffix='',
+                                     **violinplot_kwargs):
         """Generate a violin plot for the bootstrap distribution of the statistics.
 
         Parameters
@@ -426,6 +469,14 @@ class HostGuestSubmissionCollection:
             Dictionary statistic_name -> ordering_function(stats), where
             ordering_function determines how to rank the the groups by
             statistics.
+        exclusions : set
+            Which groups to exclude from the plot.
+        figure_width : float, optional
+            The width of the figure for each statistic (default is 7.25).
+        output_file_suffix : str, optional
+            A suffix including the file extension. The image will be saved with
+            the name statisticname_bootstrap_distributions + output_file_suffix.
+            By default, no suffix is used and the image is saved in PDF format.
 
         """
         if stats_limits is None:
@@ -442,10 +493,10 @@ class HostGuestSubmissionCollection:
         os.makedirs(directory_path, exist_ok=True)
 
         # Violin plots by statistics across submissions.
-        n_groups = len(ordering_data.index)
+        n_groups = len(ordering_data.index) - len(exclusions)
         for stats_name in stats_names:
             plt.close('all')
-            fig, ax = plt.subplots(figsize=(8, self._ROW_HEIGHT*n_groups))
+            fig, ax = plt.subplots(figsize=(figure_width, self._ROW_HEIGHT*(n_groups + 1)))
 
             stats_name_latex = latex_header_conversions.get(stats_name, stats_name)
             data = statistics_plot[statistics_plot.statistics_name == stats_name_latex]
@@ -453,11 +504,12 @@ class HostGuestSubmissionCollection:
             # Determine the order in which to display groups.
             ordering_function = ordering_functions.get(stats_name, lambda x: x)
             order = sorted(ordering_data[stats_name].items(), key=lambda x: ordering_function(x[1]))
-            order = [group for group, stats in order]
+            order = [group for group, stats in order if group not in exclusions]
 
             # Plot boot strap distributions.
-            sns.violinplot(x='value', y='ID', data=data, linewidth=1.0,
-                           order=order, scale='width', ax=ax, **violinplot_kwargs)
+            sns.violinplot(x='value', y='ID', data=data, linewidth=0.8,
+                           order=order, scale='width', width=2.8*self._ROW_HEIGHT,
+                           cut=0, ax=ax, **violinplot_kwargs)
 
             self._modify_violinplot(ax, stats_name)
 
@@ -467,15 +519,36 @@ class HostGuestSubmissionCollection:
             ax.set_xlabel(stats_name_latex)
             ax.set_ylabel('')
 
-            # if hue is not None:
-            #     ax.legend_.remove()
-            # handles, labels = ax.get_legend_handles_labels()
-            # if hue is not None:
-            #     fig.legend(handles, labels, loc='lower right')
-            plt.tight_layout()
+            # Create shaded area.
+            for order_idx, group in enumerate(order):
+                if group in shaded:
+                    x_limits = ax.get_xlim()
+                    y = np.full(len(x_limits), float(order_idx))
+                    # Set the zorder of the violinplot element so that the shaded area remains below.
+                    ax.fill_between(x_limits, y - 0.5, y + 0.5, alpha=0.1, color='0.1', linewidth=0.0, zorder=0.5)
+                    # Make sure the shaded area doesn't expand the old axis limits.
+                    ax.set_xlim(x_limits)
+
+            # Remove legend if present.
+            if ax.legend_ is not None:
+                ax.legend_.remove()
+            # Move ticks closer to axes.
+            ax.tick_params(pad=2.0)
+            plt.tight_layout(pad=0.24)
+            # plt.tight_layout()
+            # Make sure that here are enough ticks.
+            if len(ax.get_xticks()) < 5 and stats_name in stats_limits:
+                stats_lim = stats_limits[stats_name]
+                ax.xaxis.set_ticks(np.linspace(stats_lim[0], stats_lim[1], num=6))
+
             # plt.show()
-            plt.savefig(os.path.join(directory_path, stats_name) + '_bootstrap_distributions.pdf')
-            # plt.savefig(os.path.join(directory_path, stats_name) + '_bootstrap_distributions.png', dpi=300)
+            # Check if we need to use a default image format.
+            if output_file_suffix == '':
+                suffix = '.pdf'
+            else:
+                suffix = '_' + output_file_suffix
+            output_file_path = os.path.join(directory_path, stats_name) + '_bootstrap_distributions' + suffix
+            plt.savefig(output_file_path)
 
     def _get_bootstrap_distribution_plot_data(self, groupby, stats_names, stats_funcs):
         """Return the dataframes with the statistics necessary to plot.
@@ -551,6 +624,14 @@ class HostGuestSubmissionCollection:
         except FileNotFoundError:
             cached_bootstrap_statistics = None
 
+        # Create a map from paper method name to submission method name.
+        try:
+            paper_to_submission_name = {self._assign_paper_method_name(submission_name): submission_name
+                                        for submission_name in cached_bootstrap_statistics}
+        except (UnboundLocalError, TypeError):
+            # cached_bootstrap_statistics is None or group is not a method.
+            paper_to_submission_name = {}
+
         cache_updated = False
         for i, (group, group_bootstrap_statistics) in enumerate(all_bootstrap_statistics.items()):
             # Check which statistics we still need to compute for this group.
@@ -562,7 +643,8 @@ class HostGuestSubmissionCollection:
                         all_bootstrap_statistics[group][stats_name] = cached_bootstrap_statistics[group][stats_name]
                     except KeyError:
                         try:
-                            method_name = self._assign_paper_method_name(group)
+                            # method_name = self._assign_paper_method_name(group)
+                            method_name = paper_to_submission_name[group]
                             all_bootstrap_statistics[group][stats_name] = cached_bootstrap_statistics[method_name][stats_name]
                         except KeyError:
                             group_stats_names.append(stats_name)
@@ -610,6 +692,7 @@ class HostGuestSubmissionCollection:
     def _modify_violinplot(self, ax, stats_name):
         pass
 
+
 # =============================================================================
 # MERGE SUBMISSIONS AND COLLECTIONS
 # =============================================================================
@@ -645,6 +728,10 @@ def merge_submissions(submissions, discard_not_matched=True):
     return merged_submissions
 
 
+# =============================================================================
+# UTILITIES TO GENERATE FIGURES FOR THE PAPER
+# =============================================================================
+
 class SplitBootstrapSubmissionCollection(HostGuestSubmissionCollection):
     """Two collections merged, which allows to plot split bootstrap distributions.
 
@@ -677,6 +764,41 @@ class SplitBootstrapSubmissionCollection(HostGuestSubmissionCollection):
         self.output_directory_path = output_directory_path
         os.makedirs(self.output_directory_path, exist_ok=True)
 
+    def generate_paper_table(self, stats_funcs, exclusions):
+        # Call _get_bootstrap_distribution_plot_data() to create self._collection_statistics.
+        stats_names, stats_funcs = zip(*stats_funcs.items())
+        self._get_bootstrap_distribution_plot_data('method', stats_names, stats_funcs)
+        data = self._collections_statistics  # Short-cut.
+
+        # Remove exclusions.
+        data = data[~data.ID.isin(exclusions)]
+
+        # We'll print all the methods in alphabetical order.
+        methods = sorted(data.ID.unique())
+
+        # Build a table with statistics of OA/TEMOA and CB8 side by side.
+        # The first column of the table list the methods.
+        table = [['{:15s}'.format(method)] for method in methods]
+        for hue in self.collections:
+            for method_idx, method in enumerate(methods):
+                for stats_name in stats_names:
+                    try:
+                        stats = data[(data[self.hue] == hue) & (data.ID == method)]
+                        stats = '{:.1f} ({:.1f}) & [{:.1f}, {:.1f}]'.format(
+                            stats[stats_name].values[0], stats[stats_name + '_mean'].values[0],
+                            stats[stats_name + '_low'].values[0], stats[stats_name + '_up'].values[0])
+                    except IndexError:
+                        # No data for this combination of dataset and method.
+                        stats = ' & '
+                    table[method_idx].append(stats)
+
+        # Plot table.
+        table_str = ''
+        for row in table:
+            table_str += ' & '.join(row) + ' \\\\\n'
+        with open('temp.txt', 'w') as f:
+            f.write(table_str)
+
     def _get_bootstrap_distribution_plot_data(self, groupby, stats_names, stats_funcs):
         """Return the dataframes with the statistics necessary to plot.
 
@@ -689,7 +811,6 @@ class SplitBootstrapSubmissionCollection(HostGuestSubmissionCollection):
             A dataframe containing all the bootstrap samples.
         """
         # Collect the records for the DataFrames.
-        ordering_data = []
         statistics_plot = []
         # Cache the statistics of the collections as we'll need them in _modify_violinplot().
         self._collections_statistics = []
@@ -703,9 +824,6 @@ class SplitBootstrapSubmissionCollection(HostGuestSubmissionCollection):
             groups = collection.data[groupby].unique()
 
             for group_idx, group in enumerate(groups):
-                # TODO REMOVE ME
-                if 'SOMD' not in group:
-                    continue
                 print('\rCollecting bootstrap statistics for {} {} ({}/{})'
                       ''.format(groupby, group, group_idx+1, len(groups)), end='')
                 # Isolate bootstrap statistics.
@@ -716,24 +834,40 @@ class SplitBootstrapSubmissionCollection(HostGuestSubmissionCollection):
                     stats_name_latex = latex_header_conversions.get(stats_name, stats_name)
                     # Keep the data used for the order.
                     ordering_data_record[stats_name] = stats
+                    # These are used to create the table for the paper.
+                    ordering_data_record[stats_name + '_low'] = lower_bound
+                    ordering_data_record[stats_name + '_up'] = upper_bound
+                    ordering_data_record[stats_name + '_mean'] = bootstrap_samples.mean()
                     # For the violin plot, we need all the bootstrap statistics series.
                     for bootstrap_sample in bootstrap_samples:
                         statistics_plot.append(dict(ID=group, statistics_name=stats_name_latex,
                                                     value=bootstrap_sample, **{self.hue: collection_hue}))
-
-                # We order using collection1 data.
-                if collection_hue == list(self.collections.keys())[0]:
-                    ordering_data.append(dict(ID=group, **ordering_data_record))
+                # Save actual statitics.
                 self._collections_statistics.append(dict(ID=group, **ordering_data_record,
                                                          **{self.hue: collection_hue}))
 
             del all_bootstrap_statistics  # This can be huge when the number of bootstrap cycles is high.
             print()
 
-        ordering_data = pd.DataFrame(ordering_data)
-        ordering_data.set_index('ID', inplace=True)
         statistics_plot = pd.DataFrame(statistics_plot)
         self._collections_statistics = pd.DataFrame(self._collections_statistics)
+
+        # # Print mean statistics.
+        # temp = self._collections_statistics
+        # for hue in ['OA/TEMOA', 'CB8']:
+        #     for stats_name in stats_names:
+        #         print(hue, stats_name, temp[temp[self.hue] == hue][stats_name].mean())
+
+        # We order using collection1 statistics (unless the group has only collection2).
+        (collection1_hue, collection1), (collection2_hue, collection2) = self.collections.items()
+        ordering_data = self._collections_statistics[self._collections_statistics[self.hue] == collection1_hue]
+        groups2_unique = set(collection2.data[groupby].unique()) - set(collection1.data[groupby].unique())
+        if len(groups2_unique) != 0:
+            groups2_data = self._collections_statistics[(self._collections_statistics[self.hue] == collection2_hue) &
+                                                        (self._collections_statistics.ID.isin(groups2_unique))]
+            ordering_data = pd.concat([ordering_data, groups2_data], ignore_index=True)
+        ordering_data.set_index('ID', inplace=True)
+
         return ordering_data, statistics_plot
 
     def _modify_violinplot(self, ax, stats_name):
@@ -748,9 +882,10 @@ class SplitBootstrapSubmissionCollection(HostGuestSubmissionCollection):
                     # The group doesn't have a statistics for the hue.
                     continue
                 sign = -1 if collection_idx == 0 else 1
-                y = np.linspace(group_idx, group_idx + sign * self._ROW_HEIGHT / 1.8)
+                y = np.linspace(group_idx + sign * self._ROW_HEIGHT*0.5, group_idx + sign * self._ROW_HEIGHT * 1.0)
                 x = [collection_stats for _ in y]
-                ax.plot(x, y, c='black', lw=3, alpha=0.6)
+                ax.plot(x, y, c='white', lw=2.0,)
+                ax.plot(x, y, c='black', lw=1.8, alpha=0.85)
 
 
 # =============================================================================
@@ -758,11 +893,11 @@ class SplitBootstrapSubmissionCollection(HostGuestSubmissionCollection):
 # =============================================================================
 
 if __name__ == '__main__':
-    # TODO:     I had to fix the index CB8-G12a -> CB8-G12 in experimental_data to make the analysis work
     # TODO:     ../Submissions/974/tb3ck-974-CB8-WGatMSU-1.txt: has an extra - in CB8-G6 enthalpy
     # TODO:     ../Submissions/974/d7xde-974-CB8-NHLBI-2.txt was ignored as it is identical to 6jsye-974-CB8-NHLBI-2.txt (from two different people!)
 
     sns.set_style('whitegrid')
+
     sns.set_context('notebook')
 
     # Read experimental data.
@@ -773,9 +908,12 @@ if __name__ == '__main__':
         experimental_data = pd.read_csv(f, sep=';', names=names, index_col='System ID', skiprows=1)
 
     # Convert numeric values to dtype float.
-    # experimental_data = experimental_data.convert_objects(convert_numeric=True)
     for col in experimental_data.columns[3:]:
         experimental_data[col] = pd.to_numeric(experimental_data[col], errors='coerce')
+
+    # Rename CB8-G12a to CB8-G12 since we'll print only this.
+    id_index = np.where(experimental_data.index.values == 'CB8-G12a')[0][0]
+    experimental_data.index.values[id_index] = 'CB8-G12'
 
     # Import user map.
     with open('../SubmissionsDoNotUpload/SAMPL6_user_map.csv', 'r') as f:
@@ -798,17 +936,17 @@ if __name__ == '__main__':
     }
     latex_header_conversions = {
         'R2': 'R$^2$',
-        'RMSE': 'RMSE (kcal/mol)',
-        'MAE': 'MAE (kcal/mol)',
-        'ME': 'ME (kcal/mol)',
+        'RMSE': 'RMSE [kcal/mol]',
+        'MAE': 'MAE [kcal/mol]',
+        'ME': 'ME [kcal/mol]',
         'kendall_tau': '$\\tau$',
     }
     stats_limits = {
-        # 'RMSE': (0, 10),
-        # 'MAE': (0, 10),
-        # 'ME': (-5, 5),
+        'RMSE': (0, 50.0),
+        'MAE': (0, 40),
+        'ME': (-20, 40),
         'R2': (0, 1),
-        # 'm': (-3, 3),
+        'm': (-10, 10),
         'kendall_tau': (-1, 1),
     }
 
@@ -876,27 +1014,38 @@ if __name__ == '__main__':
                                               sort_stat='RMSE', ordering_functions=ordering_functions,
                                               latex_header_conversions=latex_header_conversions,
                                               caption=caption)
+
+        sns.set_context('paper', font_scale=0.7)
         collection.plot_bootstrap_distributions(stats_funcs, subdirectory_path='StatisticsPlots',
                                                 groupby='name', ordering_functions=ordering_functions,
                                                 latex_header_conversions=latex_header_conversions,
                                                 stats_limits=stats_limits)
 
-    # Generate molecule statistics and plots. Remove null methods.
-    collection_all.data.drop(collection_all.data['name'].str.startswith('NULL'))
+    # Generate molecule statistics and plots.
+    # Include only the top 10 methods on the merged OA/TEMOA and CB8 datasets.
+    included_methods = {
+        'ForceMatch',
+        'MovTyp-GE3N',
+        'MovTyp-GE3O',
+        'MovTyp-GT1N',
+        'MovTyp-KT1N',
+        'MovTyp-KT1L',
+        'RFEC-GAFF2',
+        'RFEC-QMMM',
+        'SOMD-C',
+        'SOMD-D',
+        'SOMD-D-nobuffer',
+        'Tinker-AMOEBA',
+        'US-CGenFF',
+        'US-GAFF-C'
+    }
+    collection_all.data = collection_all.data[collection_all.data.method.isin(included_methods)]
+    # Exclude bonus challenges.
+    collection_all.data = collection_all.data[~collection_all.data.system_id.isin({'CB8-G11', 'CB8-G12', 'CB8-G13'})]
     collection_all.generate_molecules_plot()
     collection_all.generate_statistics_tables(stats_funcs_molecules, 'StatisticsTables', groupby='system_id',
                                               sort_stat='MAE', ordering_functions=ordering_functions,
                                               latex_header_conversions=latex_header_conversions)
     collection_all.plot_bootstrap_distributions(stats_funcs_molecules, subdirectory_path='StatisticsPlots',
                                                 groupby='system_id', ordering_functions=ordering_functions,
-                                                latex_header_conversions=latex_header_conversions,
-                                                stats_limits=stats_limits)
-
-    # # Violin plots of bootstrap distribution for two collections.
-    # collection = SplitBootstrapSubmissionCollection(collection_oa_temoa, collection_cb,
-    #                                                 hue='dataset', collection1_hue='OA/TEMOA', collection2_hue='CB8',
-    #                                                 output_directory_path='../MergedCB8-OA')
-    # collection.plot_bootstrap_distributions(stats_funcs, 'StatisticsPlots', groupby='method',
-    #                                         ordering_functions=ordering_functions, stats_limits=stats_limits,
-    #                                         latex_header_conversions=latex_header_conversions,
-    #                                         hue='dataset', split=True)
+                                                latex_header_conversions=latex_header_conversions)
