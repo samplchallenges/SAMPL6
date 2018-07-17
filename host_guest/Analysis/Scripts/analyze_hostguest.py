@@ -896,10 +896,6 @@ if __name__ == '__main__':
     # TODO:     ../Submissions/974/tb3ck-974-CB8-WGatMSU-1.txt: has an extra - in CB8-G6 enthalpy
     # TODO:     ../Submissions/974/d7xde-974-CB8-NHLBI-2.txt was ignored as it is identical to 6jsye-974-CB8-NHLBI-2.txt (from two different people!)
 
-    sns.set_style('whitegrid')
-
-    sns.set_context('notebook')
-
     # Read experimental data.
     with open(EXPERIMENTAL_DATA_FILE_PATH, 'r') as f:
         # experimental_data = pd.read_json(f, orient='index')
@@ -998,6 +994,13 @@ if __name__ == '__main__':
                                                            output_directory_path='../CB8-NOBONUS')
     collection_cb_no_bonus.data = remove_bonus(collection_cb_no_bonus.data)
 
+
+    # =============================================================================
+    # CREATE AUTOMATIC ANALYSIS ON THE REPO.
+    # =============================================================================
+
+    sns.set_style('whitegrid')
+
     # Generate correlation plots and statistics.
     for collection in [collection_cb, collection_cb_no_bonus, collection_oa, collection_temoa,
                        collection_oa_temoa, collection_cb_oa_temoa]:
@@ -1022,6 +1025,8 @@ if __name__ == '__main__':
                                                 stats_limits=stats_limits)
 
     # Generate molecule statistics and plots.
+    # Don't modify original collection_all as we'll use it later.
+    collection = copy.deepcopy(collection_all)
     # Include only the top 10 methods on the merged OA/TEMOA and CB8 datasets.
     included_methods = {
         'ForceMatch',
@@ -1039,13 +1044,502 @@ if __name__ == '__main__':
         'US-CGenFF',
         'US-GAFF-C'
     }
-    collection_all.data = collection_all.data[collection_all.data.method.isin(included_methods)]
+    collection.data = collection.data[collection.data.method.isin(included_methods)]
     # Exclude bonus challenges.
-    collection_all.data = collection_all.data[~collection_all.data.system_id.isin({'CB8-G11', 'CB8-G12', 'CB8-G13'})]
-    collection_all.generate_molecules_plot()
-    collection_all.generate_statistics_tables(stats_funcs_molecules, 'StatisticsTables', groupby='system_id',
-                                              sort_stat='MAE', ordering_functions=ordering_functions,
-                                              latex_header_conversions=latex_header_conversions)
-    collection_all.plot_bootstrap_distributions(stats_funcs_molecules, subdirectory_path='StatisticsPlots',
-                                                groupby='system_id', ordering_functions=ordering_functions,
-                                                latex_header_conversions=latex_header_conversions)
+    collection.data = collection.data[~collection.data.system_id.isin({'CB8-G11', 'CB8-G12', 'CB8-G13'})]
+    collection.generate_molecules_plot()
+    collection.generate_statistics_tables(stats_funcs_molecules, 'StatisticsTables', groupby='system_id',
+                                          sort_stat='MAE', ordering_functions=ordering_functions,
+                                          latex_header_conversions=latex_header_conversions)
+    collection.plot_bootstrap_distributions(stats_funcs_molecules, subdirectory_path='StatisticsPlots',
+                                            groupby='system_id', ordering_functions=ordering_functions,
+                                            latex_header_conversions=latex_header_conversions)
+
+
+    # =============================================================================
+    # FIGURES AND TABLES GENERATED FOR THE PAPER
+    # =============================================================================
+
+    # Regenerate the OA/TEMOA submission collection, this time without discarding
+    # the methods that were applied to only one of the two sets.
+    submissions_oa_temoa = load_submissions(HostGuestSubmission, HOST_GUEST_OA_SUBMISSIONS_DIR_PATH, user_map)
+    submissions_oa_temoa = merge_submissions(submissions_oa_temoa, discard_not_matched=False)
+    collection_oa_temoa = HostGuestSubmissionCollection(submissions_oa_temoa, experimental_data,
+                                                        output_directory_path='../OA-TEMOA')
+
+    # Create a set of all the methods.
+    all_methods = set(collection_oa.data.method.unique())
+    all_methods.update(set(collection_temoa.data.method.unique()))
+    all_methods.update(set(collection_cb.data.method.unique()))
+
+    # Submissions using experimental corrections.
+    is_corrected = lambda m: ('MovTyp' in m and m[-1] != 'N') or 'SOMD-D' in m or 'RFEC' in m or 'US-GAFF-C' == m
+    corrected_methods = {m for m in all_methods if is_corrected(m)}
+
+    # For movable type we plot only GE3N, GE3O, GE3L, KT1N, KT1L, GT1N, GT1L.
+    exclusions = {
+        'MovTyp-GD1N', 'MovTyp-GD1O', 'MovTyp-GD1L', 'MovTyp-GD3N', 'MovTyp-GD3L',
+        'MovTyp-GE3S', 'MovTyp-GE3U', 'MovTyp-GE3Z', 'MovTyp-GT1O', 'MovTyp-GT3N',
+        'MovTyp-GT3S', 'MovTyp-GT3U', 'MovTyp-GT3L', 'MovTyp-GU1N', 'MovTyp-GU1O',
+        'MovTyp-GU1L', 'MovTyp-GU3N', 'MovTyp-GU3L'
+    }
+
+
+    # FIGURE 2: Figure experiment distributions.
+    # -------------------------------------------
+    sns.set_style('darkgrid')
+    sns.set_context('paper', font_scale=1.0)
+    host_names = [system_id.split('-')[0] for system_id in experimental_data.index]
+    system_id_idx = list(range(len(host_names)))
+    data = experimental_data.assign(host_name=pd.Series(host_names).values,
+                                    system=system_id_idx)
+    data = data.rename(columns={
+        '$\Delta$G': '$\Delta$G [kcal/mol]',
+        'host_name': 'Host name',
+        'system': 'Host-guest system'
+    })
+    fix, ax = plt.subplots(figsize=(4.5, 4.5))
+    ax = sns.stripplot(y=data.index, x='$\Delta$G [kcal/mol]', data=data,
+                       hue='Host name', size=9, palette=HOST_PALETTE, ax=ax)
+    ax.errorbar(y=list(range(len(data.index))), x=data['$\Delta$G [kcal/mol]'].values,
+                xerr=data['d$\Delta$G'].values, fmt='none', elinewidth=1, ecolor='black',
+                capsize=2, capthick=1, zorder=10)
+    ax.set_xlim((-14, 0))
+    plt.tight_layout(pad=0.2)
+    # plt.show()
+    plt.savefig('../PaperImages/Figure2_experimental_measurements.pdf')
+
+
+    # FIGURE 3: Figure correlation plots free energies.
+    # --------------------------------------------------
+    sns.set_style('whitegrid')
+    sns.set_context('paper', font_scale=0.8)
+
+    def correlation_plots(plotted_methods, file_name):
+        """Shortcut to create correlation plots."""
+        n_methods = len(plotted_methods)
+
+        n_cols = 5
+        n_rows = int(np.floor(n_methods/(n_cols-1)))
+        plot_size = 7.25 / n_cols
+        fig = plt.figure(figsize=(n_cols*plot_size, n_rows*plot_size))
+        grid = plt.GridSpec(nrows=n_rows, ncols=n_cols*2)
+        # All rows have 4 plots except for last one which has 5.
+        axes = []
+        for row_idx in range(n_rows-1):
+            axes.extend([fig.add_subplot(grid[row_idx, c:c+2]) for c in range(1,9,2)])
+        axes.extend([fig.add_subplot(grid[-1, c:c+2]) for c in range(0,10,2)])
+
+        # Associate a color to each host.
+        for method, ax in zip(plotted_methods, axes):
+            # Isolate statistics of the method.
+            data = collection_all.data[collection_all.data.method == method]
+            # Build palette.
+            palette = [HOST_PALETTE[host_name] for host_name in sorted(data.host_name.unique())]
+            # Add color for regression line over all data points.
+            palette += [HOST_PALETTE['other1']]
+            # Plot correlations.
+            plot_correlation(x='$\Delta$G (expt) [kcal/mol]', y='$\Delta$G (calc) [kcal/mol]',
+                             data=data, title=method, hue='host_name', color=palette,
+                             shaded_area_color=HOST_PALETTE['other2'], ax=ax)
+            # Remove legend and axes labels.
+            ax.legend_.remove()
+            ax.set_xlabel('')
+            ax.set_ylabel('')
+            # Make title and axes labels closer to axes.
+            ax.set_title(ax.get_title(), pad=1.5)
+            ax.tick_params(pad=3.0)
+
+        # Use a single label for the figure.
+        fig.text(0.015, 0.5, '$\Delta$G (calc) [kcal/mol]', va='center', rotation='vertical', size='large')
+        fig.text(0.5, 0.015, '$\Delta$G (exp) [kcal/mol]', ha='center', size='large')
+
+        plt.tight_layout(pad=0.9, rect=[0.0, 0.025, 1.0, 1.0])
+        plt.savefig('../PaperImages/{}.pdf'.format(file_name))
+
+    correlation_plots(
+        plotted_methods = sorted(set(all_methods) - set(exclusions)),
+        file_name='Figure3_correlation_plots'
+    )
+
+    # Supplementary figure with correlations plots of movable type calculations.
+    correlation_plots(
+        plotted_methods = sorted(m for m in all_methods if 'MovTyp' in m),
+        file_name='SIFigure_correlation_plots_movtyp'
+    )
+
+
+    # FIGURE 4: Violin plots of bootstrap distribution for two collections OA/TEMOA and CB8-NOBONUS.
+    # -----------------------------------------------------------------------------------------------
+    sns.set_style('whitegrid')
+    sns.set_context('paper', font_scale=0.7)
+
+    collection = SplitBootstrapSubmissionCollection(collection_oa_temoa, collection_cb_no_bonus,
+                                                    hue='dataset', collection1_hue='OA/TEMOA', collection2_hue='CB8',
+                                                    output_directory_path='../PaperImages')
+    palette = {'OA/TEMOA': HOST_PALETTE['OA'], 'CB8': HOST_PALETTE['CB8']}
+
+    def plot_split_bootstrap_distribution(stats_funcs, stats_limits, exclusions, suffix=''):
+        """Shortcut to plot bootstrap distribution with SplitBootstrapSubmissionCollection."""
+        collection.plot_bootstrap_distributions(
+            stats_funcs, 'Figure4_bootstrap_distributions', groupby='method',
+            ordering_functions=ordering_functions, stats_limits=stats_limits,
+            latex_header_conversions=latex_header_conversions,
+            exclusions=exclusions, shaded=corrected_methods,
+            figure_width=7.25/4, output_file_suffix=suffix,
+            hue='dataset', split=True, palette=palette)
+
+    # These entries have a very large RMSE and ME so we plot them
+    # separately to keep a good resolution for the others.
+    larger_error_entries = {'MMPBSA-GAFF', 'DFT(B3PW91)', 'DFT(B3PW91)-D3', 'NULL'}
+    sf = {n: stats_funcs[n] for n in ['RMSE', 'ME']}
+    plot_split_bootstrap_distribution(
+        stats_funcs=sf,
+        stats_limits={'RMSE': (0, 12.5), 'ME': (-10, 10)},
+        exclusions=exclusions.union(larger_error_entries)
+    )
+    plot_split_bootstrap_distribution(
+        stats_funcs=sf,
+        stats_limits={'RMSE': (0, 50), 'ME': (-30, 50)},
+        exclusions=all_methods-larger_error_entries,
+        suffix='largererror.svg'
+    )
+
+    # Plot correlation statistics split bootstrap distributions.
+    plot_split_bootstrap_distribution(
+        stats_funcs={n: stats_funcs[n] for n in ['R2', 'kendall_tau']},
+        stats_limits={'R2': (0, 1), 'kendall_tau': (-1, 1)},
+        exclusions=exclusions
+    )
+
+
+    # FIGURE 5: Figure statistics by molecule.
+    # -----------------------------------------
+    sns.set_style('whitegrid')
+    sns.set_context('paper', font_scale=1.0)
+
+    def get_errs(stat_name, data):
+        stat_name_lb = stat_name + '_lower_bound'
+        stat_name_ub = stat_name + '_upper_bound'
+        errs = []
+        for i, x in data[[stat_name, stat_name + '_lower_bound', stat_name + '_upper_bound']].iterrows():
+            errs.append([abs(x[stat_name_lb] - x[stat_name]), abs(x[stat_name_ub] - x[stat_name])])
+        return np.array(list(zip(*errs)))
+
+    stats_names = ['RMSE', 'ME']
+    fig, axes = plt.subplots(ncols=len(stats_names), figsize=(7.25, 5), sharey=True)
+    statistics = pd.read_json('../MoleculesStatistics/StatisticsTables/statistics.json', orient='index')
+    # Remove bonus challenges.
+    statistics = statistics[~statistics.index.isin({'CB8-G11', 'CB8-G12', 'CB8-G13'})]
+    statistics.sort_values(by='RMSE', inplace=True)
+    for ax, stats_name in zip(axes, stats_names):
+        # Build palette.
+        palette = [HOST_PALETTE[guest_name.split('-')[0]] for guest_name in statistics.index.values]
+        # Convert errors for printing.
+        rmse_errs = get_errs(stats_name, statistics)
+        ax = sns.barplot(x=stats_name, y=statistics.index, data=statistics, xerr=rmse_errs,
+                         palette=palette, ax=ax)
+        if stats_name == 'ME':
+            ax.set_xlim((-3, 6))
+        ax.set_xlabel('$\Delta$G ' + stats_name + ' [kcal/mol]')
+
+    plt.tight_layout(pad=0.3)
+    # plt.show()
+    plt.savefig('../PaperImages/Figure5_error_by_molecule.pdf')
+
+
+    # FIGURE 6: Distribution of RMSE and R2 in previous SAMPL challenges.
+    # --------------------------------------------------------------------
+
+    sns.set_style('whitegrid')
+    sns.set_context('paper', font_scale=1)
+
+    # SAMPL3 data for CB8.
+    sampl3_cb8_data = {
+        'RMSE': [1.4, 1.4, 5.1, 1.5, 1.4, 1.9, 45.2, 14.8, 3.1, 4.1, 7.5, 5.2, 3.0, 5.9],
+        'R2': [0.77, 0.77, 0.44, 0.46, 0.77, 0.79, 0.57, 0.14, 0.77, 0.8, 0.93, 0.92, 0.64, 0.94]
+    }
+
+    # SAMPL3 data for H1.
+    sampl3_h1_data = {
+        'RMSE': [1.6, 1.9, 6.4, 2.0, 1.5, 2.8, 31.9, 23.4, 3.1, 7.5,
+                 2.5, 2.6, 3.6, 4.0, 11.3],
+        'R2': [0.42, 0.44, 0.22, 0.22, 0.40, 0.40, 0.58, 0.80, 0.19, 0.24,
+               0.49, 0.01, 0.51, 0.34, 0.81]
+    }
+    sampl3_h1_mm_data = {  # Only the last five: BEDAM to FEP/OSRW
+        'RMSE': [2.5, 2.6, 3.6, 4.0, 11.3],
+        'R2': [0.49, 0.01, 0.51, 0.34, 0.81]
+    }
+
+    # SAMPL5 data for OA/TEMOA.
+    sampl5_oatemoa_data = {
+        'RMSE': [5.3, 3.5, 2.1, 1.6, 6.1, 3.1, 3.6, 3.0, 3.1, 2.7,
+                 2.7, 3.0, 3.0, 3.0, 2.2, 3.6, 3.6, 2.1, 10.0],
+        'R2': [0.8, 0.9, 0.0, 0.7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+               0.0, 0.0, 0.0, 0.9, 0.9, 0.9, 0.1]
+    }
+    sampl5_oatemoa_mm_data = {  # All but MMPBSA-GAFF and MovTyp
+        'RMSE': [2.1, 1.6, 6.1, 3.1, 2.7, 2.7, 3.0,
+                 3.0, 3.0, 2.2, 3.6, 3.6, 2.1, 10.0],
+        'R2': [0.8, 0.9, 0.0, 0.7, 0.0, 0.0, 0.0,
+               0.0, 0.0, 0.0, 0.9, 0.9, 0.9, 0.1]
+    }
+
+    # SAMPL5 RMSE for CBClip.
+    sampl5_cbclip_data = {
+        'RMSE': [4.0, 4.7, 4.7, 3.4, 4.0, 4.8, 3.5, 4.2, 6.4, 6.3,
+                 5.7, 18.7],
+        'R2': [0.0, 0.1, 0.2, 0.0, 0.0, 0.4, 0.0, 0.0, 0.8, 0.8,
+               0.8, 0.5]
+    }
+    sampl5_cbclip_mm_data = {  # All but MovTyp
+        'RMSE': [4.0, 4.7, 4.7, 3.4, 4.0, 4.8, 6.4, 6.3,
+                 5.7, 18.7],
+        'R2': [0.0, 0.1, 0.2, 0.0, 0.0, 0.4, 0.8, 0.8,
+               0.8, 0.5]
+    }
+
+    # SAMPL6 statistics.
+    sampl6_cb8_data = pd.read_json('../CB8/StatisticsTables/statistics.json', orient='index')
+    sampl6_oatemoa_data = pd.read_json('../OA-TEMOA/StatisticsTables/statistics.json', orient='index')
+    # Add US-CGenFF which submitted only TEMOA predictions.
+    sampl6_temoa_data = pd.read_json('../TEMOA/StatisticsTables/statistics.json', orient='index')
+    sampl6_oatemoa_data = sampl6_oatemoa_data.append(sampl6_temoa_data[sampl6_temoa_data.index == 'Umbrella Sampling/TIP3P'])
+
+    for data in [sampl6_cb8_data, sampl6_oatemoa_data]:
+        # Add paper methods column.
+        data['method'] = [collection_oa_temoa._assign_paper_method_name(n) for n in data.index.values]
+        # Remove exclusions and NULL.
+        data.drop(data[data.method.isin(exclusions.union({'NULL'}))].index, inplace=True)
+
+    # Data excluding corrected methods.
+    sampl6_oatemoa_nocorr_data = sampl6_oatemoa_data[~sampl6_oatemoa_data.method.isin(corrected_methods)]
+    sampl6_cb8_nocorr_data = sampl6_cb8_data[~sampl6_cb8_data.method.isin(corrected_methods)]
+
+    # Data with only alchemical and PMF methods without correction.
+    alch_pmf_methods = {m for m in all_methods if not ('MovTyp' in m or 'DFT' in m or 'SQM' in m or 'MMPBSA' in m)}
+    sampl6_oatemoa_mm_data = sampl6_oatemoa_nocorr_data[sampl6_oatemoa_nocorr_data.method.isin(alch_pmf_methods)]
+    sampl6_cb8_mm_data = sampl6_cb8_nocorr_data[sampl6_cb8_nocorr_data.method.isin(alch_pmf_methods)]
+
+    # Set palettes for colors.
+    colormap_name = 'viridis'
+    dark_palette = sns.color_palette(colormap_name, n_colors=50, desat=0.4)
+    free_energy_palette = sns.color_palette(colormap_name, n_colors=50, desat=0.95)
+    no_exp_palette = sns.color_palette(colormap_name, n_colors=50, desat=0.6)
+    color_indices = [0, 32, 49]
+
+    dark_palette = [dark_palette[i] for i in color_indices]
+    free_energy_palette = [free_energy_palette[i] for i in color_indices]
+    no_exp_palette = [no_exp_palette[i] for i in color_indices]
+
+    # With viridis colormap, desaturated purple is too dark.
+    free_energy_palette[0] = sns.color_palette('dark', desat=0.8)[3]
+    no_exp_palette[0] = sns.color_palette('pastel', desat=0.8)[3]
+
+    markers = ['s', 'o', '^']
+
+    labels = [
+        ('SAMPL3 CB7/CB8', sampl3_cb8_data, no_exp_palette[0], markers[0]),
+        ('SAMPL3 H1', sampl3_h1_data, dark_palette[0], markers[0]),
+        ('SAMPL3 H1 (free energy)', sampl3_h1_mm_data, free_energy_palette[0], markers[1]),
+
+        ('SAMPL5 CBClip', sampl5_cbclip_data, dark_palette[1], markers[0]),
+        ('SAMPL5 CBClip (free energy)', sampl5_cbclip_mm_data, free_energy_palette[1], markers[1]),
+
+        ('SAMPL6 CB8', sampl6_cb8_data, dark_palette[2], markers[0]),
+        ('SAMPL6 CB8 (free energy)', sampl6_cb8_mm_data, free_energy_palette[2], markers[1]),
+        ('SAMPL6 CB8 (no exp)', sampl6_cb8_nocorr_data, no_exp_palette[2], markers[2]),
+
+        ('SAMPL5', sampl5_oatemoa_data, dark_palette[1], markers[0]),
+        ('SAMPL5 (free energy)', sampl5_oatemoa_mm_data, free_energy_palette[1], markers[1]),
+
+        ('SAMPL6', sampl6_oatemoa_data, dark_palette[2], markers[0]),
+        ('SAMPL6 (free energy)', sampl6_oatemoa_mm_data, free_energy_palette[2], markers[1]),
+        ('SAMPL6 (no exp)', sampl6_oatemoa_nocorr_data, no_exp_palette[2], markers[2]),
+    ]
+
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(4.6, 5.6))
+    for label, data, color, _ in labels:
+        row_idx = 1 if ('CB' in label or 'H1' in label) else 0
+        if 'free' in label:
+            ls = '--'
+        elif 'exp' in label:
+            ls = ':'
+        else:
+            ls = '-'
+        lw = 2 if 'exp' in label else None
+        # rmse_data = [x for x in data['RMSE'] if x < 15]  # Discard outliers.
+        rmse_data = data['RMSE']
+        for col_idx, d in enumerate([rmse_data, data['R2']]):
+            ax = axes[row_idx,col_idx]
+            sns.distplot(d, hist=False, color=color, label=label, ax=ax, kde_kws={'ls': ls, 'lw': lw})
+
+    # Plot mean after the axis limit was set.
+    for label, data, color, marker in labels:
+        row_idx = 1 if ('CB' in label or 'H1' in label) else 0
+        # rmse_data = [x for x in data['RMSE'] if x < 15]  # Discard outliers.
+        for col_idx, d in enumerate([data['RMSE'], data['R2']]):
+            # Compute median and 95-percentile bootstrap confidence intervals.
+            # median, ci, _ = compute_bootstrap_statistics(np.array(d), [np.median], n_bootstrap_samples=100000)[0]
+            # print('{} ({}): {:.2f} [{:.2f},{:.2f}]'.format(label, col_idx, median, *ci))
+            ax = axes[row_idx,col_idx]
+            y_lim = ax.get_ylim()
+            # Place median dot at 2% of y axis.
+            ax.plot(np.median(d), y_lim[1]*0.022, color=color, marker=marker, markersize=6, alpha=0.8)
+
+    # Axes limits.
+    for row in axes:
+        x_limit_rmse = 14
+        row[0].set_xlim((0, x_limit_rmse))
+        row[0].set_xticks(list(range(0, x_limit_rmse+1, 2)))
+        row[1].set_xlim((0, 1))
+        for ax in row:
+            ax.get_yaxis().set_ticks([])
+            ax.set_xlabel('')
+
+    # Axes labels
+    axes[0,0].xaxis.set_ticklabels([])
+    axes[0,1].xaxis.set_ticklabels([])
+    axes[0,0].set_ylabel('OA / TEMOA')
+    axes[1,0].set_ylabel('cucurbiturils')
+    axes[1,0].set_xlabel('RMSE [kcal/mol]')
+    axes[1,1].set_xlabel('R$^2$')
+
+    # Legend.
+    for i, ax in enumerate(axes.flatten()):
+        bbox_to_anchor = (0.09, 1.17) if i == 0 else (-0.13, 1.23)
+        if i % 2 == 0:
+            ax.legend(ncol=3, loc='upper left', bbox_to_anchor=bbox_to_anchor,
+                      handletextpad=0.5, fontsize='x-small')
+        else:
+            ax.legend_.remove()
+
+    plt.tight_layout(rect=[0, 0.0, 1, 1], pad=0.5, w_pad=-20.0)
+    # plt.show()
+    plt.savefig('../PaperImages/Figure6_previous_sampl/previous_sampl_distributions.pdf')
+
+
+    # SUPPLEMENTARY FIGURE correlation plots enthalpies.
+    # ---------------------------------------------------
+    sns.set_context('paper', font_scale=1.0)
+
+    plotted_methods = ['DDM-GAFF', 'DFT(B3PW91)', 'DFT(B3PW91)-D3']
+    n_methods = len(plotted_methods)
+
+    fig, axes = plt.subplots(ncols=3, figsize=(7.25, 7.25/3))
+
+    # Associate a color to each host.
+    for ax_idx, (method, ax) in enumerate(zip(plotted_methods, axes)):
+        # Isolate statistics of the method.
+        data = collection_all.data[collection_all.data.method == method]
+        # Build palette.
+        palette = [HOST_PALETTE[host_name] for host_name in sorted(data.host_name.unique())]
+        # Add color for regression line over all data points.
+        palette += [HOST_PALETTE['other1']]
+        # Plot correlations.
+        plot_correlation(x='$\Delta$H (expt) [kcal/mol]', y='$\Delta$H (calc) [kcal/mol]',
+                         data=data, title=method, hue='host_name', color=palette,
+                         shaded_area_color=HOST_PALETTE['other2'], ax=ax)
+        # Remove legend and axes labels.
+        ax.legend_.remove()
+        ax.set_xlabel('')
+        ax.set_ylabel('')
+        # Add only a single label for x and y axis.
+        if ax_idx == 0:
+            ax.set_ylabel('$\Delta$H (calc) [kcal/mol]')
+        elif ax_idx == 1:
+            ax.set_xlabel('$\Delta$H (exp) [kcal/mol]')
+
+    plt.tight_layout()
+    plt.savefig('../PaperImages/SIFigure_correlation_plots_enthalpy.pdf')
+
+
+    # # Generate the initial statistics table for the paper.
+    # -------------------------------------------------------
+    # stats_funcs = collections.OrderedDict([
+    #     ('RMSE', rmse),
+    #     ('ME', me),
+    #     ('R2', r2),
+    #     ('kendall_tau', kendall_tau)
+    # ])
+    # collection.generate_paper_table(stats_funcs, exclusions)
+
+    # # Create initial table of methods with and without bonus challenge.
+    # # ------------------------------------------------------------------
+    # # We include only the ones that submitted entries for the bonus challenge.
+    # exclusions = all_methods - {'ForceMatch', 'ForceMatch-QMMM', 'Tinker-AMOEBA',
+    #                             'DFT(B3PW91)', 'DFT(B3PW91)-D3', 'MMPBSA-GAFF'}
+    # collection = SplitBootstrapSubmissionCollection(collection_cb, collection_cb_no_bonus,
+    #                                                 hue='dataset', collection1_hue='BONUS', collection2_hue='NOBONUS',
+    #                                                 output_directory_path='../MergedCB8')
+    # collection.generate_paper_table(stats_funcs, exclusions)
+
+    # # Compute statistics similar to old review papers.
+    # # ----------------------------------------
+    # def print_stats(methods, stats_names, absolute_statistics, relative_statistics):
+    #     for method in methods:
+    #         print('{:15s} & {:13s} '.format(method, 'OA/TEMOA'), end='')
+    #         for statistics, suffix in [(absolute_statistics, ''), (relative_statistics, '_o')]:
+    #             for i, stats_name in enumerate(stats_names):
+    #                 stats_name += suffix
+    #                 stats, ci, bootstrap_distribution = statistics[method][stats_name]
+    #                 # print('{}-{}: {:.1f} ({:.1f} +- {:.1f})'.format(method, stats_name, stats,
+    #                 #                                                 np.mean(bootstrap_distribution),
+    #                 #                                                 np.std(bootstrap_distribution)))
+    #                 # end = ' \\\\\n' if (i == len(stats_names) - 1 and suffix == '_o') else ' & '
+    #                 print(' & {:.1f} ({:.1f} $\pm$ {:.1f})'.format(stats, np.mean(bootstrap_distribution),
+    #                                                          np.std(bootstrap_distribution)), end='')
+    #         print('     \\\\')
+    #
+    # # Compute offset statistics
+    # import scipy
+    #
+    # def rmse_offset(data):
+    #     mse = me(data)
+    #     x, y = data.T
+    #     offset_error = np.array(x) - np.array(y) - mse
+    #     rmse = np.sqrt((offset_error**2).mean())
+    #     return rmse
+    #
+    # def kendall_tau_offset(data):
+    #     mse = me(data)
+    #     x, y = data.T
+    #     y += mse
+    #     correlation, p_value = scipy.stats.kendalltau(x, y)
+    #     return correlation
+    #
+    # def r2_offset(data):
+    #     mse = me(data)
+    #     x, y = data.T
+    #     y += mse
+    #     slope, intercept, r_value, p_value, stderr = scipy.stats.linregress(x, y)
+    #     return r_value**2
+    #
+    # stats_funcs_offset = collections.OrderedDict([
+    #     ('RMSE_o', rmse_offset),
+    #     ('R2_o', r2_offset),
+    #     ('kendall_tau_o', kendall_tau_offset)
+    # ])
+    #
+    # offset_methods = ['DFT(TPSS)-D3', 'MovTyp-KT1N', 'MovTyp-KT1L', 'MovTyp-GE3N',
+    #                   'SOMD-A-nobuffer', 'SOMD-C-nobuffer','SOMD-D-nobuffer']
+    # collection = copy.deepcopy(collection_oa_temoa)
+    # # offset_methods = ['Tinker-AMOEBA']
+    # # collection = copy.deepcopy(collection_cb_no_bonus)
+    #
+    # # Obtain absolute statistics
+    # stats_names, stats_funcs = zip(*stats_funcs.items())
+    # cache_file_path = os.path.join(collection.output_directory_path, 'bootstrap_distributions.p')
+    # absolute_statistics = collection._get_bootstrap_statistics('method', stats_names,
+    #                                                            stats_funcs, cache_file_path)
+    #
+    # # Discard methods that we don't need to compute the offset statistics of and obtain offset statistics.
+    # collection.data = collection.data[collection.data.method.isin(offset_methods)]
+    # stats_names_offset, stats_funcs_offset = zip(*stats_funcs_offset.items())
+    # cache_file_path = os.path.join(collection.output_directory_path, 'bootstrap_distributions_offset.p')
+    # offset_statistics = collection._get_bootstrap_statistics('method', stats_names_offset,
+    #                                                          stats_funcs_offset, cache_file_path)
+    # print_stats(methods=offset_methods, stats_names=['RMSE', 'R2', 'kendall_tau'],
+    #             absolute_statistics=absolute_statistics, relative_statistics=offset_statistics)
+
