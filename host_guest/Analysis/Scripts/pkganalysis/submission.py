@@ -147,15 +147,21 @@ class SamplSubmission:
         assert self.challenge_id in self.CHALLENGE_IDS
 
         # Store user map information.
-        user_map_record = user_map[user_map.receipt_id == self.receipt_id]
-        assert len(user_map_record) == 1
-        user_map_record = user_map_record.iloc[0]
+        if user_map is not None:
+            user_map_record = user_map[user_map.receipt_id == self.receipt_id]
+            assert len(user_map_record) == 1
+            user_map_record = user_map_record.iloc[0]
 
-        self.id = user_map_record.id
-        self.participant = user_map_record.firstname + ' ' + user_map_record.lastname
-        self.participant_id = user_map_record.uid
-        self.participant_email = user_map_record.email
-        assert self.challenge_id == user_map_record.component
+            self.id = user_map_record.id
+            self.participant = user_map_record.firstname + ' ' + user_map_record.lastname
+            self.participant_id = user_map_record.uid
+            self.participant_email = user_map_record.email
+            assert self.challenge_id == user_map_record.component
+        else:
+            self.id = None
+            self.participant = None
+            self.participant_id = None
+            self.participant_email = None
 
     @classmethod
     def _read_lines(cls, file_path):

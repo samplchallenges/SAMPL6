@@ -25,8 +25,8 @@ from pkganalysis.stats import (compute_bootstrap_statistics, rmse, mae,
 # =============================================================================
 
 # Paths to input data.
-HOST_GUEST_OA_SUBMISSIONS_DIR_PATH = '../SubmissionsDoNotUpload/973/'
-HOST_GUEST_CB_SUBMISSIONS_DIR_PATH = '../SubmissionsDoNotUpload/974/'
+HOST_GUEST_OA_SUBMISSIONS_DIR_PATH = '../Submissions/OA-TEMOA/'
+HOST_GUEST_CB_SUBMISSIONS_DIR_PATH = '../Submissions/CB8/'
 EXPERIMENTAL_DATA_FILE_PATH = '../ExperimentalMeasurements/experimental_measurements.csv'
 
 HOST_PALETTE = {
@@ -115,13 +115,6 @@ class HostGuestSubmission(SamplSubmission):
             merged_submission.file_name = sorted([merged_submission.file_name, other.file_name])
         merged_submission.data = pd.concat([merged_submission.data, other.data])
         return merged_submission
-
-
-# =============================================================================
-# NULL METHODS
-# =============================================================================
-
-
 
 
 # =============================================================================
@@ -893,8 +886,8 @@ class SplitBootstrapSubmissionCollection(HostGuestSubmissionCollection):
 # =============================================================================
 
 if __name__ == '__main__':
-    # TODO:     ../Submissions/974/tb3ck-974-CB8-WGatMSU-1.txt: has an extra - in CB8-G6 enthalpy
-    # TODO:     ../Submissions/974/d7xde-974-CB8-NHLBI-2.txt was ignored as it is identical to 6jsye-974-CB8-NHLBI-2.txt (from two different people!)
+    # TODO: ../Submissions/CB8/tb3ck-974-CB8-WGatMSU-1.txt: has an extra - in CB8-G6 enthalpy
+    # TODO: ../Submissions/CB8/d7xde-974-CB8-NHLBI-2.txt was ignored as it is identical to 6jsye-974-CB8-NHLBI-2.txt (from two different people)
 
     # Read experimental data.
     with open(EXPERIMENTAL_DATA_FILE_PATH, 'r') as f:
@@ -912,8 +905,11 @@ if __name__ == '__main__':
     experimental_data.index.values[id_index] = 'CB8-G12'
 
     # Import user map.
-    with open('../SubmissionsDoNotUpload/SAMPL6_user_map.csv', 'r') as f:
-        user_map = pd.read_csv(f)
+    try:
+        with open('../SubmissionsDoNotUpload2/SAMPL6_user_map.csv', 'r') as f:
+            user_map = pd.read_csv(f)
+    except FileNotFoundError:
+        user_map=None
 
     # Configuration: statistics to compute.
     stats_funcs = collections.OrderedDict([
