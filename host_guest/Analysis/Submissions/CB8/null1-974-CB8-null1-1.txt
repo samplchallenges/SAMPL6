@@ -1,0 +1,30 @@
+# Null model for CB8
+#
+Predictions:
+CB8-G0, -20.71192194,,,,, 
+CB8-G1, 3.069352075,,,,, 
+CB8-G2, -36.12197624,,,,,
+CB8-G3, -32.55013695,,,,,
+CB8-G4, -25.58600669,,,,,
+CB8-G5, -25.38448555,,,,,
+CB8-G6, -20.03764616,,,,,
+CB8-G7, -24.61307385,,,,,
+CB8-G8, -27.6300738,,,,,
+CB8-G9, -23.27684397,,,,,
+CB8-G10, -23.95826063,,,,,
+#
+Name:
+NULL
+#
+Software: 
+Schrodinger Prime
+#
+Method: 
+Docked with OpenEye FRED and scored with Prime MM-GBSA.
+CB8-G4 was docked manually.
+Solvation model: VSGB
+Force field OPLS3
+"Use input ligand partial charges" and "Use implicit membrane" unchecked.
+Distance from ligand (A)
+Sampling method: Minimize.
+No constraints on flexible residues.

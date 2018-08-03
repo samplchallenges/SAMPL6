@@ -1,0 +1,26 @@
+# Results for TEMOA
+#
+Predictions:
+TEMOA-G0, -34.65408069,,,,, 
+TEMOA-G1, -34.03644809,,,,, 
+TEMOA-G2, -26.65630505,,,,,
+TEMOA-G3, -28.96871941,,,,,
+TEMOA-G4, -46.01526289,,,,,
+TEMOA-G5, -26.07355071,,,,,
+TEMOA-G6, -33.79028703,,,,,
+TEMOA-G7, -26.17385158,,,,,
+#
+Name:
+NULL
+#
+Software: 
+Schrodinger Prime
+#
+Method: 
+Docked with OpenEye FRED and scored with Prime MM-GBSA.
+Solvation model: VSGB
+Force field OPLS3
+"Use input ligand partial charges" and "Use implicit membrane" unchecked.
+Distance from ligand (A)
+Sampling method: Minimize.
+No constraints on flexible residues.

@@ -36,7 +36,7 @@ def load_submissions(submission_cls, directory_path, user_map):
 # PLOTTING FUNCTIONS
 # =============================================================================
 
-def plot_correlation(x, y, data, title=None, color=None, hue=None, ax=None):
+def plot_correlation(x, y, data, title=None, color=None, shaded_area_color=None, hue=None, ax=None):
     import seaborn as sns
     from matplotlib import pyplot as plt
 
@@ -44,8 +44,10 @@ def plot_correlation(x, y, data, title=None, color=None, hue=None, ax=None):
     values = data[[x, y]]
 
     # Find extreme values to make axes equal.
-    min_limit = np.ceil(min(values.min()) - 2)
-    max_limit = np.floor(max(values.max()) + 2)
+    # Generally plot between -20 and 0, and then
+    # set it to the next number divisible by 5.
+    min_limit = min(-20, np.floor(min(values.min())/5) * 5)
+    max_limit = max(0, np.ceil(max(values.max())/5) * 5)
     axes_limits = np.array([min_limit, max_limit])
 
     if hue is None:
@@ -56,23 +58,35 @@ def plot_correlation(x, y, data, title=None, color=None, hue=None, ax=None):
         grid.fig.subplots_adjust(top=0.95)
         grid.fig.suptitle(title)
     else:
-        fig, ax = plt.subplots()
+        unique_hues = sorted(data[hue].unique())
+        if ax is None:
+            fig, ax = plt.subplots()
+        # Set axes limits and ratio.
         ax.set_xlim(axes_limits)
         ax.set_ylim(axes_limits)
+        ax.set_aspect('equal', 'box')
+        # If a single color is passed, transform it into a palette.
+        if not isinstance(color, list):
+            color = [color for _ in range(len(unique_hues)+1)]
         # Add regression line single hue and all.
-        for value in data[hue].unique():
-            sns.regplot(x=x, y=y, data=data[data[hue] == value], ci=0, label=value, scatter=True, ax=ax)
-        sns.regplot(x=x, y=y, data=data, ci=0, label='All', scatter=False, ax=ax)
+        for value, c in zip(unique_hues, color):
+            sns.regplot(x=x, y=y, data=data[data[hue] == value], ci=0, label=value,
+                        scatter=True, color=c, line_kws={'alpha': 0.5}, ax=ax)
+        # Plot regression line for all the hues together.
+        sns.regplot(x=x, y=y, data=data, ci=0, label='All',
+                    scatter=False, color=color[len(unique_hues)],
+                    line_kws={'alpha': 0.7}, ax=ax)
         ax.legend(loc='upper left')
         ax.set_title(title)
 
     # Add diagonal line.
     ax.plot(axes_limits, axes_limits, ls='--', c='black', alpha=0.8, lw=0.8)
 
-    # Add shaded area for 1-2 kcal/mol error.
-    palette = sns.color_palette('BuGn_r')
-    ax.fill_between(axes_limits, axes_limits - 1, axes_limits + 1, alpha=0.2, color=palette[2])
-    ax.fill_between(axes_limits, axes_limits - 2, axes_limits + 2, alpha=0.2, color=palette[3])
+    # Add shaded area for 1.5 kcal/mol error.
+    if shaded_area_color is None:
+        shaded_area_color = sns.color_palette('BuGn_r')[2]
+    ax.fill_between(axes_limits, axes_limits - 1.5, axes_limits + 1.5, alpha=0.3,
+                    color=shaded_area_color)
 
 
 # =============================================================================
@@ -133,15 +147,21 @@ class SamplSubmission:
         assert self.challenge_id in self.CHALLENGE_IDS
 
         # Store user map information.
-        user_map_record = user_map[user_map.receipt_id == self.receipt_id]
-        assert len(user_map_record) == 1
-        user_map_record = user_map_record.iloc[0]
+        if user_map is not None:
+            user_map_record = user_map[user_map.receipt_id == self.receipt_id]
+            assert len(user_map_record) == 1
+            user_map_record = user_map_record.iloc[0]
 
-        self.id = user_map_record.id
-        self.participant = user_map_record.firstname + ' ' + user_map_record.lastname
-        self.participant_id = user_map_record.uid
-        self.participant_email = user_map_record.email
-        assert self.challenge_id == user_map_record.component
+            self.id = user_map_record.id
+            self.participant = user_map_record.firstname + ' ' + user_map_record.lastname
+            self.participant_id = user_map_record.uid
+            self.participant_email = user_map_record.email
+            assert self.challenge_id == user_map_record.component
+        else:
+            self.id = None
+            self.participant = None
+            self.participant_id = None
+            self.participant_email = None
 
     @classmethod
     def _read_lines(cls, file_path):
