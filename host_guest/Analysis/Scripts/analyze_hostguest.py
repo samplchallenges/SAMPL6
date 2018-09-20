@@ -969,17 +969,17 @@ if __name__ == '__main__':
 
     # Create submission collections
     collection_cb = HostGuestSubmissionCollection(submissions_cb, experimental_data,
-                                                  output_directory_path='../CB8')
+                                                  output_directory_path='../Accuracy/CB8')
     collection_oa = HostGuestSubmissionCollection(submissions_oa, experimental_data,
-                                                  output_directory_path='../OA')
+                                                  output_directory_path='../Accuracy/OA')
     collection_temoa = HostGuestSubmissionCollection(submissions_temoa, experimental_data,
-                                                     output_directory_path='../TEMOA')
+                                                     output_directory_path='../Accuracy/TEMOA')
     collection_oa_temoa = HostGuestSubmissionCollection(submissions_oa_temoa, experimental_data,
-                                                        output_directory_path='../OA-TEMOA')
+                                                        output_directory_path='../Accuracy/OA-TEMOA')
     collection_cb_oa_temoa = HostGuestSubmissionCollection(submissions_cb_oa_temoa, experimental_data,
-                                                           output_directory_path='../CB8-OA-TEMOA')
+                                                           output_directory_path='../Accuracy/CB8-OA-TEMOA')
     collection_all = HostGuestSubmissionCollection(submissions_all, experimental_data,
-                                                   output_directory_path='../MoleculesStatistics')
+                                                   output_directory_path='../Accuracy/MoleculesStatistics')
 
     # Create a CB8 collection excluding the bonus challenges.
     def remove_bonus(submission_collection_data):
@@ -987,7 +987,7 @@ if __name__ == '__main__':
                                           (submission_collection_data.system_id != 'CB8-G12') &
                                           (submission_collection_data.system_id != 'CB8-G13')]
     collection_cb_no_bonus = HostGuestSubmissionCollection(submissions_cb, experimental_data,
-                                                           output_directory_path='../CB8-NOBONUS')
+                                                           output_directory_path='../Accuracy/CB8-NOBONUS')
     collection_cb_no_bonus.data = remove_bonus(collection_cb_no_bonus.data)
 
 
@@ -1061,7 +1061,7 @@ if __name__ == '__main__':
     submissions_oa_temoa = load_submissions(HostGuestSubmission, HOST_GUEST_OA_SUBMISSIONS_DIR_PATH, user_map)
     submissions_oa_temoa = merge_submissions(submissions_oa_temoa, discard_not_matched=False)
     collection_oa_temoa = HostGuestSubmissionCollection(submissions_oa_temoa, experimental_data,
-                                                        output_directory_path='../OA-TEMOA')
+                                                        output_directory_path='../Accuracy/OA-TEMOA')
 
     # Create a set of all the methods.
     all_methods = set(collection_oa.data.method.unique())
@@ -1103,7 +1103,7 @@ if __name__ == '__main__':
     ax.set_xlim((-14, 0))
     plt.tight_layout(pad=0.2)
     # plt.show()
-    plt.savefig('../PaperImages/Figure2_experimental_measurements.pdf')
+    plt.savefig('../Accuracy/PaperImages/Figure2_experimental_measurements.pdf')
 
 
     # FIGURE 3: Figure correlation plots free energies.
@@ -1151,10 +1151,10 @@ if __name__ == '__main__':
         fig.text(0.5, 0.015, '$\Delta$G (exp) [kcal/mol]', ha='center', size='large')
 
         plt.tight_layout(pad=0.9, rect=[0.0, 0.025, 1.0, 1.0])
-        plt.savefig('../PaperImages/{}.pdf'.format(file_name))
+        plt.savefig('../Accuracy/PaperImages/{}.pdf'.format(file_name))
 
     correlation_plots(
-        plotted_methods = sorted(set(all_methods) - set(exclusions)),
+        plotted_methods = sorted(set(all_methods) - set(exclusions) - {'NULL'}),
         file_name='Figure3_correlation_plots'
     )
 
@@ -1172,7 +1172,7 @@ if __name__ == '__main__':
 
     collection = SplitBootstrapSubmissionCollection(collection_oa_temoa, collection_cb_no_bonus,
                                                     hue='dataset', collection1_hue='OA/TEMOA', collection2_hue='CB8',
-                                                    output_directory_path='../PaperImages')
+                                                    output_directory_path='../Accuracy/PaperImages')
     palette = {'OA/TEMOA': HOST_PALETTE['OA'], 'CB8': HOST_PALETTE['CB8']}
 
     def plot_split_bootstrap_distribution(stats_funcs, stats_limits, exclusions, suffix=''):
@@ -1223,8 +1223,8 @@ if __name__ == '__main__':
         return np.array(list(zip(*errs)))
 
     stats_names = ['RMSE', 'ME']
-    fig, axes = plt.subplots(ncols=len(stats_names), figsize=(7.25, 5), sharey=True)
-    statistics = pd.read_json('../MoleculesStatistics/StatisticsTables/statistics.json', orient='index')
+    fig, axes = plt.subplots(ncols=len(stats_names), figsize=(7.25/3.1*2, 5), sharey=True)
+    statistics = pd.read_json('../Accuracy/MoleculesStatistics/StatisticsTables/statistics.json', orient='index')
     # Remove bonus challenges.
     statistics = statistics[~statistics.index.isin({'CB8-G11', 'CB8-G12', 'CB8-G13'})]
     statistics.sort_values(by='RMSE', inplace=True)
@@ -1241,7 +1241,97 @@ if __name__ == '__main__':
 
     plt.tight_layout(pad=0.3)
     # plt.show()
-    plt.savefig('../PaperImages/Figure5_error_by_molecule.pdf')
+    plt.savefig('../Accuracy/PaperImages/Figure5_molecule_statistics/error_by_molecule.pdf')
+
+    # Create table presenting which methods got the tightest binders.
+    # ---------------------------------------------------------------
+
+    sns.set_style('white')
+
+    # Consider only the methods that are part of the main analysis.
+    plotted_methods = sorted(set(all_methods) - set(exclusions))
+
+    # Create a Dataframe summarizing if a method got the tightest binders correctly for each guest set.
+    data = collections.OrderedDict()  # Data in dict format.
+    # Tightest binders and columns of the Pandas Dataframe.
+    tighest_binders = ['OA-G2', 'TEMOA-G4', 'CB8-G8']
+    for method in plotted_methods:
+        data[method] = []
+
+        for collection, tighest_binder in zip([collection_oa, collection_temoa, collection_cb_no_bonus],
+                                              tighest_binders):
+            method_data = collection.data[collection.data.method == method]
+
+            # Get the tightest binder predicted by the method for the set.
+            is_prediction_correct = 0
+            is_prediction_missing = 0
+            try:
+                predicted_tightest_binder_id = method_data['$\Delta$G (calc) [kcal/mol]'].idxmin()
+            except ValueError:
+                # The method did not submit predictions for this guest set.
+                is_prediction_missing = 1
+            else:
+                predicted_tightest_binder = method_data[method_data.index == predicted_tightest_binder_id]
+                predicted_tightest_binder = predicted_tightest_binder.system_id.values[0]
+                is_prediction_correct = 1 if predicted_tightest_binder == tighest_binder else 0
+
+            # Push column in the table.
+            data[method].append(is_prediction_correct)
+            data[method].append(1 - is_prediction_correct - is_prediction_missing)
+            data[method].append(is_prediction_missing)
+
+    # Reorder records to display the methods that got the highest number of tighest binders right.
+    def rank_method(d):
+        # Correct predictions fully count.
+        score = -sum(d[1][i] for i in range(0, len(d[1])) if i % 3 == 0)
+        # Not submitted predictions count less.
+        score -= sum(d[1][i]*0.1 for i in range(0, len(d[1])) if i % 3 == 2)
+        # Secondary key is alphabetical.
+        return (score, d[0])
+    # Rank methods by
+    data = sorted(data.items(), key=lambda d: rank_method(d), reverse=True)
+    data = collections.OrderedDict(data)
+
+    # Convert table to dataframe.
+    columns = ['OA-G2', 'OA-G2-incorrect', 'OA-G2-notsubmitted',
+               'TEMOA-G4', 'TEMOA-G4-incorrect', 'TEMOA-G4-notsubmitted',
+               'CB8-G8', 'CB8-G8-incorrect', 'CB8-G8-notsubmitted']
+    palette = [sns.desaturate(color, 0.75) for color in [HOST_PALETTE['OA'], '0.7', 'white',
+                                                         HOST_PALETTE['TEMOA'], '0.7', 'white',
+                                                         HOST_PALETTE['CB8'], '0.7', 'white']]
+    data = pd.DataFrame.from_dict(data, orient='index', columns=columns)
+
+    # Plot percentage of correct binders across methods.
+    for tighest_binder in tighest_binders:
+        tot_predictions = len(data[tighest_binder]) - sum(data[tighest_binder + '-notsubmitted'])
+        correct_predictions = sum(data[tighest_binder])
+        print('{}: {}/{} ({:.2f}%)'.format(tighest_binder, correct_predictions, tot_predictions,
+                                        correct_predictions/tot_predictions*100))
+
+    # Plot table.
+    ax = data.plot.barh(stacked=True, color=palette, figsize=(7.25/3.1,5))
+    ax.xaxis.set_ticks([0.5, 1.5, 2.5])
+    ax.xaxis.set_ticklabels(['OA', 'TEMOA', 'CB8'])
+    ax.set_title('Methods predicting the tightest binders')
+
+    # Configure lengend to hide the missing/incorrect labels.
+    handles, labels = ax.get_legend_handles_labels()
+    for i in reversed(range(len(handles))):
+        if (('incorrect' in labels[i] and i > 2) or  # Leave only 1 'incorrect' label.
+                ('notsubmitted' in labels[i])):  # Delete all 'incorrect' legend labels.
+            del handles[i]
+            del labels[i]
+    # Change the unique label for 'notsubmitted' and move it at the end of the legend.
+    labels[1] = 'Incorrect'
+    handles.append(handles.pop(1))
+    labels.append(labels.pop(1))
+    # Locate legend on top of the plot.
+    ax.legend(handles, labels, ncol=2, loc='upper right', markerfirst=False,
+              bbox_to_anchor=(1.0, -0.03), columnspacing=1.5)
+
+    plt.tight_layout(rect=[0, 0.0, 1, 1], pad=0.1)
+    # plt.show()
+    plt.savefig('../Accuracy/PaperImages/Figure5_molecule_statistics/tightest_binders.pdf')
 
 
     # FIGURE 6: Distribution of RMSE and R2 in previous SAMPL challenges.
@@ -1297,10 +1387,10 @@ if __name__ == '__main__':
     }
 
     # SAMPL6 statistics.
-    sampl6_cb8_data = pd.read_json('../CB8/StatisticsTables/statistics.json', orient='index')
-    sampl6_oatemoa_data = pd.read_json('../OA-TEMOA/StatisticsTables/statistics.json', orient='index')
+    sampl6_cb8_data = pd.read_json('../Accuracy/CB8/StatisticsTables/statistics.json', orient='index')
+    sampl6_oatemoa_data = pd.read_json('../Accuracy/OA-TEMOA/StatisticsTables/statistics.json', orient='index')
     # Add US-CGenFF which submitted only TEMOA predictions.
-    sampl6_temoa_data = pd.read_json('../TEMOA/StatisticsTables/statistics.json', orient='index')
+    sampl6_temoa_data = pd.read_json('../Accuracy/TEMOA/StatisticsTables/statistics.json', orient='index')
     sampl6_oatemoa_data = sampl6_oatemoa_data.append(sampl6_temoa_data[sampl6_temoa_data.index == 'Umbrella Sampling/TIP3P'])
 
     for data in [sampl6_cb8_data, sampl6_oatemoa_data]:
@@ -1375,10 +1465,10 @@ if __name__ == '__main__':
     for label, data, color, marker in labels:
         row_idx = 1 if ('CB' in label or 'H1' in label) else 0
         # rmse_data = [x for x in data['RMSE'] if x < 15]  # Discard outliers.
-        for col_idx, d in enumerate([data['RMSE'], data['R2']]):
+        for col_idx, sn in enumerate(['RMSE', 'R2']):
             # Compute median and 95-percentile bootstrap confidence intervals.
-            # median, ci, _ = compute_bootstrap_statistics(np.array(d), [np.median], n_bootstrap_samples=100000)[0]
-            # print('{} ({}): {:.2f} [{:.2f},{:.2f}]'.format(label, col_idx, median, *ci))
+            # median, ci, _ = compute_bootstrap_statistics(np.array(data[sn]), [np.median], n_bootstrap_samples=100000)[0]
+            # print('{} ({}): {:.2f} [{:.2f},{:.2f}]'.format(label, sn, median, *ci))
             ax = axes[row_idx,col_idx]
             y_lim = ax.get_ylim()
             # Place median dot at 2% of y axis.
@@ -1413,8 +1503,74 @@ if __name__ == '__main__':
 
     plt.tight_layout(rect=[0, 0.0, 1, 1], pad=0.5, w_pad=-20.0)
     # plt.show()
-    plt.savefig('../PaperImages/Figure6_previous_sampl/previous_sampl_distributions.pdf')
+    plt.savefig('../Accuracy/PaperImages/Figure6_previous_sampl/previous_sampl_distributions.pdf')
 
+    # Print dynamic range data in SAMPL3 and SAMPL5 challenge.
+    # --------------------------------------------------------
+
+    sampl3_h1_exp = [-5.84, -7.10, -6.80, -4.17, -6.06, -10.72, -7.85]
+    sampl3_cb8_exp = [-6.12, -7.43, -9.60, -8.99]
+    sampl4_cb7_exp = [-9.9, -9.6, -6.6, -8.4, -8.5, -7.9, -10.1, -11.8, -12.6, -7.9, -11.1, -13.3, -14.1, -11.6]
+    sampl4_oa_exp = [-3.73, -5.9, -6.28, -6.72, -5.3, -5.6, -7.6, -3.73, -6.61]
+    sampl5_oatemoa_exp = [-5.04, -4.25, -5.06, -9.37, -4.50, -5.33, -5.24, -5.04, -5.94, -2.38, -3.90, -4.52]
+    sampl5_cbclip_exp = [-5.83, -2.51, -4.02, -7.24, -8.53, -8.64, -5.17, -6.17, -7.39, -10.35]
+    sampl6_oatemoa_exp = experimental_data[['OA' in i for i in experimental_data.index]]['$\Delta$G'].values.tolist()
+    sampl6_cb8_exp = experimental_data[['CB8' in i for i in experimental_data.index]]['$\Delta$G'].values.tolist()
+
+    # Each list value is: sampl round, host, experimental data, color.
+    previous_sampl_experiments = [
+        ('SAMPL3', 'H1', sampl3_h1_exp),
+        ('SAMPL3', 'CB7/CB8', sampl3_cb8_exp),
+        ('SAMPL4', 'CB7', sampl4_cb7_exp),
+        ('SAMPL5', 'CBClip', sampl5_cbclip_exp),
+        ('SAMPL6', 'CB8', sampl6_cb8_exp),
+
+        ('SAMPL4', 'OA', sampl4_oa_exp),
+        ('SAMPL5', 'OA/TEMOA-5', sampl5_oatemoa_exp),
+        ('SAMPL6', 'OA/TEMOA-6', sampl6_oatemoa_exp)
+    ]
+
+    # Transform to dataframe.
+    data = []
+    for sampl_round, host_name, d in previous_sampl_experiments:
+        # Print range and 95-percentiles.
+        percentile = np.percentile(d, [25.0, 75.0])
+        print('{} {}: range [{:.2f}, {:.2f}] ({:.2f}), 50-percentile [{:.2f}, {:.2f}] ({:.2f})'.format(
+            sampl_round, host_name, min(d), max(d), min(d)-max(d),
+            percentile[0], percentile[1], percentile[0]-percentile[1]))
+        # # We don't plot the data for SAMPL4 since it doesn't enter the statistic distributions.
+        # if sampl_round == 'SAMPL4':
+        #     continue
+        # Update data to convert to dataframe.
+        for dg in d:
+            data.append({'round': sampl_round, 'host name': host_name, '$\Delta$G [kcal/mol]': dg})
+    previous_sampl_experiments = pd.DataFrame(data=data)
+
+    fix, ax = plt.subplots(figsize=(2.7, 2.6))
+
+    # Box plot.
+    sampl4_color = sns.color_palette('pastel', desat=0.8)[0]
+    sns.boxplot(x='$\Delta$G [kcal/mol]', y='host name', data=previous_sampl_experiments,
+                hue='round', hue_order=['SAMPL3', 'SAMPL4', 'SAMPL5', 'SAMPL6'], dodge=False,
+                palette=[no_exp_palette[0], sampl4_color, free_energy_palette[1], free_energy_palette[2]],
+                fliersize=0.0, whis='range', saturation=1.0, ax=ax)
+
+    # Swarm plot with semi-transparent data points.
+    sns.swarmplot(x='$\Delta$G [kcal/mol]', y='host name', data=previous_sampl_experiments,
+                  color='0.2', ax=ax, alpha=0.7)
+
+    # Remove title "round" from legend.
+    ax.legend(fontsize='x-small')
+    # Remove main label "host name".
+    ax.set_ylabel('')
+    # Set range of measurements axis.
+    ax.set_xlim((-15, -2))
+    ax.set_xticks(list(range(-14, -1, 2)))
+
+    ax.tick_params(pad=2.0)
+    plt.tight_layout(pad=0.1)
+    # plt.show()
+    plt.savefig('../Accuracy/PaperImages/Figure6_previous_sampl/dynamic_range.pdf')
 
     # SUPPLEMENTARY FIGURE correlation plots enthalpies.
     # ---------------------------------------------------
@@ -1448,7 +1604,7 @@ if __name__ == '__main__':
             ax.set_xlabel('$\Delta$H (exp) [kcal/mol]')
 
     plt.tight_layout()
-    plt.savefig('../PaperImages/SIFigure_correlation_plots_enthalpy.pdf')
+    plt.savefig('../Accuracy/PaperImages/SIFigure_correlation_plots_enthalpy.pdf')
 
 
     # # Generate the initial statistics table for the paper.
