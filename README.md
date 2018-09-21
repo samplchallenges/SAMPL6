@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/101246939.svg)](https://zenodo.org/badge/latestdoi/101246939)
+
 # The SAMPL6 Blind Prediction Challenge for Computational Chemistry
 
 This repository gives challenge details and inputs for the SAMPL6 challenge (which has now ended, but the files are maintained here for the record).
