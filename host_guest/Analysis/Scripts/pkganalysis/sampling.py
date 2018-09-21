@@ -91,6 +91,7 @@ def compute_system_name_mean_free_energies(data, extra_fields=()):
             time_point_data = system_name_data[system_name_data['N energy evaluations'] == n_energy_evaluations]
             free_energies = time_point_data[DG_KEY]
             f, ci = mean_confidence_interval(free_energies.values, confidence=0.95)
+            std = np.std(free_energies.values)
 
             extra_values = {}
             for field in extra_fields:
@@ -106,12 +107,13 @@ def compute_system_name_mean_free_energies(data, extra_fields=()):
             output_data.append({
                 'System name': system_name,
                 DG_KEY: f,
+                'std': std,
                 '$\Delta$G CI': ci,
                 'Simulation percentage': simulation_percentage,
                 'N energy evaluations': n_energy_evaluations,
                 **extra_values
             })
-    columns_order = ['System name',  DG_KEY, '$\Delta$G CI', 'Simulation percentage',
+    columns_order = ['System name',  DG_KEY, 'std', '$\Delta$G CI', 'Simulation percentage',
                      'N energy evaluations'] + list(extra_fields)
     output_data = pd.DataFrame(output_data, columns=columns_order)
     return output_data
