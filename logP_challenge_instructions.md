@@ -58,6 +58,7 @@ Six of them represent the 4-amino quinazoline scaffold.
 A list of SAMPL6 log *P* Challenge small molecules, isomeric SMILES, and molecule IDs can be found here: [`/physical_properties/logP/molecule_ID_and_SMILES.csv`](/physical_properties/logP/molecule_ID_and_SMILES.csv). 
 Counterions, where present in solid formulations (see Experimental Details section below), were included in canonical isomeric SMILES for the sake of completeness, although no significant effect is expected from the presence of chloride counterions as experiments were conducted in ionic-strength adjusted medium with KCl.
 
+
 ## Experimental details
 
 Experimental log *P* values were collected using potentiometric log *P* (pH-metric log *P*)[2] measurements with a [Sirius T3 instrument (Pion)](http://www.sirius-analytical.com/products/t3) by Mehtap Isik from the Chodera Lab at MSKCC with the support of the Preformulation Group, Pharmaceutical Sciences, MRL, Merck & Co., Inc, especially Dorothy Levorse, Timothy Rhodes, and Brad Sherborne.
@@ -124,6 +125,147 @@ Blue, red, and green triangles represent three sequential titrations with increa
 We attempted measuring the log *P* for all 24 SAMPL6 pKa challenge compounds, but the pH-metric log *P* measurement method was suitable for only a subset of 11 molecules which were included in the study. 
 Potential factors limiting the log *P* measurement of more molecules were low water solubility within the pH range of titration, limitation of total sample volume that restricts range of achievable octanol and water ratios, p<sub>o</sub>K<sub>a</sub> values shifting out of the measurable pH range of 2-12 (especially high acidic pKas and low basic pKas), and log *P* values out of the dynamic range of the experimental methodology. 
 We only included small molecules with high quality pH-metric log *P* measurements in this challenge.
+
+## Computational prediction methods
+
+You may use any method(s) you like to generate your predictions; e.g., molecular mechanics or quantum mechanics, MD with implicit or explicit solvent, QSPR, empirical logP prediction methods etc.
+
+## Possible factors to consider in your approach
+
+Partition coefficients are determined by the difference in solvation free energies of the relevant species in the different phases. 
+In fact, they can be estimated from gas-to-solvent transfer free energies into the different solvents. 
+However, it is important to note that the experimental reality may be more complicated for several reasons.
+
+The experiments are performed on phase-separated water and octanol.  
+The aqueous phase had 0.15 M KCl to achieve constant ionic strength during experiments. 
+After mixing, the water and octanol phases may no longer be pure water and octanol. 
+Please consider mutual solubility of water and octanol.
+Water and/or salts may be found in the octanol phase. 
+Octanol may be found in the aqueous phase. 
+The mole fraction of water in octanol was measured as 0.2705 ± 0.0028 at 25°C [7].
+
+Additionally, the solute can impact the distribution of water and octanol themselves. 
+For example, carboxylic acids and some other solutes strongly bind one or more water molecules even in the nonaqueous phase, at least in some cases [8]. 
+Dimerization or oligomerization of solute molecules in one or more of the phases may also impact results; for example, a polar molecule might dimerize in a nonpolar phase, resulting in stabilization in that phase relative to what would be expected based on the monomer’s transfer free energy [8] .
+
+Finally, the possibility of tautomerization should be considered. 
+log *P* measurements capture partition of neutral species which can consist of multiple tautomers with significant populations or the major tautomer may not be the one given in input file ([molecule_ID_and_SMILES.csv](/physical_properties/logP/molecule_ID_and_SMILES.csv)). 
+Shifts in tautomeric state populations on transferring between phases is also a possibility.
+
+We are not aware which, if any, of these potential complications are relevant for this competition. 
+We mention them only to ensure all participants are aware of them.
+
+## Instructions and submission template 
+- Participants must use the provided template file ([logP_prediction_template.csv](physical_properties/pKa/submission_template/logP_prediction_template.csv)) found in `physical_properties/pKa/submission_template/` directory to upload predictions to [the SAMPL website](https://drugdesigndata.org/about/sampl6).
+
+- Fill one template file for each approach to create a submission that contains predictions for all molecules with predicted using one method. You may submit predictions from multiple methods, but you should fill a separate template file for each different method.
+
+- You may report only 1 log *P* value for each molecule per method.
+
+- It is mandatory to submit predictions for all 11 molecules. Incomplete submissions will not be accepted.
+
+- Report log *P* values to two decimal places (e.g. 2.71).
+
+- Report the standard error of the mean (SEM) as a measure of statistical uncertainty (imprecision) for your method.  log *P* SEM should capture variation of predicted values of the same method over repeated calculations.
+
+- Report the model uncertainty of your log *P* prediction --- the predicted accuracy of your method [1,9]. This is not a statistical uncertainty. Rather, the model uncertainty is an estimate of how well your predicted values are expected to agree with experimental values. For example, for classical simulation approaches based on force fields, this could measure how well you expect the force field will agree with experiment for this compound. The model uncertainty could be global or different for each molecule. For example, reference calculations in SAMPL5 log *D* challenge estimated the model uncertainty as the root mean squared error (RMSE) between predicted and experimental values for a set of molecules with published cyclohexane-water partition coefficients. 
+
+- Lines beginning with a hash-tag (#) may be included as comments. These and blank lines will be ignored during analysis.
+
+- The file must contain the following four components in the following order: your predictions, a name for your computational protocol, a list of the major software packages used, prediction method category, and a long-form methods description. Each of these components must begin with a line containing only the corresponding keyword: `Predictions:`, `Name:`, `Software:`, `Category:`, and `Method:`, as illustrated in the example files. Example submission files can be found in [`physical_properties/logP/example_submission_file/`](physical_properties/logP/example_submission_file/) directory to illustrate expected format when filling submission templates.
+
+- For Method Category section please state if your prediction method can be better classified as a empirical modeling method, physical modeling method, mixed (both empirical and physical) or other, using the category labels `Empirical`, `Physical`, `Mixed`, or `Other`. Empirical models are prediction methods that are trained on experimental data, such as QSPR, machine learning models, artificial neural networks etc. Physical models are prediction methods that rely on the physical principles of the system such as molecular mechanics or quantum mechanics based methods to predict molecular properties. If your method takes advantage of both kinds of approaches please report it as “Mixed”. If these categories do not match your method, report as “Other”. If you choose “Mixed” or “Other” categories,  please explain your decision in the beginning of Method Description section.
+
+- Names of the prediction files must have three sections separated by `-`: predicted property `logP`, and your name and must end with an integer indicating the number of prediction set. For example, if you want to submit one prediction, you would name it `logP-myname-1.csv`, where `myname` is arbitrary text of your choice. If you submit three prediction files, you would name them `logP-myname-1.csv`, `logP-myname-2.csv`, and `logP-myname-3.csv`.
+
+- Prediction files will be machine parsed, so correct formatting is essential. Files with the wrong format will not be accepted.
+
+## Evaluation strategy for computational logP predictions
+
+Predicted log *P* values and their statistical uncertainties will be directly compared to experimental octanol-water log *P* measurements. 
+We will evaluate methods using various error metrics including, RMSE, MAE, R<sup>2</sup>, linear regression slope etc. We will give priority to RMSE and MAE over correlation based statistics due to limited number of data points and dynamic range in this experimental data set. 
+We will evaluate model uncertainties in comparison to calculated RMSE between experimental and predicted values of each method to evaluate how successful each method was at estimating its inaccuracy. 
+QQ-plots of model uncertainties will be plotted to understand if model uncertainty was under or overestimated. 
+It is possible that we will also evaluate metrics such as weighted RMSE where predictions with low model uncertainties count more than those with high model uncertainties.
+
+## Submission of multiple predictions
+
+Some participants use SAMPL to help evaluate various computational methods. 
+To accommodate this, multiple prediction sets from a single research group or company are allowed, even for the same type of predictions if they are made by different methods. 
+If you would like to submit predictions from multiple methods, you should fill a separate submission template files for each different method. See "Uploading your predictions" section below for requirements on how to name submission files.
+
+## Uploading your predictions
+
+D3R is currently outfitting the SAMPL6 page with the ability to accept your uploaded predictions. As soon as this is ready, you may upload your predictions. If you want to upload predictions of more than one method, each must be uploaded as a separate file. Please use the template provided to create the submission files, as the predictions will be parsed and analyzed with automated scripts. Please include all predictions made with the same method in one file.
+
+**All submissions are required to contain logP predictions of all 11 compounds. Incomplete submissions - such as for a subset of compounds - will not be accepted.** 
+
+## SAMPL6 Part II Workshops
+
+There will be two opportunities for participants to discuss their results.  **SAMPL6 log *P* Challenge Virtual Workshop** will meet on **May 16, 2019**, for sharing methods and discussion of preliminary results.  All participants are also invited to the third in-person **D3R and SAMPL Workshop** which is scheduled for **August 22-23, 2019**, in San Diego to discuss further findings and lessons-learned, as wells as D3R and SAMPL projects more broadly. Note that the workshop is right before the ACS National Meeting in San Diego with the theme of “Chemistry of Water” .
+
+## Files provided
+
+- `/physical_properties/logP/molecule_ID_and_SMILES.csv` - CSV file that indicates SAMPL6 logP challenge molecule IDs and isomeric SMILES.
+- `/physical_properties/logP/submission_template/logP_prediction_template.csv` - An empty prediction submission template files.
+-  `/physical_properties/logP/example_submission_file/logP-MehtapIsikExampleFile-1.csv` - An example submission file filled with random values to illustrate expected format.
+- `/physical_properties/logP/example_experimental_data/` - This directory contains the experimental report of pH-metric log *P* measurement of phenol with Sirius T3 as an example.
+
+## Problems, questions, and contact
+
+If you notice any issues with any of these files, please contact us via the GitHub issue tracker. 
+You are also strongly advised to both sign up for the SAMPL6 e-mail list via the D3R site and sign up for notifications on this GitHub repository in case we have updates.
+Please feel free to contact us if you notice any errors in the information provided or have questions about SAMPL6; please use the issue tracker connected with this repository, or for specific questions about logP challenge, use the following email: [mehtap.isik@choderalab.org](mehtap.isik@choderalab.org).
+
+## References
+
+[1] Bannan, Caitlin C., Kalistyn H. Burley, Michael Chiu, Michael R. Shirts, Michael K. Gilson, and David L. Mobley. “Blind Prediction of Cyclohexane–water Distribution Coefficients from the SAMPL5 Challenge.” *Journal of Computer-Aided Molecular Design* 30, no. 11 (November 2016): 927–44. 
+
+[2] Comer, John, and Kin Tam. Lipophilicity Profiles: Theory and Measurement. Wiley-VCH: Zürich, Switzerland, 2001.
+
+[3] “Sirius T3 User Manual, v1.1.” (Sirius Analytical Instruments Ltd, East Sussex, UK), 2008.
+
+[4] Avdeef, Alex. “PH-Metric Log P. Part 1. Difference Plots for Determining Ion-Pair Octanol-Water Partition Coefficients of Multiprotic Substances.” *Quantitative Structure-Activity Relationships* 11, no. 4 (1992): 510–17.
+
+[5] Avdeef, Alex. “pH-Metric Log P. II: Refinement of Partition Coefficients and Ionization Constants of Multiprotic Substances.” *Journal of Pharmaceutical Sciences* 82, no. 2 (1993): 183–90.
+
+[6] Slater, Bryan, Ann McCormack, Alex Avdeef, and John EA Comer. “Ph-Metric Log P. 4. Comparison of Partition Coefficients Determined by HPLC and Potentiometric Methods to Literature Values.” *Journal of Pharmaceutical Sciences* 83, no. 9 (1994): 1280–83.
+
+[7] Lang, Brian E. “Solubility of Water in Octan-1-Ol from (275 to 369) K.” *Journal of Chemical & Engineering Data* 57, no. 8 (August 9, 2012): 2221–26. https://doi.org/10.1021/je3001427.
+
+[8] Leo, A., Hansch, C., & Elkins, D. (1971). Partition coefficients and their uses. *Chemical Reviews* , 71 (6), 525–616.
+
+[9] Mobley, David L., Karisa L. Wymer, Nathan M. Lim, and J. Peter Guthrie. “Blind Prediction of Solvation Free Energies from the SAMPL4 Challenge.” *Journal of Computer-Aided Molecular Design* 28, no. 3 (March 2014): 135–50. https://doi.org/10.1007/s10822-014-9718-2.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
