@@ -1,0 +1,63 @@
+# PARTITION COEFFICIENT PREDICTIONS 
+#  
+# This file will be automatically parsed. It must contain the following four elements:  
+# predictions, name of method, software listing, and method description. 
+# These elements must be provided in the order shown with their respective headers. 
+# 
+# Any line that begins with a # is considered a comment and will be ignored when parsing. 
+# 
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty. 
+# The data in each prediction line should be structured as follows:
+# Molecule ID, logP, logP SEM, logP model uncertainty
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here.
+Predictions:
+SM02,2.25,1.02,2
+SM04,5.14,3.46,2
+SM07,0.41,0.88,2
+SM08,1.28,1.34,2
+SM09,6.4,0.75,2
+SM11,2.07,1.04,2
+SM12,-0.75,2.43,1.5
+SM13,2.19,1.09,1.5
+SM14,4.05,0.82,1.5
+SM15,1.51,1.88,1.5
+SM16,3.31,2.22,1.5
+ 
+# NAME SECTION 
+# 
+# Please provide an informal but informative name of the method used.  
+# The 'Name:' keyword is required as shown here. 
+Name: 
+LogP-prediction-method-name 
+ 
+# SOFTWARE SECTION 
+# 
+# List all major software packages used and their versions. 
+# Create a new line for each software. 
+# The 'Software:' keyword is required. 
+Software: 
+Software A 1.0 
+Software B 2.4 
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`, `Empirical`, `Mixed`, or `Other`.
+# Pick only one category label.
+# The `Category:` keyword is required. 
+Category:
+Physical
+ 
+# METHOD DESCRIPTION SECTION 
+# 
+# Methodology and computational details. 
+# Level of details should be roughly equivalent to that used in a publication. 
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated. 
+# Use as many lines and paragraphs of text as you need. 
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
+Method: 
+Free text methods section describing the approach and calculations in full detail. 
+ 
