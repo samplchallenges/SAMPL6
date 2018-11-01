@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/101246939.svg)](https://zenodo.org/badge/latestdoi/101246939)
+
 # The SAMPL6 Blind Prediction Challenge for Computational Chemistry
 
 This repository gives challenge details and inputs for the SAMPL6 challenge (which has now ended, but the files are maintained here for the record).
@@ -39,6 +41,8 @@ A special issue of JCAMD is being planned (see below) with a submission deadline
 - Version 1.8: Update microstate lists of pKa challenge. Add new microstate ID for SM10.
 - Version 1.9: Include experimental measurements for the pKa challenge and the binding host-guest challenge.
 - Version 1.10: Include the analysis of binding host-guest, pKa, and SAMPLing challenge, as well as microstate characterization of SM07 with NMR experiments.
+- Version 1.11: Includes NMR data for SM14, adds additional error analysis, paper figures, improves organization of repo, and clarifications of README and other information in various places. Also added Zenodo integration to trigger DOIs for releases.
+- Version 1.12: Update of the SAMPLing analysis.
 
 ### Changes not yet in a release
 
