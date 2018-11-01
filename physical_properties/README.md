@@ -13,12 +13,14 @@ Challenge submission due: Jan 23, 2018
 
 Experimental pKa measurements were made available in this repository after the pKa challenge deadline and can be found here: [pKa/experimental_data/](pKa/experimental_data/)
 
-## logD Challenge
+## log *P* Challenge
 
-SAMPL6 Physical Property prediction challenge will include distribution coefficients prediction of kinase inhibitor fragment-like small molecules.
-Currently Mehtap Isik from Dr. John Chodera's group is measuring experimental logD values, in collaboration with Merck's Preformulation Group at Rahway.
-The decision on challenge timeframe will be made once the collection of experimental data is completed. 
-logD prediction challenge will most likely take place in early 2018, after SAMPL8 workshop. 
-This repo will be updated accordingly.
+This challenge consists of predicting the octanol-water partition coefficients (log *P*) of 11 small molecules that resemble fragments of small molecule protein kinase inhibitors. Our aim is to evaluate how well current models can capture the transfer free energy of small molecules between different solvent environments through blind predictions.
+
+For detailed instructions for log *P* challenge: [SAMPL6/logP_challenge_instructions.md](/logP_challenge_instructions.md)
+
+Challenge start date: Nov 1, 2018  
+Challenge submission due: Mar 15, 2019  
+
 
  

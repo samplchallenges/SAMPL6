@@ -2,14 +2,18 @@
 
 # The SAMPL6 Blind Prediction Challenge for Computational Chemistry
 
-This repository gives challenge details and inputs for the SAMPL6 challenge (which has now ended, but the files are maintained here for the record).
+This repository gives challenge details and inputs for the SAMPL6 challenge. First phase of SAMPL6 challenge (host-guest, pKa, SAMPLing) has now ended, but the files are maintained here for the record. SAMPL6 Part II log *P* prediction challenge is currently open to submissions.
+
 This cycle we have migrated the data download package to GitHub so it will be version controlled and more broadly acccessible.
 **Because these files are available publicly, we have no record of who downloads them. Therefore, you should sign up for notifications**.
-Specifically, if you want to receive updates if we uncover any problems, it is imperative that you either (a) sign up for the SAMPL e-mail list via the D3R site, or (b) sign up for notifications of changes to this GitHub repository (the ``Watch'' button, above); ideally you would do both.
+Specifically, if you want to receive updates if we uncover any problems, it is imperative that you either (a) sign up for the SAMPL e-mail list via the D3R site, or (b) sign up for notifications of changes to this GitHub repository (the `Watch` button, above); ideally you would do both.
 **Join our e-mail list** by visiting the [D3R SAMPL6 Site](https://drugdesigndata.org/about/sampl6) and click "Join Challenge".
 
-The challenge culminated with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
-A special issue of JCAMD is being planned (see below) with a submission deadline of June 1, 2018.
+The first part of SAMPL6 challenge culminated with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
+A special issue of JCAMD was organized with a submission deadline of June 1, 2018.
+
+SAMPL6 Part II will include a octanol-water log *P* prediction challenge and will be followed by a joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019, immediately before the San Diego ACS National Meeting. 
+A special issue or special section of JCAMD will be organized to disseminate the results of this challenge.
 
 ## What's Here
 - [Challenge Overview](#challenge-overview)
@@ -17,14 +21,13 @@ A special issue of JCAMD is being planned (see below) with a submission deadline
 - [Host-guest challenge instructions](host_guest_instructions.md): Detailed instructions on the host-guest component of the challenge.
 - [Detailed host-guest description](host_guest_description.md): Detailed description of the hosts, guests, and background information.
 - Physical properties:
-    - [pKa challenge instructions](pKa_challenge_instructions.md): etailed instructions on the pKa prediction component of the challenge.
-    - [logD challenge preview](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties): Information on what may comprise the distribution coefficient of the challenge, and previews of some of the potential compounds.
+    - [pKa challenge instructions](pKa_challenge_instructions.md): Detailed instructions on the pKa prediction component of the challenge.
+    - [log *P* challenge instructions](logP_challenge_instructions.md): Detailed instructions on the partition coefficient prediction component of SAMPL6 Part II.
 - SAMPLing challenge files for host-guest challenge: Input files for the host-guest component of the SAMPLing challenge, see [description](#sampling-challenge) below.
 - SAMPLing challenge files in alternate formats, along with energy validation data
 
 ## What will be in a future challenge
-- Submission formats for logD prediction and SAMPLing challenge
-- LogD challenge files and instructions (see description, below)
+The SAMPL project was recently funded by the National Institutes of Health, for which we are very grateful. We will be updating our project roadmaps and timelines shortly and making them available to the community as soon as possible.
 
 ## Changes and Data Set Versions So Far:
 (all major versions available under [releases](https://github.com/MobleyLab/SAMPL6/releases) above)
@@ -43,6 +46,7 @@ A special issue of JCAMD is being planned (see below) with a submission deadline
 - Version 1.10: Include the analysis of binding host-guest, pKa, and SAMPLing challenge, as well as microstate characterization of SM07 with NMR experiments.
 - Version 1.11: Includes NMR data for SM14, adds additional error analysis, paper figures, improves organization of repo, and clarifications of README and other information in various places. Also added Zenodo integration to trigger DOIs for releases.
 - Version 1.12: Update of the SAMPLing analysis.
+- Version 1.13: SAMPL6 Part II - Instructions for log *P* challenge posted.
 
 ### Changes not yet in a release
 
@@ -50,7 +54,7 @@ A special issue of JCAMD is being planned (see below) with a submission deadline
 ## Challenge Overview
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
 
-SAMPL6 includes challenges based on aqueous host-guest binding data (binding free energies and, optionally, binding enthalpies) for three different host molecules; and on physical properties (distribution coefficients and possibly solubilities), for a set of fragment-like molecules.
+SAMPL6 includes challenges based on aqueous host-guest binding data (binding free energies and, optionally, binding enthalpies) for three different host molecules; and on physical properties (pKas, partition coefficients), for a set of fragment-like molecules.
 The host-guest systems are useful to test simulation methods, force fields, and solvent models, in the context of binding, without posing the setup issues and computational burden of protein simulations.
 The physical properties offer efficient tests of force field accuracy when detailed simulations are used, and can also test pKa prediction methods, continuum solvation models, and knowledge-based prediction methods.
 SAMPL6 will also introduce a new challenge component, the “SAMPLing challenge”, in which computational methods will be evaluated on how efficiently their calculations approach well-converged reference results generated by the organizers.
@@ -72,7 +76,7 @@ Both were developed in the laboratory of Dr. Bruce Gibb (Tulane U), who will pro
 The measurements are done in 10 mM sodium phosphate buffer at pH 11.7 ± 0.1, and T = 298 K.
 Host OA is described here: doi:10.1021/ja200633d; and host TEMOA is described here doi:10.1007/s10822-013-9690-2.
 There are also a number of papers from SAMPL4 and SAMPL5 which discuss calculations for these systems, as summarized, respectively, in doi:10.1007/s10822-014-9735-1 and doi:10.1007/s10822-016-9974-4.
-Existing benchmark datasets based on these hosts also may be of interest for those preparing to tackle these new complexes: https://github.com/MobleyLab/benchmarksets; this ``perpetual'' review paper also provides a good introduction to the sampling and experimental issues which are known to be relevant in these systems.
+Existing benchmark datasets based on these hosts also may be of interest for those preparing to tackle these new complexes: https://github.com/MobleyLab/benchmarksets; this ``perpetual`` review paper also provides a good introduction to the sampling and experimental issues which are known to be relevant in these systems.
 
 ### Cucubit[8]uril (CB8) binding of guests
 
@@ -83,7 +87,9 @@ Background information on CB8 may be found in a number of publications, includin
 
 ### Physical properties
 Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phases.
-The first phase, for SAMPL6, will focus on pKa prediction for the upcoming workshop. Then the pKa data for this challenge will be provided to participants and used as part of a second challenge centering on predicting distribution coefficients.
+The first phase, for SAMPL6, focused on pKa prediction and culminated with a joint D3R/SAMPL Workshop in La Jolla, CA., Feb. 22-23, 2018. 
+The second part of the challenge, SAMLPL6 Part II, is centering on predicting partition coefficients of a subset of small molecules from SAMPL6 pKa challenge. 
+SAMPL6 Part II logP challenge will be discussed in joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019.
 
 #### pKa prediction
 This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules.
@@ -103,29 +109,15 @@ Challenge submission due: Jan 23, 2018
 
 Experimental pKa measurements were added to this repository after the pKa challenge deadline and can be found here: [physical_properties/pKa/experimental_data/](physical_properties/pKa/experimental_data/) 
 
-#### logD prediction
-Distribution coefficients for about 25 fragment- and drug-like small molecules that resemble small molecule protein kinase inhibitors (or fragments thereof).
+#### log *P* prediction
 
-logD prediction challenge will take place in early 2018, after SAMPL8 workshop.
+This challenge consists of predicting the octanol-water partition coefficients (log *P*) of 11 small molecules that resemble fragments of small molecule protein kinase inhibitors. 
+Our aim is to evaluate how well current models can capture the transfer free energy of small molecules between different solvent environments through blind predictions.
 
-Because the SAMPL5 logD challenge highlighted the difficulty in correctly predicting transfer free energies involving protonation states, we will provide participants with experimental pKa values for these compounds.
-We will ask participants to predict distribution coefficients (logD) at a single pH and (as a separate challenge), provided the measurements can be completed in time, pH-dependent solubilities for these compounds.
+Challenge start date: Nov 1, 2018  
+Challenge submissions due: Mar 15, 2019  
 
-The experimental data being measured include pKa values, measured by electrochemical and/or UV-metric titration; and pH-dependent distribution coefficients (logD) of one or both of the following types:
-- water and cyclohexane (as in SAMPL5)
-- water and octanol (new in SAMPL6)
-
-There is also a possibility that solubilities will be measured, using the CheqSol method. All of these measurements will be performed on Sirius T3 instruments from Sirius Analytical at Merck’s Rahway site.
-The exact size of the dataset will depend on practical data collection throughput.
-An initial batch of ~25 fragment-like compounds is currently being assayed, with the prospect for additional measurements performed subsequently.
-Post-challenge follow-up experiments are possible and will be conducted as needed.
-A preliminary list of compounds is now available in the `physical_properties` directory to give participants an idea of what types of compounds may be included, but this list is expected to change to some degree.
-The final challenge will include logD and, if available, solubility prediction.
-
-Distribution coefficients were included in the SAMPL5 challenge (overview doi:10.1007/s10822-016-9954-8 and experiment doi:10.1007/s10822-016-9971-7; JCAMD special issue https://link.springer.com/journal/10822/30/11/page/1); in many cases, they were predicted as if they were partition coefficients, using solvation free energies in the relevant solvents.
-The difference between distribution coefficients (logD, which reflects the transfer free energy at a given pH including the effects of accessing all equilibrium  protonation states of the solute in each phase) and partition coefficients (logP, which reflects the free energy of transfer for the neutral form only) proved particularly important.
-In some cases, other effects like the presence of small amount of water in cyclohexane may also have played a role.
-
+Detailed instructions for the logP challenge can be found here: [logP_challenge_instructions.md](logP_challenge_instructions.md)
 
 ### SAMPLing challenge
 The purpose of the SAMPLing challenge component is to evaluate and compare the performance of different sampling methodologies in the context of free energy calculations of biomolecular systems. Participants are invited to compute the free energy of binding of few host-guest systems taken from the main SAMPL6 challenge. We will be running extremely long calculations with the provided input files in an attempt to obtain "gold standard" results, and then assess how well different methods approach/converge to these results. See [`SAMPLing_instructions.md`](SAMPLing_instructions.md) for more details.
@@ -136,7 +128,7 @@ We expect that analysis of this challenge component will focus even more than us
 
 ## The SAMPL special issue
 
-We have arranged for a SAMPL special issue to appear in the Journal of Computer-Aided Molecular Design, thanks to editor Terry Stouch. The submission deadline is **June 1, 2018**.
+We have arranged for a SAMPL special issue to appear in the Journal of Computer-Aided Molecular Design, thanks to editor Terry Stouch. The submission deadline of first SAMPL6 special issue was **June 1, 2018**.
 David Mobley will serve as guest editor for the SAMPL6 special issue. 
 Please submit on-time; the goal is to publish before the end of 2018.
 
@@ -148,4 +140,7 @@ To submit:
 5) Review fellow participant's papers (promptly please) as requested. 
 Some of the best reviewers of the challenges are those who participate and understand the nature of the papers.  Fellow participants are most familiar with the topic and have a vested interest in moving the paper quickly, hence many/most of the reviewers will chosen from participants.
 6) Please submit reviews (or your revisions) ASAP to help maintain our chosen publication dates.
+
+A second special issue of SAMPL6 Part II log *P* prediction challenge will be organized targeting September 15, 2019, for paper submissions. 
+This will occur shortly after the workshop, so to allow people to prepare, a virtual workshop will be planned earlier in the year, on May 16, 2018, closer to the submission deadline.
 
