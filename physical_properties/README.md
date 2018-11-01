@@ -13,9 +13,9 @@ Challenge submission due: Jan 23, 2018
 
 Experimental pKa measurements were made available in this repository after the pKa challenge deadline and can be found here: [pKa/experimental_data/](pKa/experimental_data/)
 
-## logP Challenge
+## log *P* Challenge
 
-This challenge consists of predicting the octanol-water partition coefficients (logP) of 11 small molecules that resemble fragments of small molecule protein kinase inhibitors. Our aim is to evaluate how well current models can capture the transfer free energy of small molecules between different solvent environments through blind predictions.
+This challenge consists of predicting the octanol-water partition coefficients (log *P*) of 11 small molecules that resemble fragments of small molecule protein kinase inhibitors. Our aim is to evaluate how well current models can capture the transfer free energy of small molecules between different solvent environments through blind predictions.
 
 For detailed instructions for log *P* challenge: [SAMPL6/logP_challenge_instructions.md](/logP_challenge_instructions.md)
 
