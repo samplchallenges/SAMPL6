@@ -9,7 +9,7 @@ The SAMPL6 log *P* Challenge consists of predicting the octanol-water partition 
 Our aim is to evaluate how well current models can capture the transfer free energy of small molecules between different solvent environments through blind predictions. 
 For physical modeling approaches, this is a means of separating force field accuracy from sampling and protonation state modeling challenges.
 
-For detailed instructions for pKa challenge: [SAMPL6/logP_challenge_instructions.md](/logP_challenge_instructions.md)
+For detailed instructions for log *P* challenge: [SAMPL6/logP_challenge_instructions.md](/logP_challenge_instructions.md)
 
 Experimental log *P* measurements will be made available in this repository after the log *P* challenge deadline under `experimental_data/` directory.
 
