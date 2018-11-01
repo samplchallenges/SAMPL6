@@ -19,8 +19,8 @@ This challenge consists of predicting the octanol-water partition coefficients (
 
 For detailed instructions for log *P* challenge: [SAMPL6/logP_challenge_instructions.md](/logP_challenge_instructions.md)
 
-Challenge start date: Nov 1, 2018
-Challenge submission due: Mar 15, 2019
+Challenge start date: Nov 1, 2018  
+Challenge submission due: Mar 15, 2019  
 
 
  
