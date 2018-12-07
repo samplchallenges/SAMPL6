@@ -7,12 +7,12 @@ This repository gives challenge details and inputs for the SAMPL6 challenge. Fir
 This cycle we have migrated the data download package to GitHub so it will be version controlled and more broadly acccessible.
 **Because these files are available publicly, we have no record of who downloads them. Therefore, you should sign up for notifications**.
 Specifically, if you want to receive updates if we uncover any problems, it is imperative that you either (a) sign up for the SAMPL e-mail list via the D3R site, or (b) sign up for notifications of changes to this GitHub repository (the `Watch` button, above); ideally you would do both.
-**Join our e-mail list** by visiting the [D3R SAMPL6 Site](https://drugdesigndata.org/about/sampl6) and click "Join Challenge".
+**Join our e-mail list** by signing up [here](http://eepurl.com/dPj11j).
 
 The first part of SAMPL6 challenge culminated with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
 A special issue of JCAMD was organized with a submission deadline of June 1, 2018.
 
-SAMPL6 Part II will include a octanol-water log *P* prediction challenge and will be followed by a joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019, immediately before the San Diego ACS National Meeting. 
+SAMPL6 Part II will include a octanol-water log *P* prediction challenge and will be followed by a joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019, immediately before the San Diego ACS National Meeting.
 A special issue or special section of JCAMD will be organized to disseminate the results of this challenge.
 
 ## What's Here
@@ -87,8 +87,8 @@ Background information on CB8 may be found in a number of publications, includin
 
 ### Physical properties
 Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phases.
-The first phase, for SAMPL6, focused on pKa prediction and culminated with a joint D3R/SAMPL Workshop in La Jolla, CA., Feb. 22-23, 2018. 
-The second part of the challenge, SAMLPL6 Part II, is centering on predicting partition coefficients of a subset of small molecules from SAMPL6 pKa challenge. 
+The first phase, for SAMPL6, focused on pKa prediction and culminated with a joint D3R/SAMPL Workshop in La Jolla, CA., Feb. 22-23, 2018.
+The second part of the challenge, SAMLPL6 Part II, is centering on predicting partition coefficients of a subset of small molecules from SAMPL6 pKa challenge.
 SAMPL6 Part II logP challenge will be discussed in joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019.
 
 #### pKa prediction
@@ -105,13 +105,13 @@ Three formats of pKa prediction results will be evaluated:
 Detailed instructions for the pKa challenge can be found here: [pKa_challenge_instructions.md](pKa_challenge_instructions.md)
 
 Challenge start date: Oct 25, 2017   
-Challenge submission due: Jan 23, 2018 
+Challenge submission due: Jan 23, 2018
 
-Experimental pKa measurements were added to this repository after the pKa challenge deadline and can be found here: [physical_properties/pKa/experimental_data/](physical_properties/pKa/experimental_data/) 
+Experimental pKa measurements were added to this repository after the pKa challenge deadline and can be found here: [physical_properties/pKa/experimental_data/](physical_properties/pKa/experimental_data/)
 
 #### log *P* prediction
 
-This challenge consists of predicting the octanol-water partition coefficients (log *P*) of 11 small molecules that resemble fragments of small molecule protein kinase inhibitors. 
+This challenge consists of predicting the octanol-water partition coefficients (log *P*) of 11 small molecules that resemble fragments of small molecule protein kinase inhibitors.
 Our aim is to evaluate how well current models can capture the transfer free energy of small molecules between different solvent environments through blind predictions.
 
 Challenge start date: Nov 1, 2018  
@@ -129,18 +129,17 @@ We expect that analysis of this challenge component will focus even more than us
 ## The SAMPL special issue
 
 We have arranged for a SAMPL special issue to appear in the Journal of Computer-Aided Molecular Design, thanks to editor Terry Stouch. The submission deadline of first SAMPL6 special issue was **June 1, 2018**.
-David Mobley will serve as guest editor for the SAMPL6 special issue. 
+David Mobley will serve as guest editor for the SAMPL6 special issue.
 Please submit on-time; the goal is to publish before the end of 2018.
 
-To submit: 
+To submit:
 1) If you don't already have an account with JCAMD, register with JCAMD at:  http://www.editorialmanager.com/jcam
 2) In your title, please include SAMPL6 and use them as keywords if possible
 3) During submission  you will be asked to select an article "type." Please select the issue’s assigned article type, e.g. "SI:SAMPL6"
-4) Submit on time! 
-5) Review fellow participant's papers (promptly please) as requested. 
+4) Submit on time!
+5) Review fellow participant's papers (promptly please) as requested.
 Some of the best reviewers of the challenges are those who participate and understand the nature of the papers.  Fellow participants are most familiar with the topic and have a vested interest in moving the paper quickly, hence many/most of the reviewers will chosen from participants.
 6) Please submit reviews (or your revisions) ASAP to help maintain our chosen publication dates.
 
-A second special issue of SAMPL6 Part II log *P* prediction challenge will be organized targeting September 15, 2019, for paper submissions. 
+A second special issue of SAMPL6 Part II log *P* prediction challenge will be organized targeting September 15, 2019, for paper submissions.
 This will occur shortly after the workshop, so to allow people to prepare, a virtual workshop will be planned earlier in the year, on May 16, 2018, closer to the submission deadline.
-
