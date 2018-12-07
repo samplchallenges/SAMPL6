@@ -7,7 +7,7 @@ This repository gives challenge details and inputs for the SAMPL6 challenge. Fir
 This cycle we have migrated the data download package to GitHub so it will be version controlled and more broadly acccessible.
 **Because these files are available publicly, we have no record of who downloads them. Therefore, you should sign up for notifications**.
 Specifically, if you want to receive updates if we uncover any problems, it is imperative that you either (a) sign up for the SAMPL e-mail list via the D3R site, or (b) sign up for notifications of changes to this GitHub repository (the `Watch` button, above); ideally you would do both.
-**Join our e-mail list** by signing up [**here**](http://eepurl.com/dPj11j) to receive announcements of all new SAMPL related news, and [**here**](http://eepurl.com/gaAA0H) to receive all announcements specific to SAMPL6 and the current log P prediction challenge.
+**Join our e-mail list** by signing up [**here**](http://eepurl.com/dPj11j) to receive announcements of all new SAMPL related news, and [**here**](http://eepurl.com/gaAA0H) to receive all announcements specific to SAMPL6 and the current log *P* prediction challenge.
 
 The first part of SAMPL6 challenge culminated with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
 A special issue of JCAMD was organized with a submission deadline of June 1, 2018.
