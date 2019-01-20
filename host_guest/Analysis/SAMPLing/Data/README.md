@@ -6,3 +6,4 @@
 - NB006: GROMACS/EE
 - NB007: GROMACS/CT-NS
 - NB008: GROMACS/CT-NS-long
+- `reference_free_energies.csv/json` have the predictions computed at all computational costs used for the analysis.
