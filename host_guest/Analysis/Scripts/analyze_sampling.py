@@ -166,7 +166,7 @@ def plot_mean_free_energy(mean_data, ax, x='Simulation percentage',
     else:
         scale = 1
 
-    x = mean_data[x].values[start::stride] * scale
+    x = mean_data[x].values[start::stride] / scale
     mean_dg = mean_data[DG_KEY].values[start::stride]
     sem_dg = mean_data[ci_key].values[start::stride]
 
@@ -177,22 +177,29 @@ def plot_mean_free_energy(mean_data, ax, x='Simulation percentage',
     return ax
 
 
-def plot_mean_data(mean_data, axes, color, label, zorder=None, plot_bias=True, **plot_kwargs):
+def plot_mean_data(mean_data, axes, color, label, x='N energy evaluations',
+                   zorder=None, plot_bias=True, **plot_kwargs):
     """Plot free energy, variance and bias as a function of the cost in three different axes."""
     # Do not plot the part of data without index.
     first_nonzero_idx = np.nonzero(mean_data[DG_KEY].values)[0][0]
 
+    # If the x-axis is the number of energy/force evaluations, plot it in units of millions.
+    if x == 'N energy evaluations':
+        scale = N_ENERGY_EVALUATIONS_SCALE
+    else:
+        scale = 1
+
     # Plot the submission mean trajectory with CI.
-    plot_mean_free_energy(mean_data, x='N energy evaluations', ax=axes[0],
+    plot_mean_free_energy(mean_data, x=x, ax=axes[0],
                           color_mean=color, color_ci=color, zorder=zorder,
                           start=first_nonzero_idx, label=label)
 
     # Plot standard deviation of the trajectories.
-    axes[1].plot(mean_data['N energy evaluations'].values[first_nonzero_idx:] / N_ENERGY_EVALUATIONS_SCALE,
+    axes[1].plot(mean_data[x].values[first_nonzero_idx:] / scale,
                  mean_data['std'].values[first_nonzero_idx:], color=color, alpha=0.8,
                  zorder=zorder, label=label)
     if plot_bias:
-        axes[2].plot(mean_data['N energy evaluations'].values[first_nonzero_idx:] / N_ENERGY_EVALUATIONS_SCALE,
+        axes[2].plot(mean_data[x].values[first_nonzero_idx:] / scale,
                      mean_data['bias'].values[first_nonzero_idx:], color=color, alpha=0.8,
                      zorder=zorder, label=label)
 
@@ -211,7 +218,7 @@ def align_yaxis(ax1, v1, ax2, v2):
     ax2.set_ylim(miny+dy, maxy+dy)
 
 
-def plot_all_entries_trajectory(submissions, yank_analysis):
+def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     """Plot the free energy trajectory of all the entries with CIs and first-hitting time."""
     system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
     n_systems = len(system_names)
@@ -220,15 +227,18 @@ def plot_all_entries_trajectory(submissions, yank_analysis):
     # The first row contains the free energy trajectory and CI, the second
     # a plot of the estimator variance, and the third the bias to the
     # asymptotic value.
-    # figsize = (7.25, 8)  # With WExplorer
-    figsize = (7.25, 6.2)  # Without WExplorer
+    if zoomed:
+        figsize = (7.25, 6.2)  # Without WExplorer
+    else:
+        figsize = (7.25, 8)  # With WExplorer
     fig, axes = plt.subplots(nrows=3, ncols=n_systems, figsize=figsize)
 
     # Fix axes limits based on maximum number of energy evaluations among the submissions.
     max_n_energy_evaluations = {system_name: 0 for system_name in system_names}
 
-    # Optionally WExplore.
-    # submissions = [s for s in submissions if s.name not in ['WExploreRateRatio']]
+    # Optionally, remove WExplore.
+    if zoomed:
+        submissions = [s for s in submissions if s.name not in ['WExploreRateRatio']]
 
     for submission_idx, submission in enumerate(submissions):
         mean_free_energies = submission.mean_free_energies()
@@ -285,18 +295,20 @@ def plot_all_entries_trajectory(submissions, yank_analysis):
     axes[2][0].set_ylabel('bias [kcal/mol]')
     axes[-1][1].set_xlabel('number of energy/force evaluations [10$^6$]')
 
-    # Y-axis limits when WExplore calculations are included.
-    y_limits = [
-        [(-17, -9), (-12.5, -5), (-12.5, -5)],
-        [(0, 2), (0, 1.75), (0, 1.75)],
-        [(-4, 4), (-0.6, 0.6), (-0.6, 0.6)],
-    ]
-    # Y-axis limits when WExplore calculations are excluded.
-    # y_limits = [
-    #     [(-16, -9), (-8, -4), (-8, -4)],
-    #     [(0, 2), (0, 1), (0, 1)],
-    #     [(-3, 1), (-0.6, 0.6), (-0.6, 0.6)],
-    # ]
+    if zoomed:
+        # Y-axis limits when WExplore calculations are excluded.
+        y_limits = [
+            [(-16, -9), (-8, -4), (-8, -4)],
+            [(0, 2), (0, 1), (0, 1)],
+            [(-3, 1), (-0.6, 0.6), (-0.6, 0.6)],
+        ]
+    else:
+        # Y-axis limits when WExplore calculations are included.
+        y_limits = [
+            [(-17, -9), (-12.5, -5), (-12.5, -5)],
+            [(0, 2), (0, 1.75), (0, 1.75)],
+            [(-4, 4), (-0.6, 0.6), (-0.6, 0.6)],
+        ]
     # Fix axes limits.
     for ax_idx, system_name in enumerate(system_names):
         for row_idx in range(len(axes)):
@@ -330,75 +342,121 @@ def plot_all_entries_trajectory(submissions, yank_analysis):
             align_yaxis(ax, ref_free_energy, ax2, 0.0)
 
     # Show/save figure.
-    plt.tight_layout(h_pad=0.0, rect=[0.0, 0.00, 1.0, 0.92])  # With WExplorer
-    # plt.tight_layout(h_pad=0.0, rect=[0.0, 0.00, 1.0, 0.92], w_pad=0.0)  # Without WExplorer
+    if zoomed:
+        plt.tight_layout(h_pad=0.0, rect=[0.0, 0.00, 1.0, 0.92], w_pad=0.0)  # Without WExplorer
+    else:
+        plt.tight_layout(h_pad=0.0, rect=[0.0, 0.00, 1.0, 0.92])  # With WExplorer
 
     # Plot legend.
-    bbox_to_anchor = (2.62, 1.48)  # With WExplorer.
-    # bbox_to_anchor = (2.52, 1.55)  # Without WExplorer.
+    if zoomed:
+        bbox_to_anchor = (2.52, 1.55)  # Without WExplorer.
+    else:
+        bbox_to_anchor = (2.62, 1.48)  # With WExplorer.
     axes[0][1].legend(loc='upper right', bbox_to_anchor=bbox_to_anchor,
                       fancybox=True, ncol=4)#int(len(submissions)/2)+1)
     plt.subplots_adjust(wspace=0.35)
     # plt.show()
-    output_file_path = os.path.join('../SAMPLing/PaperImages', 'Figure2-free_energy_trajectories.pdf')
+    if zoomed:
+        file_name = 'Figure2-free_energy_trajectories_zoomed.pdf'
+    else:
+        file_name = 'Figure2-free_energy_trajectories.pdf'
+    output_file_path = os.path.join('../SAMPLing/PaperImages', file_name)
     plt.savefig(output_file_path)
+
+
+def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=True):
+    """Plot the YANK free energy trajectoies when discarding initial samples for a single system."""
+    color_palette = sns.color_palette('viridis', n_colors=len(data_dir_paths)+1)
+
+    # Plot trajectories with truncated data.
+    all_iterations = set()
+    for data_idx, data_dir_path in enumerate(data_dir_paths):
+        yank_analysis = YankSamplingAnalysis(data_dir_path)
+
+        # In the YankAnalysis folder, each analysis starting from
+        # iteration N is in the folder "BiasAnalysis-N/".
+        label = data_dir_path.split('-')[-1][:-1]
+        # First color is for the full data.
+        color = color_palette[data_idx+1]
+
+        # Collect all iterations that we'll plot for the full data.
+        mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
+        all_iterations.update(mean_data['HREX iteration'].values.tolist())
+
+        # Simulate plotting starting from the origin.
+        if shift_to_origin:
+            mean_data['HREX iteration'] -= mean_data['HREX iteration'].values[0]
+
+        plot_mean_data(mean_data, axes, x='HREX iteration',
+                       color=color, label=label, plot_bias=False)
+
+    # Plot trajectory with full data.
+    color = color_palette[0]
+
+    # Plot an early iteration and all the iterations analyzed for the bias.
+    yank_analysis = YankSamplingAnalysis(YANK_ANALYSIS_DIR_PATH)
+    system_ids = [system_name + '-' + str(i) for i in range(5)]
+    first_iteration = yank_analysis.get_system_iterations(system_ids[0])[2]
+    iterations = [first_iteration] + sorted(all_iterations)
+    mean_data = yank_analysis._get_free_energies_from_iterations(
+        iterations, system_ids, mean_trajectory=True)
+
+    # Simulate plotting starting from the origin.
+    if shift_to_origin:
+        mean_data['HREX iteration'] -= mean_data['HREX iteration'].values[0]
+
+    # Simulate ploatting starting from the origin.
+    plot_mean_data(mean_data, axes, x='HREX iteration',
+                   color=color, label='0', plot_bias=False)
+    axes[0].set_title(system_name)
 
 
 def plot_yank_bias():
     """Plot YANK free energy trajectories when discarding initial samples."""
-    full_yank_analysis = YankSamplingAnalysis(YANK_ANALYSIS_DIR_PATH)
     system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
-    fig, axes = plt.subplots(nrows=2, ncols=len(system_names), figsize=(7.25, 4.6))
+    n_rows = 2
+    n_cols = len(system_names)
+    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(7.25, 4.6))
+
+    # The loops are based on a two dimensional array of axes.
+    if n_rows == 1:
+        axes = np.array([axes])
 
     # Sort paths by how many samples they have.
     data_dir_paths = ['YankAnalysis/BiasAnalysis-{}/'.format(i) for i in [1000, 2000, 4000, 8000, 16000]]
 
-    color_palette = sns.color_palette('viridis', n_colors=len(data_dir_paths)+1)
-
-    # Plot trajectories with truncated data.
-    all_iterations = {system_name: set() for system_name in system_names}
-    for data_idx, data_dir_path in enumerate(data_dir_paths):
-        yank_analysis = YankSamplingAnalysis(data_dir_path)
-        label = data_dir_path.split('-')[-1][:-1]
-        # First color is for the full data.
-        color = color_palette[data_idx+1]
-        # for system_name, ax in zip(system_names, axes):
-        for ax_idx, system_name in enumerate(system_names):
-            mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
-            # Collect all iterations that we'll plot for the full data.
-            all_iterations[system_name].update(mean_data['HREX iteration'].values.tolist())
-            # Simulate ploatting starting from the origin.
-            # mean_data['N energy evaluations'] -= mean_data['N energy evaluations'].values[0]
-            plot_mean_data(mean_data, axes[:,ax_idx], color=color, label=label, plot_bias=False)
-
-    # Plot trajectory with full data.
-    color = color_palette[0]
-    # This is the full data. Take a subset of free energies.
-    # for system_name, ax in zip(system_names, axes):
-    for ax_idx, system_name in enumerate(system_names):
-        system_ids = [system_name + '-' + str(i) for i in range(5)]
-
-        # Plot an early iteration and all the iterations analyzed for the bias.
-        first_iteration = full_yank_analysis.get_system_iterations(system_ids[0])[2]
-        iterations = [first_iteration] + sorted(all_iterations[system_name])
-        mean_data = full_yank_analysis._get_free_energies_from_iterations(
-            iterations, system_ids, mean_trajectory=True)
-
-        # Simulate ploatting starting from the origin.
-        # mean_data['N energy evaluations'] -= mean_data['N energy evaluations'].values[0]
-        plot_mean_data(mean_data, axes[:,ax_idx], color=color, label='0', plot_bias=False)
-        axes[0][ax_idx].set_title(system_name)
+    # In the first column, plot the trajectory of CB8-G3,
+    # with all sub-trajectories shifted to the origin.
+    plot_yank_system_bias('CB8-G3', data_dir_paths, axes[:,0], shift_to_origin=True)
+    axes[0,0].set_title('CB8-G3 (shifted)')
+    # In the second and third columns, plot the "unshifted" trajectories of CB8-G3 and OA-G3.
+    plot_yank_system_bias('CB8-G3', data_dir_paths, axes[:,1], shift_to_origin=False)
+    plot_yank_system_bias('OA-G3', data_dir_paths, axes[:,2], shift_to_origin=False)
 
     # Fix axes limits and labels.
-    axes[0][0].set_ylim((-12.5,-10.5))
-    axes[0][1].set_ylim((-8, -6.5))
-    axes[0][2].set_ylim((-8, -6.5))
+    ylimits = {
+        'CB8-G3': (-12.5, -10.5),
+        'OA-G3': (-8, -6.5),
+        'OA-G6': (-8, -6.5)
+    }
+    for ax_idx, system_name in zip(range(3), ['CB8-G3', 'CB8-G3','OA-G3']):
+        axes[0][ax_idx].set_ylim(ylimits[system_name])
     for ax_idx in range(3):
         axes[1][ax_idx].set_ylim((0, 0.3))
 
+    for row_idx, ax_idx in itertools.product(range(n_rows), range(n_cols)):
+        # Control the number of ticks for the x axis.
+        axes[row_idx][ax_idx].locator_params(axis='x', nbins=4)
+        # Set x limits for number of iterations.
+        axes[row_idx][ax_idx].set_xlim((0, YANK_N_ITERATIONS))
+    # Remove ticks labels that are shared with the last row.
+    for row_idx, ax_idx in itertools.product(range(n_rows-1), range(n_cols)):
+        axes[row_idx][ax_idx].set_xticklabels([])
+
+    # Set axes labels.
     axes[0][0].set_ylabel('$\Delta$G [kcal/mol]')
     axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
-    axes[-1][1].set_xlabel('N energy evaluations [10$^6$]')
+    axes[-1][1].set_xlabel('HREX iteration')
 
     plt.tight_layout(h_pad=0.1, rect=[0.0, 0.00, 1.0, 0.92])
 
@@ -410,7 +468,7 @@ def plot_yank_bias():
                       ncol=len(data_dir_paths)+1, fancybox=True)
 
     # plt.show()
-    output_file_path = os.path.join('../SAMPLing/PaperImages', 'bias_hrex.pdf')
+    output_file_path = os.path.join('../SAMPLing/PaperImages/Figure3-sensitivity-analysis', 'bias_hrex.pdf')
     plt.savefig(output_file_path)
 
 
@@ -803,10 +861,10 @@ if __name__ == '__main__':
     # export_submissions(submissions, reference_free_energies)
 
     # Create figure with free energy, standard deviation, and bias as a function of computational cost.
-    # plot_all_entries_trajectory(submissions, yank_analysis)
+    plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False)
 
     # Create results and efficiency table.
-    print_relative_efficiency_table(submissions, yank_analysis)
+    # print_relative_efficiency_table(submissions, yank_analysis)
 
     # Plot figure for HREX bias analysis.
     # plot_yank_bias()
