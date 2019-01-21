@@ -152,7 +152,7 @@ def export_submissions(submissions, reference_free_energies):
 def plot_mean_free_energy(mean_data, ax, x='Simulation percentage',
                           color_mean=None, color_ci=None, zorder=None,
                           start=None, stride=1, scale_n_energy_evaluations=True,
-                          **plot_kwargs):
+                          plot_ci=True, **plot_kwargs):
     """Plot mean trajectory with confidence intervals."""
     ci_key = '$\Delta$G CI'
 
@@ -173,12 +173,13 @@ def plot_mean_free_energy(mean_data, ax, x='Simulation percentage',
     # Plot the mean free energy trajectory.
     ax.plot(x, mean_dg, color=color_mean, alpha=0.8, zorder=zorder, **plot_kwargs)
     # Plot mean trajectory confidence intervals.
-    ax.fill_between(x, mean_dg + sem_dg, mean_dg - sem_dg, alpha=0.3, color=color_ci, zorder=zorder)
+    if plot_ci:
+        ax.fill_between(x, mean_dg + sem_dg, mean_dg - sem_dg, alpha=0.3, color=color_ci, zorder=zorder)
     return ax
 
 
 def plot_mean_data(mean_data, axes, color, label, x='N energy evaluations',
-                   zorder=None, plot_bias=True, **plot_kwargs):
+                   zorder=None, plot_bias=True, plot_ci=True):
     """Plot free energy, variance and bias as a function of the cost in three different axes."""
     # Do not plot the part of data without index.
     first_nonzero_idx = np.nonzero(mean_data[DG_KEY].values)[0][0]
@@ -192,7 +193,7 @@ def plot_mean_data(mean_data, axes, color, label, x='N energy evaluations',
     # Plot the submission mean trajectory with CI.
     plot_mean_free_energy(mean_data, x=x, ax=axes[0],
                           color_mean=color, color_ci=color, zorder=zorder,
-                          start=first_nonzero_idx, label=label)
+                          start=first_nonzero_idx, label=label, plot_ci=plot_ci)
 
     # Plot standard deviation of the trajectories.
     axes[1].plot(mean_data[x].values[first_nonzero_idx:] / scale,
@@ -387,8 +388,8 @@ def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=Tru
         if shift_to_origin:
             mean_data['HREX iteration'] -= mean_data['HREX iteration'].values[0]
 
-        plot_mean_data(mean_data, axes, x='HREX iteration',
-                       color=color, label=label, plot_bias=False)
+        plot_mean_data(mean_data, axes, x='HREX iteration', color=color,
+                       label=label, plot_bias=False, plot_ci=False)
 
     # Plot trajectory with full data.
     color = color_palette[0]
@@ -406,8 +407,8 @@ def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=Tru
         mean_data['HREX iteration'] -= mean_data['HREX iteration'].values[0]
 
     # Simulate ploatting starting from the origin.
-    plot_mean_data(mean_data, axes, x='HREX iteration',
-                   color=color, label='0', plot_bias=False)
+    plot_mean_data(mean_data, axes, x='HREX iteration', color=color,
+                   label='0', plot_bias=False, plot_ci=False)
     axes[0].set_title(system_name)
 
 
@@ -425,13 +426,15 @@ def plot_yank_bias():
     # Sort paths by how many samples they have.
     data_dir_paths = ['YankAnalysis/BiasAnalysis-{}/'.format(i) for i in [1000, 2000, 4000, 8000, 16000]]
 
-    # In the first column, plot the trajectory of CB8-G3,
+    # In the first column, plot the "unshifted" trajectory of CB8-G3,
     # with all sub-trajectories shifted to the origin.
-    plot_yank_system_bias('CB8-G3', data_dir_paths, axes[:,0], shift_to_origin=True)
+    plot_yank_system_bias('CB8-G3', data_dir_paths, axes[:,0], shift_to_origin=False)
+    # In the second and third columns, plot the trajectories of CB8-G3
+    # and OA-G3 with all sub-trajectories shifted to the origin.
+    plot_yank_system_bias('CB8-G3', data_dir_paths, axes[:,1], shift_to_origin=True)
     axes[0,0].set_title('CB8-G3 (shifted)')
-    # In the second and third columns, plot the "unshifted" trajectories of CB8-G3 and OA-G3.
-    plot_yank_system_bias('CB8-G3', data_dir_paths, axes[:,1], shift_to_origin=False)
-    plot_yank_system_bias('OA-G3', data_dir_paths, axes[:,2], shift_to_origin=False)
+    plot_yank_system_bias('OA-G3', data_dir_paths, axes[:,2], shift_to_origin=True)
+    axes[0,0].set_title('OA-G3 (shifted)')
 
     # Fix axes limits and labels.
     ylimits = {
@@ -463,12 +466,12 @@ def plot_yank_bias():
     handles, labels = axes[0][0].get_legend_handles_labels()
     handles = [handles[-1]] + handles[:-1]
     labels = [labels[-1]] + labels[:-1]
-    bbox_to_anchor = (-0.2, 1.4)
+    bbox_to_anchor = (0.2, 1.45)
     axes[0][0].legend(handles, labels, loc='upper left', bbox_to_anchor=bbox_to_anchor,
-                      ncol=len(data_dir_paths)+1, fancybox=True)
+                      title='n discarded iterations', ncol=len(data_dir_paths)+1, fancybox=True)
 
     # plt.show()
-    output_file_path = os.path.join('../SAMPLing/PaperImages/Figure3-sensitivity-analysis', 'bias_hrex.pdf')
+    output_file_path = os.path.join('../SAMPLing/PaperImages', 'Figure3-bias_hrex.pdf')
     plt.savefig(output_file_path)
 
 
