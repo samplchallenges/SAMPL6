@@ -121,10 +121,20 @@ def fit_efficiency(mean_data, find_best_fit=True):
 def export_submissions(submissions, reference_free_energies):
     """Export the submission data to CSV and JSON format."""
     for submission in submissions:
-        mean_free_energies = submission.mean_free_energies()
+        exported_data = {}
+
+        # Export data of the 5 independent replicates.
+        for system_id in sorted(submission.data['System ID'].unique()):
+            system_id_data = submission.data[submission.data['System ID'] == system_id]
+            exported_data[system_id] = collections.OrderedDict([
+                ('DG', system_id_data[DG_KEY].values.tolist()),
+                ('dDG', system_id_data[DDG_KEY].values.tolist()),
+                ('cpu_times', system_id_data['CPU time [s]'].values.tolist()),
+                ('n_energy_evaluations', system_id_data['N energy evaluations'].values.tolist()),
+            ])
 
         # Export data of mean trajectory and confidence intervals.
-        exported_data = {}
+        mean_free_energies = submission.mean_free_energies()
         for system_name in mean_free_energies['System name'].unique():
             system_name_data = mean_free_energies[mean_free_energies['System name'] == system_name]
 
@@ -471,7 +481,7 @@ def plot_yank_bias():
                       title='n discarded iterations', ncol=len(data_dir_paths)+1, fancybox=True)
 
     # plt.show()
-    output_file_path = os.path.join('../SAMPLing/PaperImages', 'Figure3-bias_hrex.pdf')
+    output_file_path = os.path.join('../SAMPLing/PaperImages', 'Figure4-bias_hrex.pdf')
     plt.savefig(output_file_path)
 
 
