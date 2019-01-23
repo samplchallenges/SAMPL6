@@ -196,11 +196,11 @@ If you would like to submit predictions from multiple methods, you should fill a
 
 ## Uploading your predictions
 
-D3R website SAMPL6 page is now ready to accept your uploaded predictions. You may upload your predictions as soon as you are ready until the submission deadline. If you want to upload predictions of more than one method, each must be uploaded as a separate file. Please use the template provided to create the submission files, as the predictions will be parsed and analyzed with automated scripts. Please include all predictions made with the same method in one file.  
+D3R website SAMPL6 page is now ready to accept your uploaded predictions. You may upload your predictions as soon as you are ready and until the submission deadline. If you want to upload predictions of more than one method, each must be uploaded as a separate file. Please use the template provided to create the submission files, as the predictions will be parsed and analyzed with automated scripts. Please include all predictions made with the same method in one file.  
 
 **All submissions are required to contain logP predictions of all 11 compounds. Incomplete submissions - such as for a subset of compounds - will not be accepted.**   
 
-To submit your predictions go to the (D3R SAMPL6 webpage)[https://drugdesigndata.org/about/sampl6], log in to your account, and select the **logP Prediction** challenge on the left menu. Then click **Submissions** on the green ribbon.
+To submit your predictions go to the [D3R SAMPL6 webpage](https://drugdesigndata.org/about/sampl6), log in to your account, and select the **logP Prediction** challenge on the left menu. Then click **Submissions** on the green ribbon.
 
 Add your file(s) using **Submit Your Data** section. Submitted files will be checked by a validation script for conforming to submission template rules. After clicking **Start upload**, please pay attention to any error message that may show up at the bottom of the submission page. When your files are successfully submitted you should be able to see them listed in the upper **Manage Your Data** section, even after you refresh the webpage or re-log in to your account. 
 
