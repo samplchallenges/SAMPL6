@@ -47,6 +47,7 @@ The SAMPL project was recently funded by the National Institutes of Health, for 
 - Version 1.11: Includes NMR data for SM14, adds additional error analysis, paper figures, improves organization of repo, and clarifications of README and other information in various places. Also added Zenodo integration to trigger DOIs for releases.
 - Version 1.12: Update of the SAMPLing analysis.
 - Version 1.13: SAMPL6 Part II - Instructions for log *P* challenge posted.
+- Version 1.14: SAMPL6 Part II - Announcement that log *P* challenge submissions opened. Instructions on how to submit prediction files through D3R SAMPL webpage added to log *P* challenge instructions.
 
 ### Changes not yet in a release
 
