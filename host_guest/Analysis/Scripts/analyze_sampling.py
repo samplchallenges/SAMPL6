@@ -229,6 +229,10 @@ def align_yaxis(ax1, v1, ax2, v2):
     ax2.set_ylim(miny+dy, maxy+dy)
 
 
+# =============================================================================
+# FIGURE 2
+# =============================================================================
+
 def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     """Plot the free energy trajectory of all the entries with CIs and first-hitting time."""
     system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
@@ -375,6 +379,230 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     plt.savefig(output_file_path)
 
 
+# =============================================================================
+# FIGURE 3
+# =============================================================================
+
+# Directories containing the volume information of YANK and GROMACS/EE.
+BAROSTAT_DATA_DIR_PATH = os.path.join('..', 'SAMPLing', 'Data', 'BarostatData')
+YANK_VOLUMES_DIR_PATH = os.path.join(BAROSTAT_DATA_DIR_PATH, 'YankVolumes')
+EE_VOLUMES_DIR_PATH = os.path.join(BAROSTAT_DATA_DIR_PATH, 'EEVolumes')
+
+
+def plot_volume_distributions(axes, plot_predicted=False):
+    """Plot the volume distributions obtained with Monte Carlo and Berendsen barostat."""
+    import scipy.stats
+    import scipy.integrate
+    from simtk import unit
+
+    # Load data.
+    yank_volumes = collections.OrderedDict([
+        (1, np.load(os.path.join(YANK_VOLUMES_DIR_PATH, 'volumes_pressure100.npy'))),
+        (100, np.load(os.path.join(YANK_VOLUMES_DIR_PATH, 'volumes_pressure10000.npy'))),
+    ])
+
+    ee_volumes = collections.OrderedDict([
+        (1, np.load(os.path.join(EE_VOLUMES_DIR_PATH, '1atm_vanilla.npy'))),
+        (100, np.load(os.path.join(EE_VOLUMES_DIR_PATH, '100atm_vanilla.npy'))),
+    ])
+
+    titles = ['Monte Carlo barostat', 'Berendsen barostat']
+    for ax, volume_trajectories, title in zip(axes, [yank_volumes, ee_volumes], titles):
+        for pressure, trajectory in volume_trajectories.items():
+            label = 'p(V|{}atm)'.format(pressure)
+            print('{}: mean={:.3f}nm^3, var={:.3f}'.format(label, np.mean(trajectory),
+                                                           np.var(trajectory)))
+            ax = sns.distplot(trajectory, label=label, hist=True, ax=ax)
+
+        if plot_predicted:
+            # Plot predicted distribution.
+            beta = 1.0 / (unit.BOLTZMANN_CONSTANT_kB * 298.15*unit.kelvin)
+            p1 = 1.0 * unit.atmosphere
+            p2 = 100.0 * unit.atmosphere
+            volumes = np.linspace(78.0, 82.0, num=200)
+            fit = scipy.stats.norm
+
+            # Fit the original distribution.
+            original_pressure, new_pressure = list(volume_trajectories.keys())
+            original_trajectory = list(volume_trajectories.values())[0]
+            fit_parameters = fit.fit(original_trajectory)
+
+            # Find normalizing constant predicted distribution.
+            predicted_distribution = lambda v: np.exp(-beta*(p2 - p1)*v*unit.nanometer**3) * fit.pdf([v], *fit_parameters)
+            normalizing_factor = scipy.integrate.quad(predicted_distribution, volumes[0], volumes[-1])[0]
+            predicted = np.array([predicted_distribution(v) / normalizing_factor for v in volumes])
+
+            # Set the scale.
+            label = 'p(V|{}atm)$\cdot e^{{\\beta ({}atm - {}atm) V}}$'.format(original_pressure, new_pressure, original_pressure)
+            ax.plot(volumes, predicted, label=label)
+            # ax.plot(volumes, [fit.pdf([v], *fit_parameters) for v in volumes], label='original')
+            ax.set_ylabel('density')
+
+        ax.set_title(title + ' volume distribution')
+        ax.legend(fontsize='xx-small')
+        ax.set_xlim((78.5, 82.0))
+
+    # Label only the last plot as the x axis is shared.
+    axes[1].set_xlabel('Volume [nm^3]')
+
+
+# Directory with the restraint information.
+RESTRAINT_DATA_DIR_PATH = os.path.join('YankAnalysis', 'RestraintAnalysis')
+
+# The state index of the discharged state with LJ interactions intact.
+DISCHARGED_STATE = {
+    'CB8-G3': 25,
+    'OA-G3': 32,
+    'OA-G6': 29
+}
+
+# The final free energy predictions without restraint unbiasing.
+BIASED_FREE_ENERGIES = {
+    'CB8-G3-0': -10.643,
+    'CB8-G3-1': -10.533,
+    'CB8-G3-2': -10.463,
+    'CB8-G3-3': None,  # TODO: Run the biased analysis
+    'CB8-G3-4': -10.324,
+    'OA-G3-0': -5.476,
+    'OA-G3-1': -5.588,
+    'OA-G3-2': -5.486,
+    'OA-G3-3': -5.510,
+    'OA-G3-4': -5.497,
+    'OA-G6-0': -5.669,
+    'OA-G6-1': -5.665,
+    'OA-G6-2': -5.767,
+    'OA-G6-3': -5.737,
+    'OA-G6-4': -5.788,
+}
+
+
+def plot_restraint_distance_distribution(system_id, ax, kde=True):
+    """Plot the distribution of restraint distances at bound, discharged, and decoupled states.."""
+    n_iterations = YANK_N_ITERATIONS + 1  # Count also iteration 0.
+    system_name = system_id[:-2]
+    discharged_state_idx = DISCHARGED_STATE[system_name]
+
+    # Load all distances cached during the analysis.
+    cache_dir_path = os.path.join('pkganalysis', 'cache', system_id.replace('-', ''))
+    cached_distances_file_path = os.path.join(cache_dir_path, 'restraint_distances_cache.npz')
+    distances_kn = np.load(cached_distances_file_path)['arr_0']
+    # Distances are in nm but we plot in Angstrom.
+    distances_kn *= 10
+    n_states = int(len(distances_kn) / n_iterations)
+
+    # Isolate distances in the bound, discharged (only LJ), and decoupled state.
+    distances_kn_bound = distances_kn[:n_iterations]
+    distances_kn_discharged = distances_kn[(discharged_state_idx-1)*n_iterations:discharged_state_idx*n_iterations]
+    distances_kn_decoupled = distances_kn[(n_states-1)*n_iterations:]
+    assert len(distances_kn_bound) == len(distances_kn_decoupled)
+
+    # Plot the distributions.
+    # sns.distplot(distances_kn, ax=ax, kde=True, label='all states')
+    sns.distplot(distances_kn_bound, ax=ax, kde=kde, label='bound')
+    sns.distplot(distances_kn_discharged, ax=ax, kde=kde, label='discharged')
+    sns.distplot(distances_kn_decoupled, ax=ax, kde=kde, label='decoupled')
+
+    # Plot the threshold used for analysis, computed as the
+    # 99.99-percentile of all distances in the bound state.
+    distance_cutoff = np.percentile(a=distances_kn_bound, q=99.99)
+    limits = ax.get_ylim()
+    ax.plot([distance_cutoff for _ in range(100)],
+            np.linspace(limits[0], limits[1]/2, num=100))
+
+
+def plot_restraint_profile(system_id, ax):
+    """Plot the free energy as a function of the restraint cutoff."""
+    # Load the free energy profile for this system.
+    restraint_profile_file_path = os.path.join(RESTRAINT_DATA_DIR_PATH,
+                                               system_id.replace('-', '') + '.json')
+    with open(restraint_profile_file_path, 'r') as f:
+        free_energies_profile = json.load(f)
+
+    # Reorder the free energies by increasing cutoff and convert str keys to floats.
+    free_energies_profile = [(float(d), f) for d, f in free_energies_profile.items()]
+    free_energies_profile = sorted(free_energies_profile, key=lambda x: x[0])
+    distance_cutoffs, free_energies = list(zip(*free_energies_profile))
+    f, df = list(zip(*free_energies))
+
+    # Convert string to floats.
+    distance_cutoffs = [float(c) for c in distance_cutoffs]
+
+    # Plot profile.
+    ax.errorbar(x=distance_cutoffs, y=f, yerr=df, label='after reweighting')
+    # Plot biased free energy
+    biased_f = BIASED_FREE_ENERGIES[system_id]
+    x = np.linspace(*ax.get_xlim())
+    ax.plot(x, [biased_f for _ in x], label='before reweighting')
+
+
+def plot_restraint_analysis(system_id, axes):
+    """Plot distribution of restraint distances and free energy profile on two axes."""
+    # Histograms of restraint distances/energies.
+    ax = axes[0]
+    kde = True
+    plot_restraint_distance_distribution(system_id, ax, kde=kde)
+    # Set restraint distance distribution lables and titles.
+    ax.set_title('Harmonic restraint radius distribution')
+    if kde is False:
+        ax.set_ylabel('Number of samples')
+    else:
+        ax.set_ylabel('density')
+    ax.legend(loc='upper right', fontsize='xx-small')
+
+    # Free energy as a function of restraint distance.
+    ax = axes[1]
+    ax.set_title('$\Delta G$ as a function of restraint cutoff')
+    plot_restraint_profile(system_id, ax)
+    # Labels and legend.
+    ax.set_xlabel('Restraint cutoff [A]')
+    ax.set_ylabel('$\Delta G$ [kcal/mol]')
+    ax.legend(fontsize='xx-small')
+
+
+def plot_restraint_and_barostat_figure():
+    """Plot the Figure showing info for the restraint and barostat analysis."""
+    import seaborn as sns
+    from matplotlib import pyplot as plt
+    sns.set_style('whitegrid')
+    sns.set_context('paper')
+
+    # Create two columns, each of them share the x-axis.
+    fig = plt.figure(figsize=(7.25, 6))
+    # Restraint distribution axes.
+    ax1 = fig.add_subplot(221)
+    ax2 = fig.add_subplot(223, sharex=ax1)
+    restraint_axes = [ax1, ax2]
+    # Volume distribution axes.
+    ax3 = fig.add_subplot(222)
+    ax4 = fig.add_subplot(224, sharex=ax3)
+    barostat_axes = [ax3, ax4]
+
+    # Plot restraint analysis.
+    system_id = 'OA-G3-0'
+    plot_restraint_analysis(system_id, restraint_axes)
+    # Configure axes.
+    restraint_axes[0].set_xlim((0, 11.2))
+
+    # Plot barostat analysis.
+    plot_volume_distributions(barostat_axes, plot_predicted=True)
+
+    fig.suptitle(system_id + ' sensitivity analysis')
+
+    for ax in restraint_axes + barostat_axes:
+        ax.tick_params(axis='x', which='major', pad=0.2)
+        ax.tick_params(axis='y', which='major', pad=0.2)
+    plt.tight_layout(pad=0.5, rect=[0.0, 0.00, 1.0, 0.95])
+
+    # plt.show()
+    output_file_path = os.path.join('../SAMPLing/PaperImages', 'Figure3-sensitivity_analysis',
+                                    'sensitivity_analysis.pdf')
+    plt.savefig(output_file_path)
+
+
+# =============================================================================
+# FIGURE 4
+# =============================================================================
+
 def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=True):
     """Plot the YANK free energy trajectoies when discarding initial samples for a single system."""
     color_palette = sns.color_palette('viridis', n_colors=len(data_dir_paths)+1)
@@ -439,12 +667,13 @@ def plot_yank_bias():
     # In the first column, plot the "unshifted" trajectory of CB8-G3,
     # with all sub-trajectories shifted to the origin.
     plot_yank_system_bias('CB8-G3', data_dir_paths, axes[:,0], shift_to_origin=False)
+    axes[0,0].set_title('CB8-G3')
     # In the second and third columns, plot the trajectories of CB8-G3
     # and OA-G3 with all sub-trajectories shifted to the origin.
     plot_yank_system_bias('CB8-G3', data_dir_paths, axes[:,1], shift_to_origin=True)
-    axes[0,0].set_title('CB8-G3 (shifted)')
+    axes[0,1].set_title('CB8-G3 (shifted)')
     plot_yank_system_bias('OA-G3', data_dir_paths, axes[:,2], shift_to_origin=True)
-    axes[0,0].set_title('OA-G3 (shifted)')
+    axes[0,2].set_title('OA-G3 (shifted)')
 
     # Fix axes limits and labels.
     ylimits = {
@@ -484,6 +713,10 @@ def plot_yank_bias():
     output_file_path = os.path.join('../SAMPLing/PaperImages', 'Figure4-bias_hrex.pdf')
     plt.savefig(output_file_path)
 
+
+# =============================================================================
+# TABLES
+# =============================================================================
 
 def compute_geometric_mean_relative_efficiencies(mean_data, reference_mean_data):
     """Compute the relative std, absolute bias, and RMSD efficiency for the data."""
