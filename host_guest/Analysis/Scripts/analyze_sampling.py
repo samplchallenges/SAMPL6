@@ -180,11 +180,15 @@ def plot_mean_free_energy(mean_data, ax, x='Simulation percentage',
     mean_dg = mean_data[DG_KEY].values[start::stride]
     sem_dg = mean_data[ci_key].values[start::stride]
 
-    # Plot the mean free energy trajectory.
-    ax.plot(x, mean_dg, color=color_mean, alpha=0.8, zorder=zorder, **plot_kwargs)
     # Plot mean trajectory confidence intervals.
     if plot_ci:
-        ax.fill_between(x, mean_dg + sem_dg, mean_dg - sem_dg, alpha=0.3, color=color_ci, zorder=zorder)
+        ax.fill_between(x, mean_dg + sem_dg, mean_dg - sem_dg, alpha=0.15, color=color_ci, zorder=zorder)
+
+    # Plot the mean free energy trajectory.
+    if zorder is not None:
+        # Push the CI shaded area in the background so that the trajectories are always visible.
+        zorder += 10
+    ax.plot(x, mean_dg, color=color_mean, alpha=1.0, zorder=zorder, **plot_kwargs)
     return ax
 
 
@@ -313,8 +317,8 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     if zoomed:
         # Y-axis limits when WExplore calculations are excluded.
         y_limits = [
-            [(-16, -9), (-8, -4), (-8, -4)],
-            [(0, 2), (0, 1), (0, 1)],
+            [(-15, -9.8), (-8, -5), (-8, -5)],
+            [(0, 2), (0, 0.8), (0, 0.8)],
             [(-3, 1), (-0.6, 0.6), (-0.6, 0.6)],
         ]
     else:
@@ -375,7 +379,9 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
         file_name = 'Figure2-free_energy_trajectories_zoomed.pdf'
     else:
         file_name = 'Figure2-free_energy_trajectories.pdf'
-    output_file_path = os.path.join('../SAMPLing/PaperImages', file_name)
+    figure_dir_path = '../SAMPLing/PaperImages/Figure2-free_energy_trajectories'
+    os.makedirs(figure_dir_path, exist_ok=True)
+    output_file_path = os.path.join(figure_dir_path, file_name)
     plt.savefig(output_file_path)
 
 
@@ -1107,7 +1113,8 @@ if __name__ == '__main__':
     # export_submissions(submissions, reference_free_energies)
 
     # Create figure with free energy, standard deviation, and bias as a function of computational cost.
-    plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False)
+    # plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False)
+    plot_all_entries_trajectory(submissions, yank_analysis, zoomed=True)
 
     # Create results and efficiency table.
     # print_relative_efficiency_table(submissions, yank_analysis)
