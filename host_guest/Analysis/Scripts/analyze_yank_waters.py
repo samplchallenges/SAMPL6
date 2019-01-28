@@ -272,32 +272,36 @@ def plot_distribution_n_bound_waters(system_id):
 # PAPER FIGURES
 # =============================================================================
 
-def plot_replica_trajectories(replica_state_indices, all_n_bound_waters, replica_idx,
-                              xlabel, ax, state_index_ticks=True):
+def plot_replica_trajectories(replicas_state_indices, all_n_bound_waters, replica_idx,
+                              xlabel, ax, step=1, state_index_ticks=True):
     """
     Plot the trajectory of replica state indices and the bound waters for the given
     replica on the same axis.
     """
+    # Handle the step. The bound waters trajectories skip iteration 0.
+    t = np.array(range(1, len(all_n_bound_waters[replica_idx]), step))  # In picoseconds.
+    replica_bound_waters = all_n_bound_waters[replica_idx][t-1]
+    replica_state_indices = replicas_state_indices[replica_idx][t]
+
     # Plot n bound water trajectories.
-    ax.plot(all_n_bound_waters[replica_idx], linestyle='None', marker='.', ms=0.8,
-             color='black', alpha=0.7, label='n bound waters')
+    ax.plot(t, replica_bound_waters, linestyle='None', marker='.', ms=0.8,
+            color='black', alpha=0.7, label='n bound waters')
     ax.set_ylabel('n bound waters')
     ax.set_ylim((-0.2, np.max(all_n_bound_waters)+0.5))
     ax.set_xlim((0, len(all_n_bound_waters[replica_idx])))
 
     # Create state indices trajectories.
     ax2 = ax.twinx()
-    t = range(len(replica_state_indices[replica_idx]))
-    scatter = ax2.scatter(t, replica_state_indices[replica_idx], marker='.', s=0.8,
-                          vmin=0, vmax=np.max(replica_state_indices),
+    scatter = ax2.scatter(t, replica_state_indices, marker='.', s=0.8,
+                          vmin=0, vmax=np.max(replicas_state_indices),
                           label='state index', alpha=0.7, cmap='viridis',
-                          c=replica_state_indices[replica_idx])
+                          c=replica_state_indices)
     if state_index_ticks:
         ax2.set_ylabel('state index')
     else:
         # ax.tick_params(axis='y', which='both', left=False, labelleft=False)
         ax2.set_yticks([])
-    ax2.set_ylim((0, np.max(replica_state_indices)))
+    ax2.set_ylim((0, np.max(replicas_state_indices)))
 
     # Keep the number of bound waters trajectory in the front.
     ax.set_zorder(10)
@@ -318,7 +322,7 @@ def plot_paper_trajectories(replica_indices):
     """
     n_rows = len(replica_indices) + 1
     n_cols = 1
-    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(7.25/5*2, 3), sharex=True)
+    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(7.25/5*2.9, 3), sharex=True)
 
     correlation_palette = itertools.cycle(sns.color_palette("Paired"))
 
@@ -336,7 +340,7 @@ def plot_paper_trajectories(replica_indices):
                 # Collect the scatter plot to build a color bar for later.
                 scatter = plot_replica_trajectories(replica_state_indices, all_n_bound_waters,
                                                     replica_idx, xlabel=None, ax=axes[row_idx],
-                                                    state_index_ticks=False)
+                                                    step=1, state_index_ticks=False)
             fig.suptitle('Examples of replica trajectories', fontsize='medium')
             max_state_colorbar = np.max(replica_state_indices)
 
@@ -363,9 +367,9 @@ def plot_paper_trajectories(replica_indices):
     fig.tight_layout(pad=0.1, rect=[0, 0, 1, 0.92])
 
     # Make space for the colorbar.
-    fig.subplots_adjust(right=0.8)
+    fig.subplots_adjust(left=0.24)
     # Create new axis for the colorbar.
-    colorbar_ax = fig.add_axes([0.81, 0.105, 0.05, 0.78])
+    colorbar_ax = fig.add_axes([0.0, 0.105, 0.05, 0.78])
     # Add the colorbar for the first scatter. Set the ticks
     # for the bound, discharged and decoupled states.
     colorbar = fig.colorbar(scatter, cax=colorbar_ax, ticks=[0, 25, max_state_colorbar])
@@ -373,8 +377,8 @@ def plot_paper_trajectories(replica_indices):
     colorbar.ax.tick_params(axis='y', which='major', pad=0.2)
 
     # plt.show()
-    plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure5-waters', 'trajectories.pdf'))
-    # plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure5-waters', 'trajectories.png', dpi=300))
+    # plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure5-waters', 'trajectories.pdf'))
+    plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure5-waters', 'trajectories.png'), dpi=600)
 
 
 def plot_paper_distributions(system_id, skip):
@@ -413,6 +417,7 @@ def plot_paper_distributions(system_id, skip):
     ax.tick_params(axis='x', which='major', pad=0.2)
     ax.tick_params(axis='y', which='major', pad=0.2)
     ax.set_title('Bound water molecules distribution\nby state in {}'.format(system_id))
+    ax.set_ylabel('density')
     ax.set_xlabel('n bound waters')
     # ax.legend(fontsize='x-small', ncol=2, loc='upper right', bbox_to_anchor=(1.015, 1.015), fancybox=False)
     ax.get_legend().remove()
@@ -449,7 +454,7 @@ if __name__ == '__main__':
     sns.set_context('paper', font_scale=0.7)
     sns.set_style('whitegrid')
     system_ids = ['CB8-G3-0', 'OA-G3-0', 'OA-G6-0']
-    system_ids = ['CB8-G3-0']
+    # system_ids = ['CB8-G3-0']
 
     # # Analysis plot.
     # # TODO: Make these available as SI figures?
@@ -462,4 +467,4 @@ if __name__ == '__main__':
     # plot_paper_trajectories(replica_indices=[1, 5])
     for system_id in system_ids:
         # plot_paper_trajectories_old(system_id, replica_indices=[1, 5, 10])
-        plot_paper_distributions(system_id, skip=5)
+        plot_paper_distributions(system_id, skip=4)
