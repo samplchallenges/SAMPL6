@@ -294,6 +294,14 @@ class SamplingSubmission(SamplSubmission):
             return 'GROMACS/CT-NS'
         elif self.receipt_id == 'NB008':
             return 'GROMACS/CT-NS-long'
+        if self.receipt_id == 'NB009':
+            return 'GROMACS/Jarz-F'
+        elif self.receipt_id == 'NB010':
+            return 'GROMACS/Jarz-R'
+        if self.receipt_id == 'NB011':
+            return 'GROMACS/Jarz-F-Gauss'
+        elif self.receipt_id == 'NB012':
+            return 'GROMACS/Jarz-R-Gauss'
         return name_table[self.name]
 
 

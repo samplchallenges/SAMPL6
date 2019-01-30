@@ -43,16 +43,21 @@ SYSTEM_IDS = [
 # Kelly's colors for maximum contrast.
 #               "gray95",  "gray13",  "gold2",   "plum4",   "darkorange1", "lightskyblue2", "firebrick", "burlywood3", "gray51", "springgreen4", "lightpink2", "deepskyblue4", "lightsalmon2", "mediumpurple4", "orange", "maroon", "yellow3", "brown4", "yellow4", "sienna4", "chocolate", "gray19"
 KELLY_COLORS = ['#F2F3F4', '#222222', '#F3C300', '#875692', '#F38400',     '#A1CAF1',       '#BE0032',  '#C2B280',   '#848482', '#008856',      '#E68FAC',    '#0067A5',     '#F99379',      '#604E97',      '#F6A600', '#B3446C', '#DCD300', '#882D17', '#8DB600', '#654522', '#E25822', '#2B3D26']
+TAB10_COLORS = sns.color_palette('tab10')
 # Index of Kelly's colors associated to each submission.
 SUBMISSION_COLORS = {
-    'AMBER/APR': 11,
-    'OpenMM/WExplore': 7,
-    'OpenMM/SOMD': 4,
-    'GROMACS/EE': 3,
-    'GROMACS/EE-fullequil': 10,
-    YANK_METHOD_PAPER_NAME: 9,
-    'GROMACS/CT-NS-long': 6,
-    'GROMACS/CT-NS': 1
+    'AMBER/APR': KELLY_COLORS[11],
+    'OpenMM/WExplore': KELLY_COLORS[7],
+    'OpenMM/SOMD': KELLY_COLORS[4],
+    'GROMACS/EE': KELLY_COLORS[3],
+    'GROMACS/EE-fullequil': KELLY_COLORS[10],
+    YANK_METHOD_PAPER_NAME: KELLY_COLORS[9],
+    'GROMACS/CT-NS-long': KELLY_COLORS[6],
+    'GROMACS/CT-NS': KELLY_COLORS[1],
+    'GROMACS/Jarz-F': TAB10_COLORS[0],
+    'GROMACS/Jarz-R': TAB10_COLORS[1],
+    'GROMACS/Jarz-F-Gauss': TAB10_COLORS[2],
+    'GROMACS/Jarz-R-Gauss': TAB10_COLORS[4],
 }
 
 N_ENERGY_EVALUATIONS_SCALE = 1e6
@@ -187,13 +192,13 @@ def plot_mean_free_energy(mean_data, ax, x='Simulation percentage',
     # Plot the mean free energy trajectory.
     if zorder is not None:
         # Push the CI shaded area in the background so that the trajectories are always visible.
-        zorder += 10
+        zorder += 20
     ax.plot(x, mean_dg, color=color_mean, alpha=1.0, zorder=zorder, **plot_kwargs)
     return ax
 
 
 def plot_mean_data(mean_data, axes, color, label, x='N energy evaluations',
-                   zorder=None, plot_bias=True, plot_ci=True):
+                   zorder=None, plot_std=True, plot_bias=True, plot_ci=True):
     """Plot free energy, variance and bias as a function of the cost in three different axes."""
     # Do not plot the part of data without index.
     first_nonzero_idx = np.nonzero(mean_data[DG_KEY].values)[0][0]
@@ -210,9 +215,10 @@ def plot_mean_data(mean_data, axes, color, label, x='N energy evaluations',
                           start=first_nonzero_idx, label=label, plot_ci=plot_ci)
 
     # Plot standard deviation of the trajectories.
-    axes[1].plot(mean_data[x].values[first_nonzero_idx:] / scale,
-                 mean_data['std'].values[first_nonzero_idx:], color=color, alpha=0.8,
-                 zorder=zorder, label=label)
+    if plot_std:
+        axes[1].plot(mean_data[x].values[first_nonzero_idx:] / scale,
+                     mean_data['std'].values[first_nonzero_idx:], color=color, alpha=0.8,
+                     zorder=zorder, label=label)
     if plot_bias:
         axes[2].plot(mean_data[x].values[first_nonzero_idx:] / scale,
                      mean_data['bias'].values[first_nonzero_idx:], color=color, alpha=0.8,
@@ -237,11 +243,156 @@ def align_yaxis(ax1, v1, ax2, v2):
 # FIGURE 2
 # =============================================================================
 
-def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
-    """Plot the free energy trajectory of all the entries with CIs and first-hitting time."""
+def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
+                                plot_std=True, plot_bias=True):
+    """Plot free energy trajectories, std, and bias of the given submissions."""
     system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
     n_systems = len(system_names)
+    max_n_energy_evaluations = {system_name: 0 for system_name in system_names}
+    min_n_energy_evaluations = {system_name: np.inf for system_name in system_names}
 
+    # Handle default arguments.
+    if y_limits is None:
+        # 3 by 3 matrix of y limits for the plots.
+        y_limits = [[None for _ in range(3)] for _ in range(3)]
+    # We need a 2D array of axes for the code to work even if we're not plotting std or bias.
+    if len(axes.shape) == 1:
+        axes = np.array([axes])
+
+    # Build a dictionary mapping submissions and system names to their mean data.
+    all_mean_data = {}
+    for submission in submissions:
+        # We always want to print in order
+        all_mean_data[submission.paper_name] = {}
+        mean_free_energies = submission.mean_free_energies()
+
+        for system_name in system_names:
+            # CB8-G3 calculations for GROMACS/EE did not converge.
+            if submission.name == 'Expanded-ensemble/MBAR' and system_name == 'CB8-G3':
+                continue
+            # Add mean free energies for this system.
+            system_mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
+            all_mean_data[submission.paper_name][system_name] = system_mean_data
+
+            # Keep track of the maximum and minimum number of energy evaluations,
+            # which will be used to determine how to truncate the plotted reference
+            # data and determine the zorder of the trajectories respectively.
+            n_energy_evaluations = system_mean_data['N energy evaluations'].values[-1]
+            max_n_energy_evaluations[system_name] = max(max_n_energy_evaluations[system_name],
+                                                        n_energy_evaluations)
+            min_n_energy_evaluations[system_name] = min(min_n_energy_evaluations[system_name],
+                                                        n_energy_evaluations)
+
+    # Add also reference YANK calculations if provided.
+    if yank_analysis is not None:
+        all_mean_data[YANK_METHOD_PAPER_NAME] = {}
+        for system_name in system_names:
+            system_mean_data = yank_analysis.get_free_energies_from_energy_evaluations(
+                max_n_energy_evaluations[system_name], system_name=system_name, mean_trajectory=True)
+            all_mean_data[YANK_METHOD_PAPER_NAME][system_name] = system_mean_data
+
+    # Create a table mapping submissions and system name to the zorder used
+    # to plot the free energy trajectory so that smaller shaded areas are on
+    # top of bigger ones.
+    # First find the average CI for all methods up to min_n_energy_evaluations.
+    methods_cis = {name: {} for name in system_names}
+    for method_name, method_mean_data in all_mean_data.items():
+        for system_name, system_mean_data in method_mean_data.items():
+            # Find index of all energy evaluations < min_n_energy_evaluations.
+            n_energy_evaluations = system_mean_data['N energy evaluations'].values
+            last_idx = np.searchsorted(n_energy_evaluations, min_n_energy_evaluations[system_name], side='right')
+            cis = system_mean_data['$\Delta$G CI'].values[:last_idx]
+            methods_cis[system_name][method_name] = np.mean(cis)
+
+    # For each system, order methods from smallest CI (plot on top) to greatest CI (background).
+    zorders = {name: {} for name in system_names}
+    for system_name, system_cis in methods_cis.items():
+        ordered_methods = sorted(system_cis.keys(), key=lambda method_name: system_cis[method_name])
+        for zorder, method_name in enumerate(ordered_methods):
+            zorders[system_name][method_name] = zorder
+
+    # The columns are in order CB8-G3, OA-G3, and OA-G6.
+    system_columns = {'CB8-G3': 0, 'OA-G3': 1, 'OA-G6': 2}
+
+    # Plot submissions in alphabetical order to order he legend labels.
+    for method_name in sorted(all_mean_data.keys()):
+        submission_mean_data = all_mean_data[method_name]
+        submission_color = SUBMISSION_COLORS[method_name]
+
+        # Plot free energy trajectories.
+        for system_name, mean_data in submission_mean_data.items():
+            ax_idx = system_columns[system_name]
+
+            # The OA prediction of the NS short protocol are the same of the long protocol submission file.
+            if method_name == 'GROMACS/CT-NS-long' and system_name != 'CB8-G3':
+                # Just add the label.
+                axes[0][ax_idx].plot([], color=submission_color, label=method_name)
+                continue
+
+            # Update maximum number of energy evaluations.
+            n_energy_evaluations = mean_data['N energy evaluations'].values[-1]
+            max_n_energy_evaluations[system_name] = max(max_n_energy_evaluations[system_name],
+                                                        n_energy_evaluations)
+
+            # Determine zorder and plot.
+            zorder = zorders[system_name][method_name]
+            plot_mean_data(mean_data, axes[:,ax_idx], color=submission_color,
+                           zorder=zorder, label=method_name,
+                           plot_std=plot_std, plot_bias=plot_bias)
+
+            # Plot adding full cost of Wang-Landau equilibration.
+            if 'EE' in method_name:
+                first_nonzero_idx = np.nonzero(mean_data[DG_KEY].values)[0][0]
+                calibration_cost = mean_data['N energy evaluations'].values[first_nonzero_idx] * 4
+                mean_data['N energy evaluations'] += calibration_cost
+                label = method_name + '-fullequil'
+                plot_mean_data(mean_data, axes[:,ax_idx], color=SUBMISSION_COLORS[label],
+                               zorder=zorder, label=label, plot_std=plot_std, plot_bias=plot_bias)
+
+    # Fix labels.
+    axes[0][0].set_ylabel('$\Delta$G [kcal/mol]')
+    if plot_std:
+        axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
+    if plot_bias:
+        axes[2][0].set_ylabel('bias [kcal/mol]')
+    axes[-1][1].set_xlabel('number of energy/force evaluations [10$^6$]')
+
+    # Fix axes limits.
+    for ax_idx, system_name in enumerate(system_names):
+        for row_idx in range(len(axes)):
+            ax = axes[row_idx][ax_idx]
+            # Set the x-axis limits.
+            ax.set_xlim((0, max_n_energy_evaluations[system_name]/N_ENERGY_EVALUATIONS_SCALE))
+            # Keep the x-axis label only at the bottom row.
+            if row_idx != len(axes)-1:
+                ax.xaxis.set_ticklabels([])
+            y_lim = y_limits[row_idx][ax_idx]
+            if y_lim is not None:
+                ax.set_ylim(y_lim)
+
+        # Set the system name in the title.
+        axes[0][ax_idx].set_title(system_name)
+
+    # Create a bias axis AFTER the ylim has been set.
+    if yank_analysis is not None:
+        for ax_idx, (system_name, ax) in enumerate(zip(system_names, axes[0])):
+            yank_full_mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
+            ref_free_energy = yank_full_mean_data[DG_KEY].values[-1]
+            with sns.axes_style('white'):
+                ax2 = ax.twinx()
+                # Plot a vertical line to fix the scale.
+                vertical_line = np.linspace(*ax.get_ylim()) - ref_free_energy
+                ax2.plot([50] * len(vertical_line), vertical_line, alpha=0.0001)
+                ax2.grid(alpha=0.5, linestyle='dashed', zorder=0)
+                # We add the bias y-label only on the rightmost Axis.
+                if ax_idx == n_systems - 1:
+                    ax2.set_ylabel('Bias to reference [kcal/mol]')
+                # Set the 0 of the twin axis to the YANK reference free energy.
+                align_yaxis(ax, ref_free_energy, ax2, 0.0)
+
+
+def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
+    """Plot free energy trajectories, std, and bias of the challenge entries."""
     # Create a figure with 3 columns (one for each system) and 2 rows.
     # The first row contains the free energy trajectory and CI, the second
     # a plot of the estimator variance, and the third the bias to the
@@ -251,69 +402,13 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
         figsize = (7.25, 8)
     else:
         figsize = (7.25, 8)  # With WExplorer
-    fig, axes = plt.subplots(nrows=3, ncols=n_systems, figsize=figsize)
+    fig, axes = plt.subplots(nrows=3, ncols=3, figsize=figsize)
 
-    # Fix axes limits based on maximum number of energy evaluations among the submissions.
-    max_n_energy_evaluations = {system_name: 0 for system_name in system_names}
-
+    # Remove nonequilibrium-switching calculations with single-direction estimators.
+    submissions = [s for s in submissions if 'Jarz' not in s.paper_name]
     # Optionally, remove WExplore.
     if zoomed:
         submissions = [s for s in submissions if s.name not in ['WExploreRateRatio']]
-
-    for submission_idx, submission in enumerate(submissions):
-        mean_free_energies = submission.mean_free_energies()
-        unique_system_names = submission.data['System name'].unique()
-        submission_color = KELLY_COLORS[SUBMISSION_COLORS[submission.paper_name]]
-
-        # Plot free energy trajectories.
-        for ax_idx, system_name in enumerate(unique_system_names):
-            # CB8-G3 calculations for GROMACS/EE did not converge yet.
-            if submission.name == 'Expanded-ensemble/MBAR' and system_name == 'CB8-G3':
-                continue
-            # The OA prediction of the NS short protocol are the same of the long protocol submission file.
-            if submission.paper_name == 'GROMACS/CT-NS-long' and system_name != 'CB8-G3':
-                # Just add the label.
-                axes[0][ax_idx].plot([], color=submission_color, label=submission.paper_name)
-                continue
-
-            # Select the data for only this host-guest system.
-            mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
-
-            # Update maximum number of energy evaluations.
-            n_energy_evaluations = mean_data['N energy evaluations'].values[-1]
-            max_n_energy_evaluations[system_name] = max(max_n_energy_evaluations[system_name],
-                                                        n_energy_evaluations)
-
-            # TODO: Set zorder according to ranking of total variance so
-            # TODO:     that smaller shaded area are on top of bigger shaded areas.
-            # TODO:     Keep zorder=0 for the black color though as it sticks out.
-            plot_mean_data(mean_data, axes[:,ax_idx], color=submission_color,
-                           zorder=1, label=submission.paper_name)
-
-            # Plot adding full cost of Wang-Landau equilibration.
-            if 'Expanded' in submission.name:
-                first_nonzero_idx = np.nonzero(mean_data[DG_KEY].values)[0][0]
-                calibration_cost = mean_data['N energy evaluations'].values[first_nonzero_idx] * 4
-                mean_data['N energy evaluations'] += calibration_cost
-                label = submission.paper_name + '-fullequil'
-                plot_mean_data(mean_data, axes[:,ax_idx], color=KELLY_COLORS[SUBMISSION_COLORS[label]],
-                               zorder=1, label=label)
-
-    # Plot the YANK mean free energies.
-    for ax_idx, system_name in enumerate(system_names):
-        label = YANK_METHOD_PAPER_NAME
-        submission_color = KELLY_COLORS[SUBMISSION_COLORS[label]]
-        yank_mean_data = yank_analysis.get_free_energies_from_energy_evaluations(max_n_energy_evaluations[system_name],
-                                                                                 system_name=system_name,
-                                                                                 mean_trajectory=True)
-        # Black is much more visible than the other colors so let's push it on the back.
-        plot_mean_data(yank_mean_data, axes[:,ax_idx], color=submission_color, zorder=0, label=label)
-
-    # Fix labels.
-    axes[0][0].set_ylabel('$\Delta$G [kcal/mol]')
-    axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
-    axes[2][0].set_ylabel('bias [kcal/mol]')
-    axes[-1][1].set_xlabel('number of energy/force evaluations [10$^6$]')
 
     if zoomed:
         # Y-axis limits when WExplore calculations are excluded.
@@ -329,37 +424,8 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
             [(0, 2), (0, 1.75), (0, 1.75)],
             [(-4, 4), (-0.6, 0.6), (-0.6, 0.6)],
         ]
-    # Fix axes limits.
-    for ax_idx, system_name in enumerate(system_names):
-        for row_idx in range(len(axes)):
-            ax = axes[row_idx][ax_idx]
-            # Set the x-axis limits.
-            ax.set_xlim((0, max_n_energy_evaluations[system_name]/N_ENERGY_EVALUATIONS_SCALE))
-            # Keep the x-axis label only at the bottom row.
-            if row_idx != 2:
-                ax.xaxis.set_ticklabels([])
-            y_lim = y_limits[row_idx][ax_idx]
-            if y_lim is not None:
-                ax.set_ylim(y_lim)
 
-        # Set the system name in the title.
-        axes[0][ax_idx].set_title(system_name)
-
-    # Create a bias axis AFTER the ylim has been set.
-    for ax_idx, (system_name, ax) in enumerate(zip(system_names, axes[0])):
-        yank_full_mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
-        ref_free_energy = yank_full_mean_data[DG_KEY].values[-1]
-        with sns.axes_style('white'):
-            ax2 = ax.twinx()
-            # Plot a vertical line to fix the scale.
-            vertical_line = np.linspace(*ax.get_ylim()) - ref_free_energy
-            ax2.plot([50] * len(vertical_line), vertical_line, alpha=0.0001)
-            ax2.grid(alpha=0.5, linestyle='dashed', zorder=0)
-            # We add the bias y-label only on the rightmost Axis.
-            if ax_idx == n_systems - 1:
-                ax2.set_ylabel('Bias to reference [kcal/mol]')
-            # Set the 0 of the twin axis to the YANK reference free energy.
-            align_yaxis(ax, ref_free_energy, ax2, 0.0)
+    plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=y_limits)
 
     # Show/save figure.
     if zoomed:
@@ -374,7 +440,7 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     else:
         bbox_to_anchor = (2.62, 1.48)  # With WExplorer.
     axes[0][1].legend(loc='upper right', bbox_to_anchor=bbox_to_anchor,
-                      fancybox=True, ncol=4)#int(len(submissions)/2)+1)
+                      fancybox=True, ncol=4)
     plt.subplots_adjust(wspace=0.35)
     # plt.show()
     if zoomed:
@@ -384,6 +450,42 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     figure_dir_path = '../SAMPLing/PaperImages/Figure2-free_energy_trajectories'
     os.makedirs(figure_dir_path, exist_ok=True)
     output_base_path = os.path.join(figure_dir_path, file_name)
+    plt.savefig(output_base_path + '.pdf')
+    # plt.savefig(output_base_path + '.png', dpi=500)
+
+
+def plot_all_nonequilibrium_switching(submissions):
+    """Plot free energy trajectories, std, and bias of the nonequilibrium-switching calculations."""
+    # Create a figure with 3 columns (one for each system) and 2 rows.
+    # The first row contains the free energy trajectory and CI, the second
+    # a plot of the estimator variance, and the third the bias to the
+    # asymptotic value.
+    figsize = (7.25, 3.5)  # With WExplorer
+    fig, axes = plt.subplots(nrows=1, ncols=3, figsize=figsize)
+
+    # Select nonequilibrium-switching calculations with estimators.
+    submissions = [s for s in submissions if 'Jarz' in s.paper_name or 'CT-NS' in s.paper_name]
+
+    # Y-axis limits.
+    y_limits = [
+        [(-20, 5), (-40, 0), (-40, 0)]
+    ]
+
+    plot_submissions_trajectory(submissions, yank_analysis=None, axes=axes,
+                                y_limits=y_limits, plot_std=False, plot_bias=False)
+
+    # Show/save figure.
+    plt.tight_layout(pad=0.0, rect=[0.0, 0.00, 1.0, 0.85])
+
+    # Plot legend.
+    axes[0].legend(loc='upper left', bbox_to_anchor=(0.1, 1.3),
+                   fancybox=True, ncol=3)
+    plt.subplots_adjust(wspace=0.35)
+
+    # plt.show()
+    figure_dir_path = '../SAMPLing/PaperImages/Figure3-nonequilibrium_comparison'
+    os.makedirs(figure_dir_path, exist_ok=True)
+    output_base_path = os.path.join(figure_dir_path, 'Figure3-nonequilibrium_comparison')
     plt.savefig(output_base_path + '.pdf')
     # plt.savefig(output_base_path + '.png', dpi=500)
 
@@ -634,8 +736,9 @@ def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=Tru
         yank_analysis = YankSamplingAnalysis(data_dir_path)
 
         # In the YankAnalysis folder, each analysis starting from
-        # iteration N is in the folder "BiasAnalysis-N/".
-        label = data_dir_path.split('-')[-1][:-1]
+        # iteration N is in the folder "iterN/".
+        last_dir_name = os.path.basename(os.path.normpath(data_dir_path))
+        label = last_dir_name[4:]
         # First color is for the full data.
         color = color_palette[data_idx+1]
 
@@ -683,7 +786,7 @@ def plot_yank_bias():
         axes = np.array([axes])
 
     # Sort paths by how many samples they have.
-    data_dir_paths = ['YankAnalysis/BiasAnalysis-{}/'.format(i) for i in [1000, 2000, 4000, 8000, 16000]]
+    data_dir_paths = ['YankAnalysis/BiasAnalysis/iter{}/'.format(i) for i in [1000, 2000, 4000, 8000, 16000, 24000]]
 
     # In the first column, plot the "unshifted" trajectory of CB8-G3,
     # with all sub-trajectories shifted to the origin.
@@ -699,13 +802,13 @@ def plot_yank_bias():
     # Fix axes limits and labels.
     ylimits = {
         'CB8-G3': (-12.5, -10.5),
-        'OA-G3': (-8, -6.5),
-        'OA-G6': (-8, -6.5)
+        'OA-G3': (-8, -6.3),
+        'OA-G6': (-8, -6.3)
     }
     for ax_idx, system_name in zip(range(3), ['CB8-G3', 'CB8-G3','OA-G3']):
         axes[0][ax_idx].set_ylim(ylimits[system_name])
     for ax_idx in range(3):
-        axes[1][ax_idx].set_ylim((0, 0.3))
+        axes[1][ax_idx].set_ylim((0, 0.6))
 
     for row_idx, ax_idx in itertools.product(range(n_rows), range(n_cols)):
         # Control the number of ticks for the x axis.
@@ -726,7 +829,7 @@ def plot_yank_bias():
     handles, labels = axes[0][0].get_legend_handles_labels()
     handles = [handles[-1]] + handles[:-1]
     labels = [labels[-1]] + labels[:-1]
-    bbox_to_anchor = (0.2, 1.45)
+    bbox_to_anchor = (-0.1, 1.45)
     axes[0][0].legend(handles, labels, loc='upper left', bbox_to_anchor=bbox_to_anchor,
                       title='n discarded iterations', ncol=len(data_dir_paths)+1, fancybox=True)
 
@@ -1133,6 +1236,9 @@ if __name__ == '__main__':
 
     # Create results and efficiency table.
     # print_relative_efficiency_table(submissions, yank_analysis)
+
+    # Plot nonequilibrium-switching single-direction estimator.
+    #plot_all_nonequilibrium_switching(submissions)
 
     # Plot sensitivity analysis figure.
     # plot_restraint_and_barostat_analysis()
