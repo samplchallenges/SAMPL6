@@ -15,7 +15,7 @@ import pandas as pd
 from simtk import unit
 
 from pkganalysis.submission import load_submissions
-from pkganalysis.unbiasedanalyzer import analyze_directory
+from pkganalysis.unbiasedanalyzer import analyze_directory, BARAnalyzer
 from pkganalysis.sampling import (SamplingSubmission, energy_evaluations_iteration_cutoffs,
                                   cpu_time_iteration_cutoffs, get_iteration_cutoffs,
                                   YANK_N_ITERATIONS)
@@ -376,13 +376,20 @@ def analyze_yank_restraint(system_id):
         json.dump(free_energies, f, indent=4, sort_keys=True)
 
 
-def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False):
+def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False, analyzer_class=None):
     """Analyze YANK discarding the initial iterations to see if it helps with the bias."""
-    starting_iterations = [250, 500, 1000] + list(range(2000, 20000, 2000))
+    # starting_iterations = [250, 500, 1000] + list(range(2000, 20000, 2000))
+    starting_iterations = [1000, 2000, 4000, 8000, 16000, 24000, 32000]
 
     # Obtain the iterations that have been already analyzed by YANK.
     # Using only these allow us to compare the subset to the full simulation later.
     systems_iteration_cutoffs = generate_iteration_cutoffs()
+
+    # Save bias analysis with BAR in a separate directory.
+    if analyzer_class is not None and analyzer_class.__name__ == 'BARAnalyzer':
+        subdir_name = 'BiasAnalysis-BAR'
+    else:
+        subdir_name = 'BiasAnalysis'
 
     # Analyze YANK free energy trajectory discarding progressively more and more data.
     # Here we accumulate the jobs that we need to run before distributing them.
@@ -393,7 +400,7 @@ def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False):
         target_iterations = [int(x) for x in target_iterations[1:]]  # Convert to integers.
 
         # Create the analysis directory if it doesn't exist.
-        bias_analysis_dir_path = os.path.join(ANALYSIS_DIR_PATH, 'BiasAnalysis-' + str(starting_iteration))
+        bias_analysis_dir_path = os.path.join(ANALYSIS_DIR_PATH, subdir_name, 'iter' + str(starting_iteration))
         os.makedirs(bias_analysis_dir_path, exist_ok=True)
 
         # Determine 100 iterations starting from starting_iteration that have been already analyzed.
@@ -443,11 +450,12 @@ def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False):
         free_energies = analyze_directory(experiment_directory,
                                           min_n_iterations=starting_iteration,
                                           distance_cutoffs=distance_cutoff,
-                                          iteration_cutoffs=iteration_cutoffs)
+                                          iteration_cutoffs=iteration_cutoffs,
+                                          analyzer_class=analyzer_class)
 
         # Store analysis results.
         free_energies = {i: f for i, f in zip(iteration_cutoffs, free_energies)}
-        bias_analysis_dir_path = os.path.join(ANALYSIS_DIR_PATH, 'BiasAnalysis-' + str(starting_iteration))
+        bias_analysis_dir_path = os.path.join(ANALYSIS_DIR_PATH, subdir_name, 'iter' + str(starting_iteration))
         output_file_path = os.path.join(bias_analysis_dir_path, 'yank-{}.json'.format(system_job_id))
         with open(output_file_path, 'w') as f:
             json.dump(free_energies, f, indent=4, sort_keys=True)
@@ -469,3 +477,4 @@ if __name__ == '__main__':
 
     # Collect data for YANK bias analysis.
     # analyze_yank_bias(args.jobid, args.jobspersystem, cleanup=False, dry_run=True)
+    # analyze_yank_bias(args.jobid, args.jobspersystem, cleanup=False, dry_run=False, analyzer_class=BARAnalyzer)

@@ -79,7 +79,7 @@ def compute_centroid_distance(positions_group1, positions_group2, weights_group1
 
 
 # =============================================================================
-# ANALYZER
+# ANALYZER TO UNBIAS THE EFFECT OF THE RESTRAINT
 # =============================================================================
 
 # Dictionary cached_value: list of cache_values to invalidate.
@@ -185,7 +185,10 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
             u_n = u_n[1:]
         equilibration_data = list(analyze.get_equilibration_data(u_n))
         # Discard also minimization frame.
-        equilibration_data[0] += 1
+        if self.min_n_iterations == 0:
+            equilibration_data[0] += 1
+        else:
+            equilibration_data[0] += self.min_n_iterations
         self._equilibration_data = tuple(equilibration_data)
         logger.debug('Equilibration data: {}'.format(equilibration_data))
         return self._equilibration_data
@@ -743,6 +746,78 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
         return super().get_standard_state_correction()
 
 
+# =============================================================================
+# ANALYZER TO ANALYZE WITH BAR
+# =============================================================================
+
+class BARAnalyzer(UnbiasedAnalyzer):
+    """An UnbiasedAnalyzer that uses BAR instead of MBAR."""
+
+    def _create_mbar(self, energy_matrix, samples_per_state):
+        logger.debug("Initializing BAR...")
+        self.mbar = MultiBAR(energy_matrix, samples_per_state)
+        logger.debug('Done.')
+        return self.mbar
+
+
+class MultiBAR:
+    """This class implement BAR analysis between neighbor states with the MBAR object API."""
+
+    def __init__(self, u_kn, N_k, **kwargs):
+        from pymbar import BAR
+
+        # This attribute is used in the MultiStateSamplerAnalyzer.
+        self.N_k = N_k
+
+        # Determine number of states and iterations.
+        self.n_states = u_kn.shape[0]
+        n_iterations = u_kn.shape[1] / self.n_states
+        assert float(n_iterations).is_integer(), (u_kn.shape, self.n_states, n_iterations, N_k.shape)
+        self.n_states = int(self.n_states)
+        n_iterations = int(n_iterations)
+
+        # Compute the pairwise free energies with BAR.
+        Deltaf_i = np.zeros(self.n_states-1)
+        dDeltaf_i = np.zeros(self.n_states-1)
+        for iteration in range(n_iterations):
+            for state_i in range(self.n_states-1):
+                # u_kn[k, s*n+i] is the reduced potential of a i-th configuration sampled from
+                # state s and evaluated at state k, where n is the total number of iterations.
+                state_j = state_i + 1
+
+                # Here, by u_ij are all the energies sampled from state i and evaluated at state j.
+                u_ii = np.array([u_kn[state_i, state_i*n_iterations + n] for n in range(n_iterations)])
+                u_ij = np.array([u_kn[state_j, state_i*n_iterations + n] for n in range(n_iterations)])
+                u_jj = np.array([u_kn[state_j, state_j*n_iterations + n] for n in range(n_iterations)])
+                u_ji = np.array([u_kn[state_i, state_j*n_iterations + n] for n in range(n_iterations)])
+
+                # Compute forward and reverse work and compute free energy BAR.
+                w_F = u_ij - u_ii
+                w_R = u_ji - u_jj
+                Deltaf_i[state_i], dDeltaf_i[state_i] = BAR(w_F, w_R)
+
+        # Transform Deltaf_ij in matrix form to make it consistent with MBAR.
+        self.Deltaf_ij = np.zeros((self.n_states, self.n_states))
+        self.dDeltaf_ij = np.zeros((self.n_states, self.n_states))
+        for state_i in range(self.n_states):
+            # Deltaf and uncertainty i == j is 0.
+            for state_j in range(state_i+1, self.n_states):
+                self.Deltaf_ij[state_i,state_j] = np.sum(Deltaf_i[state_i:state_j])
+                self.dDeltaf_ij[state_i,state_j] = np.sqrt(np.sum(dDeltaf_i[state_i:state_j]**2))
+
+        # Complete the rest of the antisymmetric matrix.
+        self.Deltaf_ij -= self.Deltaf_ij.transpose()
+        self.dDeltaf_ij += self.dDeltaf_ij.transpose()
+
+
+    def getFreeEnergyDifferences(self):
+        return self.Deltaf_ij, self.dDeltaf_ij
+
+
+# =============================================================================
+# SHORTCUT ANALYSIS FUNCTIONS
+# =============================================================================
+
 def analyze_phase(analyzer):
     data = dict()
     Deltaf_ij, dDeltaf_ij = analyzer.get_free_energy()
@@ -754,7 +829,10 @@ def analyze_phase(analyzer):
 
 def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=None,
                       iteration_cutoffs=None, min_n_iterations=0,
-                      solvent_df=None, solvent_ddf=None):
+                      solvent_df=None, solvent_ddf=None, analyzer_class=None):
+    if analyzer_class is None:
+        analyzer_class = UnbiasedAnalyzer
+
     # Validate the input arguments. A Quantity is an iterable even
     # if it has only a single element so we need to check its value.
     is_distance_cutoff_iterable = (distance_cutoffs is not None and
@@ -816,7 +894,7 @@ def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=No
 
         phase_path = os.path.join(source_directory, phase_name + '.nc')
         reporter = repex.Reporter(phase_path, open_mode='r')
-        phase = UnbiasedAnalyzer(reporter, **analyzer_kwargs)
+        phase = analyzer_class(reporter, **analyzer_kwargs)
         kT = phase.kT
 
         # For the restraint cutoff, we want to analyze exclusively the complex phase.
