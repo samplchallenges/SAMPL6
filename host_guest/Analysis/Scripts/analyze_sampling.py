@@ -32,6 +32,7 @@ YANK_ANALYSIS_DIR_PATH = 'YankAnalysis/Sampling/'
 SAMPLING_ANALYSIS_DIR_PATH = '../SAMPLing/'
 SAMPLING_DATA_DIR_PATH = os.path.join(SAMPLING_ANALYSIS_DIR_PATH, 'Data')
 SAMPLING_PLOT_DIR_PATH = os.path.join(SAMPLING_ANALYSIS_DIR_PATH, 'Plots')
+SAMPLING_PAPER_DIR_PATH = os.path.join(SAMPLING_ANALYSIS_DIR_PATH, 'PaperImages')
 
 # All system ids.
 SYSTEM_IDS = [
@@ -54,10 +55,10 @@ SUBMISSION_COLORS = {
     YANK_METHOD_PAPER_NAME: KELLY_COLORS[9],
     'GROMACS/CT-NS-long': KELLY_COLORS[6],
     'GROMACS/CT-NS': KELLY_COLORS[1],
-    'GROMACS/Jarz-F': TAB10_COLORS[0],
-    'GROMACS/Jarz-R': TAB10_COLORS[1],
-    'GROMACS/Jarz-F-Gauss': TAB10_COLORS[2],
-    'GROMACS/Jarz-R-Gauss': TAB10_COLORS[4],
+    'GROMACS/NS-Jarz-F': TAB10_COLORS[0],
+    'GROMACS/NS-Jarz-R': TAB10_COLORS[1],
+    'GROMACS/NS-Gauss-F': TAB10_COLORS[2],
+    'GROMACS/NS-Gauss-R': TAB10_COLORS[4],
 }
 
 N_ENERGY_EVALUATIONS_SCALE = 1e6
@@ -405,7 +406,7 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     fig, axes = plt.subplots(nrows=3, ncols=3, figsize=figsize)
 
     # Remove nonequilibrium-switching calculations with single-direction estimators.
-    submissions = [s for s in submissions if 'Jarz' not in s.paper_name]
+    submissions = [s for s in submissions if ('Jarz' not in s.paper_name and 'Gauss' not in s.paper_name)]
     # Optionally, remove WExplore.
     if zoomed:
         submissions = [s for s in submissions if s.name not in ['WExploreRateRatio']]
@@ -447,7 +448,7 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
         file_name = 'Figure2-free_energy_trajectories_zoomed'
     else:
         file_name = 'Figure2-free_energy_trajectories'
-    figure_dir_path = '../SAMPLing/PaperImages/Figure2-free_energy_trajectories'
+    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure2-free_energy_trajectories')
     os.makedirs(figure_dir_path, exist_ok=True)
     output_base_path = os.path.join(figure_dir_path, file_name)
     plt.savefig(output_base_path + '.pdf')
@@ -464,7 +465,7 @@ def plot_all_nonequilibrium_switching(submissions):
     fig, axes = plt.subplots(nrows=1, ncols=3, figsize=figsize)
 
     # Select nonequilibrium-switching calculations with estimators.
-    submissions = [s for s in submissions if 'Jarz' in s.paper_name or 'CT-NS' in s.paper_name]
+    submissions = [s for s in submissions if 'NS' in s.paper_name]
 
     # Y-axis limits.
     y_limits = [
@@ -483,7 +484,7 @@ def plot_all_nonequilibrium_switching(submissions):
     plt.subplots_adjust(wspace=0.35)
 
     # plt.show()
-    figure_dir_path = '../SAMPLing/PaperImages/Figure3-nonequilibrium_comparison'
+    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure3-nonequilibrium_comparison')
     os.makedirs(figure_dir_path, exist_ok=True)
     output_base_path = os.path.join(figure_dir_path, 'Figure3-nonequilibrium_comparison')
     plt.savefig(output_base_path + '.pdf')
@@ -676,10 +677,10 @@ def plot_restraint_analysis(system_id, axes):
 
     # Free energy as a function of restraint distance.
     ax = axes[1]
-    ax.set_title('$\Delta G$ as a function of restraint cutoff')
+    ax.set_title('$\Delta G$ as a function of restraint radius cutoff')
     plot_restraint_profile(system_id, ax, restraint_cutoff)
     # Labels and legend.
-    ax.set_xlabel('Restraint cutoff [A]')
+    ax.set_xlabel('Restraint radius cutoff [A]')
     ax.set_ylabel('$\Delta G$ [kcal/mol]')
     ax.legend(fontsize='xx-small')
 
@@ -717,8 +718,9 @@ def plot_restraint_and_barostat_analysis():
     plt.tight_layout(pad=0.5)
 
     # plt.show()
-    output_file_path = os.path.join('../SAMPLing/PaperImages', 'Figure3-restraint_barostat',
+    output_file_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure3-restraint_barostat',
                                     'restraint_barostat.pdf')
+    os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
     plt.savefig(output_file_path)
 
 
@@ -831,10 +833,12 @@ def plot_yank_bias():
     labels = [labels[-1]] + labels[:-1]
     bbox_to_anchor = (-0.1, 1.45)
     axes[0][0].legend(handles, labels, loc='upper left', bbox_to_anchor=bbox_to_anchor,
-                      title='n discarded iterations', ncol=len(data_dir_paths)+1, fancybox=True)
+                      title='n discarded initial iterations', ncol=len(data_dir_paths)+1,
+                      fancybox=True)
 
     # plt.show()
-    output_file_path = os.path.join('../SAMPLing/PaperImages', 'Figure4-bias_hrex.pdf')
+    output_file_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure4-bias_hrex.pdf')
+    os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
     plt.savefig(output_file_path)
 
 
@@ -1002,29 +1006,33 @@ def plot_single_trajectories_figures(axes, system_data, system_mean_data,
                                      plot_errors=True, plot_methods_uncertainties=True):
     """Plot individual free energy trajectories and standard deviations for a single method and system."""
     system_name = system_data['System name'].unique()[0]
-    palette_mean = sns.color_palette('dark')
-    submission_mean_color = 8
-    reference_mean_color = 9
+    palette_mean = sns.color_palette('pastel')
+    submission_mean_color = 'black'
+    reference_mean_color = palette_mean[9]
+
+    # Plot the method uncertainties of the single replicate trajectories.
+    # First scale the number of energy evaluations.
+    system_data.loc[:,'N energy evaluations'] /= N_ENERGY_EVALUATIONS_SCALE
 
     # Plot the 5 replicates individual trajectories.
     # First remove the initial predictions that are 0.0 (i.e. there is no estimate).
     ax = axes[0]
     system_data = system_data[system_data[DG_KEY] != 0.0]
     sns.lineplot(data=system_data, x='N energy evaluations', y=DG_KEY,
-                 hue='System ID', palette='bright', ax=ax, zorder=5, alpha=0.6)
+                 hue='System ID', palette='bright', ax=ax, alpha=0.6)
 
     # Plot the submission mean trajectory with CI.
     plot_mean_free_energy(system_mean_data, x='N energy evaluations',  ax=ax,
-                          color_mean=palette_mean[submission_mean_color],
-                          color_ci=palette_mean[submission_mean_color], label='Mean $\Delta$G',
-                          scale_n_energy_evaluations=False)
+                          color_mean=submission_mean_color, plot_ci=False,
+                          color_ci=submission_mean_color, label='Best estimate',
+                          scale_n_energy_evaluations=True)
 
     # Plot YANK mean trajectory with CI.
     if reference_system_mean_data is not None:
         plot_mean_free_energy(reference_system_mean_data, x='N energy evaluations', ax=ax,
-                              color_mean=palette_mean[reference_mean_color],
-                              color_ci=palette_mean[reference_mean_color], label='Ref mean $\Delta$G',
-                              scale_n_energy_evaluations=False)
+                              color_mean=reference_mean_color, plot_ci=False,
+                              color_ci=reference_mean_color, label='Reference estimate',
+                              scale_n_energy_evaluations=True)
 
     ax.set_title(system_name)
     # Add the y-label only on the leftmost Axis.
@@ -1034,18 +1042,19 @@ def plot_single_trajectories_figures(axes, system_data, system_mean_data,
     ax.get_legend().remove()
 
     # Create a bias axis.
-    ref_free_energy = reference_free_energies.loc[system_name, DG_KEY]
-    with sns.axes_style('white'):
-        ax2 = ax.twinx()
-        # Plot a vertical line to make the scale.
-        vertical_line = np.linspace(*ax.get_ylim()) - ref_free_energy
-        ax2.plot([50] * len(vertical_line), vertical_line, alpha=0.0001)
-        ax2.grid(alpha=0.5, linestyle='dashed', zorder=0)
-        # We add the bias y-label only on the rightmost Axis.
-        if system_name == 'OA-G6':
-            ax2.set_ylabel('Bias to reference [kcal/mol]')
-        # Set the 0 of the twin axis to the YANK reference free energy.
-        align_yaxis(ax, ref_free_energy, ax2, 0.0)
+    if reference_system_mean_data is not None:
+        ref_free_energy = reference_free_energies.loc[system_name, DG_KEY]
+        with sns.axes_style('white'):
+            ax2 = ax.twinx()
+            # Plot a vertical line to make the scale.
+            vertical_line = np.linspace(*ax.get_ylim()) - ref_free_energy
+            ax2.plot([50] * len(vertical_line), vertical_line, alpha=0.0001)
+            ax2.grid(alpha=0.5, linestyle='dashed', zorder=0)
+            # We add the bias y-label only on the rightmost Axis.
+            if system_name == 'OA-G6':
+                ax2.set_ylabel('Bias to reference [kcal/mol]')
+            # Set the 0 of the twin axis to the YANK reference free energy.
+            align_yaxis(ax, ref_free_energy, ax2, 0.0)
 
     if plot_errors:
         # The x-axis is shared between the 2 rows so we can plot the ticks only in the bottom one.
@@ -1054,40 +1063,35 @@ def plot_single_trajectories_figures(axes, system_data, system_mean_data,
 
         ax = axes[1]
 
-        # Plot the standard deviation of the free energy trajectories.
-        submission_std = system_mean_data['std']
-        cost = system_mean_data['N energy evaluations'].values / N_ENERGY_EVALUATIONS_SCALE
-        # cost = system_mean_data['Simulation percentage'].values
-        ax.plot(cost, submission_std, color=palette_mean[submission_mean_color])
-        if reference_system_mean_data is not None:
-            reference_std = reference_system_mean_data['std']
-            ax.plot(cost, reference_std, color=palette_mean[reference_mean_color])
-
         # WExplore uses the mean of the 5 replicates to estimate the
-        # uncertainty so it doens't add information.
+        # uncertainty so it doesn't add information.
         if plot_methods_uncertainties:
-            # Plot the method uncertainties of the single replicate trajectories.
-            # First scale the number of energy evaluations.
-            system_data.loc[:,'N energy evaluations'] /= N_ENERGY_EVALUATIONS_SCALE
             sns.lineplot(data=system_data, x='N energy evaluations', y=DDG_KEY,
                          hue='System ID', palette='bright', ax=ax, alpha=0.6)
 
             # The legend is added later at the top.
             ax.get_legend().remove()
 
-        # Set y-axis limits.
+        # Plot the standard deviation of the free energy trajectories.
+        submission_std = system_mean_data['std']
+        # cost = system_mean_data['Simulation percentage'].values
+        cost = system_mean_data['N energy evaluations'].values / N_ENERGY_EVALUATIONS_SCALE
+        ax.plot(cost, submission_std, color=submission_mean_color)
         if reference_system_mean_data is not None:
-            ax.set_ylim((0, max(max(submission_std), max(reference_std))))
-        else:
-            # Ignore the first data points.
-            ax.set_ylim((0, max(submission_std)))
+            reference_std = reference_system_mean_data['std']
+            ax.plot(cost, reference_std, color=reference_mean_color)
+
         # Only the central plot shows the x-label.
         ax.set_xlabel('')
         # Add the y-label only on the leftmost Axis.
         if system_name != 'CB8-G3':
             ax.set_ylabel('')
         else:
-            ax.set_ylabel(DDG_KEY)
+            ax.set_ylabel('std($\Delta$G) [kcal/mol]')
+
+    # Set x limits.
+    for ax in axes:
+        ax.set_xlim((0, max(system_data['N energy evaluations'])))
 
     # The x-label is shown only in the central plot.
     if system_name == 'OA-G3':
@@ -1098,19 +1102,22 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
     """Individual plots for each method with the 5 individual free energy and uncertainty trajectories."""
     sns.set_context('paper')
 
-    output_path_dir = '../SAMPLing/PaperImages/SI_Figure1-individual-trajectories/'
+    output_path_dir = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure1-individual-trajectories/')
     os.makedirs(output_path_dir, exist_ok=True)
 
     # -------------------- #
     # Plot submission data #
     # -------------------- #
 
+    # Remove nonequilibrium-switching calculations with single-direction estimators.
+    submissions = [s for s in submissions if ('Jarz' not in s.paper_name and 'Gauss' not in s.paper_name)]
+
     for submission in submissions + [yank_analysis]:
         # CB8-G3 calculations for GROMACS/EE did not converge yet.
         if submission.name == 'Expanded-ensemble/MBAR':
             submission.data = submission.data[submission.data['System name'] != 'CB8-G3']
         # WExplore uses the mean of the 5 replicates to estimate the
-        # uncertainty so it doens't add information.
+        # uncertainty so it doesn't add information.
         if 'WExplore' in submission.paper_name:
             plot_methods_uncertainties = False
         else:
@@ -1135,6 +1142,12 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
         # Set figure title.
         fig.suptitle(submission.paper_name)
 
+        # Determine range of data across systems.
+        min_DG = np.inf
+        max_DG = -np.inf
+        min_dDG = np.inf
+        max_dDG = -np.inf
+
         # for system_name in unique_system_names:
         for ax_idx, system_name in enumerate(unique_system_names):
 
@@ -1158,17 +1171,35 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
                                                                                               mean_trajectory=True)
 
             plot_single_trajectories_figures(axes[:,ax_idx], data, mean_data, plot_errors=plot_errors,
-                                             reference_system_mean_data=reference_mean_data,
+                                             reference_system_mean_data=None,
                                              plot_methods_uncertainties=plot_methods_uncertainties)
 
-        plt.tight_layout(w_pad=0.7, rect=[0.0, 0.0, 1.0, 0.85])
+            # Collect max and min data to determine axes range.
+            min_DG = min(min_DG, min(data[DG_KEY]), min(mean_data[DG_KEY]))
+            max_DG = max(max_DG, max(data[DG_KEY]), max(mean_data[DG_KEY]))
+            min_dDG = min(min_dDG, min(data[DDG_KEY]), min(mean_data['std']))
+            max_dDG = max(max_dDG, max(data[DDG_KEY]), max(mean_data['std']))
+
+        # Set limits.
+        for i in range(len(unique_system_names)):
+            axes[0][i].set_ylim((min_DG, max_DG))
+            axes[1][i].set_ylim((min_dDG, max_dDG))
+            # Keep ticks only in external plots.
+            axes[0][i].set_xticklabels([])
+        for i in range(1, len(unique_system_names)):
+            axes[0][i].set_yticklabels([])
+            axes[1][i].set_yticklabels([])
+
+        plt.tight_layout(pad=0.2, rect=[0.0, 0.0, 1.0, 0.85])
+
         # Create legend.
-        bbox_to_anchor = (0.35, 1.5)
         # The first handle/label is the legend title "System ID" so we get rid of it.
         handles, labels = trajectory_axes[0].get_legend_handles_labels()
         labels = ['replicate ' + str(i) for i in range(5)] + labels[6:]
+        bbox_to_anchor = (-0.1, 1.35)
         trajectory_axes[0].legend(handles=handles[1:], labels=labels, loc='upper left',
-                                  bbox_to_anchor=bbox_to_anchor, ncol=4, fancybox=True)
+                                  bbox_to_anchor=bbox_to_anchor, ncol=6, fancybox=True,
+                                  labelspacing=0.8, handletextpad=0.5, columnspacing=1.2)
 
         # Save figure.
         output_file_name = '{}-{}.pdf'.format(submission.receipt_id, submission.file_name)

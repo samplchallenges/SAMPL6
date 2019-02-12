@@ -16,6 +16,7 @@ import collections
 
 import numpy as np
 import pandas as pd
+import scipy
 
 from .submission import SamplSubmission
 from .stats import mean_confidence_interval
@@ -40,6 +41,7 @@ YANK_N_STATES = {
 
 DG_KEY = '$\Delta$G [kcal/mol]'
 DDG_KEY = 'd$\Delta$G [kcal/mol]'
+SEM_KEY = 'SEM [kcal/mol]'
 
 
 # =============================================================================
@@ -99,6 +101,7 @@ def compute_system_name_mean_free_energies(data, reference_free_energies=None, e
             free_energies = time_point_data[DG_KEY]
             f, ci = mean_confidence_interval(free_energies.values, confidence=0.95)
             std = np.std(free_energies.values)
+            sem = scipy.stats.sem(free_energies.values)
             rmse = np.sqrt(1/(len(free_energies.values)) * np.sum((free_energies.values - reference_free_energy)**2))
             bias = f - reference_free_energy
 
@@ -120,12 +123,13 @@ def compute_system_name_mean_free_energies(data, reference_free_energies=None, e
                 'RMSE': rmse,
                 'bias': bias,
                 '$\Delta$G CI': ci,
+                SEM_KEY: sem,
                 'Simulation percentage': simulation_percentage,
                 'N energy evaluations': n_energy_evaluations,
                 **extra_values
             })
-    columns_order = ['System name',  DG_KEY, 'std', 'RMSE', 'bias', '$\Delta$G CI', 'Simulation percentage',
-                     'N energy evaluations'] + list(extra_fields)
+    columns_order = ['System name',  DG_KEY, 'std', 'RMSE', 'bias', '$\Delta$G CI', SEM_KEY,
+                     'Simulation percentage', 'N energy evaluations'] + list(extra_fields)
     output_data = pd.DataFrame(output_data, columns=columns_order)
     return output_data
 
@@ -295,13 +299,13 @@ class SamplingSubmission(SamplSubmission):
         elif self.receipt_id == 'NB008':
             return 'GROMACS/CT-NS-long'
         if self.receipt_id == 'NB009':
-            return 'GROMACS/Jarz-F'
+            return 'GROMACS/NS-Jarz-F'
         elif self.receipt_id == 'NB010':
-            return 'GROMACS/Jarz-R'
+            return 'GROMACS/NS-Jarz-R'
         if self.receipt_id == 'NB011':
-            return 'GROMACS/Jarz-F-Gauss'
+            return 'GROMACS/NS-Gauss-F'
         elif self.receipt_id == 'NB012':
-            return 'GROMACS/Jarz-R-Gauss'
+            return 'GROMACS/NS-Gauss-R'
         return name_table[self.name]
 
 
