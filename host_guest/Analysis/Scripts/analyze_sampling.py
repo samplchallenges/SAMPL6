@@ -1073,12 +1073,20 @@ def plot_single_trajectories_figures(axes, system_data, system_mean_data,
             ax.get_legend().remove()
 
         # Plot the standard deviation of the free energy trajectories.
-        submission_std = system_mean_data['std']
+        # submission_std = system_mean_data['std']
+        submission_std = system_mean_data['unbiased_std']
         # cost = system_mean_data['Simulation percentage'].values
         cost = system_mean_data['N energy evaluations'].values / N_ENERGY_EVALUATIONS_SCALE
         ax.plot(cost, submission_std, color=submission_mean_color)
+
+        # Plot confidence interval around standard deviation.
+        submission_std_low_ci = system_mean_data['unbiased_std_low_CI'].values
+        submission_std_up_ci = system_mean_data['unbiased_std_up_CI'].values
+        ax.fill_between(cost, submission_std_low_ci, submission_std_up_ci, alpha=0.35, color='gray')
+
         if reference_system_mean_data is not None:
-            reference_std = reference_system_mean_data['std']
+            # reference_std = reference_system_mean_data['std']
+            reference_std = reference_system_mean_data['unbiased_std']
             ax.plot(cost, reference_std, color=reference_mean_color)
 
         # Only the central plot shows the x-label.

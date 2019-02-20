@@ -19,7 +19,7 @@ import pandas as pd
 import scipy
 
 from .submission import SamplSubmission
-from .stats import mean_confidence_interval
+from .stats import mean_confidence_interval, unbiased_std, ci_unbiased_std
 
 
 # =============================================================================
@@ -100,10 +100,7 @@ def compute_system_name_mean_free_energies(data, reference_free_energies=None, e
             time_point_data = system_name_data[system_name_data['N energy evaluations'] == n_energy_evaluations]
             free_energies = time_point_data[DG_KEY]
             f, ci = mean_confidence_interval(free_energies.values, confidence=0.95)
-            std = np.std(free_energies.values)
-            sem = scipy.stats.sem(free_energies.values)
-            rmse = np.sqrt(1/(len(free_energies.values)) * np.sum((free_energies.values - reference_free_energy)**2))
-            bias = f - reference_free_energy
+            ci_u_std = ci_unbiased_std(free_energies.values)
 
             extra_values = {}
             for field in extra_fields:
@@ -119,16 +116,22 @@ def compute_system_name_mean_free_energies(data, reference_free_energies=None, e
             output_data.append({
                 'System name': system_name,
                 DG_KEY: f,
-                'std': std,
-                'RMSE': rmse,
-                'bias': bias,
+                'std': np.std(free_energies.values, ddof=1),
+                'unbiased_std': unbiased_std(free_energies.values),
+                # CI for the chi distribution are asymmetric so we
+                # need separate entries for lower and upper bound.
+                'unbiased_std_low_CI': ci_u_std[0],
+                'unbiased_std_up_CI': ci_u_std[1],
+                'RMSE': np.sqrt(1/(len(free_energies.values)) * np.sum((free_energies.values - reference_free_energy)**2)),
+                'bias': f - reference_free_energy,
                 '$\Delta$G CI': ci,
-                SEM_KEY: sem,
+                SEM_KEY: scipy.stats.sem(free_energies.values),
                 'Simulation percentage': simulation_percentage,
                 'N energy evaluations': n_energy_evaluations,
                 **extra_values
             })
-    columns_order = ['System name',  DG_KEY, 'std', 'RMSE', 'bias', '$\Delta$G CI', SEM_KEY,
+    columns_order = ['System name',  DG_KEY, 'std', 'unbiased_std', 'unbiased_std_low_CI',
+                     'unbiased_std_up_CI', 'RMSE', 'bias', '$\Delta$G CI', SEM_KEY,
                      'Simulation percentage', 'N energy evaluations'] + list(extra_fields)
     output_data = pd.DataFrame(output_data, columns=columns_order)
     return output_data
