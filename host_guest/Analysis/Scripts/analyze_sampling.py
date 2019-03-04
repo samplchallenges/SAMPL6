@@ -852,54 +852,44 @@ def plot_yank_bias():
 # RELATIVE EFFICIENCY ANALYSIS
 # =============================================================================
 
-def get_relative_efficiency_input(mean_free_energies, yank_analysis,
-                                  system_name, correct_bias=False):
+def get_relative_efficiency_input(submission, yank_analysis, system_name):
     """Prepare the data to compute the mean relative efficiencies for this system."""
-    # Get the submission mean free energies for this system.
-    mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
+    # Isolate the data for the system.
+    data_sub = submission.data[submission.data['System name'] == system_name]
+    n_energy_evaluations = max(data_sub['N energy evaluations'])
+    data_ref = yank_analysis.get_free_energies_from_energy_evaluations(
+        n_energy_evaluations, system_name=system_name, mean_trajectory=False)
 
-    # Select the corresponding iterations for the YANK calculation.
-    n_energy_evaluations = mean_data['N energy evaluations'].values[-1]
-    reference_mean_data = yank_analysis.get_free_energies_from_energy_evaluations(
-        n_energy_evaluations, system_name=system_name, mean_trajectory=True)
+    # Obtain the free energies for the submission.
+    n_replicates = 5
+    free_energy_sub = np.empty(shape=(n_replicates, 100))
+    free_energy_ref = np.empty(shape=(n_replicates, 100))
+
+    for data, free_energy in [
+        (data_sub, free_energy_sub),
+        (data_ref, free_energy_ref),
+    ]:
+        for i in range(n_replicates):
+            system_id = system_name + '-' + str(i)
+            system_id_data = data[data['System ID'] == system_id]
+            free_energy[i] = system_id_data[DG_KEY].values
 
     # Discard the initial frames of WExplorer and GROMACS/EE that don't have predictions.
     from pkganalysis.efficiency import discard_initial_zeros
-    mean_c_ref, std_c_ref, mean_c_sub, std_c_sub = discard_initial_zeros(
-        mean_c_A=reference_mean_data[DG_KEY].values,
-        std_c_A=reference_mean_data['unbiased_std'].values,
-        mean_c_B=mean_data[DG_KEY].values,
-        std_c_B=mean_data['unbiased_std'].values
-    )
-
-    # Extract asymptotic values.
-    asymptotic_free_energy_sub = mean_data[DG_KEY].values[-1]
-    # Check if we need to consider the reference calculation converged.
-    if correct_bias:
-        asymptotic_free_energy_ref = reference_mean_data[DG_KEY].values[-1]
-    else:
-        asymptotic_free_energy_ref = yank_analysis.get_reference_free_energies()[system_name]
-
-    return [mean_c_ref, std_c_ref, asymptotic_free_energy_ref,
-            mean_c_sub, std_c_sub, asymptotic_free_energy_sub]
+    return discard_initial_zeros(free_energy_ref, free_energy_sub)
 
 
 def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95):
     """Plot the relative efficiencies as a function of the computational cost."""
     sns.set_context('paper')
 
-    from pkganalysis.efficiency import (
-        compute_relative_efficiencies,
-        generate_relative_efficiency_bootstrap_distribution,
-        compute_relative_efficiencies_confidence_interval,
-    )
+    from pkganalysis.efficiency import RelativeEfficiency
 
     for submission in submissions:
         if 'APR' not in submission.paper_name:
             continue
         print(submission.paper_name)
 
-        mean_free_energies = submission.mean_free_energies()
         system_names = submission.data['System name'].unique()
 
         # Create figure.
@@ -911,19 +901,14 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95):
         statistic_ranges = {name: [np.inf, 0] for name in statistic_names}
 
         for col_idx, system_name in enumerate(system_names):
-            rel_eff_input = get_relative_efficiency_input(mean_free_energies, yank_analysis,
-                                                          system_name, correct_bias=False)
-            # Unpack.
-            (mean_c_ref, std_c_ref, asymptotic_free_energy_ref,
-             mean_c_sub, std_c_sub, asymptotic_free_energy_sub) = rel_eff_input
-
-            # Compute bias.
-            bias_c_ref = mean_c_ref - asymptotic_free_energy_ref
-            bias_c_sub = mean_c_sub - asymptotic_free_energy_sub
+            free_energy_ref, free_energy_sub = get_relative_efficiency_input(
+                submission, yank_analysis, system_name)
 
             # Get the relative efficiencies.
-            rel_efficiencies = compute_relative_efficiencies(std_c_ref, bias_c_ref,
-                                                             std_c_sub, bias_c_sub)
+            rel_eff = RelativeEfficiency(free_energy_ref, free_energy_sub)
+            rel_efficiencies = rel_eff.compute_relative_efficiencies(
+                confidence_interval=ci, n_bootstrap_samples=1000)
+            rel_efficiencies, cis = rel_efficiencies[:3], rel_efficiencies[3:]
 
             # Plot.
             for row_idx, rel_eff in enumerate(rel_efficiencies):
@@ -934,25 +919,11 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95):
                 statistic_range[0] = min(statistic_range[0], min(rel_eff))
                 statistic_range[1] = max(statistic_range[1], max(rel_eff))
 
-            # Compute and plot confidence intervals.
-            if ci is not None:
-                # Generate efficiency bootstrap distribution.
-                efficiency_distributions = generate_relative_efficiency_bootstrap_distribution(
-                    mean_c_ref, std_c_ref, asymptotic_free_energy_ref,
-                    mean_c_sub, std_c_sub, asymptotic_free_energy_sub,
-                    n_replicates=5, n_bootstrap_samples=2000
-                )
-
-                cis = [None for _ in range(len(efficiency_distributions))]
-                for i, efficiency_distribution in enumerate(efficiency_distributions):
-                    cis[i] = compute_relative_efficiencies_confidence_interval(
-                        efficiency_distribution, percentile=ci)
-
-                # Plot confidence intervals.
-                for row_idx, (low_bound_c, high_bound_c) in enumerate(cis):
-                    ax = axes[row_idx][col_idx]
-                    ax.fill_between(range(len(low_bound_c)), low_bound_c, high_bound_c,
-                                    alpha=0.35, color='gray')
+            # Plot confidence intervals.
+            for row_idx, (low_bound_c, high_bound_c) in enumerate(cis):
+                ax = axes[row_idx][col_idx]
+                ax.fill_between(range(len(low_bound_c)), low_bound_c, high_bound_c,
+                                alpha=0.35, color='gray')
 
         # Set labels and axes limits.
         for col_idx, system_name in enumerate(system_names):
@@ -967,20 +938,19 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95):
         # plt.show()
         dir_path = 'releff'
         os.makedirs(dir_path, exist_ok=True)
-        # plt.savefig(os.path.join(dir_path, 'relative_efficiencies_diff.pdf'))
+        plt.savefig(os.path.join(dir_path, 'relative_efficiencies_diff.pdf'))
 
 
 def plot_mean_relative_efficiencies(submissions, yank_analysis, ci=0.95):
     sns.set_context('paper')
 
-    from pkganalysis.efficiency import compute_mean_relative_efficiencies
+    from pkganalysis.efficiency import RelativeEfficiency
 
     for submission in submissions:
         if 'APR' not in submission.paper_name:
             continue
         print(submission.paper_name)
 
-        mean_free_energies = submission.mean_free_energies()
         system_names = submission.data['System name'].unique()
 
         # Create figure.
@@ -992,46 +962,46 @@ def plot_mean_relative_efficiencies(submissions, yank_analysis, ci=0.95):
         statistic_ranges = {name: [np.inf, 0] for name in statistic_names}
 
         for col_idx, system_name in enumerate(system_names):
-            rel_eff_input = get_relative_efficiency_input(mean_free_energies, yank_analysis,
-                                                          system_name, correct_bias=False)
-            # Unpack.
-            (mean_c_ref, std_c_ref, asymptotic_free_energy_ref,
-             mean_c_sub, std_c_sub, asymptotic_free_energy_sub) = rel_eff_input
+            free_energy_ref, free_energy_sub = get_relative_efficiency_input(
+                submission, yank_analysis, system_name)
+
+            # Get the relative efficiencies.
+            weighted = True
+            n_bootstrap_samples = 1000
+
+            rel_eff = RelativeEfficiency(free_energy_ref, free_energy_sub)
+            mean_rel_eff = rel_eff.compute_mean_relative_efficiencies(
+                weighted=weighted, confidence_interval=ci,
+                n_bootstrap_samples=n_bootstrap_samples)
+            rel_efficiencies, cis = rel_efficiencies[:3], rel_efficiencies[3:]
 
             # Print relative efficiencies.
-            weighted = True
-            mean_rel_eff = compute_mean_relative_efficiencies(
-                mean_c_ref, std_c_ref, asymptotic_free_energy_ref,
-                mean_c_sub, std_c_sub, asymptotic_free_energy_sub,
-                n_replicates=5, n_bootstrap_samples=5000,
-                confidence_interval=ci, weighted=weighted)
             print(system_name, weighted, ci)
             if ci is not None:
-                for rel_eff, bounds in zip(mean_rel_eff[:3], mean_rel_eff[3:]):
+                for rel_eff, bounds in zip(mean_rel_eff, cis):
                     print('\t', rel_eff, bounds)
             else:
                 for rel_eff in mean_rel_eff:
                     print('\t', rel_eff)
 
             # Compute mean efficiencies as a function of the length of the simulation.
-            n_costs = len(mean_c_ref)
+            n_costs = len(free_energy_ref.shape[1])
             mean_relative_efficiencies = np.empty(shape=(3, n_costs))
             low_bounds = np.empty(shape=(3, n_costs))
             high_bounds = np.empty(shape=(3, n_costs))
             for c in range(n_costs):
                 c1 = c + 1
-                mean_rel_eff = compute_mean_relative_efficiencies(
-                    mean_c_ref[:c1], std_c_ref[:c1], asymptotic_free_energy_ref,
-                    mean_c_sub[:c1], std_c_sub[:c1], asymptotic_free_energy_sub,
-                    n_replicates=5, n_bootstrap_samples=1000,
-                    confidence_interval=ci, weighted=True)
 
-                # Update mean relative efficiencies for this cost.
-                mean_relative_efficiencies[:,c] = mean_rel_eff[:3]
+                rel_eff = RelativeEfficiency(free_energy_ref[:,:c1], free_energy_sub[:,:c1])
+                mean_rel_eff = rel_eff.compute_mean_relative_efficiencies(
+                    weighted=weighted, confidence_interval=ci,
+                    n_bootstrap_samples=n_bootstrap_samples)
+
                 # Update CI lower and upper bound.
+                mean_relative_efficiencies[:,c], cis = mean_rel_eff[:3], mean_rel_eff[3:]
                 if ci is not None:
-                    low_bounds[:,c]  = [x[0] for x in mean_rel_eff[3:]]
-                    high_bounds[:,c]  = [x[1] for x in mean_rel_eff[3:]]
+                    low_bounds[:,c]  = [x[0] for x in cis]
+                    high_bounds[:,c]  = [x[1] for x in cis]
 
             # Plot.
             for row_idx, rel_eff in enumerate(mean_relative_efficiencies):
@@ -1457,11 +1427,11 @@ if __name__ == '__main__':
 
     # Create figure with free energy, standard deviation, and bias as a function of computational cost.
     # plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=False)
-    plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=True)
+    # plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=True)
 
     # Create results and efficiency table.
     # plot_relative_efficiencies(main_submissions, yank_analysis)
-    # plot_mean_relative_efficiencies(main_submissions, yank_analysis)
+    plot_mean_relative_efficiencies(main_submissions, yank_analysis)
     # print_relative_efficiency_table(main_submissions, yank_analysis)
 
     # Plot nonequilibrium-switching single-direction estimator.
