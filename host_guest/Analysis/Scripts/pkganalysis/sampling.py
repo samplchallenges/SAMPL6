@@ -381,6 +381,61 @@ class YankSamplingAnalysis:
         # Export.
         export_dictionary(exported_data, file_base_path)
 
+    def export_by_submission(self, file_base_path, submission):
+        """Export YANK data only for those energy evaluations available in submission.
+
+        Parameters
+        ----------
+        file_base_path : str
+            The extension-less path where to save the file.
+
+        """
+        submission_system_names = submission.data['System name'].unique()
+
+        # Find maximum number of energy evaluations by system name.
+        system_energy_evaluations = {}
+        for system_name in self.system_names:
+            if system_name not in submission_system_names:
+                continue
+            system_energy_evaluations[system_name] = int(submission.cost.loc[system_name + '-0', 'N energy evaluations'])
+
+        # Create dictionary that will be converted to pandas dataframe.
+        exported_data = collections.OrderedDict()
+
+        # Export data of 5 replicates
+        for system_id in sorted(self._yank_free_energies):
+            # Skip this if the submission has no data for this system.
+            system_name = system_id[:-2]
+            try:
+                n_energy_evaluations = system_energy_evaluations[system_name]
+            except KeyError:
+                continue
+
+            system_id_data = self.get_free_energies_from_energy_evaluations(
+                n_energy_evaluations, system_id=system_id, mean_trajectory=False)
+            exported_data[system_id] = collections.OrderedDict([
+                ('DG', system_id_data[DG_KEY].values.tolist()),
+                ('dDG', system_id_data[DDG_KEY].values.tolist()),
+                ('hrex_iterations', system_id_data['HREX iteration'].values.tolist()),
+                ('n_energy_evaluations', system_id_data['N energy evaluations'].values.tolist()),
+                ('cpu_times', system_id_data['CPU time [s]'].values.tolist()),
+            ])
+
+        # Export data of mean trajectory and confidence intervals.
+        for system_name, n_energy_evaluations in system_energy_evaluations.items():
+            system_name_data = self.get_free_energies_from_energy_evaluations(
+                n_energy_evaluations, system_name=system_name, mean_trajectory=True)
+            exported_data[system_name + '-mean'] = collections.OrderedDict([
+                ('DG', system_name_data[DG_KEY].values.tolist()),
+                ('DG_CI', system_name_data['$\Delta$G CI'].values.tolist()),
+                ('hrex_iterations', system_name_data['HREX iteration'].values.tolist()),
+                ('n_energy_evaluations', system_name_data['N energy evaluations'].values.tolist()),
+            ])
+
+        # Export.
+        export_dictionary(exported_data, file_base_path)
+
+
     def get_system_iterations(self, system_id):
         return sorted(self._yank_free_energies[system_id])
 

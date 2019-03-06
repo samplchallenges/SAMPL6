@@ -198,7 +198,7 @@ def plot_mean_free_energy(mean_data, ax, x='Simulation percentage',
     return ax
 
 
-def plot_mean_data(mean_data, axes, color, label, x='N energy evaluations',
+def plot_mean_data(mean_data, axes, color=None, label=None, x='N energy evaluations',
                    zorder=None, plot_std=True, plot_bias=True, plot_ci=True):
     """Plot free energy, variance and bias as a function of the cost in three different axes."""
     # Do not plot the part of data without index.
@@ -848,6 +848,54 @@ def plot_yank_bias():
     plt.savefig(output_file_path + '.png', dpi=600)
 
 
+def plot_equilibration_methods():
+    """Plot the different trajectories obtained through the reduced potential and instantaneous work equilibration."""
+    sns.set_context('paper', font_scale=1.2)
+
+    yank_analysis_potential = YankSamplingAnalysis(YANK_ANALYSIS_DIR_PATH)
+    yank_analysis_work = YankSamplingAnalysis('YankAnalysis/Sampling_instantaneouswork/')
+
+    fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(7.25, 8))
+
+    ylimits = {
+        'CB8-G3': (-12.5, -10.5),
+        'OA-G3': (-8, -6),
+        'OA-G6': (-8, -6)
+    }
+
+    palette = sns.color_palette('tab10', n_colors=2)
+
+    for col_idx, system_name in enumerate(['CB8-G3', 'OA-G3', 'OA-G6']):
+        for i, (label, yank_analysis) in enumerate([
+            ('potential', yank_analysis_potential),
+            ('average instantaneous work', yank_analysis_work)
+        ]):
+            # mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
+            mean_data = yank_analysis.get_free_energies_from_iteration(
+                YANK_N_ITERATIONS, system_name=system_name, mean_trajectory=True)
+            plot_mean_data(mean_data, axes[:,col_idx], x='HREX iteration', color=palette[i], label=label,
+                           plot_std=True, plot_bias=True, plot_ci=True)
+
+            # Set labels and limits.
+            ax = axes[0,col_idx]
+            ax.set_title(system_name)
+            ax.set_ylim(ylimits[system_name])
+
+    axes[0][0].set_ylabel('$\Delta$G [kcal/mol]')
+    axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
+    axes[2][0].set_ylabel('bias [kcal/mol]')
+    axes[-1,1].set_xlabel('N HREX iterations')
+
+    axes[0,0].legend(loc='upper right', bbox_to_anchor=(2.4, 1.48),
+                      fancybox=True, ncol=2)
+
+    # plt.show()
+    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure4-bias_hrex')
+    os.makedirs(figure_dir_path, exist_ok=True)
+    output_file_path = os.path.join(figure_dir_path, 'Figure4-instantaneous_work_equil')
+    plt.savefig(output_file_path + '.pdf')
+    # plt.savefig(output_file_path + '.png', dpi=600)
+
 # =============================================================================
 # RELATIVE EFFICIENCY ANALYSIS
 # =============================================================================
@@ -932,6 +980,7 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95):
             axes[row_idx][0].set_ylabel(statistic_name + ' rel eff')
             for col_idx in range(len(system_names)):
                 axes[row_idx][col_idx].set_ylim(statistic_ranges[statistic_name])
+        axes[-1][1].set_xlabel('Computational cost')
 
         fig.suptitle(submission.paper_name)
 
@@ -973,40 +1022,51 @@ def plot_mean_relative_efficiencies(submissions, yank_analysis, ci=0.95):
             mean_rel_eff = rel_eff.compute_mean_relative_efficiencies(
                 weighted=weighted, confidence_interval=ci,
                 n_bootstrap_samples=n_bootstrap_samples)
-            rel_efficiencies, cis = rel_efficiencies[:3], rel_efficiencies[3:]
+            mean_rel_eff, cis = mean_rel_eff[:3], mean_rel_eff[3:]
+
+            # Use the same asymptotic free energies to compute the absolute bias
+            # relative efficiency as a function of the simulation length.
+            asymptotic_free_energy_A = rel_eff.mean_c_A[-1]
+            asymptotic_free_energy_B = rel_eff.mean_c_B[-1]
 
             # Print relative efficiencies.
             print(system_name, weighted, ci)
             if ci is not None:
                 for rel_eff, bounds in zip(mean_rel_eff, cis):
-                    print('\t', rel_eff, bounds)
+                    print('\t', rel_eff, bounds.tolist())
             else:
                 for rel_eff in mean_rel_eff:
                     print('\t', rel_eff)
 
             # Compute mean efficiencies as a function of the length of the simulation.
-            n_costs = len(free_energy_ref.shape[1])
-            mean_relative_efficiencies = np.empty(shape=(3, n_costs))
-            low_bounds = np.empty(shape=(3, n_costs))
-            high_bounds = np.empty(shape=(3, n_costs))
-            for c in range(n_costs):
+            step = 2
+            n_costs = free_energy_ref.shape[1]
+            n_rel_eff = int(n_costs / step)
+            mean_relative_efficiencies = np.empty(shape=(3, n_rel_eff))
+            low_bounds = np.empty(shape=(3, n_rel_eff))
+            high_bounds = np.empty(shape=(3, n_rel_eff))
+
+            for i, c in enumerate(range(step-1, n_costs, step)):
                 c1 = c + 1
 
-                rel_eff = RelativeEfficiency(free_energy_ref[:,:c1], free_energy_sub[:,:c1])
+                rel_eff = RelativeEfficiency(free_energy_ref[:,:c1], free_energy_sub[:,:c1],
+                                             asymptotic_free_energy_A=asymptotic_free_energy_A,
+                                             asymptotic_free_energy_B=asymptotic_free_energy_B)
                 mean_rel_eff = rel_eff.compute_mean_relative_efficiencies(
                     weighted=weighted, confidence_interval=ci,
                     n_bootstrap_samples=n_bootstrap_samples)
 
                 # Update CI lower and upper bound.
-                mean_relative_efficiencies[:,c], cis = mean_rel_eff[:3], mean_rel_eff[3:]
+                mean_relative_efficiencies[:,i], cis = mean_rel_eff[:3], mean_rel_eff[3:]
                 if ci is not None:
-                    low_bounds[:,c]  = [x[0] for x in cis]
-                    high_bounds[:,c]  = [x[1] for x in cis]
+                    low_bounds[:,i]  = [x[0] for x in cis]
+                    high_bounds[:,i]  = [x[1] for x in cis]
 
             # Plot.
+            x = np.array(list(range(n_rel_eff))) * step
             for row_idx, rel_eff in enumerate(mean_relative_efficiencies):
                 ax = axes[row_idx][col_idx]
-                ax.plot(rel_eff)
+                ax.plot(x, rel_eff)
                 # Update data range.
                 statistic_range = statistic_ranges[statistic_names[row_idx]]
                 statistic_range[0] = min(statistic_range[0], min(rel_eff))
@@ -1016,7 +1076,7 @@ def plot_mean_relative_efficiencies(submissions, yank_analysis, ci=0.95):
                 # Plot confidence intervals.
                 for row_idx, (low_bound_c, high_bound_c) in enumerate(zip(low_bounds, high_bounds)):
                     ax = axes[row_idx][col_idx]
-                    ax.fill_between(range(len(low_bound_c)), low_bound_c, high_bound_c,
+                    ax.fill_between(x, low_bound_c, high_bound_c,
                                     alpha=0.35, color='gray')
 
         # Set labels and axes limits.
@@ -1026,6 +1086,7 @@ def plot_mean_relative_efficiencies(submissions, yank_analysis, ci=0.95):
             axes[row_idx][0].set_ylabel(statistic_name + ' mean rel eff')
             for col_idx in range(len(system_names)):
                 axes[row_idx][col_idx].set_ylim(statistic_ranges[statistic_name])
+        axes[-1][1].set_xlabel('Calculation length')
 
         fig.suptitle(submission.paper_name)
 
@@ -1423,6 +1484,9 @@ if __name__ == '__main__':
 
     # # Export YANK analysis and submissions to CSV/JSON tables.
     # yank_analysis.export(os.path.join(SAMPLING_DATA_DIR_PATH, 'reference_free_energies'))
+    # for s in main_submissions:
+    #     file_base_path = os.path.join(SAMPLING_DATA_DIR_PATH, s.receipt_id + '-reference')
+    #     yank_analysis.export_by_submission(file_base_path, s)
     # export_submissions(all_submissions, reference_free_energies)
 
     # Create figure with free energy, standard deviation, and bias as a function of computational cost.
@@ -1442,6 +1506,7 @@ if __name__ == '__main__':
 
     # Plot figure for HREX bias analysis.
     # plot_yank_bias()
+    # plot_equilibration_methods()
 
     # Plot individual trajectories.
     # plot_all_single_trajectories_figures(main_submissions, yank_analysis)
