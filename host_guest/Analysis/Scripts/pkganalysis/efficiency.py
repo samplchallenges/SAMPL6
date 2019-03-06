@@ -216,7 +216,6 @@ class RelativeEfficiency:
                 _generate_normal_abs_bias_mean_rel_eff_sample_arch,
                 _generate_normal_rmse_mean_rel_eff_sample_arch,
             ]):
-                print(func)
                 if statistic_idx == 0:
                     extra_kwargs = {}
                 else:
@@ -226,7 +225,7 @@ class RelativeEfficiency:
                     }
 
                 ci = bs.conf_int(
-                    func, reps=n_bootstrap_samples, method='bca',
+                    func, reps=n_bootstrap_samples, method='basic',
                     size=confidence_interval, sampling='parametric',
                     extra_kwargs={
                         'params_cache': {},
@@ -304,8 +303,8 @@ class RelativeEfficiency:
         if bias_B is None:
             bias_B = self.bias_c_B
 
-        rmse_A = np.sqrt(std_A**2, bias_A**2)
-        rmse_B = np.sqrt(std_B**2, bias_B**2)
+        rmse_A = np.sqrt(std_A**2 + bias_A**2)
+        rmse_B = np.sqrt(std_B**2 + bias_B**2)
 
         # Compute the relative efficiencies.
         relative_efficiencies = [
@@ -325,7 +324,6 @@ class RelativeEfficiency:
                 _generate_normal_abs_bias_rel_eff_sample_arch,
                 _generate_normal_rmse_rel_eff_sample_arch,
             ]):
-                print(func)
                 if statistic_idx == 0:
                     extra_kwargs = {}
                 else:
@@ -335,7 +333,7 @@ class RelativeEfficiency:
                     }
 
                 ci = bs.conf_int(
-                    func, reps=n_bootstrap_samples, method='bca',
+                    func, reps=n_bootstrap_samples, method='basic',
                     size=confidence_interval, sampling='parametric',
                     extra_kwargs={'params_cache': {}, **extra_kwargs},
                 )
@@ -439,8 +437,15 @@ def _compute_bias(mean_c, asymptotic_free_energy=None):
     return mean_c - asymptotic_free_energy
 
 
-def _compute_relative_efficiency(stats_c_A, stats_c_B):
+def _compute_relative_efficiency(stats_c_A, stats_c_B):#, discard_zeroes=True):
     """Encapsulate the definition of relative efficiency."""
+    # if discard_zeroes:
+    #     non_zero_indices = ~np.isclose(stats_c_A, 0.0)
+    #     stats_c_A = stats_c_A[non_zero_indices]
+    #     stats_c_B = stats_c_B[non_zero_indices]
+    #     non_zero_indices = ~np.isclose(stats_c_B, 0.0)
+    #     stats_c_A = stats_c_A[non_zero_indices]
+    #     stats_c_B = stats_c_B[non_zero_indices]
     # return stats_c_A / stats_c_B
     return stats_c_A - stats_c_B
 
@@ -992,6 +997,7 @@ def _generate_normal_abs_bias_rel_eff_sample_arch(
     # bias to avoid numerical instabilities in the BCa method.
     if asymptotic_free_energy_A is None or asymptotic_free_energy_B is None:
         abs_bias_rel_eff = abs_bias_rel_eff[:-1]
+
     return abs_bias_rel_eff
 
 
