@@ -15,7 +15,7 @@ import pandas as pd
 from simtk import unit
 
 from pkganalysis.submission import load_submissions
-from pkganalysis.unbiasedanalyzer import analyze_directory, BARAnalyzer
+from pkganalysis.unbiasedanalyzer import analyze_directory, BARAnalyzer, InstantaneousWorkAnalyzer
 from pkganalysis.sampling import (SamplingSubmission, energy_evaluations_iteration_cutoffs,
                                   cpu_time_iteration_cutoffs, get_iteration_cutoffs,
                                   YANK_N_ITERATIONS)
@@ -301,7 +301,7 @@ def get_computed_free_energies(system_id, dir_path=SAMPLING_ANALYSIS_DIR_PATH, c
 # MAIN
 # =============================================================================
 
-def analyze_yank(jobid, jobspersystem, cleanup=False, dry_run=False):
+def analyze_yank(jobid, jobspersystem, cleanup=False, dry_run=False, analyzer_class=None):
     """Analyze YANK at all the submitted wall-clock times/number of energy evaluations."""
     # Determine the iterations at which to analyze the YANK calculations.
     systems_iteration_cutoffs = generate_iteration_cutoffs()
@@ -347,7 +347,8 @@ def analyze_yank(jobid, jobspersystem, cleanup=False, dry_run=False):
         # Analyze all iterations.
         free_energies = analyze_directory(experiment_directory,
                                           distance_cutoffs=distance_cutoff,
-                                          iteration_cutoffs=iteration_cutoffs)
+                                          iteration_cutoffs=iteration_cutoffs,
+                                          analyzer_class=analyzer_class)
 
         # Store analysis results.
         free_energies = {i: f for i, f in zip(iteration_cutoffs, free_energies)}
@@ -448,7 +449,7 @@ def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False, analyz
 
         # Analyze all iterations.
         free_energies = analyze_directory(experiment_directory,
-                                          min_n_iterations=starting_iteration,
+                                          n_discarded_initial_iterations=starting_iteration,
                                           distance_cutoffs=distance_cutoff,
                                           iteration_cutoffs=iteration_cutoffs,
                                           analyzer_class=analyzer_class)
@@ -470,6 +471,8 @@ if __name__ == '__main__':
 
     # Run YANK analysis.
     # analyze_yank(args.jobid, args.jobspersystem, cleanup=True, dry_run=True)
+    analyze_yank(args.jobid, args.jobspersystem, cleanup=True, dry_run=True,
+                 analyzer_class=InstantaneousWorkAnalyzer)
 
     # Collect data for YANK restraint sensitivity analysis.
     system_id = SYSTEM_IDS[args.jobid-1]

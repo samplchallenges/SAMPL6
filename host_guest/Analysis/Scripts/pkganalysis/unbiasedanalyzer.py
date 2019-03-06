@@ -84,6 +84,7 @@ def compute_centroid_distance(positions_group1, positions_group2, weights_group1
 
 # Dictionary cached_value: list of cache_values to invalidate.
 _CACHE_VALUES_DEPENDENCIES = dict(
+    n_discarded_initial_iterations=['equilibration_data'],
     min_n_iterations=['equilibration_data'],
     max_n_iterations=['equilibration_data'],
     equilibration_data=['state_indices_kn', 'uncorrelated_u_kn', 'uncorrelated_N_k'],
@@ -101,7 +102,8 @@ _CACHE_VALUES_DEPENDENCIES = dict(
 class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
 
     def __init__(self, *args, restraint_energy_cutoff=None, restraint_distance_cutoff=None,
-                 min_n_iterations=0, max_n_iterations=None, **kwargs):
+                 min_n_iterations=0, max_n_iterations=None, n_discarded_initial_iterations=None,
+                 **kwargs):
         # Cached values that are read directly from the Reporter.
         self._n_iterations = None
         self._n_replicas = None
@@ -118,6 +120,7 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
         if max_n_iterations is not None:
             self.max_n_iterations = max_n_iterations
         self.min_n_iterations = min_n_iterations
+        self.n_discarded_initial_iterations = n_discarded_initial_iterations
         self.restraint_energy_cutoff = restraint_energy_cutoff
         self.restraint_distance_cutoff = restraint_distance_cutoff
 
@@ -166,6 +169,7 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
             new_value = instance.n_iterations
         return new_value
 
+    n_discarded_initial_iterations = _CachedProperty('n_discarded_initial_iterations', check_changes=True)
     min_n_iterations = _CachedProperty('min_n_iterations', check_changes=True)
     max_n_iterations = _CachedProperty('max_n_iterations', validator=_max_n_iterations_validator.__func__,
                                        default_func=lambda instance: instance.n_iterations,
@@ -173,24 +177,47 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
     restraint_energy_cutoff = _CachedProperty('restraint_energy_cutoff')
     restraint_distance_cutoff = _CachedProperty('restraint_distance_cutoff')
 
-    def _get_equilibration_data_auto(self, input_data=None):
-        """Modify original to discard minimization frame, log the number of discarded equilibration and keep max_n_iterations into account."""
-        if input_data is None:
-            input_data, _ = self.get_states_energies()
+    def _automatic_equilibration_detection(self, input_data):
+        """Perform automatic equilibration detection and set equilibration_data."""
         u_n = self.get_timeseries(input_data[:, :, self.min_n_iterations:self.max_n_iterations+1])
+
         # Discard equilibration samples.
         # TODO: if we include u_n[0] (the energy right after minimization) in the equilibration detection,
         # TODO:         then number_equilibrated is 0. Find a better way than just discarding first frame.
         if self.min_n_iterations == 0:
             u_n = u_n[1:]
         equilibration_data = list(analyze.get_equilibration_data(u_n))
-        # Discard also minimization frame.
+
+        # Discard also minimization frame or minimum number of frames.
         if self.min_n_iterations == 0:
             equilibration_data[0] += 1
         else:
             equilibration_data[0] += self.min_n_iterations
+
         self._equilibration_data = tuple(equilibration_data)
-        logger.debug('Equilibration data: {}'.format(equilibration_data))
+        return self._equilibration_data
+
+    def _get_equilibration_data_auto(self, input_data=None):
+        """Modify original to discard minimization frame, log the number of discarded equilibration and keep max_n_iterations into account."""
+        if input_data is None:
+            input_data, _ = self.get_states_energies()
+
+        # Check if we need to perform automatic equilibration detection or if the
+        # user has already provided a number of initial iterations to discard.
+        if self.n_discarded_initial_iterations is None:
+            # Automatic equilibration detection.
+            self._automatic_equilibration_detection(input_data)
+        else:
+            u_n = self.get_timeseries(input_data[:, :, self.n_discarded_initial_iterations:self.max_n_iterations+1])
+            # We set n_equilibration_iterations = n_discarded_initial_iterations
+            # and we just compute the statistical inefficiency and the number of
+            # effective samples starting from this iteration.
+            n_equilibration_iterations = self.n_discarded_initial_iterations
+            statistical_inefficiency = pymbar.timeseries.statisticalInefficiency(u_n)
+            n_effective_samples = len(u_n) / statistical_inefficiency
+            self._equilibration_data = (n_equilibration_iterations, statistical_inefficiency, n_effective_samples)
+
+        logger.debug('Equilibration data: {}'.format(self._equilibration_data))
         return self._equilibration_data
 
     _equilibration_data = _CachedProperty('equilibration_data', check_changes=True,
@@ -747,6 +774,40 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
 
 
 # =============================================================================
+# ANALYZER FOR AUTOCORRELATION ANALYSIS WITH INSTANTANEOUS WORK TIMESERIES
+# =============================================================================
+
+class InstantaneousWorkAnalyzer(UnbiasedAnalyzer):
+
+    def _automatic_equilibration_detection(self, input_data):
+        """Perform automatic equilibration detection using the instantaneous work values."""
+        # Compute timeseries of average instantaneous work w.r.t. neighbor states.
+        n_iterations = self.max_n_iterations + 1 - self.min_n_iterations
+        work_timeseries = np.zeros([n_iterations], dtype=input_data.dtype)
+
+        for iteration in range(self.min_n_iterations, self.max_n_iterations+1):
+            iteration_energies = input_data[:, :, iteration]
+            sampled_energies = np.diagonal(iteration_energies)
+            # Use forward/backward difference for first and last state.
+            forward_work = np.diagonal(iteration_energies, offset=1) - sampled_energies[:-1]
+            backward_work = np.diagonal(iteration_energies, offset=-1) - sampled_energies[1:]
+            avg_work = (forward_work[1:] - backward_work[:-1]) / 2
+            work_timeseries[iteration] = forward_work[0] + np.sum(avg_work) - backward_work[-1]
+
+        # Always throw away first frame (right after minimization).
+        if self.min_n_iterations == 0:
+            work_timeseries = work_timeseries[1:]
+        equilibration_data = list(pymbar.timeseries.detectEquilibration(work_timeseries))
+        if self.min_n_iterations == 0:
+            equilibration_data[0] += 1
+        else:
+            equilibration_data[0] += self.min_n_iterations
+
+        self._equilibration_data = tuple(equilibration_data)
+        return self._equilibration_data
+
+
+# =============================================================================
 # ANALYZER TO ANALYZE WITH BAR
 # =============================================================================
 
@@ -770,6 +831,9 @@ class MultiBAR:
         self.N_k = N_k
 
         # Determine number of states and iterations.
+        # TODO: this is wrong. The only way to associate each sample
+        #   to each state is to check N_k. For example, the first N_k[0]
+        #   iterations are from state 0.
         self.n_states = u_kn.shape[0]
         n_iterations = u_kn.shape[1] / self.n_states
         assert float(n_iterations).is_integer(), (u_kn.shape, self.n_states, n_iterations, N_k.shape)
@@ -828,7 +892,7 @@ def analyze_phase(analyzer):
 
 
 def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=None,
-                      iteration_cutoffs=None, min_n_iterations=0,
+                      iteration_cutoffs=None, n_discarded_initial_iterations=None,
                       solvent_df=None, solvent_ddf=None, analyzer_class=None):
     if analyzer_class is None:
         analyzer_class = UnbiasedAnalyzer
@@ -885,7 +949,7 @@ def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=No
             continue
 
         # Create kwargs to feed to unbiased analyzer.
-        analyzer_kwargs = {'min_n_iterations': min_n_iterations}
+        analyzer_kwargs = {'n_discarded_initial_iterations': n_discarded_initial_iterations}
         if phase_name == 'complex':
             if 'energy' not in cutoff_attribute:
                 analyzer_kwargs['restraint_energy_cutoff'] = energy_cutoffs
