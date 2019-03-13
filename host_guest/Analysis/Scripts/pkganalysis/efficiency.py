@@ -11,6 +11,7 @@ import copy
 
 import numpy as np
 import scipy as sp
+import arch.bootstrap
 
 
 # =============================================================================
@@ -62,7 +63,7 @@ def discard_initial_zeros(free_energy_A, free_energy_B):
 # MAIN CLASS
 # =============================================================================
 
-class RelativeEfficiency:
+class EfficiencyAnalysis:
     """Utility class for the calculation of relative efficiency statistics.
 
     Parameters
@@ -81,28 +82,58 @@ class RelativeEfficiency:
         If given, this will be used as the asymptotic free energy of
         method B to compute the bias. Otherwise, this is estimated
         as free_energy_B.mean(0)[-1].
+    model : 'normal' or None
+        If 'normal', the distribution of free_energy_X[:,c] at a fixed
+        computational cost will be assumed to be normal, and parametric
+        bootstrapping will be used. This has the disadvantage of ignoring
+        eventual correlations between consecutive data points of the
+        free energy trajectories, but it may model the tails of the
+        distribution better when the number of independent trajectories
+        is low.
 
     """
 
     def __init__(
             self, free_energy_A, free_energy_B,
             asymptotic_free_energy_A=None,
-            asymptotic_free_energy_B=None
+            asymptotic_free_energy_B=None,
+            model=None,
     ):
         # Check that all means and stds have the same number of data points.
         shapes = {x.shape for x in [free_energy_A, free_energy_B]}
         if len(shapes) != 1:
             raise ValueError('free_energy_A and free_energy_B must have the same shape')
 
+        if model not in {None, self._NORMAL_MODEL}:
+            raise ValueError('model must be None or {}'.format(self._NORMAL_MODEL))
+
         self._free_energy_A = free_energy_A
         self._free_energy_B = free_energy_B
-        self.asymptotic_free_energy_A = asymptotic_free_energy_A
-        self.asymptotic_free_energy_B = asymptotic_free_energy_B
+        self._asymptotic_free_energy_A = asymptotic_free_energy_A
+        self._asymptotic_free_energy_B = asymptotic_free_energy_B
+        self._model = model
 
     @property
-    def n_replicates(self):
-        """The number of replicate free energy trajectories."""
+    def n_replicates_A(self):
+        """The number of replicate free energy trajectories for method A."""
         return self._free_energy_A.shape[0]
+
+    @property
+    def n_replicates_B(self):
+        """The number of replicate free energy trajectories for method B."""
+        return self._free_energy_B.shape[0]
+
+    @property
+    def asymptotic_free_energy_A(self):
+        """The asymptotic free energy for method A."""
+        return _estimate_asymptotic_free_energy(
+            self._free_energy_A, self._asymptotic_free_energy_A)
+
+    @property
+    def asymptotic_free_energy_B(self):
+        """The asymptotic free energy for method B."""
+        return _estimate_asymptotic_free_energy(
+            self._free_energy_B, self._asymptotic_free_energy_B)
 
     @property
     def mean_c_A(self):
@@ -120,279 +151,153 @@ class RelativeEfficiency:
     def std_c_A(self):
         """std_c_A[c] is the standard deviation of the free energy estimate
         computed by method A at the c-th computational cost."""
-        return _compute_normal_unbiased_std(self._free_energy_A)
+        if self._model == self._NORMAL_MODEL:
+            return _normal_unbiased_std(self._free_energy_A)
+        return self._free_energy_A.std(axis=0, ddof=1)
 
     @property
     def std_c_B(self):
         """std_c_B[c] is the standard deviation of the free energy estimate
         computed by method B at the c-th computational cost."""
-        return _compute_normal_unbiased_std(self._free_energy_B)
+        if self._model == self._NORMAL_MODEL:
+            return _normal_unbiased_std(self._free_energy_B)
+        return self._free_energy_B.std(axis=0, ddof=1)
+
+    @property
+    def var_c_A(self):
+        """var_c_A[c] is the variance of the free energy estimate
+        computed by method A at the c-th computational cost."""
+        return self._free_energy_A.var(axis=0, ddof=1)
+
+    @property
+    def var_c_B(self):
+        """var_c_B[c] is the variance of the free energy estimate
+        computed by method B at the c-th computational cost."""
+        return self._free_energy_B.var(axis=0, ddof=1)
 
     @property
     def bias_c_A(self):
         """bias_c_A[c] is the bias of the free energy estimates computed
         by method A at the c-th computational cost."""
-        mean_c_A = self.mean_c_A
-        if self.asymptotic_free_energy_A is None:
-            return mean_c_A - mean_c_A[-1]
-        return mean_c_A - self.asymptotic_free_energy_A
+        return _bias(self.mean_c_A, self.asymptotic_free_energy_A)
 
     @property
     def bias_c_B(self):
         """bias_c_B[c] is the bias of the free energy estimates computed
-        by method A at the c-th computational cost."""
-        mean_c_B = self.mean_c_B
-        if self.asymptotic_free_energy_B is None:
-            return mean_c_B - mean_c_B[-1]
-        return mean_c_B - self.asymptotic_free_energy_B
+        by method B at the c-th computational cost."""
+        return _bias(self.mean_c_B, self.asymptotic_free_energy_B)
 
-    def compute_mean_relative_efficiencies(
+    def compute_std_relative_efficiency(
             self,
-            weighted=True,
-            n_bootstrap_samples=10000,
             confidence_interval=None,
+            n_bootstrap_samples=10000,
     ):
-        """Compute the arithmetic mean relative std, absolute bias, and RMSD efficiency for the data.
+        std_relative_efficiency = _std_relative_efficiency(
+            self._free_energy_A, self._free_energy_B)
 
-        Parameters
-        ----------
-        weighted : bool, optional
-            If True, the mean is weighted by the inverse variance of the
-            efficiency.
-        confidence_interval : float or None
-            The inter-percentile range used for the confidence interval. If
-            None, no confidence interval is returned. Default is None.
-        n_bootstrap_samples : int, optional
-            The number of bootstrap samples per computational cost used to
-            compute the mean weights and the mean relative efficiencies confidence
-            intervals. Default is 10000.
-
-        Returns
-        -------
-        std_mean_efficiency : float
-            The mean std relative efficiency.
-        abs_bias_mean_efficiency : float
-            The mean absolute bias relative efficiency.
-        rmse_mean_efficiency : float
-            The mean RMSE relative efficiency.
-        std_mean_efficiency_CI : List[float], optional
-            If confidence_interval is not None, this is the pair (low_bound, high_bound)
-            defining the bootstrap confidence interval of the std mean relative
-            efficiency computed with bootstrapping.
-        abs_bias_mean_efficiency_CI : List[float], optional
-            If confidence_interval is not None, this is the pair (low_bound, high_bound)
-            defining the bootstrap confidence interval of the absolute bias mean relative
-            efficiency computed with bootstrapping.
-        rmse_mean_efficiency_CI : List[float], optional
-            If confidence_interval is not None, this is the pair (low_bound, high_bound)
-            defining the bootstrap confidence interval of the RMSE mean relative
-            efficiency computed with bootstrapping.
-
-        """
-        # Compute relative efficiencies.
-        relative_efficiencies = self.compute_relative_efficiencies()
-
-        # Generate mean weights with bootstrapping if required.
-        if weighted:
-            statistics_weights = self.compute_relative_efficiencies_mean_weights(
-                n_bootstrap_samples)
+        if self._model == self._NORMAL_MODEL:
+            bootstrap_func = _generate_normal_std_rel_eff_sample_arch
+            sampling = 'parametric'
         else:
-            statistics_weights = [None for _ in relative_efficiencies]
+            bootstrap_func = _std_relative_efficiency
+            sampling = 'nonparametric'
 
-        # Compute mean relative efficiencies.
-        mean_efficiencies = []
-        for rel_eff_c, weights in zip(relative_efficiencies, statistics_weights):
-            mean_eff = np.average(rel_eff_c, weights=weights)
-            mean_efficiencies.append(mean_eff)
-
-        # Compute confidence intervals.
-        confidence_intervals = []
         if confidence_interval is not None:
-            from arch.bootstrap import IIDBootstrap
-            bs = IIDBootstrap(self._free_energy_A, self._free_energy_B)
+            ci = self._compute_rel_eff_ci(
+                bootstrap_func, sampling, confidence_interval,
+                n_bootstrap_samples, include_asymptotic=False
+            )
+            return std_relative_efficiency, ci
+        return std_relative_efficiency
 
-            for statistic_idx, func in enumerate([
-                _generate_normal_std_mean_rel_eff_sample_arch,
-                _generate_normal_abs_bias_mean_rel_eff_sample_arch,
-                _generate_normal_rmse_mean_rel_eff_sample_arch,
-            ]):
-                if statistic_idx == 0:
-                    extra_kwargs = {}
-                else:
-                    extra_kwargs = {
-                        'asymptotic_free_energy_A': self.asymptotic_free_energy_A,
-                        'asymptotic_free_energy_B': self.asymptotic_free_energy_B,
-                    }
-
-                ci = bs.conf_int(
-                    func, reps=n_bootstrap_samples, method='basic',
-                    size=confidence_interval, sampling='parametric',
-                    extra_kwargs={
-                        'params_cache': {},
-                        'weights': statistics_weights[statistic_idx],
-                        **extra_kwargs
-                    },
-                )
-                confidence_intervals.append(ci)
-
-        return mean_efficiencies + confidence_intervals
-
-    def compute_relative_efficiencies(
+    def compute_abs_bias_relative_efficiency(
             self,
-            std_A=None, bias_A=None,
-            std_B=None, bias_B=None,
             confidence_interval=None,
             n_bootstrap_samples=10000,
     ):
-        """Compute std, absolute bias, and RMSE relative effiencies for all computational costs.
+        abs_bias_relative_efficiency = _abs_bias_relative_efficiency(
+            self._free_energy_A, self._free_energy_B,
+            self.asymptotic_free_energy_A,
+            self.asymptotic_free_energy_B
+        )
 
-        Parameters
-        ----------
-        std_A : np.ndarray, optional
-            This can be a 1D or 2D array of standard deviations for method A.
-            If 1D, std_c[c] could be the standard deviation of the free energy
-            estimate at the c-th computational cost. If 2D, std_c[i][c] is
-            the i-th bootstrap sample for the c-th computational cost. If not
-            given self.std_c_A is used.
-        std_B : np.ndarray, optional
-            1D or 2D array of standard deviation for method B. If not given
-            self.std_c_B is used.
-        bias_A : np.ndarray, optional
-            1D or 2D array of biases for method A. If not given self.bias_c_A
-            is used.
-        bias_B : np.ndarray, optional
-            1D or 2D array of biases for method B. If not given self.bias_c_B
-            is used.
-        confidence_interval : float or None
-            The inter-percentile range used for the confidence interval. If
-            None, no confidence interval is returned. Default is None.
-        n_bootstrap_samples : int, optional
-            The number of bootstrap samples per computational cost used to
-            compute the mean weights and the mean relative efficiencies confidence
-            intervals. Default is 10000.
+        if self._model == self._NORMAL_MODEL:
+            bootstrap_func = _generate_normal_abs_bias_rel_eff_sample_arch
+            sampling = 'parametric'
+        else:
+            bootstrap_func = _abs_bias_relative_efficiency
+            sampling = 'nonparametric'
 
-        Returns
-        -------
-        std_efficiencies : np.ndarray
-            The array of std relative efficiencies. The shape is the same as std.
-        abs_bias_efficiencies : np.ndarray
-            The array of absolute bias relative efficiencies. The shape is the
-            same as std.
-        rmse_efficiencies : np.ndarray
-            The array of RMSE relative efficiencies. The shape is the same as std.
-        std_efficiency_CI : List[float], optional
-            If confidence_interval is not None, this is the pair (low_bound, high_bound)
-            defining the bootstrap confidence interval of the std mean relative
-            efficiency computed with bootstrapping.
-        abs_bias_efficiency_CI : List[float], optional
-            If confidence_interval is not None, this is the pair (low_bound, high_bound)
-            defining the bootstrap confidence interval of the absolute bias mean relative
-            efficiency computed with bootstrapping.
-        rmse_efficiency_CI : List[float], optional
-            If confidence_interval is not None, this is the pair (low_bound, high_bound)
-            defining the bootstrap confidence interval of the RMSE mean relative
-            efficiency computed with bootstrapping.
-
-        """
-        if std_A is None:
-            std_A = self.std_c_A
-        if bias_A is None:
-            bias_A = self.bias_c_A
-        if std_B is None:
-            std_B = self.std_c_B
-        if bias_B is None:
-            bias_B = self.bias_c_B
-
-        rmse_A = np.sqrt(std_A**2 + bias_A**2)
-        rmse_B = np.sqrt(std_B**2 + bias_B**2)
-
-        # Compute the relative efficiencies.
-        relative_efficiencies = [
-            _compute_relative_efficiency(std_A, std_B),
-            _compute_relative_efficiency(np.abs(bias_A), np.abs(bias_B)),
-            _compute_relative_efficiency(rmse_A, rmse_B)
-        ]
-
-        # Compute confidence intervals.
-        confidence_intervals = []
         if confidence_interval is not None:
-            from arch.bootstrap import IIDBootstrap
-            bs = IIDBootstrap(self._free_energy_A, self._free_energy_B)
+            ci = self._compute_rel_eff_ci(
+                bootstrap_func, sampling, confidence_interval,
+                n_bootstrap_samples, include_asymptotic=True
+            )
+            return abs_bias_relative_efficiency, ci
+        return abs_bias_relative_efficiency
 
-            for statistic_idx, func in enumerate([
-                _generate_normal_std_rel_eff_sample_arch,
-                _generate_normal_abs_bias_rel_eff_sample_arch,
-                _generate_normal_rmse_rel_eff_sample_arch,
-            ]):
-                if statistic_idx == 0:
-                    extra_kwargs = {}
-                else:
-                    extra_kwargs = {
-                        'asymptotic_free_energy_A': self.asymptotic_free_energy_A,
-                        'asymptotic_free_energy_B': self.asymptotic_free_energy_B,
-                    }
+    def compute_rmse_relative_efficiency(
+            self,
+            confidence_interval=None,
+            n_bootstrap_samples=10000,
+    ):
+        rmse_bias_relative_efficiency = _rmse_relative_efficiency(
+            self._free_energy_A, self._free_energy_B,
+            self.asymptotic_free_energy_A,
+            self.asymptotic_free_energy_B
+        )
 
-                ci = bs.conf_int(
-                    func, reps=n_bootstrap_samples, method='basic',
-                    size=confidence_interval, sampling='parametric',
-                    extra_kwargs={'params_cache': {}, **extra_kwargs},
-                )
-                confidence_intervals.append(ci)
+        if self._model == self._NORMAL_MODEL:
+            bootstrap_func = _generate_normal_rmse_rel_eff_sample_arch
+            sampling = 'parametric'
+        else:
+            bootstrap_func = _rmse_relative_efficiency
+            sampling = 'nonparametric'
 
-        return relative_efficiencies + confidence_intervals
+        if confidence_interval is not None:
+            ci = self._compute_rel_eff_ci(
+                bootstrap_func, sampling, confidence_interval,
+                n_bootstrap_samples, include_asymptotic=True
+            )
+            return rmse_bias_relative_efficiency, ci
+        return rmse_bias_relative_efficiency
 
-    def compute_relative_efficiencies_mean_weights(self, n_bootstrap_samples=10000):
-        """
-        Compute the weights to compute the mean relative efficiencies.
+    def _compute_rel_eff_ci(
+            self, arch_func, sampling, confidence_interval,
+            n_bootstrap_samples, include_asymptotic
+    ):
+        """Shortcut to compute a CI with arch.bootstrap."""
+        bs = _IIDBootstrapNotEqual(self._free_energy_A, self._free_energy_B)
 
-        Parameters
-        ----------
-        n_bootstrap_samples : int, optional
-            The number of bootstrap samples per computational cost used to
-            compute the mean weights and the mean relative efficiencies confidence
-            intervals. Default is 10000.
+        # Configure extra keyword arguments for arch_func.
+        kwargs = {}
+        if self._model == self._NORMAL_MODEL:
+            kwargs['params_cache'] = {}
+        if include_asymptotic:
+            kwargs['asymptotic_free_energy_A'] = self.asymptotic_free_energy_A
+            kwargs['asymptotic_free_energy_B'] = self.asymptotic_free_energy_B
 
-        Returns
-        -------
-        std_efficiency_weights_c : numpy.ndarray
-        abs_bias_efficiency_weights_c : numpy.ndarray
-        rmse_efficiency_weights_c : numpy.ndarray
-            X_efficiency_weights_c[c] is the mean weight for the c-th
-            computational cost for the standard deviation, absolute bias
-            and RMSE relative efficiencies.
+        if len(kwargs) == 0:
+            kwargs = None
 
-        """
-        # Generate relative efficiency bootstrap distributions.
-        bootstrap_distributions = []
-        for method in ['A', 'B']:
-            std_c = getattr(self, 'std_c_' + method)
-            mean_c = getattr(self, 'mean_c_' + method)
-            asymptotic_free_energy = getattr(self, 'asymptotic_free_energy_' + method)
+        ci = bs.conf_int(
+            arch_func, reps=n_bootstrap_samples, method='bca',
+            size=confidence_interval, sampling=sampling,
+            extra_kwargs=kwargs
+        )
+        # Convert shape from (2,1) to (2,)
+        assert ci.shape == (2, 1)
+        return np.array([ci[0][0], ci[1][0]])
 
-            # Generate std and abs bias bootstrap distributions.
-            bootstrap_std_c = _generate_normal_std_sample(
-                std_c, self.n_replicates, n_bootstrap_samples)
-            bootstrap_abs_bias_c = _generate_normal_abs_bias_sample(
-                mean_c, std_c, self.n_replicates, asymptotic_free_energy, n_bootstrap_samples)
+    # Class constants
+    _NORMAL_MODEL = 'normal'
 
-            # Update args to pass to compute_relative_efficiencies().
-            bootstrap_distributions.extend((bootstrap_std_c, bootstrap_abs_bias_c))
-
-        # Compute relative efficiency bootstrap distributions.
-        bootstrap_rel_effs = self.compute_relative_efficiencies(*bootstrap_distributions)
-
-        # Compute weights.
-        statistics_weights = []
-        for bootstrap_rel_eff in bootstrap_rel_effs:
-            statistics_weights.append(_compute_inverse_variance_weights(bootstrap_rel_eff))
-
-        return statistics_weights
 
 # =============================================================================
-# Internal-usage utility functions
+# Basic statistics utilities
 # =============================================================================
 
-def _compute_normal_unbiased_std(data):
+def _normal_unbiased_std(data):
     """Return the unbiased estimate of the standard deviation assuming normal distribution.
 
     The sqrt of the Bessel-corrected variance is a biased estimate of
@@ -430,82 +335,136 @@ def _compute_normal_unbiased_std(data):
     return k_n * bessel_std
 
 
-def _compute_bias(mean_c, asymptotic_free_energy=None):
+def _bias(mean_c, asymptotic_free_energy=None):
     """Compute the bias from the mean."""
-    if asymptotic_free_energy is None:
-        asymptotic_free_energy = mean_c[-1]
+    asymptotic_free_energy = _estimate_asymptotic_free_energy(
+        mean_c, asymptotic_free_energy)
     return mean_c - asymptotic_free_energy
 
 
-def _compute_relative_efficiency(stats_c_A, stats_c_B):#, discard_zeroes=True):
-    """Encapsulate the definition of relative efficiency."""
-    # if discard_zeroes:
-    #     non_zero_indices = ~np.isclose(stats_c_A, 0.0)
-    #     stats_c_A = stats_c_A[non_zero_indices]
-    #     stats_c_B = stats_c_B[non_zero_indices]
-    #     non_zero_indices = ~np.isclose(stats_c_B, 0.0)
-    #     stats_c_A = stats_c_A[non_zero_indices]
-    #     stats_c_B = stats_c_B[non_zero_indices]
-    # return stats_c_A / stats_c_B
-    return stats_c_A - stats_c_B
+def _estimate_asymptotic_free_energy(data, asymptotic_free_energy=None):
+    """Shortcut to estimate the asymptotic free energy as mean_DG[-1] if asymptotic_free_energy is None.
+
+    Parameters
+    ----------
+    data : numpy.ndarray
+        If 2D this is handled as the free energy trajectories. If 1D
+        this is considered the mean free energy.
+
+    """
+    if asymptotic_free_energy is None:
+        if len(data.shape) == 2:
+            data = data.mean(axis=0)
+        return data[-1]
+    return asymptotic_free_energy
 
 
-def _compute_abs_bias_relative_efficiency(
+# =============================================================================
+# Relative efficiency definitions
+# =============================================================================
+
+def _relative_efficiency(stats_A, stats_B):
+    """Encapsulate the definition of relative efficiency.
+
+    Parameters
+    ----------
+    stats_A : np.ndarray
+    stats_B : np.ndarray
+        If 1D, stats_A[c] is the statistic at the c-th computational cost.
+        If 2D, stats_A[r][c] is the r-th bootstrap sample of the statistic
+        at the c-th computational cost.
+
+    """
+    assert stats_A.shape == stats_B.shape
+    # Check if this is a bootstrapped version or not.
+    if len(stats_A.shape) == 1:
+        axis = None  # sum
+        axis = -1  # trapz
+    else:
+        axis = 1
+
+    # sum_A = np.sum(stats_A, axis=axis)
+    # sum_B = np.sum(stats_B, axis=axis)
+    sum_A = sp.integrate.trapz(stats_A, axis=axis)
+    sum_B = sp.integrate.trapz(stats_B, axis=axis)
+    return sum_A / sum_B
+
+
+def _std_relative_efficiency(free_energy_A, free_energy_B, model=None):
+    """Shortcut to compute the standard deviation relative efficiency from the free energy trajectories."""
+    if model == 'normal':
+        std_c_A = _normal_unbiased_std(free_energy_A)
+        std_c_B = _normal_unbiased_std(free_energy_B)
+    else:
+        assert model is None
+        std_c_A = np.std(free_energy_A, axis=0, ddof=1)
+        std_c_B = np.std(free_energy_B, axis=0, ddof=1)
+    return _relative_efficiency(std_c_A, std_c_B)
+
+
+def _abs_bias_relative_efficiency_from_params(
         mean_c_A, mean_c_B,
         asymptotic_free_energy_A=None,
         asymptotic_free_energy_B=None
 ):
-    bias_c_A = _compute_bias(mean_c_A, asymptotic_free_energy_A)
-    bias_c_B = _compute_bias(mean_c_B, asymptotic_free_energy_B)
-    return _compute_relative_efficiency(np.abs(bias_c_A), np.abs(bias_c_B))
+    """Shortcut to compute the absolute bias relative efficiency from mean and asymptotic free energy."""
+    bias_c_A = _bias(mean_c_A, asymptotic_free_energy_A)
+    bias_c_B = _bias(mean_c_B, asymptotic_free_energy_B)
+    return _relative_efficiency(np.abs(bias_c_A), np.abs(bias_c_B))
 
 
-def _compute_rmse_relative_efficiency(
-        mean_c_A, mean_c_B, std_c_A, std_c_B,
+def _abs_bias_relative_efficiency(
+        free_energy_A, free_energy_B,
         asymptotic_free_energy_A=None,
         asymptotic_free_energy_B=None
 ):
-    bias_c_A = _compute_bias(mean_c_A, asymptotic_free_energy_A)
-    bias_c_B = _compute_bias(mean_c_B, asymptotic_free_energy_B)
-    rmse_c_A = np.sqrt(std_c_A**2 + bias_c_A**2)
-    rmse_c_B = np.sqrt(std_c_B**2 + bias_c_B**2)
-    return _compute_relative_efficiency(rmse_c_A, rmse_c_B)
+    """Shortcut to compute the absolute bias relative efficiency from the free energy trajectories."""
+    mean_c_A = free_energy_A.mean(axis=0)
+    mean_c_B = free_energy_B.mean(axis=0)
+    return _abs_bias_relative_efficiency_from_params(
+        mean_c_A, mean_c_B, asymptotic_free_energy_A, asymptotic_free_energy_B)
 
 
-def _compute_inverse_variance_weights(efficiency_distribution):
-    """Compute the mean weights from the bootstrap distribution of the efficiency.
+def _rmse_relative_efficiency_from_params(
+        mean_c_A, mean_c_B, var_c_A, var_c_B,
+        asymptotic_free_energy_A=None,
+        asymptotic_free_energy_B=None
+):
+    """Shortcut to compute the RMSE relative efficiency from mean, var, and asymptotic free energy."""
+    bias_c_A = _bias(mean_c_A, asymptotic_free_energy_A)
+    bias_c_B = _bias(mean_c_B, asymptotic_free_energy_B)
+    rmse_c_A = np.sqrt(var_c_A + bias_c_A**2)
+    rmse_c_B = np.sqrt(var_c_B + bias_c_B**2)
+    return _relative_efficiency(rmse_c_A, rmse_c_B)
 
-    Parameters
-    ----------
-    efficiency_distribution : numpy.ndarray
-        efficiency_distribution[i][c] is the i-th bootstrap sample
-        relative efficiency generated at the c-th computational cost.
 
-    Returns
-    -------
-    efficiency_weights_c : numpy.ndarray
-        efficiency_weights_c[c] is the mean weight for the c-th
-        computational cost.
-
-    """
-
-    n_costs = efficiency_distribution.shape[1]
-    efficiency_vars = np.array([np.var(efficiency_distribution[:,c], ddof=1) for c in range(n_costs)])
-
-    # Compute the normalized weights.
-    efficiency_weights = 1 / efficiency_vars
-    efficiency_weights /= np.sum(efficiency_weights)
-    return efficiency_weights
+def _rmse_relative_efficiency(
+        free_energy_A, free_energy_B,
+        asymptotic_free_energy_A=None,
+        asymptotic_free_energy_B=None
+):
+    """Shortcut to compute the RMSE relative efficiency from the free energy trajectories."""
+    asymptotic_free_energy_A = _estimate_asymptotic_free_energy(
+        free_energy_A, asymptotic_free_energy_A)
+    asymptotic_free_energy_B = _estimate_asymptotic_free_energy(
+        free_energy_B, asymptotic_free_energy_B)
+    rmse_c_A = np.sqrt(np.mean((free_energy_A - asymptotic_free_energy_A)**2, axis=0))
+    rmse_c_B = np.sqrt(np.mean((free_energy_B - asymptotic_free_energy_B)**2, axis=0))
+    return _relative_efficiency(rmse_c_A, rmse_c_B)
 
 
 # =============================================================================
-# Parametric bootstrap sampling
+# Parametric bootstrap sampling with normal statistics
 # =============================================================================
 
-def _generate_normal_std_sample(std_c, n_replicates, n_bootstrap_samples=None):
-    """Generate a bootstrap sample for the standard deviation.
+def _generate_normal_std_sample(
+        std_c, n_replicates,
+        n_bootstrap_samples=None
+):
+    """Generate a bootstrap sample for the standard deviation assuming the
+    data is normally-distributed.
 
-    In this function, free_energy[c] at a fixed computational cost is
+    In this function, free_energy[:, c] at a fixed computational cost is
     assumed to be normally distributed. Under this assumption the standard
     deviation is chi distributed with n_replicates-1 degrees of freedom,
     which allows us to generate a bootstrap sample for the standard
@@ -541,15 +500,16 @@ def _generate_normal_std_sample(std_c, n_replicates, n_bootstrap_samples=None):
     return sp.stats.chi.rvs(df=df, scale=std_c/np.sqrt(df), size=size)
 
 
-def _generate_normal_std_rel_eff_sample(std_c_A, std_c_B, n_replicates, n_bootstrap_samples=None):
-    """Generate a bootstrap sample for the standard deviation relative efficiency.
+def _generate_normal_std_rel_eff_sample(
+        std_c_A, std_c_B, n_replicates,
+        n_bootstrap_samples=None
+):
+    """Generate a bootstrap sample for the standard deviation relative efficiency
+    assuming the data is normally-distributed.
 
-    In this function, free_energy[c] at a fixed computational cost is
-    assumed to be normally distributed. Under this assumption the standard
-    deviation is chi distributed with n_replicates-1 degrees of freedom,
-    which allows us to generate a bootstrap sample for the standard
-    deviation as a function of the computational cost from a parametric
-    distribution.
+    See Also
+    --------
+    _generate_normal_std_sample
 
     Parameters
     ----------
@@ -567,9 +527,9 @@ def _generate_normal_std_rel_eff_sample(std_c_A, std_c_B, n_replicates, n_bootst
     Returns
     -------
     bootstrap_std_rel_eff : np.ndarray
-        If n_bootstrap_samples is None, bootstrap_std_rel_eff[c] is
-        the bootstrap sample of the standard deviation relative efficiency
-        at the c-th computational cost. Otherwise, bootstrap_std_rel_eff[r][c]
+        If n_bootstrap_samples is None, bootstrap_std_rel_eff[c] is the
+        bootstrap sample of the standard deviation relative efficiency at
+        the c-th computational cost. Otherwise, bootstrap_std_rel_eff[r][c]
         is the r-th bootstrap sample of the standard deviation relative
         efficiency at the c-th computational cost.
 
@@ -577,36 +537,7 @@ def _generate_normal_std_rel_eff_sample(std_c_A, std_c_B, n_replicates, n_bootst
     bootstrap_std_c_A = _generate_normal_std_sample(std_c_A, n_replicates, n_bootstrap_samples)
     bootstrap_std_c_B = _generate_normal_std_sample(std_c_B, n_replicates, n_bootstrap_samples)
     # Compute the relative efficiency.
-    return _compute_relative_efficiency(bootstrap_std_c_A, bootstrap_std_c_B)
-
-
-def _generate_normal_std_mean_rel_eff_sample(*args, weights=None, **kwargs):
-    """Generate a bootstrap sample for the standard deviation relative efficiency.
-
-    Parameters
-    ----------
-    *args
-        Positional arguments to forward to _generate_normal_std_rel_eff_sample.
-    weights : numpy.ndarray or None, optional
-        If given, weights[c] is the weight to be used in the weighted
-        mean of the relative efficiency. If None, the average won't be
-        weighted. Default is None.
-    **kwargs
-        Keyword arguments to forward to _generate_normal_std_rel_eff_sample.
-
-    Returns
-    -------
-    bootstrap_std_mean_rel_eff : float
-        bootstrap_std_mean_rel_eff is the bootstrap sample of the standard
-        deviation mean relative efficiency.
-
-    See Also
-    --------
-    _generate_normal_std_rel_eff_sample
-
-    """
-    bootstrap_std_rel_eff = _generate_normal_std_rel_eff_sample(*args, **kwargs)
-    return np.average(bootstrap_std_rel_eff, weights=weights, axis=0)
+    return _relative_efficiency(bootstrap_std_c_A, bootstrap_std_c_B)
 
 
 def _generate_normal_abs_bias_sample(
@@ -614,14 +545,14 @@ def _generate_normal_abs_bias_sample(
         asymptotic_free_energy=None,
         n_bootstrap_samples=None
 ):
-    """Generate a bootstrap sample for the absolute bias.
+    """Generate a bootstrap sample for the absolute bias assuming the
+    data to be normally-distributed.
 
-    In this function, free_energy[c] at a fixed computational cost is
+    In this function, free_energy[:, c] at a fixed computational cost is
     assumed to be normally distributed. Under this assumption the sample
-    mean is t-distributed with n_replicates-1 degrees of freedom,
-    which allows us to generate a bootstrap sample for the absolute
-    bias as a function of the computational cost from a parametric
-    distribution.
+    mean is t-distributed with n_replicates-1 degrees of freedom, which
+    allows us to generate a bootstrap sample for the absolute bias as a
+    function of the computational cost from a parametric distribution.
 
     Parameters
     ----------
@@ -651,7 +582,7 @@ def _generate_normal_abs_bias_sample(
     """
     # Sample mean the t distribution with the correct scale and mean.
     df = n_replicates - 1
-    bias_c = _compute_bias(mean_c, asymptotic_free_energy)
+    bias_c = _bias(mean_c, asymptotic_free_energy)
     n_costs = len(std_c)
     if n_bootstrap_samples is None:
         size = n_costs
@@ -666,14 +597,12 @@ def _generate_normal_abs_bias_rel_eff_sample(
         asymptotic_free_energy_A=None, asymptotic_free_energy_B=None,
         n_bootstrap_samples=None
 ):
-    """Generate a bootstrap sample for the absolute bias relative efficiency.
+    """Generate a bootstrap sample for the absolute bias relative efficiency
+    assuming the data to be normally distributed.
 
-    In this function, free_energy[c] at a fixed computational cost is
-    assumed to be normally distributed. Under this assumption the sample
-    mean is t-distributed with n_replicates-1 degrees of freedom,
-    which allows us to generate a bootstrap sample for the absolute
-    bias as a function of the computational cost from a parametric
-    distribution.
+    See Also
+    --------
+    _generate_normal_abs_bias_sample
 
     Parameters
     ----------
@@ -707,8 +636,8 @@ def _generate_normal_abs_bias_rel_eff_sample(
     -------
     bootstrap_abs_bias_rel_eff : np.ndarray
         If n_bootstrap_samples is None, bootstrap_abs_bias_rel_eff[c] is
-        the bootstrap sample of the absolute bias relative efficiency at
-        the c-th computational cost. Otherwise, bootstrap_abs_bias_rel_eff[r][c]
+        the bootstrap sample of the absolute bias relative efficiency at the
+        c-th computational cost. Otherwise, bootstrap_abs_bias_rel_eff[r][c]
         is the r-th bootstrap sample of the absolute bias relative efficiency
         at the c-th computational cost.
 
@@ -724,59 +653,7 @@ def _generate_normal_abs_bias_rel_eff_sample(
         n_bootstrap_samples=n_bootstrap_samples
     )
     # Compute the relative efficiency.
-    return _compute_relative_efficiency(bootstrap_bias_c_A, bootstrap_bias_c_B)
-
-
-def _generate_normal_abs_bias_mean_rel_eff_sample(
-        *args, weights=None, discard_asymptotic=False,
-        asymptotic_free_energy_A=None, asymptotic_free_energy_B=None,
-        **kwargs
-):
-    """Generate a bootstrap sample for the absolute bias mean relative efficiency.
-
-    Parameters
-    ----------
-    *args
-        Positional arguments to forward to _generate_normal_abs_bias_rel_eff_sample.
-    weights : numpy.ndarray or None, optional
-        If given, weights[c] is the weight to be used in the weighted
-        mean of the relative efficiency. If None, the average won't be
-        weighted. Default is None.
-    discard_asymptotic : bool, optional
-        If True and at least one of the two biases is forced to 0 in the last
-        data point, this is ignored in the average.
-    asymptotic_free_energy_A : float, optional
-        If given, this will be used as the asymptotic free energy of
-        method A to compute the bias. Otherwise, this is estimated
-        as mean_c_A[-1].
-    asymptotic_free_energy_B : float, optional
-        If given, this will be used as the asymptotic free energy of
-        method B to compute the bias. Otherwise, this is estimated
-        as mean_c_B[-1].
-    **kwargs
-        Keyword arguments to forward to _generate_normal_abs_bias_rel_eff_sample.
-
-    Returns
-    -------
-    bootstrap_abs_bias_mean_rel_eff : float
-        bootstrap_abs_bias_mean_rel_eff is the bootstrap sample of the
-        absolute bias mean relative efficiency.
-
-    See Also
-    --------
-    _generate_normal_abs_bias_rel_eff_sample
-
-    """
-    # Compute the mean relative efficiency.
-    bootstrap_abs_bias_rel_eff = _generate_normal_abs_bias_rel_eff_sample(
-        *args, asymptotic_free_energy_A=asymptotic_free_energy_A,
-        asymptotic_free_energy_B=asymptotic_free_energy_B, **kwargs
-    )
-    if discard_asymptotic and (asymptotic_free_energy_A is None or asymptotic_free_energy_B is None):
-        bootstrap_abs_bias_rel_eff = bootstrap_abs_bias_rel_eff[:-1]
-        if weights is not None:
-            weights = weights[:-1]
-    return np.average(bootstrap_abs_bias_rel_eff, weights=weights, axis=0)
+    return _relative_efficiency(bootstrap_bias_c_A, bootstrap_bias_c_B)
 
 
 def _generate_normal_rmse_sample(
@@ -784,9 +661,10 @@ def _generate_normal_rmse_sample(
         asymptotic_free_energy=None,
         n_bootstrap_samples=None
 ):
-    """Generate a bootstrap sample for the RMSE.
+    """Generate a bootstrap sample for the RMSE assuming the data to be
+    normally distributed.
 
-    In this function, free_energy[c] at a fixed computational cost is
+    In this function, free_energy[:, c] at a fixed computational cost is
     assumed to be normally distributed. Under this assumption the sample
     mean is t-distributed and the standard deviation is chi-distributed
     with n_replicates-1 degrees of freedom, which allows us to generate
@@ -831,14 +709,12 @@ def _generate_normal_rmse_rel_eff_sample(
         asymptotic_free_energy_A=None, asymptotic_free_energy_B=None,
         n_bootstrap_samples=None
 ):
-    """Generate a bootstrap sample for the RMSE relative efficiency.
+    """Generate a bootstrap sample for the RMSE relative efficiency
+    assuming the data to be normally distributed.
 
-    In this function, free_energy[c] at a fixed computational cost is
-    assumed to be normally distributed. Under this assumption the sample
-    mean is t-distributed and the standard deviation is chi-distributed
-    with n_replicates-1 degrees of freedom, which allows us to generate
-    a bootstrap sample for the absolute bias as a function of the computational
-    cost from a parametric distribution.
+    See Also
+    --------
+    _generate_normal_rmse_sample
 
     Parameters
     ----------
@@ -883,47 +759,32 @@ def _generate_normal_rmse_rel_eff_sample(
         mean_c_A, std_c_A, n_replicates, asymptotic_free_energy_A, n_bootstrap_samples)
     bootstrap_rmse_c_B = _generate_normal_rmse_sample(
         mean_c_B, std_c_B, n_replicates, asymptotic_free_energy_B, n_bootstrap_samples)
-    return _compute_relative_efficiency(bootstrap_rmse_c_A, bootstrap_rmse_c_B)
-
-
-def _generate_normal_rmse_mean_rel_eff_sample(*args, weights=None, **kwargs):
-    """Generate a bootstrap sample for the absolute bias mean relative efficiency.
-
-    Parameters
-    ----------
-    *args
-        Positional arguments to forward to _generate_normal_rmse_rel_eff_sample.
-    weights : numpy.ndarray or None, optional
-        If given, weights[c] is the weight to be used in the weighted
-        mean of the relative efficiency. If None, the average won't be
-        weighted. Default is None.
-    **kwargs
-        Keyword arguments to forward to _generate_normal_rmse_rel_eff_sample.
-
-    Returns
-    -------
-    bootstrap_abs_bias_mean_rel_eff : float
-        bootstrap_abs_bias_mean_rel_eff is the bootstrap sample of the
-        absolute bias mean relative efficiency.
-
-    See Also
-    --------
-    _generate_normal_abs_bias_rel_eff_sample
-
-    """
-    # Compute the mean relative efficiency.
-    bootstrap_rmse_rel_eff = _generate_normal_rmse_rel_eff_sample(*args, **kwargs)
-    return np.average(bootstrap_rmse_rel_eff, weights=weights, axis=0)
+    return _relative_efficiency(bootstrap_rmse_c_A, bootstrap_rmse_c_B)
 
 
 # =============================================================================
-# Wrappers for arch.bootstrap.IIDBootstrap
+# Wrappers of bootstrap sampling functions for arch.bootstrap.IIDBootstrap
 # =============================================================================
+
+class _IIDBootstrapNotEqual(arch.bootstrap.IIDBootstrap):
+    """A bootstrap facility class that avoid generating bootstrap sampling
+    concentrating all the distribution on a single data point."""
+
+    def bootstrap(self, reps):
+        for _ in range(reps):
+            indices = np.asarray(self.update_indices())
+            # Regenerate indices until there is at least one that is different
+            # to avoid generating trajectories with std == 0.0.
+            while np.allclose(indices, indices[1]):
+                indices = np.asarray(self.update_indices())
+            self._index = indices
+            yield self._resample()
+
 
 def _cache_params_arch(
         free_energy_A, free_energy_B, params_cache, compute_mean=True,
 ):
-    """Utility function to handle the cache of the free energy mean, std, and asymptotic DG."""
+    """Utility function to handle the cache of the free energy mean and std."""
     if params_cache is None:
         # Generate parameters just for this call.
         params_cache = {}
@@ -937,7 +798,7 @@ def _cache_params_arch(
             suffix = 'A' if i == 0 else 'B'
 
             # Cache standard deviation.
-            params_cache['std_c_' + suffix] = _compute_normal_unbiased_std(free_energy)
+            params_cache['std_c_' + suffix] = _normal_unbiased_std(free_energy)
             # Cache mean bias if requested.
             if compute_mean:
                 params_cache['mean_c_' + suffix] = free_energy.mean(axis=0)
@@ -954,22 +815,8 @@ def _generate_normal_std_rel_eff_sample_arch(
     params_cache = _cache_params_arch(free_energy_A, free_energy_B,
                                       params_cache, compute_mean=False)
     if params is None:
-        return _compute_relative_efficiency(params_cache['std_c_A'], params_cache['std_c_B'])
+        return _relative_efficiency(params_cache['std_c_A'], params_cache['std_c_B'])
     return _generate_normal_std_rel_eff_sample(**params_cache)
-
-
-def _generate_normal_std_mean_rel_eff_sample_arch(
-        free_energy_A, free_energy_B, params=None, state=None,
-        params_cache=None, weights=None
-):
-    """Wraps around _generate_normal_std_mean_rel_eff_sample for use with arch.bootstrap."""
-    if params is None:
-        std_rel_eff = _generate_normal_std_rel_eff_sample_arch(
-            free_energy_A, free_energy_B,
-            params_cache=params_cache
-        )
-        return np.average(std_rel_eff, weights=weights)
-    return _generate_normal_std_mean_rel_eff_sample(weights=weights, **params_cache)
 
 
 def _generate_normal_abs_bias_rel_eff_sample_arch(
@@ -982,45 +829,11 @@ def _generate_normal_abs_bias_rel_eff_sample_arch(
                                       params_cache, compute_mean=True)
 
     if params is None:
-        abs_bias_rel_eff = _compute_abs_bias_relative_efficiency(
+        return _abs_bias_relative_efficiency_from_params(
             params_cache['mean_c_A'], params_cache['mean_c_B'],
             asymptotic_free_energy_A, asymptotic_free_energy_B
         )
-    else:
-        abs_bias_rel_eff = _generate_normal_abs_bias_rel_eff_sample(
-            asymptotic_free_energy_A=asymptotic_free_energy_A,
-            asymptotic_free_energy_B=asymptotic_free_energy_B,
-            **params_cache
-        )
-
-    # We discard the last data point if we force it to have zero
-    # bias to avoid numerical instabilities in the BCa method.
-    if asymptotic_free_energy_A is None or asymptotic_free_energy_B is None:
-        abs_bias_rel_eff = abs_bias_rel_eff[:-1]
-
-    return abs_bias_rel_eff
-
-
-def _generate_normal_abs_bias_mean_rel_eff_sample_arch(
-        free_energy_A, free_energy_B, params=None, state=None, weights=None,
-        params_cache=None, asymptotic_free_energy_A=None, asymptotic_free_energy_B=None
-):
-    """Wraps around _generate_normal_abs_bias_mean_rel_eff_sample for use with arch.bootstrap."""
-    if params is None:
-        abs_bias_rel_eff = _generate_normal_abs_bias_rel_eff_sample_arch(
-            free_energy_A, free_energy_B, params_cache=params_cache,
-            asymptotic_free_energy_A=asymptotic_free_energy_A,
-            asymptotic_free_energy_B=asymptotic_free_energy_B
-        )
-
-        # _generate_normal_abs_bias_rel_eff_sample_arch already discard the last
-        # data point so we need to discard only the last parameter and weight.
-        if (asymptotic_free_energy_A is None or asymptotic_free_energy_B is None) and weights is not None:
-            weights = weights[:-1]
-        return np.average(abs_bias_rel_eff, weights=weights)
-
-    return _generate_normal_abs_bias_mean_rel_eff_sample(
-        weights=weights, discard_asymptotic=True,
+    return _generate_normal_abs_bias_rel_eff_sample(
         asymptotic_free_energy_A=asymptotic_free_energy_A,
         asymptotic_free_energy_B=asymptotic_free_energy_B,
         **params_cache
@@ -1028,7 +841,7 @@ def _generate_normal_abs_bias_mean_rel_eff_sample_arch(
 
 
 def _generate_normal_rmse_rel_eff_sample_arch(
-        free_energy_A, free_energy_B, params=None, state=None, n_replicates=None,
+        free_energy_A, free_energy_B, params=None, state=None,
         asymptotic_free_energy_A=None, asymptotic_free_energy_B=None,
         params_cache=None
 ):
@@ -1036,34 +849,13 @@ def _generate_normal_rmse_rel_eff_sample_arch(
     params_cache = _cache_params_arch(free_energy_A, free_energy_B,
                                       params_cache, compute_mean=True)
     if params is None:
-        return _compute_rmse_relative_efficiency(
+        return _rmse_relative_efficiency_from_params(
             params_cache['mean_c_A'], params_cache['mean_c_B'],
-            params_cache['std_c_A'], params_cache['std_c_B'],
+            params_cache['std_c_A']**2, params_cache['std_c_B']**2,
             asymptotic_free_energy_A, asymptotic_free_energy_B,
         )
 
     return _generate_normal_rmse_rel_eff_sample(
-        asymptotic_free_energy_A=asymptotic_free_energy_A,
-        asymptotic_free_energy_B=asymptotic_free_energy_B,
-        **params_cache
-    )
-
-
-def _generate_normal_rmse_mean_rel_eff_sample_arch(
-        free_energy_A, free_energy_B, params=None, state=None, weights=None,
-        params_cache=None, asymptotic_free_energy_A=None, asymptotic_free_energy_B=None
-):
-    """Wraps around _generate_normal_abs_bias_mean_rel_eff_sample for use with arch.bootstrap."""
-    if params is None:
-        rmse_rel_eff = _generate_normal_rmse_rel_eff_sample_arch(
-            free_energy_A, free_energy_B, params_cache=params_cache,
-            asymptotic_free_energy_A=asymptotic_free_energy_A,
-            asymptotic_free_energy_B=asymptotic_free_energy_B
-        )
-        return np.average(rmse_rel_eff, weights=weights)
-
-    return _generate_normal_rmse_mean_rel_eff_sample(
-        weights=weights,
         asymptotic_free_energy_A=asymptotic_free_energy_A,
         asymptotic_free_energy_B=asymptotic_free_energy_B,
         **params_cache

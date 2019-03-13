@@ -285,9 +285,12 @@ class SamplingSubmission(SamplSubmission):
                 })
         self.data = pd.DataFrame(data)
 
-    def mean_free_energies(self):
+    def mean_free_energies(self, system_name=None):
         """Return a dataframe with mean free energies and 95% t-based confidence intervals."""
-        return compute_system_name_mean_free_energies(self.data)
+        mean_data = compute_system_name_mean_free_energies(self.data)
+        if system_name is not None:
+            mean_data = mean_data[mean_data['System name'] == system_name]
+        return mean_data
 
     def _assign_paper_name(self):
         name_table = {
