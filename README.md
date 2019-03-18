@@ -116,7 +116,7 @@ This challenge consists of predicting the octanol-water partition coefficients (
 Our aim is to evaluate how well current models can capture the transfer free energy of small molecules between different solvent environments through blind predictions.
 
 Challenge start date: Nov 1, 2018  
-Challenge submissions due: Mar 15, 2019  
+Challenge submissions due: Mar 22, 2019  
 
 Detailed instructions for the logP challenge can be found here: [logP_challenge_instructions.md](logP_challenge_instructions.md)
 
