@@ -17,13 +17,13 @@ The following subsections describe the molecules included in this challenge, the
 ## Challenge Timeline
 
 - Nov 1, 2018  -  SAMPL6 Part II Challenge start date
-- Mar 15, 2019  -  Challenge submissions due 
-- Mar 18, 2019  -  Experimental data release date 
+- Mar 22, 2019  -  Challenge submissions due 
+- Mar 25, 2019  -  Experimental data release date 
 - May 16, 2019  -  SAMPL6 log *P* challenge virtual workshop
 - Aug 22-23, 2019  -  Joint D3R/SAMPL workshop, San Diego 
 - Sep 15, 2019  -  JCAMD special issue submissions due 
 
-Your predictions must be uploaded on the [D3R SAMPL6 web-page](https://drugdesigndata.org/about/sampl6) by March 15th, 2019. 
+Your predictions must be uploaded on the [D3R SAMPL6 web-page](https://drugdesigndata.org/about/sampl6) by March 22nd, 2019. 
 The experimental results will be released immediately after the challenge closes. 
 
 # Motivation
