@@ -22,5 +22,6 @@ For detailed instructions for log *P* challenge: [SAMPL6/logP_challenge_instruct
 Challenge start date: Nov 1, 2018  
 Challenge submission due: Mar 22, 2019  
 
+Experimental log *P* measurements were added to this repository after the log *P* challenge deadline and can be found here: [logP/experimental_data/](logP/experimental_data/)
 
  
