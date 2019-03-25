@@ -6,6 +6,9 @@ Please see [SAMPL6/pKa Challenge Instructions/Experimental Details](https://gith
 `pKa_experimental_values.csv` file contains mean and standard error of the mean(SEM) of experimental macroscopic pKa values, calculated using `calc_pKa_value_statistics.py` script.
 Since pKa values measured by Sirius T3 were reported with 2 decimal places, we have reported SEM as 0.01 in cases where SEM values calculated from 3 replicates were lower than 0.01.  
 
+### Publication on pKa measurements
+Mehtap Işık, Dorothy Levorse, Ariën S. Rustenburg, Ikenna E. Ndukwe, Heather Wang, Xiao Wang, Mikhail Reibarkh, Gary E. Martin, Alexey A. Makarov, David L. Mobley, Timothy Rhodes, John D. Chodera. "pKa measurements for the SAMPL6 prediction challenge for a set of kinase inhibitor-like fragments" _J Comput Aided Mol Des_ (2018) 32: 1117. https://doi.org/10.1007/s10822-018-0168-0
+
 ## Manifest
 - `pKa_experimental_values.csv` - Mean and SEM of pKa values organized in a table. Up to three pKa values were reported based on how many pKas were measured in the experimental interval of 2-12.
 - `calc_pKa_value_statistics.py` - Python script used to calculate mean and SEM of pKa values from `pKa_results_of_replicate_experiments.csv`.
