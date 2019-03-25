@@ -1,14 +1,17 @@
 ## Experimental log *P* values of SAMPL6 Part II log *P* challenge molecules
 
-This directory contains results of the log *P* measurements performed with Sirius T3 instruments for 11 small molecules. 
-Minimum of 3 independent replicate log *P* measurements were done for each molecule. 
-Please see [SAMPL6/logP Challenge Instructions/Experimental Details](https://github.com/MobleyLab/SAMPL6/blob/master/logP_challenge_instructions.md#experimental-details) for more details about the experiment.
+This directory contains the results of the log *P* measurements for 11 small molecules of SAMPL6 Part II log *P* challenge. 
 
-`logP_experimental_values.csv` file contains mean and standard error of the mean(SEM) of experimental octanol-water log *P* values, calculated as
+Experimental log *P* values were collected using potentiometric (pH-metric log *P*) measurements with a Sirius T3 instrument by Mehtap Isik from the Chodera Lab at MSKCC with the support of the Preformulation Group, Pharmaceutical Sciences, MRL, Merck & Co., Inc, especially Dorothy Levorse, Timothy Rhodes, and Brad Sherborne.
+
+A minimum of 3 independent replicates of log *P* measurements were done for each molecule. 
+Please see [SAMPL6/logP Challenge Instructions/Experimental Details](https://github.com/MobleyLab/SAMPL6/blob/master/logP_challenge_instructions.md#experimental-details) for more details about the experimental method.
+
+The mean and standard error of the mean(SEM) of experimental octanol-water log *P* values were reported in `logP_experimental_values.csv` file, calculated as
 
 ![mean_and_SEM_calculation.png](mean_and_SEM_calculation.png)
 
-The same batches of compounds were used for log *P* measurements as for the pKa measurements for SAMPL6 pKa challenge. So, for purity information of analytes refer to [`SAMPL6/physical_properties/pKa/experimental_data/purity/` directory](https://github.com/MobleyLab/SAMPL6/blob/master/physical_properties/pKa/experimental_data/purity/purity_of_SAMPL6_pKa_compounds_determined_by_LCMS.csv).
+The same batches of compounds as the pKa measurements for SAMPL6 pKa challenge were used for log *P* measurements. So, for purity information of analytes refer to [`SAMPL6/physical_properties/pKa/experimental_data/purity/` directory](https://github.com/MobleyLab/SAMPL6/blob/master/physical_properties/pKa/experimental_data/purity/purity_of_SAMPL6_pKa_compounds_determined_by_LCMS.csv).
 
 Aqueous pKa values of log *P* challenge compounds were previously determined using UV-metric measurements with the Sirius T3, as described in [the SAMPL6 pKa challenge](https://github.com/MobleyLab/SAMPL6/tree/logP_experimental_data/physical_properties/pKa). 
 These values were used as input for pH-metric log *P* measurements. 
