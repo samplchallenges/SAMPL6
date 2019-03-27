@@ -971,6 +971,8 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
         fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(7.25, 8))
         # Keep track of data range by statistic.
         statistic_ranges = {name: [np.inf, 0] for name in statistic_names}
+    # Keep track of n_energy_evaluations by column.
+    max_n_energy_evaluations = [0 for _ in range(3)]
 
     for submission in submissions:
         if submission.paper_name in {'OpenMM/WExplore'}:
@@ -1062,8 +1064,8 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
                 ax = axes[row_idx][col_idx]
                 ax.plot(n_energy_evaluations, rel_eff, color=color, label=submission.paper_name)
 
-                # Plot back line at 1.
-                ax.plot(n_energy_evaluations, [1 for _ in n_energy_evaluations], color='black', ls='--')
+                # Plot back line at 0.
+                ax.plot(n_energy_evaluations, [0 for _ in n_energy_evaluations], color='black', ls='--')
 
                 # Update data range.
                 statistic_range = statistic_ranges[statistic_names[row_idx]]
@@ -1075,6 +1077,14 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
                 #     max_rel_eff = max(*rel_eff, *high_bounds[row_idx])
                 statistic_range[0] = min(statistic_range[0], min(rel_eff))
                 statistic_range[1] = max(statistic_range[1], max(rel_eff))
+
+            # Update x-axis range.
+            if same_plot:
+                max_n_energy_evaluations[col_idx] = max(max_n_energy_evaluations[col_idx],
+                                                        n_energy_evaluations[-1])
+            else:
+                for row_idx in range(len(statistic_names)):
+                    axes[row_idx][col_idx].set_xlim((0, n_energy_evaluations[-1]))
 
             if ci is not None:
                 # Plot confidence intervals.
@@ -1097,6 +1107,7 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
                     ylimits = (statistic_ranges[statistic_name][0] - extra_space,
                                statistic_ranges[statistic_name][1] + extra_space)
                     axes[row_idx][col_idx].set_ylim(ylimits)
+                    axes[row_idx][col_idx].tick_params(axis='y', which='major', pad=0.1)
             axes[-1][1].set_xlabel('Calculation length')
 
         # Set labels and axes limits.
@@ -1110,8 +1121,11 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
             # plt.show()
 
     if same_plot:
-        axes[0][1].legend(loc='upper right', bbox_to_anchor=(2.62, 1.48),
-                          fancybox=True, ncol=4)
+        for row_idx in range(len(statistic_names)):
+            for col_idx in range(len(system_names)):
+                axes[row_idx][col_idx].set_xlim((0, max_n_energy_evaluations[col_idx]))
+        axes[0][1].legend(loc='upper right', bbox_to_anchor=(2.0, 1.48),
+                          fancybox=True, ncol=3)
 
         output_file_base_path = os.path.join(figure_dir_path, 'relative-efficiencies')
         plt.savefig(output_file_base_path + '.pdf')
@@ -1150,9 +1164,11 @@ def plot_absolute_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
 
             # Select the submission data for only this host-guest system.
             if isinstance(submission, YankSamplingAnalysis):
+                line_style = '--'
                 mean_data = submission.get_free_energies_from_energy_evaluations(
                     max_n_energy_eval[system_name], system_name=system_name, mean_trajectory=True)
             else:
+                line_style = '-'
                 mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
 
             # Update maximum number of energy evaluations.
@@ -1166,27 +1182,48 @@ def plot_absolute_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
             # Compute cumulative total std, abs_bias, and RMSE.
             scale_energy_evaluations = 1e6
             norm_factor = (n_energy_evaluations - n_energy_evaluations[0])[1:] / scale_energy_evaluations
-            cum_tot_std = sp.integrate.cumtrapz(mean_data['std'].values[first_nonzero_idx:]) / norm_factor
-            cum_tot_abs_bias = sp.integrate.cumtrapz(np.abs(mean_data['bias'].values[first_nonzero_idx:])) / norm_factor
-            cum_tot_rmse = sp.integrate.cumtrapz(mean_data['RMSE'].values[first_nonzero_idx:]) / norm_factor
+            avg_std = sp.integrate.cumtrapz(mean_data['std'].values[first_nonzero_idx:]) / norm_factor
+            avg_abs_bias = sp.integrate.cumtrapz(np.abs(mean_data['bias'].values[first_nonzero_idx:])) / norm_factor
+            avg_rmse = sp.integrate.cumtrapz(mean_data['RMSE'].values[first_nonzero_idx:]) / norm_factor
 
             # Plot total statistics as a function of the energy evaluations.
             # Discard first energy evaluation as cumtrapz doesn't return a result for it.
-            for row_idx, cum_tot_stats in enumerate([cum_tot_std, cum_tot_abs_bias, cum_tot_rmse]):
+            for row_idx, avg_stats in enumerate([avg_std, avg_abs_bias, avg_rmse]):
                 ax = axes[row_idx, col_idx]
                 color = SUBMISSION_COLORS[submission.paper_name]
-                ax.plot(n_energy_evaluations[1:] / scale_energy_evaluations, cum_tot_stats,
-                        color=color, label=submission.paper_name)
+                ax.plot(n_energy_evaluations[1:] / scale_energy_evaluations, avg_stats,
+                        color=color, label=submission.paper_name, ls=line_style)
+
+                # Set x axis.
+                ax.set_xlim((0, n_energy_evaluations[-1] / scale_energy_evaluations))
 
     # Set labels and axes limits.
+    y_limits = {
+        'std': (0, 0.4),
+        'absolute bias': (0, 0.3),
+        'RMSE': (0, 0.4)
+    }
     for col_idx, system_name in enumerate(system_names):
         axes[0][col_idx].set_title(system_name)
+        # Set y limits (shared for each row).
+        for row_idx, statistic_name in enumerate(statistic_names):
+            axes[row_idx][col_idx].set_ylim(y_limits[statistic_name])
+            axes[row_idx][col_idx].tick_params(axis='y', which='major', pad=0.1)
+
+    # # Remove shared ticks.
+    # for row_idx in range(len(statistic_names)):
+    #     for col_idx in range(len(system_names)):
+    #         if col_idx > 0:
+    #             axes[row_idx][col_idx].set_yticklabels([])
+    #         if row_idx < len(statistic_names)-1:
+    #             axes[row_idx][col_idx].set_xticklabels([])
+
     for row_idx, statistic_name in enumerate(statistic_names):
-        axes[row_idx][0].set_ylabel('mean ' + statistic_name + ' [Gcal/mol]')
+        axes[row_idx][0].set_ylabel('mean ' + statistic_name + ' [kcal/mol]')
     axes[-1][1].set_xlabel('N energy evaluations [M]')
 
-    axes[0][1].legend(loc='upper right', bbox_to_anchor=(2.62, 1.48),
-                      fancybox=True, ncol=4)
+    axes[0][1].legend(loc='upper right', bbox_to_anchor=(2.0, 1.48),
+                      fancybox=True, ncol=3)
 
     figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure2-efficiencies')
     os.makedirs(figure_dir_path, exist_ok=True)
@@ -1269,15 +1306,14 @@ def print_relative_efficiency_table(
 
                 # Print significant digits.
                 efficiencies_format = []
-                for e_idx, e in enumerate(rel_effs[::3]):
-                    fmt = '{:.2f}' if e < 0.09 else '{:.1f}'
+                for e_idx in range(0, len(rel_effs), 3):
+                    rel_eff, low_bound, high_bound = rel_effs[e_idx:e_idx+3]
+                    if high_bound - rel_eff < 0.1 or rel_eff - low_bound < 0.1:
+                        fmt = '{:2.2f}'
+                    else:
+                        fmt = '{:2.1f}'
                     # Print lower and higher bound as sub and superscripts of the estimate.
-                    efficiencies_format.append(fmt + '$_{{' + fmt + '}}^{{' + fmt + '}}$')
-                    # # Don't print lower and higher bound for the corrected estimated.
-                    # if e_idx == 0:
-                    #     efficiencies_format.append(fmt + '$_{{' + fmt + '}}^{{' + fmt + '}}$')
-                    # else:
-                    #     efficiencies_format.append(fmt)
+                    efficiencies_format.append(fmt + '$_{{\raisem{{2pt}}{{' + fmt + '}}}}^{{\mathstrut ' + fmt + '}}$')
 
                 if np.isnan(rel_effs[0]):
                     data_entry = ''
@@ -1287,6 +1323,10 @@ def print_relative_efficiency_table(
                     data_entry = data_entry.format(*rel_effs)
                 else:
                     data_entry = efficiencies_format[0].format(*rel_effs[:3])
+
+                # Remove the minus sign from "-0".
+                data_entry = data_entry.replace('-0.0', '0.0')
+                data_entry = data_entry.replace('-0.00', '0.00')
                 efficiency_table[(system_name, statistic_name)].append(data_entry)
 
     # Add row for reference calculation.
@@ -1306,7 +1346,7 @@ def print_relative_efficiency_table(
 
     # All efficiencies are relative to YANK so they're all 1.
     for system_name, statistic_name in itertools.product(system_names, statistic_names):
-        efficiency_table[(system_name, statistic_name)].append('1.0')
+        efficiency_table[(system_name, statistic_name)].append('0.0')
 
     # Convert to Pandas Dataframe.
     efficiency_table = pd.DataFrame(efficiency_table)
@@ -1512,7 +1552,7 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
                                                                                               mean_trajectory=True)
 
             plot_single_trajectories_figures(axes[:,ax_idx], data, mean_data, plot_errors=plot_errors,
-                                             reference_system_mean_data=None,
+                                             reference_system_mean_data=None,  #reference_mean_data,
                                              plot_methods_uncertainties=plot_methods_uncertainties)
 
             # Collect max and min data to determine axes range.

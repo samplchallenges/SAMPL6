@@ -387,7 +387,7 @@ def _relative_efficiency(stats_A, stats_B):
     # sum_B = np.sum(stats_B, axis=axis)
     sum_A = sp.integrate.trapz(stats_A, axis=axis)
     sum_B = sp.integrate.trapz(stats_B, axis=axis)
-    return sum_A / sum_B
+    return np.log10(sum_A / sum_B)
 
 
 def _std_relative_efficiency(free_energy_A, free_energy_B, model=None):
