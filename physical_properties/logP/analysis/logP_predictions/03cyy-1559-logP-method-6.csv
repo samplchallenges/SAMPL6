@@ -1,0 +1,58 @@
+Predictions:
+SM02,4.12,0.15,0.39
+SM04,3.08,0.003,0.05
+SM07,3.86,0.003,0.05
+SM08,3.13,0.00,0.01
+SM09,-1.76,0.15,0.39
+SM11,4.65,0.00,0.005
+SM12,3.75,0.15,0.39
+SM13,3.68,0.15,0.39
+SM14,2.38,0.01,0.09
+SM15,2.59,0.01,0.09
+SM16,4.10,0.02,0.12
+
+Name:
+Linear Regression-B3LYP/6-311G**
+
+Software:
+Spartan 14
+Gaussian E09
+
+Category:
+Mixed
+
+Method:
+Molecules are categorized into different classes by considering their structures.
+Class I:  SM02, SM09, SM12, and SM13 due to the common N-phenylquinazolin-4-amine group.
+Class II: SM04, and SM07 due to the common 4-(benzylamino)quinazoline group.
+Class III:  SM14, and SM15 due to the common 1-phenyl-1H-benzoimidazole group.
+Class IV: SM08
+Class V: SM11
+Class VI:  SM16
+For each class a substructure search has been carried out  with ZINC15 database and the following pattern has emerged:
+"Class I-15 substructures ; Class II-14 substructures; Class III-12 substructures"
+"Class IV-6 substructures; Class V-7 substructures; Class VI -12 substructures"
+The LogP data of  the SMX molecules in each class and their similar substructures are collected based on ZINC15 database.The same set of molecules have been optimized with B3LYP/6-311G**.
+The descriptors considered are the following:
+
+The energy of the HOMO (EHOMO, au)
+The energy of  the LUMO (ELUMO, au)
+
+The mean molecular polarizability (a,Bohr3)
+The molecular volume (Vm, cm3/mol),
+The most negative atomic partial charge in the molecule based on NBO (q-NBO, E),
+The most positive atomic partial charge on a hydrogen atom based on NBO (qH+NBO, E),
+The most negative atomic partial charge in molecule based on Mulliken (q-Mulliken, E),
+The most positive atomic partial charge on a hydrogen atom based on Mulliken (qH+Mulliken, E).
+
+These molecular descriptors are used to generate  a multiple linear regression by using the best model in XLSTAT, an Excel plug-in. The molecular descriptors of the substructures of each class have been used to obtain the QSPR equation:
+
+where a, b, c, d, e, f, g, h, i are regression coffiecients, and LogP0 is the y-intercept.
+The molecular descriptors of each SMX molecule are inserted in the QSPR equation to obtain predicted  LogP values, these latter values have been reported.
+The differences between the predicted and actual LogPZINC15 values are used for calculating the standard error of the mean (SEM) and the root mean square error (RMSE) values.
+For the calculation of standard error of the mean (SEM), the standard deviations (?) have been calculated by using Equation 1.
+-1
+The standard error of mean (SEM) values have been calculated by using Equation 2.
+SEM=s/v(Sample Size)   (2)
+Finally, the root mean square errors (RMSE) have been used as model uncertainity based on Equation 3 where Pi  is the value of LogPZINC15 for each molecule, Oi is the LogPCalculated and n is the number substructures considered for each data set.
+-3

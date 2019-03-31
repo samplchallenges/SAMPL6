@@ -1,0 +1,62 @@
+# PARTITION COEFFICIENT PREDICTIONS 
+#  
+# This file will be automatically parsed. It must contain the following four elements:  
+# predictions, name of method, software listing, and method description. 
+# These elements must be provided in the order shown with their respective headers. 
+# 
+# Any line that begins with a # is considered a comment and will be ignored when parsing. 
+# 
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty. 
+# The data in each prediction line should be structured as follows:
+# Molecule ID, logP, logP SEM, logP model uncertainty
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here.
+Predictions:
+SM02,1.32,0.20,1.45 
+SM04,2.10,0.39,1.09 
+SM07,2.49,1.20,1.09 
+SM08,1.52,3.58,1.09 
+SM09,1.59,0.68,1.09 
+SM11,1.98,1.70,1.09 
+SM12,-0.31,2.46,1.45 
+SM13,0.79,0.52,1.09 
+SM14,-0.53,0.07,1.09 
+SM15,0.00,0.16,1.09 
+SM16,0.59,0.89,1.09
+ 
+# NAME SECTION 
+# 
+# Please provide an informal but informative name of the method used.  
+# The 'Name:' keyword is required as shown here. 
+Name: 
+LogP-prediction-Drude-Umbrella-HuangLab 
+ 
+# SOFTWARE SECTION 
+# 
+# List all major software packages used and their versions. 
+# Create a new line for each software. 
+# The 'Software:' keyword is required. 
+Software: 
+CHARMM c42b2
+OpenMM 7.3.0 with in-house modifications 
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`, `Empirical`, `Mixed`, or `Other`.
+# Pick only one category label.
+# The `Category:` keyword is required. 
+Category:
+Physical
+ 
+# METHOD DESCRIPTION SECTION 
+# 
+# Methodology and computational details. 
+# Level of details should be roughly equivalent to that used in a publication. 
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated. 
+# Use as many lines and paragraphs of text as you need. 
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
+Method: 
+LogP is computed from the PMF profile of solute molecules being moved across a water/octanol slab system using umbrella sampling and the Drude polarizable force fields.
