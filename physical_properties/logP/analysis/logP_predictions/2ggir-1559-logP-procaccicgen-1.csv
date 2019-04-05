@@ -25,6 +25,7 @@ SM13,   4.00, 0.33,1
 SM14,   1.38, 0.34,1 
 SM15,   1.91, 0.37,1 
 SM16,   3.67, 0.36,1 
+
 # NAME SECTION 
 # 
 # Please provide an informal but informative name of the method used.  
@@ -57,7 +58,8 @@ Physical
 # Use as many lines and paragraphs of text as you need. 
 # All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
 
-Method: All simulations were performed with the ORAC6.1 molecular
+Method: 
+All simulations were performed with the ORAC6.1 molecular
 dynamics program using the bidirectional fast switching
 annihilation/growth method (FSAGM) (doi: 10.1021/ct500142c). In FSAGM,
 for both w and o solvent, configurations at full coupling (lambda=1)

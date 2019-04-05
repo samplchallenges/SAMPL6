@@ -25,11 +25,13 @@ SM13,1.37,0.37,3
 SM14,3.43,0.36,3
 SM15,-0.17,0.34,3
 SM16,1.92,0.38,3
+
 # NAME SECTION
 #
 # Please provide an informal but informative name of the method used.
 # The 'Name:' keyword is required as shown here.
-Name: InterX_ARROW_2017_PIMD_WET_OCTANOL
+Name: 
+InterX_ARROW_2017_PIMD_WET_OCTANOL
 
 # SOFTWARE SECTION
 #

@@ -47,6 +47,6 @@ The final predicted logP values is computed as the simple sum of the COSMOtherm 
 (1) 	COSMOquick 1.7; COSMOlogic GmbH & Co. KG; http://www.cosmologic.de: Leverkusen, Germany, 2018.
 (2) 	Hornig, M.; Klamt, A. COSMOfrag: A Novel Tool for High-Throughput ADME Property Prediction and Similarity Screening Based on Quantum Chemistry. J. Chem. Inf. Model. 2005, 45 (5), 1169-1177. https://doi.org/10.1021/ci0501948.
 (3) 	Klamt, A. Conductor-like Screening Model for Real Solvents: A New Approach to the Quantitative Calculation of Solvation Phenomena. J. Phys. Chem. 1995, 99 (7), 2224-2235. https://doi.org/10.1021/j100007a062.
-(4) 	Klamt, A.; Jonas, V.; Bürger, T.; Lohrenz, J. C. Refinement and Parametrization of COSMO-RS. J. Phys. Chem. A 1998, 102 (26), 5074-5085. https://doi.org/10.1021/jp980017s.
+(4) 	Klamt, A.; Jonas, V.; Burger, T.; Lohrenz, J. C. Refinement and Parametrization of COSMO-RS. J. Phys. Chem. A 1998, 102 (26), 5074-5085. https://doi.org/10.1021/jp980017s.
 (5) 	Chen, T.; Guestrin, C. Xgboost: A Scalable Tree Boosting System. In Proceedings of the 22Nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining; ACM, 2016; pp 785-794.
 

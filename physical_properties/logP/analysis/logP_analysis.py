@@ -19,8 +19,8 @@ import scipy.stats
 # =============================================================================
 
 # Paths to input data.
-PKA_TYPEIII_SUBMISSIONS_DIR_PATH = './typeIII_predictions'
-EXPERIMENTAL_DATA_FILE_PATH = '../../experimental_data/pKa_experimental_values.csv'
+LOGP_SUBMISSIONS_DIR_PATH = './logP_predictions'
+EXPERIMENTAL_DATA_FILE_PATH = '../experimental_data/logP_experimental_values.csv'
 
 # =============================================================================
 # STATS FUNCTIONS
@@ -57,7 +57,7 @@ def rmse(data):
     return rmse
 
 
-def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootstrap_samples=10000):
+def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootstrap_samples=1000):
     """Compute bootstrap confidence interval for the given statistics functions."""
     # Handle case where only a single function is passed.
     try:
@@ -92,12 +92,12 @@ def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootst
 # =============================================================================
 
 def plot_correlation(x, y, data, title=None, color=None, kind='joint', ax=None):
-    # Extract only pKa values.
+    # Extract only logP values.
     data = data[[x, y]]
 
     # Find extreme values to make axes equal.
-    min_limit = np.ceil(min(data.min()) - 2)
-    max_limit = np.floor(max(data.max()) + 2)
+    min_limit = np.ceil(min(data.min()) - 1)
+    max_limit = np.floor(max(data.max()) + 1)
     axes_limits = np.array([min_limit, max_limit])
 
     if kind == 'joint':
@@ -114,14 +114,14 @@ def plot_correlation(x, y, data, title=None, color=None, kind='joint', ax=None):
     # Add diagonal line.
     ax.plot(axes_limits, axes_limits, ls='--', c='black', alpha=0.8, lw=0.7)
 
-    # Add shaded area for 0.5-1 pKa error.
+    # Add shaded area for 0.5-1 logP error.
     palette = sns.color_palette('BuGn_r')
     ax.fill_between(axes_limits, axes_limits - 0.5, axes_limits + 0.5, alpha=0.2, color=palette[2])
     ax.fill_between(axes_limits, axes_limits - 1, axes_limits + 1, alpha=0.2, color=palette[3])
 
 
 def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=None, color=None, ax=None):
-    # Extract only pKa values.
+    # Extract only logP values.
     x_error = data.loc[:, x_err_lab]
     y_error = data.loc[:, y_err_lab]
     x_values = data.loc[:, x_lab]
@@ -129,8 +129,8 @@ def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=No
     data = data[[x_lab, y_lab]]
 
     # Find extreme values to make axes equal.
-    min_limit = np.ceil(min(data.min()) - 2)
-    max_limit = np.floor(max(data.max()) + 2)
+    min_limit = np.ceil(min(data.min()) - 1)
+    max_limit = np.floor(max(data.max()) + 1)
     axes_limits = np.array([min_limit, max_limit])
 
     # Color
@@ -152,7 +152,7 @@ def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=No
     # Add diagonal line.
     grid.plot(axes_limits, axes_limits, ls='--', c='black', alpha=0.8, lw=0.7)
 
-    # Add shaded area for 0.5-1 pKa error.
+    # Add shaded area for 0.5-1 logP error.
     palette = sns.color_palette('BuGn_r')
     grid.fill_between(axes_limits, axes_limits - 0.5, axes_limits + 0.5, alpha=0.2, color=palette[2])
     grid.fill_between(axes_limits, axes_limits - 1, axes_limits + 1, alpha=0.2, color=palette[3])
@@ -181,7 +181,7 @@ def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label
 
     # Color
     current_palette = sns.color_palette()
-    sns_color = current_palette[1]
+    sns_color = current_palette[2]
 
     # Plot style
     plt.close()
@@ -262,7 +262,7 @@ class SamplSubmission:
         If the submission ID is among the ignored submissions.
     """
     # The D3R challenge IDs that are handled by this class.
-    CHALLENGE_IDS = {976}
+    CHALLENGE_IDS = {1559}
 
     # The IDs of the submissions used for testing the validation.
     TEST_SUBMISSIONS = {}
@@ -300,7 +300,7 @@ class SamplSubmission:
         self.participant = user_map_record.firstname + ' ' + user_map_record.lastname
         self.participant_id = user_map_record.uid
         #self.participant_email = user_map_record.email
-        assert self.challenge_id == user_map_record.component
+        #assert self.challenge_id == user_map_record.component
 
     @classmethod
     def _read_lines(cls, file_path):
@@ -363,11 +363,11 @@ class SamplSubmission:
         return pd.concat([experimental_series, submission_series], axis=1)
 
 # =============================================================================
-# PKA PREDICTION CHALLENGE
+# LOGP PREDICTION CHALLENGE
 # =============================================================================
 
-class pKaTypeIIISubmission(SamplSubmission):
-    """A submission for pKa challenge with type III format (macroscopic pKas).
+class logPSubmission(SamplSubmission):
+    """A submission for logP challenge.
 
     Parameters
     ----------
@@ -382,16 +382,16 @@ class pKaTypeIIISubmission(SamplSubmission):
     """
 
     # The D3R challenge IDs that are handled by this class.
-    CHALLANGE_IDS = {976}
+    CHALLANGE_IDS = {1559}
 
     # The IDs of the submissions that will be ignored in the analysis.
     TEST_SUBMISSIONS = {}
 
     # Section of the submission file.
-    SECTIONS = {'Predictions', 'Name', 'Software', 'Method'}
+    SECTIONS = {'Predictions', 'Name', 'Software', 'Category', 'Method'}
 
     # Sections in CSV format with columns names.
-    CSV_SECTIONS = {'Predictions': ("Molecule ID", "pKa mean", "pKa SEM")}
+    CSV_SECTIONS = {'Predictions': ("Molecule ID", "logP mean", "logP SEM", "logP model uncertainty")}
 
 
     def __init__(self, file_path, user_map):
@@ -402,7 +402,7 @@ class pKaTypeIIISubmission(SamplSubmission):
 
         # Check if this is a type III submission
         self.submission_type = file_data[2]
-        assert self.submission_type in ['typeIII']
+        assert self.submission_type in ['logP']
 
         self.file_name, self.index = file_data[3:]
         self.index = int(self.index)
@@ -411,13 +411,14 @@ class pKaTypeIIISubmission(SamplSubmission):
         sections = self._load_sections(file_path)  # From parent-class.
         self.data = sections['Predictions']  # This is a pandas DataFrame.
         self.name = sections['Name'][0]
+        self.category = sections['Category'][0] # New section for logP challenge.
 
-    def compute_pKa_statistics(self, experimental_data, stats_funcs):
-        data = self._create_comparison_dataframe('pKa mean', self.data_matched, experimental_data)
+    def compute_logP_statistics(self, experimental_data, stats_funcs):
+        data = self._create_comparison_dataframe('logP mean', self.data, experimental_data)
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000)
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=1000)
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
@@ -427,88 +428,12 @@ class pKaTypeIIISubmission(SamplSubmission):
 # UTILITY FUNCTIONS
 # =============================================================================
 
-def reorganize_experimental_pKa_dataframe(dataframe):
-    """Reorganize experimental data dataframe so that each row represents one pKa.
-    Each row is also assigned a unique pKa ID in the form of SM##_pKa#
-
-    Args:
-        Pandas DataFrame of experimnental pKas.
-
-    Returns:
-        Pandas DataFrame
-    """
-
-    # reorganize experimental data: I want each row to represent one pKa.
-    data = []
-
-    for i, row in enumerate(dataframe.iterrows()):
-        pKa1_mean = np.NaN
-        pKa2_mean = np.NaN
-        pKa3_mean = np.NaN
-
-        mol_id = row[1]["Molecule ID"]
-        pKa1_mean = row[1]["pKa1 mean"]
-        pKa1_SEM = row[1]["pKa1 SEM"]
-        pKa2_mean = row[1]["pKa2 mean"]
-        pKa2_SEM = row[1]["pKa2 SEM"]
-        pKa3_mean = row[1]["pKa3 mean"]
-        pKa3_SEM = row[1]["pKa3 SEM"]
-        assay_type = row[1]["Assay Type"]
-        exp_mol_id = row[1]["Experimental Molecule ID"]
-        can_iso_smiles = row[1]["canonical isomeric SMILES"]
-
-        # all molecules have at least 1 pKa
-        # Append pKa1
-        data.append({
-            "Molecule ID": mol_id,
-            "pKa mean": pKa1_mean,
-            "pKa SEM": pKa1_SEM,
-            "Assay Type": assay_type,
-            "Experimental Molecule ID": exp_mol_id,
-            "canonical isomeric SMILES": can_iso_smiles,
-            "pKa ID": mol_id + "_pKa1"
-        })
-
-        # if exists, append pKa2
-        if np.isnan(pKa2_mean):
-            continue
-        else:
-            data.append({
-                "Molecule ID": mol_id,
-                "pKa mean": pKa2_mean,
-                "pKa SEM": pKa2_SEM,
-                "Assay Type": assay_type,
-                "Experimental Molecule ID": exp_mol_id,
-                "canonical isomeric SMILES": can_iso_smiles,
-                "pKa ID": mol_id + "_pKa2"
-            })
-
-        # if exists, append pKa3
-        if np.isnan(pKa3_mean):
-            continue
-        else:
-            data.append({
-                "Molecule ID": mol_id,
-                "pKa mean": pKa3_mean,
-                "pKa SEM": pKa3_SEM,
-                "Assay Type": assay_type,
-                "Experimental Molecule ID": exp_mol_id,
-                "canonical isomeric SMILES": can_iso_smiles,
-                "pKa ID": mol_id + "_pKa3"
-            })
-
-    # Transform into Pandas DataFrame.
-    df_exp_stacked = pd.DataFrame(data=data)
-    df_exp_stacked.to_csv("../../experimental_data/pKa_experimental_values_stacked.csv", index=False)
-
-    return df_exp_stacked
-
 
 def load_submissions(directory_path, user_map):
     submissions = []
     for file_path in glob.glob(os.path.join(directory_path, '*.csv')):
         try:
-            submission = pKaTypeIIISubmission(file_path, user_map)
+            submission = logPSubmission(file_path, user_map)
 
         except IgnoredSubmissionError:
             continue
@@ -516,284 +441,28 @@ def load_submissions(directory_path, user_map):
     return submissions
 
 
-def match_exp_and_pred_pKas(pred_pKas, exp_pKas, exp_pKa_SEMs, exp_pKa_IDs):
-    """
-    Finds closest match between N experimental and M predicted pKas, based on
-    minimum absolute error. If multiple predicted pKas are mapped to the
-    same experimental value, predicted pKa with smallest pKa will be matched to
-    experimental pKa and others will be matched to NaN.
 
-    Args:
-        pred_pKas: Numpy array of predicted pKas
-        exp_pKas: Numpy array of experimental pKa means
-        exp_pKa_SEMs: Numpy array of experimental pKa SEM values
-        exp_pKa_IDs: Numpy array of pKa IDs assigned to experimental pKa values
+class logPSubmissionCollection:
+    """A collection of logP submissions."""
 
-    Returns:
-        Pandas DataFrame with predicted pKas and matched experimental pKa columns
+    LOGP_CORRELATION_PLOT_BY_METHOD_PATH_DIR = 'logPCorrelationPlots'
+    LOGP_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR = 'logPCorrelationPlotsWithSEM'
+    LOGP_CORRELATION_PLOT_BY_LOGP_PATH_DIR = 'error_for_each_logP.pdf'
+    ABSOLUTE_ERROR_VS_LOGP_PLOT_PATH_DIR = 'AbsoluteErrorPlots'
 
-    """
 
-    # create a dataframe to store absolute errors for all possible experimental and predicted pKa matches
-    # columns: experimental pKa
-    # rows: predicted pKa
+    def __init__(self, submissions, experimental_data, output_directory_path, logP_submission_collection_file_path):
 
-    df_abs_error = pd.DataFrame(index=pred_pKas, columns=exp_pKas)
-
-    # iterate over predicted pKas to find the experimental pKa that gives the minimum absolute error.
-    for i, pred_pKa in enumerate(pred_pKas):
-        for j, exp_pKa in enumerate(exp_pKas):
-            absolute_error = np.abs(pred_pKa - exp_pKa)
-            df_abs_error.loc[pred_pKa, exp_pKa] = absolute_error
-
-    # Find the nearest experimental pKa for each predicted pKa
-    df_pKa_match = pd.DataFrame()
-    df_pKa_match["pred pKa"] = np.NaN
-    df_pKa_match["matched exp pKa"] = np.NaN
-    df_pKa_match["absolute error"] = np.NaN
-
-    for i, pred_pKa in enumerate(pred_pKas):
-        min_abs_error = min(df_abs_error.loc[pred_pKa, :])
-
-        # Find the column name (experimental pKa) that corresponds to minimum absolute error
-        matched_exp_pKa = df_abs_error.loc[:, df_abs_error.loc[pred_pKa, :].values == min_abs_error].columns.values[0]
-        df_pKa_match.loc[i, "pred pKa"] = pred_pKa
-        df_pKa_match.loc[i, "matched exp pKa"] = matched_exp_pKa
-        df_pKa_match.loc[i, "absolute error"] = min_abs_error
-
-    # If multiple predicted pKas are matched to same experimental pKa, keep the closer match
-    # The unmatched predicted pKa will be assigned exp pKa np.NaN
-    df_pKa_match['duplicate_match'] = df_pKa_match.duplicated("matched exp pKa", keep=False)
-
-    # Among dublicate matches of each experimental pKa, find the predicted pKa with minimum absolute error
-    for exp_pKa in exp_pKas:
-        df_pKa_match_to_each_exp_pKa = df_pKa_match.loc[df_pKa_match["matched exp pKa"] == exp_pKa]
-        df_dublicate_matches = df_pKa_match_to_each_exp_pKa.loc[df_pKa_match_to_each_exp_pKa["duplicate_match"] == True]
-
-        if df_dublicate_matches.shape[0] > 1:
-            min_abs_error_of_duplicates = min(df_dublicate_matches.loc[:, "absolute error"])
-        elif df_dublicate_matches.shape[0] == 1:
-            min_abs_error_of_duplicates = df_pKa_match.loc[:, "absolute error"].values
-
-        for row in df_dublicate_matches.iterrows():
-            index = row[0]
-            abs_error = row[1]["absolute error"]
-            pred_pKa = row[1]["pred pKa"]
-
-            # for dublicates with bigger absolute error, modify matched exp pKa to np.NaN
-            if abs_error == min_abs_error_of_duplicates:
-                continue
-            else:
-                df_pKa_match.loc[index, "matched exp pKa"] = np.NaN
-
-    # Drop the row with NaN experimental matched pKa
-    df_pKa_match = df_pKa_match.dropna().reset_index(drop=True)
-
-    # Add experimental pKa SEM and pKa ID to the dataframe for matched predictions
-    df_pKa_match["exp pKa SEM"] = np.NaN
-    df_pKa_match["pKa ID"] = np.NaN
-
-    for i, row in enumerate(df_pKa_match.iterrows()):  # iterate over matched pKas
-        matched_exp_pKa = row[1]["matched exp pKa"]
-
-        # find the matching experimental pKa SEM and pKa ID
-        for j, pKa in enumerate(exp_pKas):
-            if pKa == matched_exp_pKa:
-                exp_pKa_SEM = exp_pKa_SEMs[j]
-                exp_pKa_ID = exp_pKa_IDs[j]
-
-        # store experimental pKa SEM and pKa ID on the dataframe
-        df_pKa_match.loc[i, "exp pKa SEM"] = exp_pKa_SEM
-        df_pKa_match.loc[i, "pKa ID"] = exp_pKa_ID
-
-    return df_pKa_match
-
-
-def add_pKa_IDs_to_matching_predictions(df_pred, df_exp):
-    """Add pKa ID column to dataframe of predictions based on
-    the minimum error match to experimental pKas.
-
-    Args:
-        df_pred: Pandas Dataframe of pKa predictions
-        df_exp: Pandas Dataframe of experimental pKas (stacked)
-
-    Returns:
-        df_pred_matched: A dataframe of predicted pKa values that gave the best match to experimental values.
-        Other predicted pKa values are ignored.
-        df_pred_unmatched: A dataframe of predicted pKas that were not matched to experimental pKa values.
-
-    """
-
-    # iterate over molecule IDs of the submission
-    df_pred["pKa ID"] = np.NaN
-    df_pred["Molecule ID"] = df_pred.index
-
-    for i, row in enumerate(df_pred.iterrows()):
-        #mol_id = row[0]
-        mol_id = row[1]["Molecule ID"]
-
-        # slice prediction and experimental data dataframes by molecule ID to detect the number of predicted pKas for each molecule
-        #df_pred_mol = df_pred[df_pred["Molecule ID"] == mol_id]
-        df_pred_mol = df_pred.loc[mol_id, :]
-        df_exp_mol = df_exp[df_exp["Molecule ID"] == mol_id]
-
-        # Create numpy array of predicted pKas
-        pred_pKas = np.array(df_pred_mol["pKa mean"]) # if there is multiple predicted pKas
-        try:
-            len(df_pred_mol["pKa mean"])
-        except TypeError:
-            pred_pKas = np.array([df_pred_mol["pKa mean"]])  # if there is single predicted pKa
-
-        # Create numpy array of experimental pKa means, pKa SEM and pKa_ID
-        exp_pKa_means = np.array(df_exp_mol.loc[:, "pKa mean"].values)
-        exp_pKa_SEMs = np.array(df_exp_mol.loc[:, "pKa SEM"].values)
-        exp_pKa_IDs = np.array(df_exp_mol.loc[:, "pKa ID"].values)
-
-        # Match predicted pKas to experimental pKa that gives the smallest error
-        df_pKa_match = match_exp_and_pred_pKas(pred_pKas, exp_pKa_means, exp_pKa_SEMs, exp_pKa_IDs)
-
-        # Add matched pKa IDs to prediction data frame
-        for index, row in enumerate(df_pKa_match.iterrows()):
-            pred_pKa = row[1]["pred pKa"]
-            pKa_ID = row[1]["pKa ID"]
-
-            # store in the correct position in prediction dataframe
-
-            df_pred.loc[(df_pred["Molecule ID"] == mol_id) & (df_pred["pKa mean"] == pred_pKa), "pKa ID"] = pKa_ID
-
-    # Save unmatched pKas in df_pred_unmatched dataframe
-    print(" df_pred[`pKa ID`] ")
-    print(df_pred["pKa ID"])
-    #print(np.isnan(df_pred["pKa ID"]))
-
-    df_pred_unmatched = df_pred.loc[pd.isnull(df_pred["pKa ID"])]
-
-    # Drop predicted pKas that didn't match to experimental values
-    df_pred_matched = df_pred.dropna(subset=["pKa ID"]).reset_index(drop=True)
-
-    return df_pred_matched, df_pred_unmatched
-
-
-def hungarian_matching(pred_pKas, exp_pKa_means, exp_pKa_SEMs, exp_pKa_IDs):
-    """Perform Hungarian algorithm matching of pKa values.
-
-    Original source by Kiril Lanevskij (ACD Labs).
-
-    Args:
-        predicted : array of predicted pKas
-        experimental: array of experimental pKas
-
-    """
-
-    matched = pd.DataFrame()
-    cost = []
-    predicted = pred_pKas
-    experimental = exp_pKa_means
-
-    # Our cost matrix will have the same size as no. of exp. or pred. pKa values, whichever is larger
-    sz = max(len(experimental), len(predicted))
-    for i in range(sz):
-        cost.append([])
-        for j in range(sz):
-            # Calculate mapping cost as an absolute diff. between exp. and pred. pKa values
-            if i < len(experimental) and j < len(predicted):
-                # Cost is defined as squared error
-                cost_se = (predicted[j]-experimental[i])**2
-                cost[i].append(cost_se)
-            # Assign zero cost if we are out of bounds
-            else:
-                cost[i].append(0)
-    # Perform mapping itself, row_indices => exp. data, col_indices => pred. pKa
-    row_indices, col_indices = scipy.optimize.linear_sum_assignment(cost)
-    for i, row_id in enumerate(row_indices):
-        col_id = col_indices[i]
-        # Ignore the entry if we are out of bounds
-        if row_id >= len(experimental) or col_id >= len(predicted): continue
-        # Otherwise assign a match
-        match = {"pred pKa" : predicted[col_id], 'pKa mean': predicted[col_id], 'pKa SEM': exp_pKa_SEMs[row_id], 'pKa ID': exp_pKa_IDs[row_id]}
-        matched = matched.append(match, ignore_index=True)
-
-    return matched
-
-def add_pKa_IDs_to_matching_predictions_hungarian(df_pred, df_exp):
-    """Add pKa ID column to dataframe of predictions based on
-    the minimum error match to experimental pKas.
-
-    Args:
-        df_pred: Pandas Dataframe of pKa predictions
-        df_exp: Pandas Dataframe of experimental pKas (stacked)
-
-    Returns:
-        df_pred_matched: A dataframe of predicted pKa values that gave the best match to experimental values.
-        Other predicted pKa values are ignored.
-        df_pred_unmatched: A dataframe of predicted pKas that were not matched to experimental pKa values
-
-    """
-
-    # iterate over molecule IDs of the submission
-    df_pred["pKa ID"] = np.NaN
-    df_pred["Molecule ID"] = df_pred.index
-
-    for mol_id, df_pred_mol in df_pred.groupby("Molecule ID"):
-        df_exp_mol = df_exp[df_exp["Molecule ID"] == mol_id]
-
-        # Create numpy array of predicted pKas
-        pred_pKas = np.array(df_pred_mol["pKa mean"]) # if there is multiple predicted pKas
-        try:
-            len(df_pred_mol["pKa mean"])
-        except TypeError:
-            pred_pKas = np.array([df_pred_mol["pKa mean"]])  # if there is single predicted pKa
-
-        # Create numpy array of experimental pKa means, pKa SEM and pKa_ID
-        exp_pKa_means = np.array(df_exp_mol.loc[:, "pKa mean"].values)
-        exp_pKa_SEMs = np.array(df_exp_mol.loc[:, "pKa SEM"].values)
-        exp_pKa_IDs = np.array(df_exp_mol.loc[:, "pKa ID"].values)
-
-        # Match predicted pKas to experimental pKa that gives the smallest error
-        df_pKa_match = hungarian_matching(pred_pKas, exp_pKa_means, exp_pKa_SEMs, exp_pKa_IDs)
-        df_pKa_match["Molecule ID"] = mol_id
-
-        # Add matched pKa IDs to prediction data frame
-        for index, row in enumerate(df_pKa_match.iterrows()):
-            pred_pKa = row[1]["pred pKa"]
-            pKa_ID = row[1]["pKa ID"]
-
-            # store in the correct position in prediction dataframe
-
-            df_pred.loc[(df_pred["Molecule ID"] == mol_id) & (df_pred["pKa mean"] == pred_pKa), "pKa ID"] = pKa_ID
-
-    # Save unmatched pKas in df_pred_unmatched dataframe
-    df_pred_unmatched = df_pred.loc[pd.isnull(df_pred["pKa ID"])]
-
-    # Drop predicted pKas that didn't match to experimental values
-    df_pred_matched = df_pred.dropna(subset=["pKa ID"]).reset_index(drop=True)
-
-    return df_pred_matched, df_pred_unmatched
-
-
-class pKaTypeIIISubmissionCollection:
-    """A collection of TypeIII pKa submissions."""
-
-    PKA_CORRELATION_PLOT_BY_METHOD_PATH_DIR = 'pKaCorrelationPlots'
-    PKA_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR = 'pKaCorrelationPlotsWithSEM'
-    PKA_CORRELATION_PLOT_BY_PKA_PATH_DIR = 'error_for_each_macroscopic_pKa.pdf'
-    ABSOLUTE_ERROR_VS_PKA_PLOT_PATH_DIR = 'AbsoluteErrorPlots'
-    available_matching = ["closest", "hungarian"]
-
-    def __init__(self, submissions, experimental_data, output_directory_path, pka_typeiii_submission_collection_file_path, matching_algorithm):
-
-        if matching_algorithm.lower() not in pKaTypeIIISubmissionCollection.available_matching:
-            raise ValueError("Choose a matching algorithm from {}".format(", ".join(pKaTypeIIISubmissionCollection.available_matching)))
 
         # Check if submission collection file already exists.
-        if os.path.isfile(pka_typeiii_submission_collection_file_path):
-            print("Analysis will be done using the existing typeIII_submission_collection.csv file.")
+        if os.path.isfile(logP_submission_collection_file_path):
+            print("Analysis will be done using the existing logP_submission_collection.csv file.")
 
-            self.data = pd.read_csv(pka_typeiii_submission_collection_file_path)
+            self.data = pd.read_csv(logP_submission_collection_file_path)
             print("\n SubmissionCollection: \n")
             print(self.data)
 
-            # Populate submission.data_matched dataframes parsing sections of collection file.
+            # Populate submission.data dataframes parsing sections of collection file.
             for submission in submissions:
                 data = []
 
@@ -801,13 +470,12 @@ class pKaTypeIIISubmissionCollection:
                 df_collection_of_each_submission = self.data.loc[self.data["receipt_id"] == receipt_ID ]
 
                 # Transform into Pandas DataFrame.
-                submission.data_matched = pd.DataFrame()
-                submission.data_matched["pKa mean"] = df_collection_of_each_submission["pKa (calc)"]
-                submission.data_matched["pKa SEM"] = df_collection_of_each_submission["pKa SEM (calc)"]
-                submission.data_matched["pKa ID"] = df_collection_of_each_submission["pKa ID"]
-                submission.data_matched["Molecule ID"] = df_collection_of_each_submission["Molecule ID"]
+                submission.data = pd.DataFrame()
+                submission.data["logP mean"] = df_collection_of_each_submission["logP (calc)"]
+                submission.data["logP SEM"] = df_collection_of_each_submission["logP SEM (calc)"]
+                submission.data["Molecule ID"] = df_collection_of_each_submission["Molecule ID"]
 
-                submission.data_matched.set_index("pKa ID", inplace=True)
+                submission.data.set_index("Molecule ID", inplace=True)
 
             # Transform into Pandas DataFrame.
             self.output_directory_path = output_directory_path
@@ -817,45 +485,48 @@ class pKaTypeIIISubmissionCollection:
             data = []
 
             # Match predicted pKas to experimental pKa IDs and update submissions with pKa ID column
-            for submission in submissions:
-                if matching_algorithm == 'hungarian':
-                    (submission.data_matched, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions_hungarian(df_pred =submission.data, df_exp = experimental_data)
-                elif matching_algorithm == 'closest':
-                    (submission.data_matched, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions(df_pred=submission.data, df_exp=experimental_data)
+            #for submission in submissions:
+            #    if matching_algorithm == 'hungarian':
+            #        (submission.data, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions_hungarian(df_pred =submission.data, df_exp = experimental_data)
+            #    elif matching_algorithm == 'closest':
+            #        (submission.data, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions(df_pred=submission.data, df_exp=experimental_data)
 
-                submission.data_matched.set_index("pKa ID", inplace=True)
+            #    submission.data.set_index("pKa ID", inplace=True)
                 # recreate pKa ID column
-                #submission.data_matched["pKa ID"] = submission.data_matched.index
+                #submission.data["pKa ID"] = submission.data.index
 
-                #submission.data_matched = submission.data_matched.set_index("pKa ID", drop=False)
+                #submission.data = submission.data.set_index("pKa ID", drop=False)
 
-            # Submissions free energies and enthalpies.
+            # Submissions for logP.
             for submission in submissions:
 
-                for series in submission.data_matched.iterrows():
-                    #pKa_ID = series[1]["pKa ID"]
-                    pKa_ID = series[0]
-                    mol_ID = series[1]["Molecule ID"]
+                print("submission.data:\n", submission.data)
+
+                for mol_ID, series in submission.data.iterrows():
+                    #print("mol_ID:", mol_ID)
+                    #print("series:\n", series)
+
+                    #mol_ID = series[1]["Molecule ID"]
 
                     #pKa_mean_exp = experimental_data.loc[experimental_data["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
-                    pKa_mean_exp = experimental_data.loc[pKa_ID, 'pKa mean']
-                    pKa_SEM_exp = experimental_data.loc[pKa_ID, 'pKa SEM']
+                    logP_mean_exp = experimental_data.loc[mol_ID, 'logP mean']
+                    logP_SEM_exp = experimental_data.loc[mol_ID, 'logP SEM']
 
-                    #pKa_mean_pred = submission.data_matched.loc[submission.data_matched["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
-                    pKa_mean_pred = submission.data_matched.loc[pKa_ID, "pKa mean"]
-                    pKa_SEM_pred = submission.data_matched.loc[pKa_ID, "pKa SEM"]
+                    #pKa_mean_pred = submission.data.loc[submission.data["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
+                    logP_mean_pred = submission.data.loc[mol_ID, "logP mean"]
+                    logP_SEM_pred = submission.data.loc[mol_ID, "logP SEM"]
 
                     data.append({
                         'receipt_id': submission.receipt_id,
                         'participant': submission.participant,
                         'name': submission.name,
+                        'category': submission.category,
                         'Molecule ID': mol_ID,
-                        'pKa ID': pKa_ID,
-                        'pKa (calc)': pKa_mean_pred,
-                        'pKa SEM (calc)': pKa_SEM_pred,
-                        'pKa (exp)': pKa_mean_exp,
-                        'pKa SEM (exp)': pKa_SEM_exp,
-                        '$\Delta$pKa error (calc - exp)': pKa_mean_pred - pKa_mean_exp
+                        'logP (calc)': logP_mean_pred,
+                        'logP SEM (calc)': logP_SEM_pred,
+                        'logP (exp)': logP_mean_exp,
+                        'logP SEM (exp)': logP_SEM_exp,
+                        '$\Delta$logP error (calc - exp)': logP_mean_pred - logP_mean_exp
                     })
 
             # Transform into Pandas DataFrame.
@@ -869,19 +540,19 @@ class pKaTypeIIISubmissionCollection:
             os.makedirs(self.output_directory_path, exist_ok=True)
 
             # Save collection.data dataframe in a CSV file.
-            self.data.to_csv(pka_typeiii_submission_collection_file_path)
+            self.data.to_csv(logP_submission_collection_file_path)
 
     def generate_correlation_plots(self):
-        # pKa correlation plots.
+        # logP correlation plots.
         output_dir_path = os.path.join(self.output_directory_path,
-                                       self.PKA_CORRELATION_PLOT_BY_METHOD_PATH_DIR)
+                                       self.LOGP_CORRELATION_PLOT_BY_METHOD_PATH_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
         for receipt_id in self.data.receipt_id.unique():
             data = self.data[self.data.receipt_id == receipt_id]
             title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 
             plt.close('all')
-            plot_correlation(x='pKa (exp)', y='pKa (calc)',
+            plot_correlation(x='logP (exp)', y='logP (calc)',
                              data=data, title=title, kind='joint')
             plt.tight_layout()
             # plt.show()
@@ -889,17 +560,17 @@ class pKaTypeIIISubmissionCollection:
             plt.savefig(output_path)
 
     def generate_correlation_plots_with_SEM(self):
-        # pKa correlation plots.
+        # logP correlation plots.
         output_dir_path = os.path.join(self.output_directory_path,
-                                       self.PKA_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR)
+                                       self.LOGP_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
         for receipt_id in self.data.receipt_id.unique():
             data = self.data[self.data.receipt_id == receipt_id]
             title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 
             plt.close('all')
-            plot_correlation_with_SEM(x_lab='pKa (exp)', y_lab='pKa (calc)',
-                                      x_err_lab='pKa SEM (exp)', y_err_lab='pKa SEM (calc)',
+            plot_correlation_with_SEM(x_lab='logP (exp)', y_lab='logP (calc)',
+                                      x_err_lab='logP SEM (exp)', y_err_lab='logP SEM (calc)',
                                       data=data, title=title)
             plt.tight_layout()
             # plt.show()
@@ -909,26 +580,26 @@ class pKaTypeIIISubmissionCollection:
     def generate_molecules_plot(self):
         # Correlation plot by molecules.
         plt.close('all')
-        data_ordered_by_pKa_ID = self.data.sort_values(["pKa ID"], ascending=["True"])
+        data_ordered_by_mol_ID = self.data.sort_values(["Molecule ID"], ascending=["True"])
         sns.set(rc={'figure.figsize': (8.27,11.7)})
-        sns.violinplot(y='pKa ID', x='$\Delta$pKa error (calc - exp)', data=data_ordered_by_pKa_ID,
+        sns.violinplot(y='Molecule ID', x='$\Delta$logP error (calc - exp)', data=data_ordered_by_mol_ID,
                            inner='point', linewidth=1, width=1.2)
         plt.tight_layout()
         # plt.show()
-        plt.savefig(os.path.join(self.output_directory_path, self.PKA_CORRELATION_PLOT_BY_PKA_PATH_DIR))
+        plt.savefig(os.path.join(self.output_directory_path, self.LOGP_CORRELATION_PLOT_BY_LOGP_PATH_DIR))
 
-    def generate_absolute_error_vs_pKa_ID_plot(self):
+    def generate_absolute_error_vs_molecule_ID_plot(self):
         """
-        For each method a bar plot is generated so that absolute errors of each pKa can be compared.
+        For each method a bar plot is generated so that absolute errors of each molecule can be compared.
         """
         # Setup output directory
         output_dir_path = os.path.join(self.output_directory_path,
-                                       self.ABSOLUTE_ERROR_VS_PKA_PLOT_PATH_DIR)
+                                       self.ABSOLUTE_ERROR_VS_LOGP_PLOT_PATH_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
 
         # Calculate absolute errors.
         self.data["absolute error"] = np.NaN
-        self.data.loc[:, "absolute error"] = np.absolute(self.data.loc[:, "$\Delta$pKa error (calc - exp)"])
+        self.data.loc[:, "absolute error"] = np.absolute(self.data.loc[:, "$\Delta$logP error (calc - exp)"])
 
         # Create a separate plot for each submission.
         for receipt_id in self.data.receipt_id.unique():
@@ -936,7 +607,7 @@ class pKaTypeIIISubmissionCollection:
             title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 
             plt.close('all')
-            barplot(df=data, x_label="pKa ID", y_label="absolute error", title=title)
+            barplot(df=data, x_label="Molecule ID", y_label="absolute error", title=title)
             output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
             plt.savefig(output_path)
 
@@ -957,7 +628,7 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         print('\rGenerating bootstrap statistics for submission {} ({}/{})'
                   ''.format(receipt_id, i + 1, len(submissions)), end='')
 
-        bootstrap_statistics = submission.compute_pKa_statistics(experimental_data, stats_funcs)
+        bootstrap_statistics = submission.compute_logP_statistics(experimental_data, stats_funcs)
 
 
         record_csv = {}
@@ -1022,9 +693,8 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         f.write('\end{center}\n' 
                 '\nNotes\n\n'
                 '- Mean and 95\% confidence intervals of statistic values were calculated by bootstrapping.\n\n'
-                '- Submissions with submission IDs nb001, nb002, nb003, nb004, nb005 and nb005 include non-blind corrections to pKa predictions of only SM22 molecule.\n\n'
                 'pKas of the rest of the molecules in these submissions were blindly predicted before experimental data was released.\n\n'
-                '- pKa predictions of Epik-sequencial method (submission ID: nb007) were not blind. They were submitted after the submission deadline to be used as a reference method.\n\n'
+                #'- Some logP predictions were submitted after the submission deadline to be used as a reference method.\n\n'
                 '\end{document}\n')
 
     # Violin plots by statistics across submissions.
@@ -1075,22 +745,21 @@ if __name__ == '__main__':
     # Read experimental data.
     with open(EXPERIMENTAL_DATA_FILE_PATH, 'r') as f:
         # experimental_data = pd.read_json(f, orient='index')
-        names = ('Molecule ID', 'pKa1 mean', 'pKa1 SEM', 'pKa2 mean', 'pKa2 SEM', 'pKa3 mean', 'pKa3 SEM',
-                 'Assay Type', 'Experimental Molecule ID', 'canonical isomeric SMILES')
+        names = ('Molecule ID', 'logP mean', 'logP SEM',
+                 'Assay Type', 'Experimental ID', 'Isomeric SMILES')
         experimental_data = pd.read_csv(f, names=names, skiprows=1)
 
     # Convert numeric values to dtype float.
     for col in experimental_data.columns[1:7]:
         experimental_data[col] = pd.to_numeric(experimental_data[col], errors='coerce')
 
-    # Reorganize the experimental pKas into stacked form
-    experimental_data = reorganize_experimental_pKa_dataframe(experimental_data)
-    experimental_data.set_index("pKa ID", inplace=True)
-    experimental_data["pKa ID"] = experimental_data.index
+
+    experimental_data.set_index("Molecule ID", inplace=True)
+    experimental_data["Molecule ID"] = experimental_data.index
     print("Experimental data: \n", experimental_data)
 
     # Import user map.
-    with open('../../predictions/SAMPL6_user_map_pKa.csv', 'r') as f:
+    with open('../predictions/SAMPL6-user-map-logP.csv', 'r') as f:
         user_map = pd.read_csv(f)
 
     # Configuration: statistics to compute.
@@ -1114,37 +783,36 @@ if __name__ == '__main__':
     }
 
     # Load submissions data.
-    submissions_typeIII = load_submissions(PKA_TYPEIII_SUBMISSIONS_DIR_PATH, user_map)
+    submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
 
     # Perform the analysis using the different algorithms for matching predictions to experiment
-    for algorithm in ['closest', 'hungarian']:
-    #for algorithm in ['closest']:
-
-        output_directory_path='./analysis_outputs_{}'.format(algorithm)
-        pka_typeiii_submission_collection_file_path = '{}/typeIII_submission_collection.csv'.format(output_directory_path)
-
-        collection_typeIII= pKaTypeIIISubmissionCollection(submissions_typeIII, experimental_data,
-                                                     output_directory_path, pka_typeiii_submission_collection_file_path, algorithm)
-
-        # Generate plots and tables.
-        for collection in [collection_typeIII]:
-            collection.generate_correlation_plots()
-            collection.generate_correlation_plots_with_SEM()
-            collection.generate_molecules_plot()
-            collection.generate_absolute_error_vs_pKa_ID_plot()
-
-        import shutil
-
-        if os.path.isdir('{}/StatisticsTables'.format(output_directory_path)):
-            shutil.rmtree('{}/StatisticsTables'.format(output_directory_path))
 
 
-        for submissions, type in zip([submissions_typeIII], ['typeIII']):
-            generate_statistics_tables(submissions, stats_funcs, directory_path=output_directory_path + '/StatisticsTables',
-                                       file_base_name='statistics', sort_stat='RMSE',
-                                       ordering_functions=ordering_functions,
-                                       latex_header_conversions=latex_header_conversions)
+    output_directory_path='./analysis_outputs'
+    logP_submission_collection_file_path = '{}/logP_submission_collection.csv'.format(output_directory_path)
 
-        # Generate RMSE and MAE comparison plots.
-        statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
-        generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
+    collection_logP= logPSubmissionCollection(submissions_logP, experimental_data,
+                                             output_directory_path, logP_submission_collection_file_path)
+
+    # Generate plots and tables.
+    for collection in [collection_logP]:
+        collection.generate_correlation_plots()
+        collection.generate_correlation_plots_with_SEM()
+        collection.generate_molecules_plot()
+        collection.generate_absolute_error_vs_molecule_ID_plot()
+
+    import shutil
+
+    if os.path.isdir('{}/StatisticsTables'.format(output_directory_path)):
+        shutil.rmtree('{}/StatisticsTables'.format(output_directory_path))
+
+
+    for submissions, type in zip([submissions_logP], ['typeIII']):
+        generate_statistics_tables(submissions, stats_funcs, directory_path=output_directory_path + '/StatisticsTables',
+                                    file_base_name='statistics', sort_stat='RMSE',
+                                    ordering_functions=ordering_functions,
+                                    latex_header_conversions=latex_header_conversions)
+
+    # Generate RMSE and MAE comparison plots.
+    statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
+    generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)

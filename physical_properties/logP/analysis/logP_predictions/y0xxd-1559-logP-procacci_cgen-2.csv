@@ -25,6 +25,7 @@ SM13,3.33,0.79,2
 SM14,0.54,0.54,2 
 SM15,1.28,0.85,2 
 SM16,2.58,0.72,2 
+
 # NAME SECTION 
 # 
 # Please provide an informal but informative name of the method used.  
@@ -57,7 +58,8 @@ Physical
 # Use as many lines and paragraphs of text as you need. 
 # All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
 
-Method: All simulations were performed with the ORAC6.1 molecular
+Method:
+All simulations were performed with the ORAC6.1 molecular
 dynamics program using the unidirectional fast switching growth method
 (FSGM) (doi: 10.1021/ct500142c). In FSGM, for both w and o solvent,
 only the compound configurations at full decoupling (lambda=0,

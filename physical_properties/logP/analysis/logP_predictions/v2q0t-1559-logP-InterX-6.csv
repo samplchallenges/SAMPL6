@@ -25,12 +25,13 @@ SM13,5.37,0.24,3
 SM14,2.73,0.21,3
 SM15,3.01,0.21,3
 SM16,3.72,0.28,3
+
 # NAME SECTION
 #
 # Please provide an informal but informative name of the method used.
 # The 'Name:' keyword is required as shown here.
-Name: InterX_GAFF_WET_OCTANOL
-
+Name: 
+InterX_GAFF_WET_OCTANOL
 
 
 # SOFTWARE SECTION

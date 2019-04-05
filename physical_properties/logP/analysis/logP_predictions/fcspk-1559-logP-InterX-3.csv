@@ -25,11 +25,13 @@ SM13,1.18,0.37,3
 SM14,2.67,0.36,3
 SM15,-0.34,0.34,3
 SM16,1.98,0.38,3
+
 # NAME SECTION,,,
 #,,,
 # Please provide an informal but informative name of the method used.,,,
 # The 'Name:' keyword is required as shown here.,,,
-Name: ARROW_2017_PIMD_SOLVENT2
+Name: 
+ARROW_2017_PIMD_SOLVENT2
 
 # SOFTWARE SECTION
 #,,,

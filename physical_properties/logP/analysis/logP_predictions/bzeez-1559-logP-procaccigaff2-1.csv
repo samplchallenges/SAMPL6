@@ -58,7 +58,8 @@ Physical
 # Use as many lines and paragraphs of text as you need. 
 # All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
 
-Method: All simulations were performed with the ORAC6.1 molecular
+Method:
+All simulations were performed with the ORAC6.1 molecular
 dynamics program using the bidirectional fast switching
 annihilation/growth method (FSAGM) (doi: 10.1021/ct500142c). In FSAGM,
 for both w and o solvent, configurations at full coupling (lambda=1)
