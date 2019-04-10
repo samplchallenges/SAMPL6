@@ -227,9 +227,6 @@ def generate_iteration_cutoffs():
     systems_iteration_cutoffs = {system_id: set() for system_id in SYSTEM_IDS}
     for submission in submissions:
         for system_id, row in submission.cost.iterrows():
-            # TODO REMOVE ME
-            if system_id not in SYSTEM_IDS:
-                continue
             system_name = system_id[:-2]
 
             # Generate the 100 iteration cutoffs splitting the YANK calculation by energy evaluations.
@@ -237,16 +234,17 @@ def generate_iteration_cutoffs():
             iteration_cutoffs = energy_evaluations_iteration_cutoffs(n_energy_evaluations, system_name)
             systems_iteration_cutoffs[system_id].update(iteration_cutoffs)
 
-            # # For GROMACS-EE, analyze also the iterations corresponding to energy evaluations
-            # # resulting from adding the full cost of the equilibration stage to each replica.
-            # if submission.paper_name == 'GROMACS/EE' and system_name != 'CB8-G3':
-            #     mean_free_energies = submission.mean_free_energies()
-            #     mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
-            #     first_nonzero_idx = np.nonzero(mean_data['$\Delta$G [kcal/mol]'].values)[0][0]
-            #     calibration_cost = mean_data['N energy evaluations'].values[first_nonzero_idx] * 4
-            #     n_energy_evaluations += calibration_cost
-            #     iteration_cutoffs = energy_evaluations_iteration_cutoffs(n_energy_evaluations, system_name)
-            #     systems_iteration_cutoffs[system_id].update(iteration_cutoffs)
+            # For GROMACS-EE, analyze also the iterations corresponding to energy evaluations
+            # resulting from adding the full cost of the equilibration stage to each replica.
+            if submission.paper_name == 'GROMACS/EE' and system_name != 'CB8-G3':
+                mean_free_energies = submission.mean_free_energies()
+                mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
+                first_nonzero_idx = np.nonzero(mean_data['$\Delta$G [kcal/mol]'].values)[0][0]
+                calibration_cost = mean_data['N energy evaluations'].values[first_nonzero_idx] * 4
+                n_energy_evaluations += calibration_cost
+                iteration_cutoffs = energy_evaluations_iteration_cutoffs(n_energy_evaluations, system_name,
+                                                                         start=calibration_cost)
+                systems_iteration_cutoffs[system_id].update(iteration_cutoffs)
 
             # Use CPU time when available and fallback on wall-clock time if not.
             tot_time = row['CPU time'] if not np.isnan(row['CPU time']) else row['Wall clock time']

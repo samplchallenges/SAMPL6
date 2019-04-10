@@ -902,11 +902,24 @@ def plot_equilibration_methods():
 
 def get_relative_efficiency_input(submission, yank_analysis, system_name):
     """Prepare the data to compute the mean relative efficiencies for this system."""
+    # For GROMACS/EE-fullquil we need to account for the extra equilibration
+    # cost and shift all energy evaluation to the right.
+    if submission.paper_name == 'GROMACS/EE-fullequil':
+        mean_free_energies = submission.mean_free_energies()
+        mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
+        first_shifted = mean_data['N energy evaluations'].values[0]
+        last_shifted = mean_data['N energy evaluations'].values[-1]
+        calibration_cost = first_shifted*100/99 - last_shifted/99
+    else:
+        calibration_cost = 0
+
     # Isolate the data for the system.
     data_sub = submission.data[submission.data['System name'] == system_name]
     n_energy_evaluations = max(data_sub['N energy evaluations'])
+
     data_ref = yank_analysis.get_free_energies_from_energy_evaluations(
-        n_energy_evaluations, system_name=system_name, mean_trajectory=False)
+        n_energy_evaluations, system_name=system_name, mean_trajectory=False,
+        start=calibration_cost)
 
     # Obtain the free energies for the submission.
     n_replicates = 5
@@ -989,7 +1002,7 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
         # Create figure.
         if not same_plot:
             # For GROMACS/EE, there are no submissions for CB8-G3.
-            if submission.paper_name == 'GROMACS/EE':
+            if 'GROMACS/EE' in submission.paper_name:
                  system_names = system_names[~(system_names == 'CB8-G3')]
 
             fig, axes = plt.subplots(nrows=3, ncols=len(system_names),
@@ -998,7 +1011,7 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
 
         for col_idx, system_name in enumerate(system_names):
             # For GROMACS/EE, there are no submissions for CB8-G3.
-            if submission.paper_name == 'GROMACS/EE' and system_name == 'CB8-G3':
+            if 'GROMACS/EE' in submission.paper_name and system_name == 'CB8-G3':
                 continue
 
             # Get input for EfficiencyAnalysis.
@@ -1159,7 +1172,7 @@ def plot_absolute_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
 
         for col_idx, system_name in enumerate(system_names):
             # GROMACS/EE doesn't have submissions for CB8-G3.
-            if submission.paper_name == 'GROMACS/EE' and system_name == 'CB8-G3':
+            if 'GROMACS/EE' in submission.paper_name and system_name == 'CB8-G3':
                 continue
 
             # Select the submission data for only this host-guest system.
@@ -1583,8 +1596,9 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
                                   labelspacing=0.8, handletextpad=0.5, columnspacing=1.2)
 
         # Save figure.
-        output_file_name = '{}-{}.pdf'.format(submission.receipt_id, submission.file_name)
-        plt.savefig(os.path.join(output_path_dir, output_file_name))
+        output_file_name = '{}-{}'.format(submission.receipt_id, submission.file_name)
+        plt.savefig(os.path.join(output_path_dir, output_file_name + '.pdf'))
+        # plt.savefig(os.path.join(output_path_dir, output_file_name + '.png'), dpi=300)
         # plt.show()
 
 
@@ -1595,9 +1609,6 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
 if __name__ == '__main__':
     sns.set_style('whitegrid')
     sns.set_context('paper')
-
-    # Flag that controls whether to plot the trajectory of uncertainties and std.
-    PLOT_ERRORS = True
 
     # Read reference values.
     yank_analysis = YankSamplingAnalysis(YANK_ANALYSIS_DIR_PATH)
@@ -1622,18 +1633,20 @@ if __name__ == '__main__':
     # Remove AMBER/TI.
     all_submissions = [s for s in all_submissions if s.name not in ['Langevin/Virtual Bond/TI']]
 
-    # # Create an extra submission for GROMACS/EE where the full cost of equilibration has been taken into account.
-    # gromacs_ee_submission = copy.deepcopy([s for s in submissions if s.paper_name == 'GROMACS/EE'][0])
-    # gromacs_ee_submission.paper_name = 'GROMACS/EE-fullequil'
-    # data = gromacs_ee_submission.data  # Shortcut.
-    # mean_free_energies = gromacs_ee_submission.mean_free_energies()
-    # for system_name in ['OA-G3', 'OA-G6']:
-    #     mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
-    #     first_nonzero_idx = np.nonzero(mean_data[DG_KEY].values)[0][0]
-    #     full_equilibration_cost = mean_data['N energy evaluations'].values[first_nonzero_idx] * 4
-    #     for i in (data['System name'] == system_name).index:
-    #         data.at[i, 'N energy evaluations'] += full_equilibration_cost
-    # submissions.append(gromacs_ee_submission)
+    # Create an extra submission for GROMACS/EE where the full cost of equilibration has been taken into account.
+    gromacs_ee_submission = copy.deepcopy([s for s in all_submissions if s.paper_name == 'GROMACS/EE'][0])
+    gromacs_ee_submission.paper_name = 'GROMACS/EE-fullequil'
+    gromacs_ee_submission.file_name = 'EENVT-fullequil'
+    data = gromacs_ee_submission.data  # Shortcut.
+    mean_free_energies = gromacs_ee_submission.mean_free_energies()
+    for system_name in ['OA-G3', 'OA-G6']:
+        mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
+        first_nonzero_idx = np.nonzero(mean_data[DG_KEY].values)[0][0]
+        full_equilibration_cost = mean_data['N energy evaluations'].values[first_nonzero_idx] * 4
+        for i in data[data['System name'] == system_name].index:
+            data.at[i, 'N energy evaluations'] += full_equilibration_cost
+
+    all_submissions.append(gromacs_ee_submission)
 
     # Sort the submissions to have all pot and tables in the same order.
     all_submissions = sorted(all_submissions, key=lambda s: s.paper_name)

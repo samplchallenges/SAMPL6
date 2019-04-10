@@ -151,13 +151,14 @@ def energy_evaluations_from_iterations(system_name, n_iterations):
     return energy_evaluations_per_iteration * n_iterations
 
 
-def energy_evaluations_iteration_cutoffs(tot_energy_evaluations, system_name):
+def energy_evaluations_iteration_cutoffs(tot_energy_evaluations, system_name, start=0):
     """Compute the 100 YANK iterations to use for analysis from the total energy evaluations to consider."""
     # Find the number of energy evaluations per iteration.
     energy_evaluations_per_iteration = energy_evaluations_from_iterations(system_name, n_iterations=1)
     # Find total number of iterations.
     last_iteration = tot_energy_evaluations / energy_evaluations_per_iteration
-    return get_iteration_cutoffs(last_iteration)
+    start_iteration = start / energy_evaluations_per_iteration
+    return get_iteration_cutoffs(last_iteration, start_iteration=start_iteration)
 
 
 def cpu_time_iteration_cutoffs(tot_time, system_id, yank_cpu_times):
@@ -170,7 +171,7 @@ def cpu_time_iteration_cutoffs(tot_time, system_id, yank_cpu_times):
     return get_iteration_cutoffs(last_iteration)
 
 
-def get_iteration_cutoffs(last_iteration):
+def get_iteration_cutoffs(last_iteration, start_iteration=0):
     """Return 100 equally spaced iterations.
 
     Parameters
@@ -178,6 +179,9 @@ def get_iteration_cutoffs(last_iteration):
     last_iteration : float
         The approximate total number of iterations considered.
         This will be rounded to the nearest integer.
+    start_iteration : int, optional
+        The first iteration of the 100 equally-spaced iterations will
+        be ``last_iteration/100 + start_iteration``.
 
     Returns
     -------
@@ -186,7 +190,7 @@ def get_iteration_cutoffs(last_iteration):
 
     """
     # Find all iterations cutoff.
-    first_iteration = last_iteration / 100
+    first_iteration = last_iteration / 100 + start_iteration
     iteration_cutoffs = np.linspace(first_iteration, last_iteration, num=100, endpoint=True)
 
     # Convert to list of integers.
@@ -478,13 +482,14 @@ class YankSamplingAnalysis:
         return self._get_free_energies_from_iterations(iterations, [system_id])
 
     def get_free_energies_from_energy_evaluations(self, n_energy_evaluations, system_id=None,
-                                                  system_name=None, mean_trajectory=False):
+                                                  system_name=None, mean_trajectory=False,
+                                                  start=0):
         """Get 100 equally-spaced free energies and errors covering n_energy_evaluations as a DataFrame."""
         assert operator.xor(system_id is not None, system_name is not None)
 
         if system_name is None:
             system_name = system_id[:-2]
-        iterations = energy_evaluations_iteration_cutoffs(n_energy_evaluations, system_name)
+        iterations = energy_evaluations_iteration_cutoffs(n_energy_evaluations, system_name, start=start)
 
         if system_id is not None:
             system_ids = [system_id]
