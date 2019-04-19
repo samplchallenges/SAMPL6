@@ -161,7 +161,7 @@ def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=No
     plt.ylim(axes_limits)
 
 
-def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label):
+def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label, figsize=False):
     """Creates bar plot of a given dataframe with asymmetric error bars for y axis.
 
     Args:
@@ -170,14 +170,15 @@ def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label
         y_label: str, column name of y axis values
         y_lower_label: str, column name of lower error values of y axis
         y_upper_label: str, column name of upper error values of y axis
+        figsize: tuple, size in inches. Default value is False.
 
     """
     # Column names for new columns for delta y_err which is calculated as | y_err - y |
     delta_lower_yerr_label = "$\Delta$" + y_lower_label
     delta_upper_yerr_label = "$\Delta$" + y_upper_label
     data = df  # Pandas DataFrame
-    data[delta_lower_yerr_label] = data[y_label] - data[y_lower_label]
-    data[delta_upper_yerr_label] = data[y_upper_label] - data[y_label]
+    data.loc[:,delta_lower_yerr_label] = data.loc[:,y_label] - data.loc[:,y_lower_label]
+    data.loc[:,delta_upper_yerr_label] = data.loc[:,y_upper_label] - data.loc[:,y_label]
 
     # Color
     current_palette = sns.color_palette()
@@ -191,6 +192,10 @@ def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label
     plt.rcParams['ytick.labelsize'] = 16
     #plt.tight_layout()
 
+    # If figsize is specified
+    if figsize != False:
+        plt.figure(figsize=figsize)
+
     # Plot
     x = range(len(data[y_label]))
     y = data[y_label]
@@ -200,6 +205,77 @@ def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label
                  fmt="none", ecolor=sns_color, capsize=3, capthick=True)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
+
+
+def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_label, y_upper_label, color_label, figsize=False):
+    """Creates bar plot of a given dataframe with asymmetric error bars for y axis.
+
+        Args:
+            df: Pandas Dataframe that should have columns with columnnames specified in other arguments.
+            x_label: str, column name of x axis categories
+            y_label: str, column name of y axis values
+            y_lower_label: str, column name of lower error values of y axis
+            y_upper_label: str, column name of upper error values of y axis
+            color_label: str, column name of label that will determine the color of bars
+            figsize: tuple, size in inches. Default value is False.
+
+        """
+    # Column names for new columns for delta y_err which is calculated as | y_err - y |
+    delta_lower_yerr_label = "$\Delta$" + y_lower_label
+    delta_upper_yerr_label = "$\Delta$" + y_upper_label
+    data = df  # Pandas DataFrame
+    data.loc[:, delta_lower_yerr_label] = data.loc[:, y_label] - data.loc[:, y_lower_label]
+    data.loc[:, delta_upper_yerr_label] = data.loc[:, y_upper_label] - data.loc[:, y_label]
+
+    # Color
+    current_palette = sns.color_palette()
+    # Error bar color
+    sns_color = current_palette[2]
+    # Bar colors
+    category_list = ["Physical", "Empirical", "Mixed", "Other"]
+    bar_color_dict = {}
+    for i, cat in enumerate(category_list):
+        bar_color_dict[cat] = current_palette[i]
+    print("bar_color_dict:\n", bar_color_dict)
+
+
+    # Plot style
+    plt.close()
+    plt.style.use(["seaborn-talk", "seaborn-whitegrid"])
+    plt.rcParams['axes.labelsize'] = 18
+    plt.rcParams['xtick.labelsize'] = 14
+    plt.rcParams['ytick.labelsize'] = 16
+    # plt.tight_layout()
+
+    # If figsize is specified
+    if figsize != False:
+        plt.figure(figsize=figsize)
+
+    # Plot
+    x = range(len(data[y_label]))
+    y = data[y_label]
+    #barlist = plt.bar(x, y)
+    fig, ax = plt.subplots(figsize=figsize)
+    barlist = ax.bar(x, y)
+
+    plt.xticks(x, data[x_label], rotation=90)
+    plt.errorbar(x, y, yerr=(data[delta_lower_yerr_label], data[delta_upper_yerr_label]),
+                 fmt="none", ecolor='gray', capsize=3, elinewidth=2, capthick=True)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+
+    # Reset color of bars ased on color label
+    print("data.columns:\n",data.columns)
+    for i, c_label in enumerate(data.loc[:, color_label]):
+        barlist[i].set_color(bar_color_dict[c_label])
+
+    # create legend
+    from matplotlib.lines import Line2D
+    custom_lines = [Line2D([0], [0], color=bar_color_dict["Physical"], lw=5),
+                    Line2D([0], [0], color=bar_color_dict["Empirical"], lw=5),
+                    Line2D([0], [0], color=bar_color_dict["Mixed"], lw=5),
+                    Line2D([0], [0], color=bar_color_dict["Other"], lw=5)]
+    ax.legend(custom_lines, category_list)
 
 
 def barplot(df, x_label, y_label, title):
@@ -481,21 +557,8 @@ class logPSubmissionCollection:
             self.output_directory_path = output_directory_path
 
         else: # Build collection dataframe from the beginning.
-            # Build full pKa collection table.
+            # Build full logP collection table.
             data = []
-
-            # Match predicted pKas to experimental pKa IDs and update submissions with pKa ID column
-            #for submission in submissions:
-            #    if matching_algorithm == 'hungarian':
-            #        (submission.data, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions_hungarian(df_pred =submission.data, df_exp = experimental_data)
-            #    elif matching_algorithm == 'closest':
-            #        (submission.data, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions(df_pred=submission.data, df_exp=experimental_data)
-
-            #    submission.data.set_index("pKa ID", inplace=True)
-                # recreate pKa ID column
-                #submission.data["pKa ID"] = submission.data.index
-
-                #submission.data = submission.data.set_index("pKa ID", drop=False)
 
             # Submissions for logP.
             for submission in submissions:
@@ -625,11 +688,12 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
 
     for i, submission in enumerate(submissions):
         receipt_id = submission.receipt_id
+        category = submission.category
+
         print('\rGenerating bootstrap statistics for submission {} ({}/{})'
                   ''.format(receipt_id, i + 1, len(submissions)), end='')
 
         bootstrap_statistics = submission.compute_logP_statistics(experimental_data, stats_funcs)
-
 
         record_csv = {}
         record_latex = {}
@@ -644,16 +708,19 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
 
             # For the violin plot, we need all the bootstrap statistics series.
             for bootstrap_sample in bootstrap_samples:
-                statistics_plot.append(dict(ID=receipt_id, name=submission.name,
+                statistics_plot.append(dict(ID=receipt_id, name=submission.name, category=category,
                                             statistics=stats_name_latex, value=bootstrap_sample))
 
-        statistics_csv.append({'ID': receipt_id, 'name': submission.name, **record_csv})
+        statistics_csv.append({'ID': receipt_id, 'name': submission.name, 'category': category, **record_csv})
         escaped_name = submission.name.replace('_', '\_')
-        statistics_latex.append({'ID': receipt_id, 'name': escaped_name, **record_latex})
+        statistics_latex.append({'ID': receipt_id, 'name': escaped_name, 'category': category, **record_latex})
     print()
+    print("statistics_csv:\n",statistics_csv)
 
     # Convert dictionary to Dataframe to create tables/plots easily.
     statistics_csv = pd.DataFrame(statistics_csv)
+    #print("statistics_csv:\n", statistics_csv)
+    #print("statistics_csv.columns:\n", statistics_csv.columns)
     statistics_csv.set_index('ID', inplace=True)
     statistics_latex = pd.DataFrame(statistics_latex)
     statistics_plot = pd.DataFrame(statistics_plot)
@@ -666,8 +733,10 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
 
     # Reorder columns that were scrambled by going through a dictionaries.
     stats_names_csv = [name + suffix for name in stats_names for suffix in ci_suffixes]
+    #print("stats_names_csv:", stats_names_csv)
     stats_names_latex = [latex_header_conversions.get(name, name) for name in stats_names]
-    statistics_csv = statistics_csv[['name'] + stats_names_csv]
+    #print("stats_names_latex:", stats_names_latex)
+    statistics_csv = statistics_csv[['name', "category"] + stats_names_csv]
     statistics_latex = statistics_latex[['ID', 'name'] + stats_names_latex]
 
     # Create CSV and JSON tables (correct LaTex syntax in column names).
@@ -724,13 +793,61 @@ def generate_performance_comparison_plots(statistics_filename, directory_path):
 
         # RMSE comparison plot
         barplot_with_CI_errorbars(df=df_statistics, x_label="ID", y_label="RMSE", y_lower_label="RMSE_lower_bound",
-                                  y_upper_label="RMSE_upper_bound")
+                                  y_upper_label="RMSE_upper_bound", figsize=(22,10))
         plt.savefig(directory_path + "/RMSE_vs_method_plot.pdf")
 
+        # RMSE comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics, x_label="ID", y_label="RMSE",
+                                  y_lower_label="RMSE_lower_bound",
+                                  y_upper_label="RMSE_upper_bound", color_label = "category", figsize=(22,10))
+        plt.ylim(0.0, 7.0)
+        plt.savefig(directory_path + "/RMSE_vs_method_plot_colored_by_method_category.pdf")
+
         # MAE comparison plot
-        barplot_with_CI_errorbars(df=df_statistics, x_label="ID", y_label="MAE", y_lower_label="MAE_lower_bound",
-                                  y_upper_label="MAE_upper_bound")
+        # Reorder based on MAE value
+        df_statistics_MAE = df_statistics.sort_values(by="MAE", inplace=False)
+
+        barplot_with_CI_errorbars(df=df_statistics_MAE, x_label="ID", y_label="MAE", y_lower_label="MAE_lower_bound",
+                                  y_upper_label="MAE_upper_bound", figsize=(22,10))
         plt.savefig(directory_path + "/MAE_vs_method_plot.pdf")
+
+        # MAE comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics_MAE, x_label="ID", y_label="MAE",
+                                                   y_lower_label="MAE_lower_bound",
+                                                   y_upper_label="MAE_upper_bound", color_label="category",
+                                                   figsize=(22, 10))
+        plt.ylim(0.0, 7.0)
+        plt.savefig(directory_path + "/MAE_vs_method_plot_colored_by_method_category.pdf")
+
+
+        # Plot RMSE and MAE comparison plots for each category separately
+        category_list = ["Physical","Empirical", "Mixed", "Other"]
+
+        for category in category_list:
+            print("category: ",category)
+            #print("df_statistics.columns:\n", df_statistics.columns)
+
+            # Take subsection of dataframe for each category
+            df_statistics_1category = df_statistics.loc[df_statistics['category'] == category]
+            df_statistics_MAE_1category = df_statistics_MAE.loc[df_statistics_MAE['category'] == category]
+
+
+            # RMSE comparison plot for each category
+            barplot_with_CI_errorbars(df=df_statistics_1category, x_label="ID", y_label="RMSE", y_lower_label="RMSE_lower_bound",
+                                      y_upper_label="RMSE_upper_bound", figsize=(12, 10))
+            plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
+            plt.ylim(0.0,7.0)
+            plt.savefig(directory_path + "/RMSE_vs_method_plot_for_{}_category.pdf".format(category))
+
+            # MAE comparison plot for each category
+            barplot_with_CI_errorbars(df=df_statistics_MAE_1category, x_label="ID", y_label="MAE",
+                                      y_lower_label="MAE_lower_bound",
+                                      y_upper_label="MAE_upper_bound", figsize=(12, 10))
+            plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
+            plt.ylim(0.0, 7.0)
+            plt.savefig(directory_path + "/MAE_vs_method_plot_for_{}_category.pdf".format(category))
+
+
 
 
 # =============================================================================
@@ -807,7 +924,7 @@ if __name__ == '__main__':
         shutil.rmtree('{}/StatisticsTables'.format(output_directory_path))
 
 
-    for submissions, type in zip([submissions_logP], ['typeIII']):
+    for submissions, type in zip([submissions_logP], ['logP']):
         generate_statistics_tables(submissions, stats_funcs, directory_path=output_directory_path + '/StatisticsTables',
                                     file_base_name='statistics', sort_stat='RMSE',
                                     ordering_functions=ordering_functions,
