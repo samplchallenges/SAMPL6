@@ -762,7 +762,6 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         f.write('\end{center}\n' 
                 '\nNotes\n\n'
                 '- Mean and 95\% confidence intervals of statistic values were calculated by bootstrapping.\n\n'
-                'pKas of the rest of the molecules in these submissions were blindly predicted before experimental data was released.\n\n'
                 #'- Some logP predictions were submitted after the submission deadline to be used as a reference method.\n\n'
                 '\end{document}\n')
 
