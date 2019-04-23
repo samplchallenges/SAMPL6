@@ -14,6 +14,14 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 import scipy.stats
 
+## For QQ-Plots and Error Slope Calc
+import scipy.stats
+import scipy.integrate
+import matplotlib.patches as patches
+from pylab import rcParams
+from operator import itemgetter, attrgetter
+
+
 # =============================================================================
 # CONSTANTS
 # =============================================================================
@@ -60,6 +68,8 @@ def rmse(data):
 def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootstrap_samples=1000):
     """Compute bootstrap confidence interval for the given statistics functions."""
     # Handle case where only a single function is passed.
+    #print("SAMPLES:\n", samples)
+
     try:
         len(stats_funcs)
     except TypeError:
@@ -86,6 +96,149 @@ def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootst
         bootstrap_statistics.append([statistics[stats_func_idx], confidence_interval, samples_statistics])
 
     return bootstrap_statistics
+
+# =============================================================================
+# STATS FUNCTIONS FOR QQ-PLOT AND ERROR SLOPE CALCULATION
+#
+# Methods from uncertain_check.py David L. Mobley wrote for the SAMPL4 analysis
+# ===============================================================================
+
+def normal(y):
+    """Return unit normal distribution value at specified location."""
+    return 1. / np.sqrt(2 * np.pi) * np.exp(-y ** 2 / 2.)
+
+
+def compute_range_table(stepsize=0.001, maxextent=10):
+    """Compute integrals of the unit normal distribution and return these tabulated.
+    Returns:
+    --------
+    - range: NumPy array giving integration range (x) where integration range runs -x to +x
+    - integral: NumPy arrange giving integrals over specified integration range.
+
+    Arguments (optional):
+    ---------------------
+    - stepsize: Step size to advance integration range by each trial. Default: 0.001
+    - maxextent: Maximum extent of integration range
+"""
+    # Calculate integration range
+    x = np.arange(0, maxextent, stepsize)  # Symmetric, so no need to do negative values.
+
+    # Calculate distribution at specified x values
+    distrib = normal(x)
+
+    integral = np.zeros(len(x), float)
+    for idx in range(1, len(x)):
+        integral[idx] = 2 * scipy.integrate.trapz(distrib[0:idx + 1], x[0:idx + 1])  # Factor of 2 handles symmetry
+
+    return x, integral
+
+
+def get_range(integral, rangetable, integraltable):
+    """Use rangetable and integral table provided (i.e. from compute_range_table) to find the smallest range of integration for which the integral is greater than the specified value (integral). Return this range as a float."""
+
+    idx = np.where(integraltable > integral)[0]
+    return rangetable[idx[0]]
+
+
+# [DLM]Precompute integral of normal distribution so I can look up integration range which gives desired integral
+# integral_range, integral = compute_range_table()
+
+
+def fracfound_vs_error(calc, expt, dcalc, dexpt, integral_range, integral):
+    """
+    Takes in calculated and experimental values, their uncertainties as well as
+    """
+    # Fraction of Gaussian distribution we want to compute
+    X = np.arange(0, 1.0, 0.01)
+    Y = np.zeros(len(X))
+
+    for (i, x) in enumerate(X):
+        # Determine integration range which gives us this much probability
+        rng = get_range(x, integral_range, integral)
+        # print x, rng
+
+        # Loop over samples and compute fraction of measurements found
+        y = 0.
+        # for n in range(0, len(DGcalc)):
+        #    sigma_eff = sqrt( sigma_calc[n]**2 + sigma_expt[n]**2 )
+        #    absdiff = abs( DGcalc[n] - DGexpt[n])
+        #    #print absdiff, n, sigma_eff
+        #    if absdiff < rng * sigma_eff: #If the difference falls within the specified range of sigma values, then this is within the range we're looking at; track it
+        #        #print "Incrementing y for n=%s, x = %.2f" % (n, x)
+        #        y += 1./len(DGcalc)
+        # Rewrite for speed
+        sigma_eff = np.sqrt(np.array(dcalc) ** 2 + np.array(dexpt) ** 2)
+        absdiff = np.sqrt((np.array(calc) - np.array(expt)) ** 2)
+        idx = np.where(absdiff < rng * sigma_eff)[0]
+        Y[i] = len(idx) * 1. / len(calc)
+
+    # print Y
+    # raw_input()
+
+    return X, Y
+
+
+# Copied from David L. Mobley's scripts written for SAMPL4 analysis (added calculation uncertainty)
+def bootstrap_exptnoise(calc1, expt1, exptunc1, returnunc=False):
+    """Take two datasets (equal length) of calculated and experimental values. Construct new datasets of equal length by picking, with replacement, a set of indices to use from both sets. Return the two new datasets. To take into account experimental uncertainties, random noise is added to the experimental set, distributed according to gaussians with variance taken from the experimental uncertainties. Approach suggested by J. Chodera.
+Optionally, 'returnunc = True', which returns a third value -- experimental uncertainties corresponding to the data points actually used."""
+
+    # Make everything an array just in case
+    calc = np.array(calc1)
+    expt = np.array(expt1)
+    exptunc = np.array(exptunc1)
+    npoints = len(calc)
+
+    # Pick random datapoint indices
+    idx = np.random.randint(0, npoints,
+                            npoints)  # Create an array consisting of npoints indices, where each index runs from 0 up to npoints.
+
+    # Construct initial new datasets
+    newcalc = calc[idx]
+    newexpt = expt[idx]
+    newuncExp = exptunc[idx]
+
+    # Add noise to experimental set
+    noise = np.random.normal(0.,
+                             exptunc)  # For each data point, draw a random number from a normal distribution centered at 0, with standard devaitions given by exptunc
+    newexpt += noise
+
+    if not returnunc:
+        return newcalc, newexpt
+    else:
+        return newcalc, newexpt, newuncExp
+
+# Modified from  David L. Mobley's scripts written for SAMPL4 analysis (added bootstrapped values to the list of returned values )
+def getQQdata(calc, expt, dcalc, dexpt, boot_its):
+    """
+    Takes calculated and experimental values and their uncertainties
+
+    Parameters
+    ----------
+    calc: predicted logP value
+    expt: experimental logP value
+    dcalc: predicted model uncertainty
+    dexp: experimental logP SEM
+
+    Outputs
+    -------
+    X: array of x axis values for QQ-plot
+    Y: array of y axis values for QQ-plot
+    slope: Error Slope (ES) of line fit to QQ-plot
+    slopes: Erros Slope (ES) of line fit to QQ-plot of bootstrapped datapoints
+    """
+    integral_range, integral = compute_range_table()
+    X, Y = fracfound_vs_error(calc, expt, dcalc, dexpt, integral_range, integral)
+    xtemp = X[:, np.newaxis]
+    coeff, _, _, _ = np.linalg.lstsq(xtemp, Y)
+    slope = coeff[0]
+    slopes = []
+    for it in range(boot_its):
+        n_calc, n_expt, n_dexpt = bootstrap_exptnoise(calc, expt, dexpt, returnunc=True)
+        nX, nY = fracfound_vs_error(n_calc, n_expt, dcalc, n_dexpt, integral_range, integral)
+        a, _, _, _ = np.linalg.lstsq(xtemp, nY)
+        slopes.append(a[0])
+    return X, Y, slope, np.array(slopes).std(), slopes
 
 # =============================================================================
 # PLOTTING FUNCTIONS
@@ -265,7 +418,7 @@ def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_lab
     plt.ylabel(y_label)
 
     # Reset color of bars ased on color label
-    print("data.columns:\n",data.columns)
+    #print("data.columns:\n",data.columns)
     for i, c_label in enumerate(data.loc[:, color_label]):
         barlist[i].set_color(bar_color_dict[c_label])
 
@@ -310,6 +463,93 @@ def barplot(df, x_label, y_label, title):
         plt.title(title)
     plt.tight_layout()
 
+# ============================================================================
+# PLOTTING FUNCTIONS FOR QQ-PLOT
+#
+# Methods from uncertain_check.py David L. Mobley wrote for the SAMPL4 analysis
+# =============================================================================
+
+def JCAMDdict(w = 1, square = False, fontsize = 8):
+    """
+    This method returns a dictionary with the figure settings for JCMD, including font sizes and markersize defaults. Then you can edit the dictionary once you've called this method.
+    w should be 0 to 4 corresponding to [39, 84, 129, 174] mm figure width
+    If square is true then the height and width will be equal, otherwise height will be determined as the golden ratio * width
+    """
+    # options for figure width on JCAMD in mm
+    widths = [39, 84, 129, 174, 267]
+    # Convert width in mm to inches
+    wid = widths[w]* 0.0393701 # Convert to inches
+
+    # Determine height
+    if square:
+        height = wid
+    else:
+        height = wid * (np.sqrt(5.0) - 1.0) / 2.0
+
+    parameters =  {'backend': 'ps',
+            'axes.labelsize': fontsize,
+            'xtick.labelsize': fontsize,
+            'ytick.labelsize': fontsize,
+            'font.size': fontsize,
+            'xtick.labelsize': fontsize,
+            'ytick.labelsize': fontsize,
+            'figure.figsize': [wid, height],
+            'legend.fontsize': 6,
+            'font.family':'sans-serif',
+            'font.sans-serif':'arial',
+            'lines.markersize': 3,
+            'lines.linewidth': 0.25,
+            'figure.autolayout' : False,
+            'figure.subplot.right': 0.6,
+            'figure.subplot.left': 0.15,
+            'figure.subplot.bottom': 0.2,
+            'figure.subplot.top': 0.85
+            }
+
+    return parameters
+
+def makeQQplot(X, Y, slope, title, xLabel ="Expected fraction within range" , yLabel ="Fraction of predictions within range", fileName = "QQplot.pdf", uncLabel = 'Model Unc.', leg = [1.02, 0.98, 2, 1], ax1 = None):
+    """
+    Provided with experimental and calculated values (and their associated uncertainties) in the form of list like objects.
+    Provides the analysis to make a QQ-plot using the guassian integral methods David wrote for SAMPL4 that are included above.
+    Makes a files of the plot and returns the "error slope" as a float and the figure of the created plot
+    """
+    if ax1 == None:
+        axReturn = False
+        # Get plot parameters for JCAMD
+        rcParams.update(JCAMDdict())
+
+        # Set up plot
+        fig1 = plt.figure(1)
+        ylim = (0,1)
+        xlim = (0,1)
+        plt.xlabel(xLabel)
+        plt.ylabel(yLabel)
+        plt.title(title)
+        ax1 = fig1.add_subplot(111)
+
+    else:
+        axReturn = True
+    # Add data to plot
+    p1 = ax1.plot(X,Y,'bo', label = uncLabel)
+
+    # Add x=y line
+    p2 = ax1.plot(X,X,'k-', label = r'$X=Y$')
+
+    # X data needs to be a column vector to use linalg.lstsq
+    p3 = ax1.plot(X, slope*X, 'r-', label = 'Slope %.2f' % slope)
+
+    # Build Legend
+    handles = [p1,p2,p3]
+    if leg != None:
+        ax1.legend(bbox_to_anchor = (leg[0], leg[1]), loc = leg[2], ncol = leg[3], borderaxespad = 0.)
+
+    if axReturn:
+        return ax1
+    else:
+        # Adjust spacing then save and close figure
+        plt.savefig(fileName)
+        plt.close(fig1)
 
 
 # =============================================================================
@@ -500,6 +740,66 @@ class logPSubmission(SamplSubmission):
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
                                       for i in range(len(stats_funcs)))
 
+    def compute_logP_model_uncertainty_statistics(self,experimental_data):
+
+        # Create a dataframe for data necessary for error slope analysis
+        expt_logP_series = experimental_data["logP mean"]
+        expt_logP_SEM_series = experimental_data["logP SEM"]
+        pred_logP_series = self.data["logP mean"]
+        pred_logP_SEM_series = self.data["logP SEM"]
+        pred_logP_mod_unc_series = self.data["logP model uncertainty"]
+
+        # Concatenate the columns into a single dataframe.
+        data_exp =  pd.concat([expt_logP_series, expt_logP_SEM_series], axis=1)
+        data_exp = data_exp.rename(index=str, columns={"logP mean": "logP mean (expt)",
+                                                        "logP SEM": "logP SEM (expt)"})
+
+        data_mod_unc = pd.concat([data_exp, pred_logP_series, pred_logP_SEM_series, pred_logP_mod_unc_series], axis=1)
+        data_mod_unc = data_mod_unc.rename(index=str, columns={"logP mean (calc)": "logP mean (calc)",
+                                                                "logP SEM": "logP SEM (calc)",
+                                                                "logP model uncertainty": "logP model uncertainty"})
+        #print("data_mod_unc:\n", data_mod_unc)
+
+        # Compute QQ-Plot Error Slope (ES)
+        calc = data_mod_unc.loc[:, "logP mean (calc)"].values
+        expt = data_mod_unc.loc[:, "logP mean (expt)"].values
+        dcalc = data_mod_unc.loc[:, "logP model uncertainty"].values
+        dexpt = data_mod_unc.loc[:, "logP SEM (expt)"].values
+        n_bootstrap_samples = 1000
+
+        X, Y, error_slope, error_slope_std, slopes = getQQdata(calc, expt, dcalc, dexpt, boot_its=n_bootstrap_samples)
+        #print(X)
+        #print(Y)
+        #print("ES:", error_slope)
+        #print("ES std:", error_slope_std)
+        #print("Bootstrapped Error Slopes:", slopes)
+
+        # Compute 95% confidence intervals of Error Slope
+        percentile = 0.95
+        percentile_index = int(np.floor(n_bootstrap_samples * (1 - percentile) / 2)) - 1
+
+        #for stats_func_idx, samples_statistics in enumerate(bootstrap_samples_statistics):
+        samples_statistics = np.asarray(slopes)
+        samples_statistics.sort()
+        stat_lower_percentile = samples_statistics[percentile_index]
+        stat_higher_percentile = samples_statistics[-percentile_index + 1]
+        confidence_interval = (stat_lower_percentile, stat_higher_percentile)
+
+        model_uncertainty_statistics = [error_slope, confidence_interval, samples_statistics]
+
+        return model_uncertainty_statistics
+
+        #bootstrap_statistics.append([statistics[stats_func_idx], confidence_interval, samples_statistics])
+        #
+        #
+        #return bootstrap_statistics
+
+
+
+        # Components of bootstrap statistsics mean, (low CI, up CI), array(bootstrap samples)
+
+        #return collections.OrderedDict(("ES", bootstrap_statistics))
+
 # =============================================================================
 # UTILITY FUNCTIONS
 # =============================================================================
@@ -550,11 +850,14 @@ class logPSubmissionCollection:
                 submission.data["logP mean"] = df_collection_of_each_submission["logP (calc)"]
                 submission.data["logP SEM"] = df_collection_of_each_submission["logP SEM (calc)"]
                 submission.data["Molecule ID"] = df_collection_of_each_submission["Molecule ID"]
+                submission.data["logP model uncertainty"] = df_collection_of_each_submission["logP model uncertainty"]
 
                 submission.data.set_index("Molecule ID", inplace=True)
 
             # Transform into Pandas DataFrame.
             self.output_directory_path = output_directory_path
+
+            #print("submission.data:\n", submission.data)
 
         else: # Build collection dataframe from the beginning.
             # Build full logP collection table.
@@ -578,6 +881,7 @@ class logPSubmissionCollection:
                     #pKa_mean_pred = submission.data.loc[submission.data["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
                     logP_mean_pred = submission.data.loc[mol_ID, "logP mean"]
                     logP_SEM_pred = submission.data.loc[mol_ID, "logP SEM"]
+                    logP_model_uncertainty =  submission.data.loc[mol_ID, "logP model uncertainty"]
 
                     data.append({
                         'receipt_id': submission.receipt_id,
@@ -589,7 +893,8 @@ class logPSubmissionCollection:
                         'logP SEM (calc)': logP_SEM_pred,
                         'logP (exp)': logP_mean_exp,
                         'logP SEM (exp)': logP_SEM_exp,
-                        '$\Delta$logP error (calc - exp)': logP_mean_pred - logP_mean_exp
+                        '$\Delta$logP error (calc - exp)': logP_mean_pred - logP_mean_exp,
+                        'logP model uncertainty': logP_model_uncertainty
                     })
 
             # Transform into Pandas DataFrame.
@@ -695,6 +1000,15 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
 
         bootstrap_statistics = submission.compute_logP_statistics(experimental_data, stats_funcs)
 
+        # Compute error slope
+        error_slope_bootstrap_statistics = submission.compute_logP_model_uncertainty_statistics(experimental_data)
+        #print("error_slope_bootstrap_statistics:\n")
+        #print(error_slope_bootstrap_statistics)
+
+        # Add error slope and CI to bootstrap_statistics
+        bootstrap_statistics.update({'ES' : error_slope_bootstrap_statistics })
+        #print("bootstrap_statistics:\n", bootstrap_statistics)
+
         record_csv = {}
         record_latex = {}
         for stats_name, (stats, (lower_bound, upper_bound), bootstrap_samples) in bootstrap_statistics.items():
@@ -704,7 +1018,7 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
 
             # For the PDF, print bootstrap CI in the same column.
             stats_name_latex = latex_header_conversions.get(stats_name, stats_name)
-            record_latex[stats_name_latex] = '{:.3f} [{:.3f}, {:.3f}]'.format(stats, lower_bound, upper_bound)
+            record_latex[stats_name_latex] = '{:.2f} [{:.2f}, {:.2f}]'.format(stats, lower_bound, upper_bound)
 
             # For the violin plot, we need all the bootstrap statistics series.
             for bootstrap_sample in bootstrap_samples:
@@ -719,8 +1033,6 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
 
     # Convert dictionary to Dataframe to create tables/plots easily.
     statistics_csv = pd.DataFrame(statistics_csv)
-    #print("statistics_csv:\n", statistics_csv)
-    #print("statistics_csv.columns:\n", statistics_csv.columns)
     statistics_csv.set_index('ID', inplace=True)
     statistics_latex = pd.DataFrame(statistics_latex)
     statistics_plot = pd.DataFrame(statistics_plot)
@@ -736,8 +1048,8 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     #print("stats_names_csv:", stats_names_csv)
     stats_names_latex = [latex_header_conversions.get(name, name) for name in stats_names]
     #print("stats_names_latex:", stats_names_latex)
-    statistics_csv = statistics_csv[['name', "category"] + stats_names_csv]
-    statistics_latex = statistics_latex[['ID', 'name'] + stats_names_latex]
+    statistics_csv = statistics_csv[['name', "category"] + stats_names_csv + ["ES", "ES_lower_bound", "ES_upper_bound"] ]
+    statistics_latex = statistics_latex[['ID', 'name'] + stats_names_latex + ["ES"]] ## Add error slope(ES)
 
     # Create CSV and JSON tables (correct LaTex syntax in column names).
     os.makedirs(directory_path)
@@ -758,10 +1070,11 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
                 '\\pagenumbering{gobble}\n'
                 '\\begin{document}\n'
                 '\\begin{center}\n')
-        statistics_latex.to_latex(f, column_format='|ccccccc|', escape=False, index=False, longtable=True)
+        statistics_latex.to_latex(f, column_format='|cccccccc|', escape=False, index=False, longtable=True)
         f.write('\end{center}\n' 
                 '\nNotes\n\n'
                 '- Mean and 95\% confidence intervals of statistic values were calculated by bootstrapping.\n\n'
+                '- ES is the error slope calculated from the QQ-Plots.'
                 #'- Some logP predictions were submitted after the submission deadline to be used as a reference method.\n\n'
                 '\end{document}\n')
 
@@ -783,6 +1096,9 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     plt.tight_layout()
     # plt.show()
     plt.savefig(file_base_path + '_bootstrap_distributions.pdf')
+
+
+
 
 def generate_performance_comparison_plots(statistics_filename, directory_path):
         # Read statistics table
@@ -901,8 +1217,7 @@ if __name__ == '__main__':
     # Load submissions data.
     submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
 
-    # Perform the analysis using the different algorithms for matching predictions to experiment
-
+    # Perform the analysis
 
     output_directory_path='./analysis_outputs'
     logP_submission_collection_file_path = '{}/logP_submission_collection.csv'.format(output_directory_path)
