@@ -7,6 +7,7 @@ import os
 import glob
 import io
 import collections
+import pickle
 
 import pandas as pd
 import numpy as np
@@ -517,16 +518,30 @@ def makeQQplot(X, Y, slope, title, xLabel ="Expected fraction within range" , yL
     if ax1 == None:
         axReturn = False
         # Get plot parameters for JCAMD
-        rcParams.update(JCAMDdict())
+        # plt.rcParams.update(JCAMDdict())
+        plt.close()
+        plt.style.use(["seaborn-talk", "seaborn-whitegrid"])
+        plt.rcParams['axes.labelsize'] = 18
+        plt.rcParams['xtick.labelsize'] = 14
+        plt.rcParams['ytick.labelsize'] = 16
+        plt.rcParams['figure.figsize'] = 6, 6
 
         # Set up plot
-        fig1 = plt.figure(1)
-        ylim = (0,1)
-        xlim = (0,1)
-        plt.xlabel(xLabel)
-        plt.ylabel(yLabel)
-        plt.title(title)
-        ax1 = fig1.add_subplot(111)
+        #fig1 = plt.figure(1, figsize=(6,6))
+        #plt.ylim = (0,1)
+        #plt.xlim = (0,1)
+        #plt.xlabel(xLabel)
+        #plt.ylabel(yLabel)
+        #plt.title(title, fontsize=20)
+        #ax1 = fig1.add_subplot(111)
+
+        # New way to plot with subplots
+        fig1, ax1 = plt.subplots(1,1)
+        ax1.set_xlim(0,1)
+        ax1.set_ylim(0,1)
+        ax1.set_xlabel(xLabel)
+        ax1.set_ylabel(yLabel)
+        ax1.set_title(title, fontsize=20)
 
     else:
         axReturn = True
@@ -734,7 +749,7 @@ class logPSubmission(SamplSubmission):
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=1000)
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000)
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
@@ -773,6 +788,7 @@ class logPSubmission(SamplSubmission):
         #print("ES:", error_slope)
         #print("ES std:", error_slope_std)
         #print("Bootstrapped Error Slopes:", slopes)
+        QQplot_data = [X, Y, error_slope]
 
         # Compute 95% confidence intervals of Error Slope
         percentile = 0.95
@@ -787,18 +803,9 @@ class logPSubmission(SamplSubmission):
 
         model_uncertainty_statistics = [error_slope, confidence_interval, samples_statistics]
 
-        return model_uncertainty_statistics
 
-        #bootstrap_statistics.append([statistics[stats_func_idx], confidence_interval, samples_statistics])
-        #
-        #
-        #return bootstrap_statistics
+        return model_uncertainty_statistics, QQplot_data
 
-
-
-        # Components of bootstrap statistsics mean, (low CI, up CI), array(bootstrap samples)
-
-        #return collections.OrderedDict(("ES", bootstrap_statistics))
 
 # =============================================================================
 # UTILITY FUNCTIONS
@@ -991,6 +998,10 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     statistics_latex = []
     statistics_plot = []
 
+    # Collect the records for QQ Plot
+    # Dictionary of receipt ID: [X, Y, error_slope]
+    QQplot_dict = {}
+
     for i, submission in enumerate(submissions):
         receipt_id = submission.receipt_id
         category = submission.category
@@ -1001,14 +1012,18 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         bootstrap_statistics = submission.compute_logP_statistics(experimental_data, stats_funcs)
 
         # Compute error slope
-        error_slope_bootstrap_statistics = submission.compute_logP_model_uncertainty_statistics(experimental_data)
+        error_slope_bootstrap_statistics, QQplot_data = submission.compute_logP_model_uncertainty_statistics(experimental_data)
         #print("error_slope_bootstrap_statistics:\n")
         #print(error_slope_bootstrap_statistics)
+
+        # Add data to to QQplot dictionary
+        QQplot_dict.update({receipt_id : QQplot_data})
 
         # Add error slope and CI to bootstrap_statistics
         bootstrap_statistics.update({'ES' : error_slope_bootstrap_statistics })
         #print("bootstrap_statistics:\n", bootstrap_statistics)
 
+        # Organize data to construct CSV and PDF versions of statistics tables
         record_csv = {}
         record_latex = {}
         for stats_name, (stats, (lower_bound, upper_bound), bootstrap_samples) in bootstrap_statistics.items():
@@ -1030,6 +1045,17 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         statistics_latex.append({'ID': receipt_id, 'name': escaped_name, 'category': category, **record_latex})
     print()
     print("statistics_csv:\n",statistics_csv)
+    print()
+
+    # Write QQplot_dict to a JSON file for plotting later
+    #print("QQplot_dict:\n", QQplot_dict)
+    QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
+    os.makedirs(QQplot_directory_path, exist_ok=True)
+    QQplot_dict_filename = os.path.join(QQplot_directory_path, 'QQplot_dict.pickle')
+
+    with open(QQplot_dict_filename, 'wb') as outfile:
+        pickle.dump(QQplot_dict, outfile)
+
 
     # Convert dictionary to Dataframe to create tables/plots easily.
     statistics_csv = pd.DataFrame(statistics_csv)
@@ -1073,8 +1099,14 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         statistics_latex.to_latex(f, column_format='|cccccccc|', escape=False, index=False, longtable=True)
         f.write('\end{center}\n' 
                 '\nNotes\n\n'
-                '- Mean and 95\% confidence intervals of statistic values were calculated by bootstrapping.\n\n'
-                '- ES is the error slope calculated from the QQ-Plots.'
+                '- RMSE: Root mean square error\n\n'
+                '- MAE: Mean absolute error\n\n'
+                '- ME: Mean error\n\n'
+                '- R2: R-squared, square of Pearson correlation coefficient\n\n'
+                '- m: slope of the line fit to predicted vs experimental logP values\n\n'
+                '- ES: error slope calculated from the QQ Plots of model uncertainty predictions\n\n'
+                '- Mean and 95\% confidence intervals of RMSE, MAE, ME, R2, and m were calculated by bootstrapping with 10000 samples.\n\n'
+                '- 95\% confidence intervals of ES were calculated by bootstrapping with 1000 samples.'
                 #'- Some logP predictions were submitted after the submission deadline to be used as a reference method.\n\n'
                 '\end{document}\n')
 
@@ -1163,6 +1195,32 @@ def generate_performance_comparison_plots(statistics_filename, directory_path):
             plt.savefig(directory_path + "/MAE_vs_method_plot_for_{}_category.pdf".format(category))
 
 
+def generate_QQplots_for_model_uncertainty(input_file_name, directory_path):
+
+    # Read QQplot data points from Pickle file
+    QQplot_dict_filename = os.path.join(directory_path, input_file_name)
+    with open(QQplot_dict_filename, 'rb') as handle:
+        QQplot_dict = pickle.load(handle)
+
+    # Iterate through dictionary to create QQ Plot for each submission
+    for submission_ID, data in QQplot_dict.items():
+        X, Y, slope = data
+        QQplot_output_filename = os.path.join(directory_path, "{}_QQ.pdf".format(submission_ID))
+        makeQQplot(X, Y, slope, title=submission_ID, xLabel="Expected fraction within range",
+                   yLabel="Fraction of predictions within range", fileName=QQplot_output_filename,
+                   uncLabel='Model Unc.', leg=[0.05, 0.975, "upper left", 1], ax1=None)
+                    # leg=[1.02, 0.98, 2, 1]
+
+    # Replot first item of the dictionary to fix style
+    #submission_ID = list(QQplot_dict.keys())[0] # first submission ID
+    #print("Submission ID:", submission_ID)
+    #data = QQplot_dict.get(submission_ID)
+    #X, Y, slope = data
+    #makeQQplot(X, Y, slope, title=submission_ID, xLabel="Expected fraction within range",
+    #           yLabel="Fraction of predictions within range", fileName=QQplot_output_filename,
+    #           uncLabel='Model Unc.', leg=[0.05, 0.95, "upper left", 1], ax1=None)
+
+    print("QQ Plots for model uncertainty generated.")
 
 
 # =============================================================================
@@ -1247,3 +1305,7 @@ if __name__ == '__main__':
     # Generate RMSE and MAE comparison plots.
     statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
     generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
+
+    # Generate QQ-Plots for model uncertainty predictions
+    QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
+    generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
