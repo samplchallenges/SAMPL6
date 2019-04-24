@@ -20,3 +20,5 @@ Experimental log *P* measurements will be made available in this repository afte
 -  `/example_submission_file/logP-MehtapIsikExampleFile-1.csv` - An example submission file filled with random values to illustrate expected format.
 - `/example_experimental_data/` - This directory contains the experimental report of pH-metric log *P* measurement of phenol with Sirius T3 as an example.
 - `/experimental_data/` - Experimental measurements of log *P* values.
+- `/predictions/` - Prediction files submitted to SAMPL6 log *P* challenge.
+- `/analysis/` - Analysis of log *P* predictions.
