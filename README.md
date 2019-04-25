@@ -2,7 +2,7 @@
 
 # The SAMPL6 Blind Prediction Challenge for Computational Chemistry
 
-This repository gives challenge details and inputs for the SAMPL6 challenge. First phase of SAMPL6 challenge (host-guest, pKa, SAMPLing) has now ended, but the files are maintained here for the record. SAMPL6 Part II log *P* prediction challenge is currently open to submissions.
+This repository gives challenge details and inputs for the SAMPL6 challenge. First part of SAMPL6 phase was composed of host-guest, pKa, SAMPLing challenges which took place between August 2017-January 2018. SAMPL6 Part II log *P* prediction challenge took place between November 2018 - March 2019. All SAMPL6 challenges have now ended, but the files are maintained here for the record. 
 
 This cycle we have migrated the data download package to GitHub so it will be version controlled and more broadly acccessible.
 **Because these files are available publicly, we have no record of who downloads them. Therefore, you should sign up for notifications**.
@@ -90,9 +90,9 @@ Data will be provided for ~14 guests, including several FDA approved drugs.
 Background information on CB8 may be found in a number of publications, including DOI 10.1021/jp2110067, 10.1002/chem.201403405, and 10.1021/ja055013x.
 
 ### Physical properties
-Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phases.
+Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phase.
 The first phase, for SAMPL6, focused on pKa prediction and culminated with a joint D3R/SAMPL Workshop in La Jolla, CA., Feb. 22-23, 2018.
-The second part of the challenge, SAMLPL6 Part II, is centering on predicting partition coefficients of a subset of small molecules from SAMPL6 pKa challenge.
+The second phase of the challenge, SAMLPL6 Part II, is centering on predicting partition coefficients (log *P*) of a subset of small molecules from SAMPL6 pKa challenge.
 SAMPL6 Part II logP challenge will be discussed in joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019.
 
 #### pKa prediction
@@ -153,4 +153,4 @@ Some of the best reviewers of the challenges are those who participate and under
 6) Please submit reviews (or your revisions) ASAP to help maintain our chosen publication dates.
 
 A second special issue of SAMPL6 Part II log *P* prediction challenge will be organized targeting September 15, 2019, for paper submissions.
-This will occur shortly after the workshop, so to allow people to prepare, a virtual workshop will be planned earlier in the year, on May 16, 2018, closer to the submission deadline.
+This will occur shortly after the workshop, so to allow people to prepare, a virtual workshop will be planned earlier in the year, on May 16, 2019, closer to the submission deadline.
