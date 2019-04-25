@@ -22,7 +22,11 @@ A special issue or special section of JCAMD will be organized to disseminate the
 - [Detailed host-guest description](host_guest_description.md): Detailed description of the hosts, guests, and background information.
 - Physical properties:
     - [pKa challenge instructions](pKa_challenge_instructions.md): Detailed instructions on the pKa prediction component of the challenge.
+    - [Experimental data for pKa challenge](physical_properties/pKa/experimental_data/)
+    - [Performance evaluations for pKa challenge](physical_properties/pKa/analysis/)
     - [log *P* challenge instructions](logP_challenge_instructions.md): Detailed instructions on the partition coefficient prediction component of SAMPL6 Part II.
+    - [Experimental data for log *P* challenge](physical_properties/logP/experimental_data/)
+    - [Performance evaluations for log *P* challenge](physical_properties/logP/analysis/)
 - SAMPLing challenge files for host-guest challenge: Input files for the host-guest component of the SAMPLing challenge, see [description](#sampling-challenge) below.
 - SAMPLing challenge files in alternate formats, along with energy validation data
 
