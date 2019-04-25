@@ -29,6 +29,100 @@ General analysis of log *P* predictions include calculated vs predicted log *P* 
     - `MAE_vs_method_plot_for_Other_category.pdf` 
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
   - `QQPlots/` - Quantile-Quantile plots for the analysis of model uncertainty predictions. 
-    
+  
+  ## Submission IDs for logP prediction methods
+| Submission ID | Method Name |  Category    |
+|---------------|-------------|--------------|
+| hmz0n	| cosmotherm_FINE19	| Physical |
+| gmoq5 |	Global XGBoost-Based QSPR LogP Predictor |	Empirical |
+| 3vqbi |	cosmoquick_TZVP18+ML |	Mixed |
+| sq07q |	Local XGBoost-Based QSPR LogP Predictor |	Empirical |
+| j8nwc	| EC_RISM_wet_P1w+2o	| Physical |
+| xxh4i	| SM12-Solvation-Trained	| Mixed |
+| hdpuj	| RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP. |	Empirical |
+| dqxk4 |	LogP_SMD_Solvation_DFT	| Physical |
+| vzgyt |	rfs-logp	Empirical |
+| ypmr0 |	SM8-Solvation	| Physical |
+| yd6ub |	S+logP |	Empirical |
+| 7egyc |	SMD-Solvation-Trained |	Mixed |
+| 0a7a8 |	ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner |	Mixed |
+| 7dhtp |	LogP-prediction-method-name	| Other |
+| qyzjx	| EC_RISM_dry_P1w+2o |	Physical |
+| w6jta	| ML Prediction using MD Feature Vector Trained on logP_octanol_water |	Mixed |
+| ji2zm |	SM8-Solvation-Trained	| Mixed |
+| 5krdi |	ZINC15 versus PM3	| Mixed |
+| gnxuu |	ML Prediction using MD Feature Vector Trained on logP_octanol_water	| Mixed |
+| tc4xa	| NHLBI-NN-5HL	| Empirical |
+| 6cdyo | SM12-Solvation	| Physical |
+| dbmg3 |	GC-LSER |	Empirical |
+| kxsp3	| PLS2 from NIST data and QM-generated QSAR Descriptors |	Mixed |
+| nh6c0	| Molecular-Dynamics-Expanded-Ensembles |	Physical |
+| kivfu	| LogP-prediction-method-IEFPCM/MST	| Physical |
+| ujsgv |	Alchemical-CGenFF	| Physical |
+| wu52s |	LogP-PLS-ECFC4_CSsep-Bayer |	Empirical |
+| g6dwz |	NHLBI-NN-3HL |	Empirical |
+| 5mahv	| ML Prediction using MD Feature Vector Trained on Hydration Free Energy	| Mixed |
+| bqeuh |	ISIDA-LSER |	Empirical |
+| d7vth	| UFZ-LSER	| Empirical |
+| 2mi5w	| Alchemical-CGenFF	| Physical |
+| kuddg	| LogP-Pred-MTNN-GraphConv-Bayer	 | Empirical |
+| qz8d5 |	SMD-Solvation |	Physical |
+| y0xxd	| FS-GM (Fast switching Growth Method)	| Physical |
+| 2ggir | FS-AGM (Fast switching Annihilation/Growth Method)	| Physical |
+| dyxbt	| B3PW91-TZ SMD set1	| Physical |
+| mm0jf |	LogP-prediction-SMD-HuangLab	 | Physical |
+| h83sb	| Linear Regression with B3LYP/6-31G+ |	Mixed |
+| 3wvyh	| Alchemical-CGenFF	| Physical |
+| f3dpg |	PLS from NIST data and QM-generated QSAR Descriptors	| Mixed |
+| 25s67 | FS-AGM (Fast switching Annihilation/Growth Method) |	Physical |
+| zdj0j |	Solvation-B3LYP	| Physical |
+| 7gg6s |	MLR from NIST data and QM-generated QSAR Descriptors	| Mixed |
+| hwf2k | Extended solvent-contact model approach	| Empirical |
+| pcv32	| Solvation- WB97X-D	 | Physical |
+| v2q0t	| InterX_GAFF_WET_OCTANOL	| Physical |
+| rdsnw	| EC_RISM_wet_P1w+1o	| Physical |
+| ggm6n | FS-GM (Fast switching Growth Method)	| Physical |
+| jjd0b	| MD/S-MBIS-GAFF-TIP3P/MBAR/	| Physical |
+| 2tzb0	| EC_RISM_dry_P1w+1o	| Physical |
+| cr3hs	| PLS3 from NIST data and QM-generated QSAR Descriptors subset	| Mixed |
+| arw58	| DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ	| Other |
+| ahmtf	| B3PW91-TZ SMD kcl-wet-oct	| Physical |
+| o7djk	| B3PW91-TZ SMD wetoct	| Physical |
+| fmf7r	| dice	| Mixed |
+| 4p2ph	| DLPNO-Solv-ccCA	| Other |
+| 6fyg5	| Solvation-M062X	| Physical |
+| sqosi	| MD-AMBER-dryoct	| Physical |
+| rs4ns	| BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ	| Other | 
+| c7t5j	| PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ	| Other |
+| jc68f	| PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ	| Other |
+| 03cyy	| Linear Regression-B3LYP/6-311G** | Mixed |
+| hsotx	| B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ | Other |
+| ke5gu	| MD/S-MBIS-GAFF-SPCE/MBAR/ |	Physical |
+| mwuua	| MD-LigParGen-wetoct |	Physical |
+| fe8ws | B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ | Other |
+| 5t0yn | PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ | Other |
+| fyx45 | LogP-prediction-Drude-FEP-HuangLab	| Physical |
+| 6nmtt	| MD-AMBER-wetoct	| Physical |
+| eufcy	| MD-LigParGen-dryoct	| Physical |
+| tzzb5 |	Alchemical-CGenFF |	Physical |
+| 3oqhx |	MD-CHARMM-dryoct |	Physical |
+| bzeez |	FS-AGM (Fast switching Annihilation/Growth Method)	| Physical |
+| ynquk |	TWOVAR |	Empirical |
+| 5svjv |	FS-GM (Fast switching Growth Method) |	Physical |
+| odex0 |	InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL | Physical |
+| padym	| InterX_ARROW_2017_PIMD_WET_OCTANOL	| Physical |
+| pnc4j	| LogP-prediction-Drude-Umbrella-HuangLab |	Physical |
+| fcspk	| ARROW_2017_PIMD_SOLVENT2 |	Physical |
+| 6cm6a	| ARROW_2017_PIMD	| Physical |
+| bq6fo	| Extended solvent-contact model approach	| Mixed |
+| 623c0	| MD-OPLSAA-wetoct	| Physical |
+| 4nfzz |	MD/S-HI-GAFF-TIP3P/MBAR/ |	Physical |
+| eg52i	| ARROW_2017	| Physical |
+| cp8kv	| MD-OPLSAA-dryoct	| Physical |
+| 5585v	| Alchemical-CGenFF	| Physical |
+| j4nb3	| FOURVAR |	Empirical |
+| hf4wj	| MD/S-HI-GAFF-SPCE/MBAR/	| Physical |
+| pku5g	| SAMPL5_49_retro3 |	Empirical |
+| po4g2	| SAMPL5_49	| Empirical |
     
     
