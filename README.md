@@ -49,6 +49,7 @@ The SAMPL project was recently funded by the National Institutes of Health, for 
 - Version 1.13: SAMPL6 Part II - Instructions for log *P* challenge posted.
 - Version 1.14: SAMPL6 Part II - Announcement that log *P* challenge submissions opened. Instructions on how to submit prediction files through D3R SAMPL webpage added to log *P* challenge instructions.
 - Version 1.15: SAMPL6 Part II - Include experimental measurements for the log *P* challenge.
+- Version 1.16: SAMPL6 Part II - Add evaluation of log *P* predictions([physical_properties/logP/analysis/](./physical_properties/logP/analysis/)) 
 
 ### Changes not yet in a release
 
@@ -122,6 +123,8 @@ Challenge submissions due: Mar 22, 2019
 Detailed instructions for the logP challenge can be found here: [logP_challenge_instructions.md](logP_challenge_instructions.md)
 
 Experimental log *P* measurements were added to this repository after the log *P* challenge deadline and can be found here: [physical_properties/logP/experimental_data/](physical_properties/logP/experimental_data/)
+
+Performance evaluation of log *P* challenge can be found here: [physical_properties/logP/analysis/](physical_properties/logP/analysis/)
 
 ### SAMPLing challenge
 The purpose of the SAMPLing challenge component is to evaluate and compare the performance of different sampling methodologies in the context of free energy calculations of biomolecular systems. Participants are invited to compute the free energy of binding of few host-guest systems taken from the main SAMPL6 challenge. We will be running extremely long calculations with the provided input files in an attempt to obtain "gold standard" results, and then assess how well different methods approach/converge to these results. See [`SAMPLing_instructions.md`](SAMPLing_instructions.md) for more details.
