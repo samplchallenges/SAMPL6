@@ -116,6 +116,9 @@ Challenge submission due: Jan 23, 2018
 
 Experimental pKa measurements were added to this repository after the pKa challenge deadline and can be found here: [physical_properties/pKa/experimental_data/](physical_properties/pKa/experimental_data/)
 
+
+Performance evaluation of pKa challenge can be found here: [/physical_properties/pKa/analysis/](/physical_properties/pKa/analysis/)
+
 #### log *P* prediction
 
 This challenge consists of predicting the octanol-water partition coefficients (log *P*) of 11 small molecules that resemble fragments of small molecule protein kinase inhibitors.
