@@ -14,7 +14,7 @@ General analysis of log *P* predictions include calculated vs predicted log *P* 
   - `pKaCorrelationPlotsWithSEM/` - This directory contains similar plots to the `pKaCorrelationPlots/` directory with error bars added for Standard Error of the Mean(SEM) of experimental and predicted values for submissions that reported these values. Since experimental logP SEM values are small horizontal error bars are mostly not visible.
   - `AbsoluteErrorPlots/` - This directory contains a bar plot for each method showing the absolute error for each logP prediction compared to experimental value.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table, bootstrap distributions of performance statistics, and overall performance comparison plots based on RMSE and MAE values.
-    - `statistics_table.pdf` - A table of performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), and error slope(ES)) for all the submissions.
+    - `statistics.pdf` - A table of performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), and error slope(ES)) for all the submissions.
     - `RMSE_vs_method_plot.pdf`
     - `RMSE_vs_method_plot_colored_by_method_category.pdf`
     - `RMSE_vs_method_plot_for_Physical_category.pdf`
