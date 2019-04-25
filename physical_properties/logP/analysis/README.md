@@ -19,7 +19,7 @@ General analysis of log *P* predictions include calculated vs predicted log *P* 
     - `RMSE_vs_method_plot_colored_by_method_category.pdf`
     - `RMSE_vs_method_plot_for_Physical_category.pdf`
     - `RMSE_vs_method_plot_for_Empirical_category.pdf`
-    - `RMSE_vs_method_plot_for_Mixed_category.pdf
+    - `RMSE_vs_method_plot_for_Mixed_category.pdf`
     - `RMSE_vs_method_plot_for_Other_category.pdf` 
     - `MAE_vs_method_plot.pdf`
     - `MAE_vs_method_plot_colored_by_method_category.pdf`
