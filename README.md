@@ -68,12 +68,9 @@ SAMPL6 will also introduce a new challenge component, the “SAMPLing challenge�
 Participants will be provided with machine readable setup files for the molecular systems, including force field setups, along with recommended cutoffs and treatments of long-ranged interactions.
 The SAMPLing challenge is expected to include one or more cases from each challenge component (host-guest binding on each system; log D calculation).
 
-**As of August 24, all of the information and data files needed to start on the host-guest component, including machine-readable structure files for the hosts and guests are posted, so this challenge is open!
-Files are hosted at github.com/mobleylab/SAMPL6.**
-Status updates will be posted here and announced by email to the D3R SAMPL list and on the D3R Twitter account; we also encourage participants to “watch” the GitHub repository for notifications of file changes/availability and relevant discussions.
+Further information on both the host-guest and physical property components of SAMPL6 follow.  
 
-Further information on both the host-guest and physical property components of SAMPL6 follow.
-Thanks to Drs. Bruce Gibb (Tulane U.) and Lyle Isaacs (U. Maryland) for providing the host-guest data, Andrea Rizzi for SAMPLing challenge data, and Dr. John Chodera, Mehtap Isik, and Merck for the distribution coefficient data.
+Thanks to Drs. Bruce Gibb (Tulane U.) and Lyle Isaacs (U. Maryland) for providing the host-guest data, Andrea Rizzi for SAMPLing challenge data, and Dr. John Chodera, Mehtap Isik and collaborators from Merck (Dorothy Levorse, Timothy Rhodes, Ikenna Ndukwe) for the physicochemical property data sets (pKa and logP).
 
 ### Gibb Deep Cavity Cavitand (Octa Acids) binding of guests
 
