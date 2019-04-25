@@ -31,6 +31,9 @@ General analysis of log *P* predictions include calculated vs predicted log *P* 
   - `QQPlots/` - Quantile-Quantile plots for the analysis of model uncertainty predictions. 
   
   ## Submission IDs for logP prediction methods
+ 
+ SAMPL6 log *P* challenge submissions were listed in the ascending order of RMSE.
+  
 | Submission ID | Method Name |  Category    |
 |---------------|-------------|--------------|
 | hmz0n	| cosmotherm_FINE19	| Physical |
