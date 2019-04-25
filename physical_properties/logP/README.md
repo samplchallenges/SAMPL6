@@ -11,7 +11,7 @@ For physical modeling approaches, this is a means of separating force field accu
 
 For detailed instructions for log *P* challenge: [SAMPL6/logP_challenge_instructions.md](/logP_challenge_instructions.md)
 
-Experimental log *P* measurements will be made available in this repository after the log *P* challenge deadline under `experimental_data/` directory.
+Experimental log *P* measurements was made available in this repository after the log *P* challenge deadline under `experimental_data/` directory.
 
 ## Manifest
 
