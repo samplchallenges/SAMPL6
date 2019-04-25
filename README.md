@@ -2,7 +2,7 @@
 
 # The SAMPL6 Blind Prediction Challenge for Computational Chemistry
 
-This repository gives challenge details and inputs for the SAMPL6 challenge. First phase of SAMPL6 challenge (host-guest, pKa, SAMPLing) has now ended, but the files are maintained here for the record. SAMPL6 Part II log *P* prediction challenge is currently open to submissions.
+This repository gives challenge details and inputs for the SAMPL6 challenge. First part of SAMPL6 phase was composed of host-guest, pKa, SAMPLing challenges which took place between August 2017-January 2018. SAMPL6 Part II log *P* prediction challenge took place between November 2018 - March 2019. All SAMPL6 challenges have now ended, but the files are maintained here for the record. 
 
 This cycle we have migrated the data download package to GitHub so it will be version controlled and more broadly acccessible.
 **Because these files are available publicly, we have no record of who downloads them. Therefore, you should sign up for notifications**.
@@ -22,7 +22,11 @@ A special issue or special section of JCAMD will be organized to disseminate the
 - [Detailed host-guest description](host_guest_description.md): Detailed description of the hosts, guests, and background information.
 - Physical properties:
     - [pKa challenge instructions](pKa_challenge_instructions.md): Detailed instructions on the pKa prediction component of the challenge.
+    - [Experimental data for pKa challenge](physical_properties/pKa/experimental_data/)
+    - [Performance evaluations for pKa challenge](physical_properties/pKa/analysis/)
     - [log *P* challenge instructions](logP_challenge_instructions.md): Detailed instructions on the partition coefficient prediction component of SAMPL6 Part II.
+    - [Experimental data for log *P* challenge](physical_properties/logP/experimental_data/)
+    - [Performance evaluations for log *P* challenge](physical_properties/logP/analysis/)
 - SAMPLing challenge files for host-guest challenge: Input files for the host-guest component of the SAMPLing challenge, see [description](#sampling-challenge) below.
 - SAMPLing challenge files in alternate formats, along with energy validation data
 
@@ -49,6 +53,7 @@ The SAMPL project was recently funded by the National Institutes of Health, for 
 - Version 1.13: SAMPL6 Part II - Instructions for log *P* challenge posted.
 - Version 1.14: SAMPL6 Part II - Announcement that log *P* challenge submissions opened. Instructions on how to submit prediction files through D3R SAMPL webpage added to log *P* challenge instructions.
 - Version 1.15: SAMPL6 Part II - Include experimental measurements for the log *P* challenge.
+- Version 1.16: SAMPL6 Part II - Add evaluation of log *P* predictions([physical_properties/logP/analysis/](./physical_properties/logP/analysis/)) 
 
 ### Changes not yet in a release
 
@@ -63,12 +68,9 @@ SAMPL6 will also introduce a new challenge component, the “SAMPLing challenge�
 Participants will be provided with machine readable setup files for the molecular systems, including force field setups, along with recommended cutoffs and treatments of long-ranged interactions.
 The SAMPLing challenge is expected to include one or more cases from each challenge component (host-guest binding on each system; log D calculation).
 
-**As of August 24, all of the information and data files needed to start on the host-guest component, including machine-readable structure files for the hosts and guests are posted, so this challenge is open!
-Files are hosted at github.com/mobleylab/SAMPL6.**
-Status updates will be posted here and announced by email to the D3R SAMPL list and on the D3R Twitter account; we also encourage participants to “watch” the GitHub repository for notifications of file changes/availability and relevant discussions.
+Further information on both the host-guest and physical property components of SAMPL6 follow.  
 
-Further information on both the host-guest and physical property components of SAMPL6 follow.
-Thanks to Drs. Bruce Gibb (Tulane U.) and Lyle Isaacs (U. Maryland) for providing the host-guest data, Andrea Rizzi for SAMPLing challenge data, and Dr. John Chodera, Mehtap Isik, and Merck for the distribution coefficient data.
+Thanks to Drs. Bruce Gibb (Tulane U.) and Lyle Isaacs (U. Maryland) for providing the host-guest data, Andrea Rizzi for SAMPLing challenge data, and Dr. John Chodera, Mehtap Isik and collaborators from Merck (Dorothy Levorse, Timothy Rhodes, Ikenna Ndukwe) for the physicochemical property data sets (pKa and logP).
 
 ### Gibb Deep Cavity Cavitand (Octa Acids) binding of guests
 
@@ -88,9 +90,9 @@ Data will be provided for ~14 guests, including several FDA approved drugs.
 Background information on CB8 may be found in a number of publications, including DOI 10.1021/jp2110067, 10.1002/chem.201403405, and 10.1021/ja055013x.
 
 ### Physical properties
-Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phases.
+Due to experimental issues, the upcoming SAMPL6 physical property challenge is being split into two phase.
 The first phase, for SAMPL6, focused on pKa prediction and culminated with a joint D3R/SAMPL Workshop in La Jolla, CA., Feb. 22-23, 2018.
-The second part of the challenge, SAMLPL6 Part II, is centering on predicting partition coefficients of a subset of small molecules from SAMPL6 pKa challenge.
+The second phase of the challenge, SAMLPL6 Part II, is centering on predicting partition coefficients (log *P*) of a subset of small molecules from SAMPL6 pKa challenge.
 SAMPL6 Part II logP challenge will be discussed in joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019.
 
 #### pKa prediction
@@ -111,6 +113,9 @@ Challenge submission due: Jan 23, 2018
 
 Experimental pKa measurements were added to this repository after the pKa challenge deadline and can be found here: [physical_properties/pKa/experimental_data/](physical_properties/pKa/experimental_data/)
 
+
+Performance evaluation of pKa challenge can be found here: [/physical_properties/pKa/analysis/](/physical_properties/pKa/analysis/)
+
 #### log *P* prediction
 
 This challenge consists of predicting the octanol-water partition coefficients (log *P*) of 11 small molecules that resemble fragments of small molecule protein kinase inhibitors.
@@ -122,6 +127,8 @@ Challenge submissions due: Mar 22, 2019
 Detailed instructions for the logP challenge can be found here: [logP_challenge_instructions.md](logP_challenge_instructions.md)
 
 Experimental log *P* measurements were added to this repository after the log *P* challenge deadline and can be found here: [physical_properties/logP/experimental_data/](physical_properties/logP/experimental_data/)
+
+Performance evaluation of log *P* challenge can be found here: [physical_properties/logP/analysis/](physical_properties/logP/analysis/)
 
 ### SAMPLing challenge
 The purpose of the SAMPLing challenge component is to evaluate and compare the performance of different sampling methodologies in the context of free energy calculations of biomolecular systems. Participants are invited to compute the free energy of binding of few host-guest systems taken from the main SAMPL6 challenge. We will be running extremely long calculations with the provided input files in an attempt to obtain "gold standard" results, and then assess how well different methods approach/converge to these results. See [`SAMPLing_instructions.md`](SAMPLing_instructions.md) for more details.
@@ -146,4 +153,4 @@ Some of the best reviewers of the challenges are those who participate and under
 6) Please submit reviews (or your revisions) ASAP to help maintain our chosen publication dates.
 
 A second special issue of SAMPL6 Part II log *P* prediction challenge will be organized targeting September 15, 2019, for paper submissions.
-This will occur shortly after the workshop, so to allow people to prepare, a virtual workshop will be planned earlier in the year, on May 16, 2018, closer to the submission deadline.
+This will occur shortly after the workshop, so to allow people to prepare, a virtual workshop will be planned earlier in the year, on May 16, 2019, closer to the submission deadline.

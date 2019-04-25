@@ -1,0 +1,63 @@
+# PARTITION COEFFICIENT PREDICTIONS
+# 
+# This file will be automatically parsed. It must contain the following four elements: 
+# predictions, name of method, software listing, and method description. 
+# These elements must be provided in the order shown with their respective headers.
+#
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty. 
+# The data in each prediction line should be structured as follows:
+# Molecule ID, logP, logP SEM, logP model uncertainty
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here. 
+Predictions:
+SM02,3.17,0,0.38
+SM04,3.02,0,0.38
+SM07,2.61,0,0.38
+SM08,1.62,0,0.38
+SM09,2.48,0,0.38
+SM11,1.92,0,0.38
+SM12,2.88,0,0.38
+SM13,2.43,0,0.38
+SM14,2.09,0,0.38
+SM15,1.83,0,0.38
+SM16,2.18,0,0.38
+
+# NAME SECTION
+#
+# Please provide an informal but informative name of the method used. 
+# The 'Name:' keyword is required as shown here.
+Name:
+LogP-PLS-ECFC4_CSsep-Bayer
+
+
+# SOFTWARE SECTION
+#
+# List all major software packages used and their versions.
+# Create a new line for each software.
+# The 'Software:' keyword is required.
+Software:
+SimulationsPlus ADMET predictor 7.2
+Pipeline Pilot 18.1.0
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`, `Empirical`, `Mixed`, or `Other`.
+# Pick only one category label.
+# The `Category:` keyword is required.
+Category:
+Empirical
+
+# METHOD DESCRIPTION SECTION
+#
+# Methodology and computational details.
+# Level of details should be roughly equivalent to that used in a publication.
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated.
+# Use as many lines of text as you need.
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description.
+Method:
+About 78,000 compounds from the Bayer in house assay for logD at pH7.5 were collected and standardized. The compounds were split into three sets for neutral, positively charged and acidic/zwitterionic compounds. From each set 10% of the data was put aside as independent test sets, and the other data used for model-training  (method and descriptor selection, CV-runs). The final PLS model using ECFC-4 fingerprints was trained using all data. It consists of three models for the three charge-state groups. The output corresponding to LogD is given as a logP estimate. The method is deterministic therefore SEM is given as 0 for all compounds.  The uncertainty is given as the validation RMSE (in log units) as a weighted mean of the three submodels.

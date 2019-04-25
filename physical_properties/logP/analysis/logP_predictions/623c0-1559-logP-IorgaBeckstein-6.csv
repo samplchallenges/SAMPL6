@@ -1,0 +1,55 @@
+# PARTITION COEFFICIENT PREDICTIONS
+#
+
+# PREDICTION SECTION
+#
+# # Molecule ID, logP, logP SEM, logP model uncertainty
+Predictions:
+SM02,5.74,0.23,1.2
+SM04,6.64,0.26,1.2
+SM07,4.73,0.18,1.2
+SM08,7.59,0.25,1.2
+SM09,4.92,0.25,1.2
+SM11,4.76,0.22,1.2
+SM12,5.97,0.28,1.2
+SM13,5.32,0.28,1.2
+SM14,4.49,0.18,1.2
+SM15,5.33,0.17,1.2
+SM16,6.27,0.25,1.2
+
+# NAME SECTION
+#
+# Please provide an informal yet informative name of the method used.
+Name:
+MD-OPLSAA-wetoct
+
+# SOFTWARE SECTION
+#
+# All major software packages used and their versions.
+Software:
+Gromacs 2018.2
+MDPOW 0.7.0-dev
+mol2ff
+
+# METHOD CATEGORY SECTION
+#
+Category:
+Physical
+
+# METHOD DESCRIPTION SECTION
+#
+# Methodology and computational details.
+Method:
+Alchemical free energy calculations were performed in explicit
+solvent, following the protocol described in [1].  We used "wet"
+octanol (water content 27 mol %).  Parameters were generated with  the
+OPLSAA mol2ff software (B.I. Iorga, unpublished; also used in [1]) for
+OPLS-AA with the TIP4P water model. Files were prepared for Gromacs
+2018. The alchemical data were analyzed with thermodynamic
+integration. Errors are reported as errors of the mean (see [1]). The
+model uncertainty was estimated on the basis of an unpublished data
+set of 92 compounds for which we computed errors for solvation free
+energies in water and octanol.  [1] I. M. Kenney, O. Beckstein, and B.
+I. Iorga. Prediction of cyclohexane-water distribution coefficients
+for the SAMPL5 data set using molecular dynamics simulations with the
+OPLS-AA force field. J Comput Aided Mol Des, 30(11):1045–1058, 2016.

@@ -1,0 +1,75 @@
+# PARTITION COEFFICIENT PREDICTIONS
+# 
+# This file will be automatically parsed. It must contain the following four elements: 
+# predictions, name of method, software listing, and method description. 
+# These elements must be provided in the order shown with their respective headers.
+#
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty. 
+# The data in each prediction line should be structured as follows:
+# Molecule ID, logP, logP SEM, logP model uncertainty
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here. 
+Predictions:
+SM02, 2.00, 2.00, 0.5
+SM04, 2.00, 2.00, 0.5
+SM07, 3.00, 1.00, 0.5
+SM08, 4.00, 3.00, 0.5
+SM09, 1.00, 5.00, 0.5
+SM11, 3.00, 5.00, 0.5
+SM12, 6.00, 1.00, 0.5
+SM13, 3.00, 2.00, 0.5
+SM14, 1.00, 1.00, 0.5
+SM15, 2.00, 5.00, 0.5
+SM16, 4.00, 5.00, 0.5
+
+
+# NAME SECTION
+#
+# Please provide an informal but informative name of the method used. 
+# The 'Name:' keyword is required as shown here.
+Name:
+dice
+
+
+# SOFTWARE SECTION
+#
+# List all major software packages used and their versions.
+# Create a new line for each software.
+# The 'Software:' keyword is required.
+Software: 
+--
+
+
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`, `Empirical`, `Mixed`, or `Other`.
+# Pick only one category label.
+# The `Category:` keyword is required.
+Category:
+Mixed
+
+
+# METHOD DESCRIPTION SECTION
+#
+# Methodology and computational details.
+# Level of details should be roughly equivalent to that used in a publication.
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated.
+# Use as many lines of text as you need.
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description.
+Method:
+We roll dice. 
+Statistical uncertainties were also estimated using dice. 
+Model uncertainty is clearly 0.5: An inhererent feature of our method is that predictions are integers between 1 and 6.
+(These are easy to digest and can be stored efficiently -- also the submission template is kind of wasteful, because of the requested precision.)
+The method uses minimal computational resources and all tools are available to the community.
+Preliminary analyses were performed using alternative techniques.
+These preliminary results suggested that a range of [1,6] is reasonable, which ensures the principal feasibility of the dice method.
+The present work is directly transferable to many other hydrophobic molecules. 
+Extensions to hydrophilic substances will be discussed elsewhere.
+

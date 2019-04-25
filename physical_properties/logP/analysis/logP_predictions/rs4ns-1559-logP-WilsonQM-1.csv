@@ -1,0 +1,74 @@
+# PARTITION COEFFICIENT PREDICTIONS 
+#  
+# This file will be automatically parsed. It must contain the following four elements:  
+# predictions
+# These elements must be provided in the order shown with their respective headers. 
+# 
+# Any line that begins with a # is considered a comment and will be ignored when parsing. 
+# 
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty. 
+# The data in each prediction line should be structured as follows:
+# Molecule ID
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here.
+Predictions:
+SM02,0.82,0,0
+SM04,1.45,0,0
+SM07,0.95,0,0
+SM08,2.37,0,0
+SM09,1.35,0,0
+SM11,1.22,0,0
+SM12,1.92,0,0
+SM13,2.39,0,0
+SM14,1.92,0,0
+SM15,1.92,0,0
+SM16,1.77,0,0
+
+ 
+# NAME SECTION 
+# 
+# Please provide an informal but informative name of the method used.  
+# The 'Name:' keyword is required as shown here. 
+Name: 
+BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ
+ 
+# SOFTWARE SECTION 
+# 
+# List all major software packages used and their versions. 
+# Create a new line for each software. 
+# The 'Software:' keyword is required. 
+Software: 
+Gaussian 16
+
+
+
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`
+# Pick only one category label.
+# The `Category:` keyword is required. 
+Category:
+Other
+ 
+# METHOD DESCRIPTION SECTION 
+# 
+# Methodology and computational details. 
+# Level of details should be roughly equivalent to that used in a publication. 
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated. 
+# Use as many lines and paragraphs of text as you need. 
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
+Method: 
+Dunning’s cc-pVTZ basis set was used for all calculations. The recommended cc-pV(T+d)Z basis set was used for all Cl atoms. 
+All calculations were done in Gaussian16. All challenge molecules were optimized with the B3LYP density functional with Grimme’s D3 dispersion correction with Becke-Johnson dampening. 
+The B3LYP-D3 functional was chosen since there are numerous conjugated ring structures that may exhibit pi-pi stacking intramolecularly. 
+Also, the use of Grimme’s dispersion correction can alter ligand orientation for systems exhibiting long-range noncovalent interactions. 
+All structures were verified to be local minima via frequency calculations on an ‘ultrafine’ integration grid with harmonic frequencies and vibrational contributions to the Gibbs free energy were scaled to 0.989 in accordance with previous studies.
+Single point DFT calculations with the BLYP functional were done to calculate the logP.
+All single point calculations use Solvent Model for Density, or SMD, implicit solvent model to simulate long-range solvent effects of water and 1-octanol on the solute. 
+LogP was calculated with a vertical solvation method following Eq (1) below
+logP = log([solute]octanol/[solute]water) = (\Delta G_water - \Delta G_octanol)*(log10e)/kT (1)
+where k is Boltzmann’s constant, T is temperature, e is Euler’s number and \Delta G is the free energy of solvation for each respective solvent.
