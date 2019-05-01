@@ -8,6 +8,7 @@ conda list --export > requirements.txt
 
 # Run first step of analysis and create collection file
 python logP_analysis.py
+python logP_analysis2.py
 
 # Compile LaTeX statistic table twice for better rendering
 pdflatex ./analysis_outputs/StatisticsTables/statisticsLaTex/statistics.tex
