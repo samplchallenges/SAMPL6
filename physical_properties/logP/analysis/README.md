@@ -4,6 +4,7 @@ General analysis of log *P* predictions include calculated vs predicted log *P* 
 95%-percentile bootstrap confidence intervals of all the statistics were reported. Error slope (ES) statistic is calculated as the slope of the line fit the the QQ plot of model uncertainty predictions.
 
 ## Manifest
+- `run.sh` - Bash script that run python analysis scripts and compiles TeX files.
 - `logP_analysis.py` - Python script that parses submissions and performs the analysis.
 - `logP_analysis2.py` - Python script that performs the analysis of molecular statistics (Error statistics, MAE and RMSE, calculated across methods for each molecule.)
 - `logP_predictions/` - This directory includes SAMPL6 type III pKa submission files.
