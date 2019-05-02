@@ -5,6 +5,7 @@ General analysis of log *P* predictions include calculated vs predicted log *P* 
 
 ## Manifest
 - `logP_analysis.py` - Python script that parses submissions and performs the analysis.
+- `logP_analysis2.py` - Python script that performs the analysis of molecular statistics (Error statistics, MAE and RMSE, calculated across methods for each molecule.)
 - `logP_predictions/` - This directory includes SAMPL6 type III pKa submission files.
 
 - `analysis_outputs/` - All analysis outputs are organized under this directory.
@@ -29,6 +30,17 @@ General analysis of log *P* predictions include calculated vs predicted log *P* 
     - `MAE_vs_method_plot_for_Other_category.pdf` 
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
   - `QQPlots/` - Quantile-Quantile plots for the analysis of model uncertainty predictions. 
+  - `MolecularStatisticsTables/` - This directory contains tables and barplots of molecular statistics analysis (Error statistics, MAE and RMSE, calculated across methods for each molecule.)
+    - `MAE_vs_molecule_ID_plot.pdf` - Barplot of MAE calculated for each molecule averaging over all prediction methods.
+    - `RMSE_vs_molecule_ID_plot.pdf` - Barplot of RMSE calculated for each molecule averaging over all prediction methods.
+    - `molecular_error_statistics.csv` - MAE and RMSE statistics calculated for each molecule averaging over all prediction methods. 95% confidence intervals were calculated via bootstrapping (10000 samples).
+    - `molecular_MAE_comparison_between_method_categories.pdf` - Barplot of MAE calculated for each method category for each molecule averaging over all predictions in that method category. Colors of bars indicate method categories.
+    - `Empirical/` - This directory contains table and barplots of molecular statistics analysis calculated only for methods in Empirical method category. 
+    - `Mixed/` - This directory contains table and barplots of molecular statistics analysis calculated only for methods in Mixed method category. 
+    - `Other/` - This directory contains table and barplots of molecular statistics analysis calculated only for methods in Other method category. 
+    - `Physical/` - This directory contains table and barplots of molecular statistics analysis calculated only for methods in Physical method category. 
+    
+    
   
   ## Submission IDs for log *P* prediction methods
  
