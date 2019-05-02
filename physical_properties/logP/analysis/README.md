@@ -3,6 +3,8 @@
 General analysis of log *P* predictions include calculated vs predicted log *P* correlation plots and 6 performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), and error slope(ES)) for all the submissions. 
 95%-percentile bootstrap confidence intervals of all the statistics were reported. Error slope (ES) statistic is calculated as the slope of the line fit the the QQ plot of model uncertainty predictions.
 
+Molecular statistics analysis was performed to indicate logP values of which molecules of SAMPL6 logP Challenge set were more difficult to predict accurately across participated methods. Error statistics (MAE and RMSE) were calculated for each molecule averaging across all methods or for all methods within a method category (Physical, Empirical, Mixed, or Other). 
+
 ## Manifest
 - `run.sh` - Bash script that run python analysis scripts and compiles TeX files.
 - `logP_analysis.py` - Python script that parses submissions and performs the analysis.
