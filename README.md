@@ -56,7 +56,7 @@ The SAMPL project was recently funded by the National Institutes of Health, for 
 - Version 1.16: SAMPL6 Part II - Add evaluation of log *P* predictions([physical_properties/logP/analysis/](./physical_properties/logP/analysis/)) 
 
 ### Changes not yet in a release
-
+- [Molecular statistics analysis](./physical_properties/logP/analysis/analysis_outputs/MolecularStatisticsTables) added for SAMPL6 Part II logP Challenge. This analysis was performed to indicate logP values of which molecules of SAMPL6 logP Challenge set were more difficult for methods to predict accurately.
 
 ## Challenge Overview
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
