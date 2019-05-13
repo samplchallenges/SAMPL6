@@ -242,6 +242,21 @@ Dial-in options for audio are also available; contact David Mobley if you need t
 The next [face-to-face workshop](https://drugdesigndata.org/about/d3r-2019-workshop) is Aug. 22-23, 2019 in San Diego, joint with D3R.
 Participation is relatively limited but we are checking on whether virtual attendance is a possibility.
 
+## Publishing in the special issue of JCAMD 
+
+In coordination with Terry Stouch, we are planning a special issue of *J. Comp. Aided Mol. Design* (JCAMD) focused on the SAMPL6 log *P* challenge. All participants are welcome to submit manuscripts. The submission deadline for this is Sept. 15, 2019, with submissions opening prior to our August 2019 workshop for those who would like to submit early. As usual, papers are expected to appear online in advance of their publication in the special issue as soon as they are ready unless otherwise requested.
+
+### Review criteria for special issue
+In general, review criteria for SAMPL special issues are modestly different than for typical journal publications. Specifically, since these are blind prediction challenges, the community feeling has been that participants should be entitled to report what they did even if the reviewers might feel that it was ill advised, not particularly novel/exciting, or had modest had technical problems. However, papers must still:
+
+- fairly report their results, without overselling or giving an unwarranted sales pitch
+- clearly identify and discuss any technical flaws reviews or others might have highlighted
+- provide adequate details (and supporting materials) so that others can reproduce the work
+and otherwise ensure that they meet the standards of the journal.
+
+Additionally, as a particular focus of SAMPL is on lessons learned, authors are urged to pay devote careful attention to highlighting what was learned from participation and how it might be of benefit to the field or to others employing similar methodologies.
+
+
 ## Files provided
 
 - `/physical_properties/logP/molecule_ID_and_SMILES.csv` - CSV file that indicates SAMPL6 logP challenge molecule IDs and isomeric SMILES.
