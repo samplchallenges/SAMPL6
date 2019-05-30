@@ -213,11 +213,11 @@ There will be two opportunities for participants to discuss their results.  **SA
 
 ### 1. The SAMPL6 Log *P* Challenge Virtual Workshop
 
-We have a virtual pre-workshop on the SAMPL6 LogP challenge on Thursday, May 16, beginning at 7 am US Pacific time.  
+We had virtual pre-workshop on the SAMPL6 LogP challenge on Thursday, May 16, beginning at 7 am US Pacific time.  
 
 #### Overview/Purpose
 
-The purpose of this workshop is to go over a preliminary evaluation of results, begin considering analysis and lessons learned, and nucleate opportunities for follow up and additional discussion. Part of the goal is to facilitate discussion so that participants can work *together* to maximize lessons learned in the lead up to the August in-person D3R/SAMPL workshop and the JCAMD special issue.
+The purpose of this workshop was to go over a preliminary evaluation of results, begin considering analysis and lessons learned, and nucleate opportunities for follow up and additional discussion. Part of the goal is to facilitate discussion so that participants can work *together* to maximize lessons learned in the lead up to the August in-person D3R/SAMPL workshop and the JCAMD special issue.
 We hope this early workshop will result in additional follow-up afterwards.
 
 #### Agenda
@@ -236,6 +236,14 @@ A tentative agenda for this workshop is (all times US Pacific (PDT; UTC-7)):
 
 This is a Zoom meeting/workshop. You may join using [this link](https://uchealth.zoom.us/j/687748918). You should download the software in advance if you do not already have it. If you plan on attending and are not a participant, please ensure your video is turned off and your microphone is muted to improve the experience for other participants.
 Dial-in options for audio are also available; contact David Mobley if you need to dial in.
+
+#### Presentations and video record
+
+Slide decks of talks given in SAMPL6 Log *P* Challenge virtual workshop can be found here:  
+[SAMPL6-logP-challenge-virtual-workshop GitHub repository](https://github.com/choderalab/SAMPL6-logP-challenge-virtual-workshop)
+
+[SAMPL6 logP virtual workshop video](https://www.youtube.com/watch?v=FWUPXG8U3UE) is also available.
+
 
 ### 2. The 2019 D3R/SAMPL Joint Workshop
 
