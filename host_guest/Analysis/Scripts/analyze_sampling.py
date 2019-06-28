@@ -245,9 +245,11 @@ def align_yaxis(ax1, v1, ax2, v2):
 # =============================================================================
 
 def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
-                                plot_std=True, plot_bias=True):
+                                plot_std=True, plot_bias=True, plot_bias_to_reference=False,
+                                system_names=None):
     """Plot free energy trajectories, std, and bias of the given submissions."""
-    system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
+    if system_names is None:
+        system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
     n_systems = len(system_names)
     max_n_energy_evaluations = {system_name: 0 for system_name in system_names}
     min_n_energy_evaluations = {system_name: np.inf for system_name in system_names}
@@ -255,10 +257,15 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
     # Handle default arguments.
     if y_limits is None:
         # 3 by 3 matrix of y limits for the plots.
-        y_limits = [[None for _ in range(3)] for _ in range(3)]
+        y_limits = [[None for _ in range(n_systems)] for _ in range(n_systems)]
     # We need a 2D array of axes for the code to work even if we're not plotting std or bias.
-    if len(axes.shape) == 1:
-        axes = np.array([axes])
+    try:
+        axes_shape = len(axes.shape)
+    except AttributeError:
+        axes = np.array([[axes]])
+    else:
+        if axes_shape == 1:
+            axes = np.array([axes])
 
     # Build a dictionary mapping submissions and system names to their mean data.
     all_mean_data = {}
@@ -271,14 +278,22 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
             # CB8-G3 calculations for GROMACS/EE did not converge.
             if submission.name == 'Expanded-ensemble/MBAR' and system_name == 'CB8-G3':
                 continue
+
             # Add mean free energies for this system.
             system_mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
+            n_energy_evaluations = system_mean_data['N energy evaluations'].values[-1]
+            # # TODO REMOVE ME
+            # if submission.paper_name == 'GROMACS/CT-NS' and 'OA' in system_name:
+            #     max_n_energy_evaluations[system_name] = n_energy_evaluations
+            #     continue
+            # elif 'APR' not in submission.paper_name:
+            #     continue
+
             all_mean_data[submission.paper_name][system_name] = system_mean_data
 
             # Keep track of the maximum and minimum number of energy evaluations,
             # which will be used to determine how to truncate the plotted reference
             # data and determine the zorder of the trajectories respectively.
-            n_energy_evaluations = system_mean_data['N energy evaluations'].values[-1]
             max_n_energy_evaluations[system_name] = max(max_n_energy_evaluations[system_name],
                                                         n_energy_evaluations)
             min_n_energy_evaluations[system_name] = min(min_n_energy_evaluations[system_name],
@@ -356,7 +371,8 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
         axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
     if plot_bias:
         axes[2][0].set_ylabel('bias [kcal/mol]')
-    axes[-1][1].set_xlabel('number of energy/force evaluations [10$^6$]')
+    central_column_idx = int(len(axes[0])/2)
+    axes[-1][central_column_idx].set_xlabel('number of energy/force evaluations [10$^6$]')
 
     # Fix axes limits.
     for ax_idx, system_name in enumerate(system_names):
@@ -375,7 +391,7 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
         axes[0][ax_idx].set_title(system_name)
 
     # Create a bias axis AFTER the ylim has been set.
-    if yank_analysis is not None:
+    if yank_analysis is not None and plot_bias_to_reference:
         for ax_idx, (system_name, ax) in enumerate(zip(system_names, axes[0])):
             yank_full_mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
             ref_free_energy = yank_full_mean_data[DG_KEY].values[-1]
@@ -400,9 +416,9 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     # asymptotic value.
     if zoomed:
         # figsize = (7.25, 6.2)  # Without WExplorer
-        figsize = (7.25, 8)
+        figsize = (7.25, 7.5)
     else:
-        figsize = (7.25, 8)  # With WExplorer
+        figsize = (7.25, 7.5)  # With WExplorer
     fig, axes = plt.subplots(nrows=3, ncols=3, figsize=figsize)
 
     # Optionally, remove WExplore.
@@ -412,14 +428,14 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     if zoomed:
         # Y-axis limits when WExplore calculations are excluded.
         y_limits = [
-            [(-15, -9.8), (-8, -5), (-8, -5)],
+            [(-15, -10), (-9, -4), (-9, -4)],
             [(0, 2), (0, 0.8), (0, 0.8)],
             [(-3, 1), (-0.6, 0.6), (-0.6, 0.6)],
         ]
     else:
         # Y-axis limits when WExplore calculations are included.
         y_limits = [
-            [(-17, -9), (-12.5, -5), (-12.5, -5)],
+            [(-17, -9), (-13, -5), (-13, -5)],
             [(0, 2), (0, 1.75), (0, 1.75)],
             [(-4, 4), (-0.6, 0.6), (-0.6, 0.6)],
         ]
@@ -428,16 +444,16 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
 
     # Show/save figure.
     if zoomed:
-        plt.tight_layout(h_pad=0.0, rect=[0.0, 0.00, 1.0, 0.92], w_pad=0.0)  # Without WExplorer
+        plt.tight_layout(h_pad=0.2, rect=[0.0, 0.00, 1.0, 0.92], w_pad=0.0)  # Without WExplorer
     else:
-        plt.tight_layout(h_pad=0.0, rect=[0.0, 0.00, 1.0, 0.92])  # With WExplorer
+        plt.tight_layout(h_pad=0.2, rect=[0.0, 0.00, 1.0, 0.92])  # With WExplorer
 
     # Plot legend.
     if zoomed:
         # bbox_to_anchor = (2.52, 1.55)  # Without WExplorer.
-        bbox_to_anchor = (2.62, 1.48)
+        bbox_to_anchor = (2.4, 1.48)
     else:
-        bbox_to_anchor = (2.62, 1.48)  # With WExplorer.
+        bbox_to_anchor = (2.4, 1.48)  # With WExplorer.
     axes[0][1].legend(loc='upper right', bbox_to_anchor=bbox_to_anchor,
                       fancybox=True, ncol=4)
     plt.subplots_adjust(wspace=0.35)
@@ -726,7 +742,7 @@ def plot_restraint_and_barostat_analysis():
 # FIGURE 4
 # =============================================================================
 
-def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=True):
+def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=True, plot_std=True):
     """Plot the YANK free energy trajectoies when discarding initial samples for a single system."""
     color_palette = sns.color_palette('viridis', n_colors=len(data_dir_paths)+1)
 
@@ -751,7 +767,7 @@ def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=Tru
             mean_data['HREX iteration'] -= mean_data['HREX iteration'].values[0]
 
         plot_mean_data(mean_data, axes, x='HREX iteration', color=color,
-                       label=label, plot_bias=False, plot_ci=False)
+                       label=label, plot_std=plot_std, plot_bias=False, plot_ci=False)
 
     # Plot trajectory with full data.
     color = color_palette[0]
@@ -770,24 +786,12 @@ def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=Tru
 
     # Simulate ploatting starting from the origin.
     plot_mean_data(mean_data, axes, x='HREX iteration', color=color,
-                   label='0', plot_bias=False, plot_ci=False)
+                   label='0', plot_std=plot_std, plot_bias=False, plot_ci=False)
     axes[0].set_title(system_name)
 
 
-def plot_yank_bias():
+def plot_yank_bias(plot_std=True, figure_dir_path=None):
     """Plot YANK free energy trajectories when discarding initial samples."""
-    system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
-    n_rows = 2
-    n_cols = len(system_names)
-    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(7.25, 4.6))
-
-    # The loops are based on a two dimensional array of axes.
-    if n_rows == 1:
-        axes = np.array([axes])
-
-    # Sort paths by how many samples they have.
-    data_dir_paths = ['YankAnalysis/BiasAnalysis/iter{}/'.format(i) for i in [1000, 2000, 4000, 8000, 16000, 24000]]
-
     # In the first column, plot the "unshifted" trajectory of CB8-G3,
     # with all sub-trajectories shifted to the origin. In the second
     # and third columns, plot the trajectories of CB8-G3 and OA-G3
@@ -799,9 +803,24 @@ def plot_yank_bias():
         # ('OA-G3', False),
         # ('OA-G6', False),
     ]
+
+    if plot_std:
+        n_rows = 2
+    else:
+        n_rows = 1
+    n_cols = len(what_to_plot)
+    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(7.25, 4.6))
+
+    # The loops are based on a two dimensional array of axes.
+    if n_rows == 1:
+        axes = np.array([axes])
+
+    # Sort paths by how many samples they have.
+    data_dir_paths = ['YankAnalysis/BiasAnalysis/iter{}/'.format(i) for i in [1000, 2000, 4000, 8000, 16000, 24000]]
+
     for column_idx, (system_name, shift_to_origin) in enumerate(what_to_plot):
         plot_yank_system_bias(system_name, data_dir_paths, axes[:,column_idx],
-                              shift_to_origin=shift_to_origin)
+                              shift_to_origin=shift_to_origin, plot_std=plot_std)
         title = system_name + ' (shifted)' if shift_to_origin else system_name
         axes[0,column_idx].set_title(title)
 
@@ -813,8 +832,9 @@ def plot_yank_bias():
     }
     for column_idx, (system_name, _) in enumerate(what_to_plot):
         axes[0][column_idx].set_ylim(ylimits[system_name])
-    for column_idx in range(3):
-        axes[1][column_idx].set_ylim((0, 0.6))
+    if plot_std:
+        for column_idx in range(3):
+            axes[1][column_idx].set_ylim((0, 0.6))
 
     for row_idx, ax_idx in itertools.product(range(n_rows), range(n_cols)):
         # Control the number of ticks for the x axis.
@@ -827,7 +847,8 @@ def plot_yank_bias():
 
     # Set axes labels.
     axes[0][0].set_ylabel('$\Delta$G [kcal/mol]')
-    axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
+    if plot_std:
+        axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
     axes[-1][1].set_xlabel('HREX iteration')
 
     plt.tight_layout(h_pad=0.1, rect=[0.0, 0.00, 1.0, 0.92])
@@ -841,7 +862,8 @@ def plot_yank_bias():
                       fancybox=True)
 
     # plt.show()
-    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure4-bias_hrex')
+    if figure_dir_path is None:
+        figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure4-bias_hrex')
     os.makedirs(figure_dir_path, exist_ok=True)
     output_file_path = os.path.join(figure_dir_path, 'Figure4-bias_hrex')
     plt.savefig(output_file_path + '.pdf')
@@ -1551,21 +1573,13 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
                 mean_data = submission.get_free_energies_from_iteration(final_iteration=YANK_N_ITERATIONS,
                                                                         system_name=system_name,
                                                                         mean_trajectory=True)
-                reference_mean_data = None
             else:
                 # Select the data for only this host-guest system.
                 data = submission.data[submission.data['System name'] == system_name]
                 mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
 
-                # Get the corresponding YANK free energies.
-                # The cost for the same system is the same for all replicates.
-                n_energy_evaluations = int(submission.cost.loc[system_name + '-0', 'N energy evaluations'])
-                reference_mean_data = yank_analysis.get_free_energies_from_energy_evaluations(n_energy_evaluations,
-                                                                                              system_name=system_name,
-                                                                                              mean_trajectory=True)
-
             plot_single_trajectories_figures(axes[:,ax_idx], data, mean_data, plot_errors=plot_errors,
-                                             reference_system_mean_data=None,  #reference_mean_data,
+                                             reference_system_mean_data=None,
                                              plot_methods_uncertainties=plot_methods_uncertainties)
 
             # Collect max and min data to determine axes range.
