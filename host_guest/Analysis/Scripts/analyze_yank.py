@@ -267,8 +267,17 @@ def generate_iteration_cutoffs():
     return systems_iteration_cutoffs
 
 
-def get_computed_free_energies(system_id, dir_path=SAMPLING_ANALYSIS_DIR_PATH, cleanup=False):
-    file_base_path = os.path.join(dir_path, 'yank-{}'.format(system_id))
+def get_computed_free_energies(system_id, dir_path=SAMPLING_ANALYSIS_DIR_PATH, file_prefix='yank', cleanup=False):
+    """Read data and cleanup jobid files.
+
+    Parameters
+    ----------
+    file_prefix: str, optional
+        The prefix of the job id files without system name and jobid.
+
+    """
+    # Read all free energies.
+    file_base_path = os.path.join(dir_path, '{}-{}'.format(file_prefix, system_id))
     output_file_path = file_base_path + '.json'
 
     # Read current merged file.
@@ -284,29 +293,41 @@ def get_computed_free_energies(system_id, dir_path=SAMPLING_ANALYSIS_DIR_PATH, c
 
     # Delete parallel job files.
     if cleanup:
-        # Write merged result.
+        # Write free energies merged result.
         with open(output_file_path, 'w') as f:
             json.dump(free_energies, f, indent=4, sort_keys=True)
 
+        # Remove jobid files.
         for file_path in glob.glob(file_base_path + '-*.json'):
             os.remove(file_path)
 
     # Convert iterations from string to integers.
-    return {int(k): v for k, v in free_energies.items()}
+    try:
+        # If k are just iterations, convert the strings to integers.
+        return {int(k): v for k, v in free_energies.items()}
+    except ValueError:
+        # In this case, free_energies is the decomposition data.
+        return free_energies
 
 
 # =============================================================================
 # MAIN
 # =============================================================================
 
-def analyze_yank(jobid, jobspersystem, cleanup=False, dry_run=False, analyzer_class=None):
+def analyze_yank(jobid, jobspersystem, cleanup=False, dry_run=False, analyzer_class=None,
+                 output_dir_path=SAMPLING_ANALYSIS_DIR_PATH, file_prefix='yank',
+                 iteration_cutoffs=None, print_iterations_to_compute=True, **analyzer_kwargs):
     """Analyze YANK at all the submitted wall-clock times/number of energy evaluations."""
     # Determine the iterations at which to analyze the YANK calculations.
-    systems_iteration_cutoffs = generate_iteration_cutoffs()
+    if iteration_cutoffs is None:
+        systems_iteration_cutoffs = generate_iteration_cutoffs()
+    else:
+        systems_iteration_cutoffs = {system_id: iteration_cutoffs for system_id in SYSTEM_IDS}
 
     # Load iterations that have been already calculated.
     for system_id, iteration_cutoffs in systems_iteration_cutoffs.items():
-        computed_iterations = get_computed_free_energies(system_id, cleanup=cleanup)
+        computed_iterations = get_computed_free_energies(system_id, dir_path=output_dir_path,
+                                                         file_prefix=file_prefix, cleanup=cleanup)
         # Compute only the iterations that we haven't computed.
         iterations_to_compute = set(iteration_cutoffs) - set(computed_iterations)
         systems_iteration_cutoffs[system_id] = sorted(iterations_to_compute)
@@ -315,9 +336,10 @@ def analyze_yank(jobid, jobspersystem, cleanup=False, dry_run=False, analyzer_cl
 
     # If this is a dry run, just print how many iterations we need to analyze for each system.
     if dry_run:
-        for k, v in systems_iteration_cutoffs.items():
-            print(k, len(v))
-        return
+        if print_iterations_to_compute:
+            for k, v in systems_iteration_cutoffs.items():
+                print(k, len(v))
+        return systems_iteration_cutoffs
 
     # Split all iteration cutoffs for jobs.
     jobs_systems_iteration_cutoffs = []
@@ -346,13 +368,16 @@ def analyze_yank(jobid, jobspersystem, cleanup=False, dry_run=False, analyzer_cl
         free_energies = analyze_directory(experiment_directory,
                                           distance_cutoffs=distance_cutoff,
                                           iteration_cutoffs=iteration_cutoffs,
-                                          analyzer_class=analyzer_class)
+                                          analyzer_class=analyzer_class,
+                                          **analyzer_kwargs)
 
         # Store analysis results.
         free_energies = {i: f for i, f in zip(iteration_cutoffs, free_energies)}
-        output_file_path = os.path.join(SAMPLING_ANALYSIS_DIR_PATH, 'yank-{}.json'.format(system_job_id))
+        output_file_path = os.path.join(output_dir_path, '{}-{}.json'.format(file_prefix, system_job_id))
         with open(output_file_path, 'w') as f:
             json.dump(free_energies, f, indent=4, sort_keys=True)
+
+    return systems_iteration_cutoffs
 
 
 def analyze_yank_restraint(system_id):
@@ -378,7 +403,7 @@ def analyze_yank_restraint(system_id):
 def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False, analyzer_class=None):
     """Analyze YANK discarding the initial iterations to see if it helps with the bias."""
     # starting_iterations = [250, 500, 1000] + list(range(2000, 20000, 2000))
-    starting_iterations = [1000, 2000, 4000, 8000, 16000, 24000, 32000]
+    starting_iterations = [0, 5, 10, 25, 50, 100, 250, 500, 1000, 2000, 4000, 8000, 16000, 24000, 32000]
 
     # Obtain the iterations that have been already analyzed by YANK.
     # Using only these allow us to compare the subset to the full simulation later.
@@ -407,6 +432,10 @@ def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False, analyz
             # Retrieve free energies that have been already computed and cleanup.
             analyzed_iterations = get_computed_free_energies(system_id, dir_path=bias_analysis_dir_path,
                                                              cleanup=cleanup)
+            # If we cleanup, cleanup also decomposition files.
+            if cleanup:
+                get_computed_free_energies(system_id, dir_path=bias_analysis_dir_path,
+                                           file_prefix='fe-decomposition', cleanup=True)
             iteration_indices = np.searchsorted(iteration_cutoffs, target_iterations)
             # Transform to a set to make sure we don't have duplicate iterations.
             iterations = sorted(set([int(iteration_cutoffs[i]) for i in iteration_indices]))
@@ -446,11 +475,12 @@ def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False, analyz
         distance_cutoff = RESTRAINT_DISTANCE_CUTOFFS[system_name]
 
         # Analyze all iterations.
-        free_energies = analyze_directory(experiment_directory,
-                                          n_discarded_initial_iterations=starting_iteration,
-                                          distance_cutoffs=distance_cutoff,
-                                          iteration_cutoffs=iteration_cutoffs,
-                                          analyzer_class=analyzer_class)
+        free_energies, decomposition = analyze_directory(experiment_directory,
+                                                         n_discarded_initial_iterations=starting_iteration,
+                                                         distance_cutoffs=distance_cutoff,
+                                                         iteration_cutoffs=iteration_cutoffs,
+                                                         analyzer_class=analyzer_class,
+                                                         return_decomposition=True)
 
         # Store analysis results.
         free_energies = {i: f for i, f in zip(iteration_cutoffs, free_energies)}
@@ -458,6 +488,56 @@ def analyze_yank_bias(jobid, jobspersystem, cleanup=False, dry_run=False, analyz
         output_file_path = os.path.join(bias_analysis_dir_path, 'yank-{}.json'.format(system_job_id))
         with open(output_file_path, 'w') as f:
             json.dump(free_energies, f, indent=4, sort_keys=True)
+
+        # Store free energy decomposition data.
+        output_file_path = os.path.join(bias_analysis_dir_path, 'fe-decomposition-{}.json'.format(system_job_id))
+        with open(output_file_path, 'w') as f:
+            json.dump(decomposition, f, indent=4, sort_keys=True)
+
+
+def analyze_yank_correlation(jobid, jobspersystem, cleanup=False, dry_run=False):
+    """Analyze YANK discarding the initial iterations to see if it helps with the bias."""
+    statistical_inefficiencies = [2, 5, 10, 20, 50, 100, 200]
+    output_dir_pattern = os.path.join(ANALYSIS_DIR_PATH, 'CorrelationAnalysis', 'statineff-{}')
+
+    # Analyze only 100 iterations for each statistical inefficiency.
+    iteration_cutoffs = get_iteration_cutoffs(YANK_N_ITERATIONS)
+
+    # First run a dry run to figure out how many systems we need to compute for each statistical inefficiency.
+    n_jobs_per_ineff = [0]
+    for stat_inefficiency in statistical_inefficiencies:
+        output_dir_path = output_dir_pattern.format(stat_inefficiency)
+        os.makedirs(output_dir_path, exist_ok=True)
+        systems_iteration_cutoffs = analyze_yank(jobid, jobspersystem, cleanup=cleanup, dry_run=True,
+                                                 output_dir_path=output_dir_path, file_prefix='yank',
+                                                 iteration_cutoffs=iteration_cutoffs,
+                                                 print_iterations_to_compute=False,
+                                                 fixed_statistical_inefficiency=stat_inefficiency)
+        if dry_run:
+            for k, v in systems_iteration_cutoffs.items():
+                print(stat_inefficiency, k, len(v))
+        n_jobs_per_ineff.append(len(systems_iteration_cutoffs) * jobspersystem)
+
+    # Compute the cumulative number of jobs to identify which one we need to run.
+    cum_n_jobs_per_ineff = np.array(n_jobs_per_ineff).cumsum()
+    print('Total number of jobs:', sum(n_jobs_per_ineff))
+
+    # If this is a dry run, there's nothing else to do.
+    if dry_run:
+        return
+
+    # Identify statistical efficiency and jobid.
+    for i, cum_n_jobs in enumerate(cum_n_jobs_per_ineff):
+        if cum_n_jobs >= jobid:
+            break
+    stat_inefficiency = statistical_inefficiencies[i-1]
+    jobid -= cum_n_jobs_per_ineff[i-1]
+
+    output_dir_path = output_dir_pattern.format(stat_inefficiency)
+    analyze_yank(jobid, jobspersystem, cleanup=cleanup, dry_run=dry_run,
+                 output_dir_path=output_dir_path, file_prefix='yank',
+                 iteration_cutoffs=iteration_cutoffs,
+                 fixed_statistical_inefficiency=stat_inefficiency)
 
 
 if __name__ == '__main__':
@@ -479,3 +559,6 @@ if __name__ == '__main__':
     # Collect data for YANK bias analysis.
     # analyze_yank_bias(args.jobid, args.jobspersystem, cleanup=False, dry_run=True)
     # analyze_yank_bias(args.jobid, args.jobspersystem, cleanup=False, dry_run=False, analyzer_class=BARAnalyzer)
+
+    # Collect data for YANK correlation analysis.
+    # analyze_yank_correlation(args.jobid, args.jobspersystem, cleanup=True, dry_run=True)

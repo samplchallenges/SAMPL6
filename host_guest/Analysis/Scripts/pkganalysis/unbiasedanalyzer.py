@@ -85,6 +85,7 @@ def compute_centroid_distance(positions_group1, positions_group2, weights_group1
 # Dictionary cached_value: list of cache_values to invalidate.
 _CACHE_VALUES_DEPENDENCIES = dict(
     n_discarded_initial_iterations=['equilibration_data'],
+    fixed_statistical_inefficiency=['equilibration_data'],
     min_n_iterations=['equilibration_data'],
     max_n_iterations=['equilibration_data'],
     equilibration_data=['state_indices_kn', 'uncorrelated_u_kn', 'uncorrelated_N_k'],
@@ -103,7 +104,7 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
 
     def __init__(self, *args, restraint_energy_cutoff=None, restraint_distance_cutoff=None,
                  min_n_iterations=0, max_n_iterations=None, n_discarded_initial_iterations=None,
-                 **kwargs):
+                 fixed_statistical_inefficiency=None, **kwargs):
         # Cached values that are read directly from the Reporter.
         self._n_iterations = None
         self._n_replicas = None
@@ -121,6 +122,7 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
             self.max_n_iterations = max_n_iterations
         self.min_n_iterations = min_n_iterations
         self.n_discarded_initial_iterations = n_discarded_initial_iterations
+        self.fixed_statistical_inefficiency = fixed_statistical_inefficiency
         self.restraint_energy_cutoff = restraint_energy_cutoff
         self.restraint_distance_cutoff = restraint_distance_cutoff
 
@@ -174,6 +176,7 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
     max_n_iterations = _CachedProperty('max_n_iterations', validator=_max_n_iterations_validator.__func__,
                                        default_func=lambda instance: instance.n_iterations,
                                        check_changes=True)
+    fixed_statistical_inefficiency = _CachedProperty('fixed_statistical_inefficiency', check_changes=True)
     restraint_energy_cutoff = _CachedProperty('restraint_energy_cutoff')
     restraint_distance_cutoff = _CachedProperty('restraint_distance_cutoff')
 
@@ -204,9 +207,20 @@ class UnbiasedAnalyzer(analyze.ReplicaExchangeAnalyzer):
 
         # Check if we need to perform automatic equilibration detection or if the
         # user has already provided a number of initial iterations to discard.
-        if self.n_discarded_initial_iterations is None:
+        if self.n_discarded_initial_iterations is None and self.fixed_statistical_inefficiency is None:
             # Automatic equilibration detection.
             self._automatic_equilibration_detection(input_data)
+        elif self.fixed_statistical_inefficiency is not None:
+            assert self.min_n_iterations == 0
+            statistical_inefficiency = self.fixed_statistical_inefficiency
+            # Discard 2 times the statistical efficiency if possible, otherwise don't discard anything.
+            n_equilibration_iterations = int(2 * statistical_inefficiency)
+            if n_equilibration_iterations < self.max_n_iterations:
+                logger.info('Could not discard 2*statistical_inefficiency initial iterations. '
+                            'The entire data will be used to compute the free energy.')
+                n_equilibration_iterations = 0
+            n_effective_samples = (self.max_n_iterations - n_equilibration_iterations + 1) / statistical_inefficiency
+            self._equilibration_data = (n_equilibration_iterations, statistical_inefficiency, n_effective_samples)
         else:
             u_n = self.get_timeseries(input_data[:, :, self.n_discarded_initial_iterations:self.max_n_iterations+1])
             # We set n_equilibration_iterations = n_discarded_initial_iterations
@@ -882,18 +896,52 @@ class MultiBAR:
 # SHORTCUT ANALYSIS FUNCTIONS
 # =============================================================================
 
-def analyze_phase(analyzer):
+def analyze_phase(analyzer, return_enthalpy=False):
     data = dict()
     Deltaf_ij, dDeltaf_ij = analyzer.get_free_energy()
     data['DeltaF'] = Deltaf_ij[analyzer.reference_states[0], analyzer.reference_states[1]]
     data['dDeltaF'] = dDeltaf_ij[analyzer.reference_states[0], analyzer.reference_states[1]]
     data['DeltaF_standard_state_correction'] = analyzer.get_standard_state_correction()
+
+    if return_enthalpy:
+        try:
+            DeltaH_ij, dDeltaH_ij = analyzer.get_enthalpy()
+        except:
+            data['DeltaH'] = None
+            data['dDeltaH'] = None
+        else:
+            data['DeltaH'] = DeltaH_ij[analyzer.reference_states[0], analyzer.reference_states[1]]
+            data['dDeltaH'] = dDeltaH_ij[analyzer.reference_states[0], analyzer.reference_states[1]]
     return data
 
 
 def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=None,
                       iteration_cutoffs=None, n_discarded_initial_iterations=None,
-                      solvent_df=None, solvent_ddf=None, analyzer_class=None):
+                      fixed_statistical_inefficiency=None,
+                      solvent_df=None, solvent_ddf=None, analyzer_class=None,
+                      return_decomposition=False):
+    """Run analysis on a set of cutoffs.
+
+    Parameters
+    ----------
+    return_decomposition : bool, optional, default=False
+        If True, not only all the free energies, but also their decomposition
+        by phase and enthalpy are returned.
+
+    Returns
+    -------
+    all_free_energies : List[Tuple[Quantity, Quantity]]
+        The list of (free energies, uncertainty) pairs for all cutoffs.
+    all_decompositions : List[Dict[str, Dict]]
+        The list of free energy decompositions for all cutoffs indexed
+        by a string including the phase name and the cutoff.
+
+    See Also
+    --------
+    yank.analyze.analyze_phase
+        For the data structure returned by the decomposition analysis.
+
+    """
     if analyzer_class is None:
         analyzer_class = UnbiasedAnalyzer
 
@@ -930,7 +978,7 @@ def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=No
             return phase_name + '-' + str(cutoff)
         return phase_name
 
-    data = dict()
+    data = collections.OrderedDict()
     calculation_type = ''
     for phase_name, sign in analysis:
         # Attempt to guess type of calculation
@@ -949,7 +997,8 @@ def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=No
             continue
 
         # Create kwargs to feed to unbiased analyzer.
-        analyzer_kwargs = {'n_discarded_initial_iterations': n_discarded_initial_iterations}
+        analyzer_kwargs = {'n_discarded_initial_iterations': n_discarded_initial_iterations,
+                           'fixed_statistical_inefficiency': fixed_statistical_inefficiency}
         if phase_name == 'complex':
             if 'energy' not in cutoff_attribute:
                 analyzer_kwargs['restraint_energy_cutoff'] = energy_cutoffs
@@ -968,9 +1017,9 @@ def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=No
                 logger.info('Analyzing cutoff {} ({}/{}) of {}'.format(cutoff, cutoff_idx+1,
                                                                        len(cutoffs), phase_name))
                 setattr(phase, cutoff_attribute, cutoff)
-                data[cutoff_phase_name(phase_name, cutoff)] = analyze_phase(phase)
+                data[cutoff_phase_name(phase_name, cutoff)] = analyze_phase(phase, return_enthalpy=return_decomposition)
         else:
-            data[phase_name] = analyze_phase(phase)
+            data[phase_name] = analyze_phase(phase, return_enthalpy=return_decomposition)
 
     kT_to_kcalmol = kT / unit.kilocalories_per_mole
 
@@ -1008,7 +1057,11 @@ def analyze_directory(source_directory, energy_cutoffs=None, distance_cutoffs=No
 
     logger.info('all_free_energies={}'.format(all_free_energies))
     logger.info('sscs={}'.format(all_sscs))
-    return all_free_energies
+
+    if return_decomposition:
+        return all_free_energies, data
+    else:
+        return all_free_energies
 
 
 if __name__ == '__main__':

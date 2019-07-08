@@ -600,7 +600,7 @@ BIASED_FREE_ENERGIES = {
 }
 
 
-def plot_restraint_distance_distribution(system_id, ax, kde=True):
+def plot_restraint_distance_distribution(system_id, ax, kde=True, iteration_set=None):
     """Plot the distribution of restraint distances at bound, discharged, and decoupled states.
 
     Return the 99.99-percentile restraint radius that was used as a cutoff during analysis.
@@ -625,6 +625,12 @@ def plot_restraint_distance_distribution(system_id, ax, kde=True):
     distances_kn_bound = distances_kn[:n_iterations]
     distances_kn_discharged = distances_kn[(discharged_state_idx-1)*n_iterations:discharged_state_idx*n_iterations]
     distances_kn_decoupled = distances_kn[(n_states-1)*n_iterations:]
+
+    # Filter iterations.
+    if iteration_set is not None:
+        distances_kn_bound = distances_kn_bound[iteration_set]
+        distances_kn_discharged = distances_kn_discharged[iteration_set]
+        distances_kn_decoupled = distances_kn_decoupled[iteration_set]
     assert len(distances_kn_bound) == len(distances_kn_decoupled)
 
     # Plot the distributions.
@@ -867,7 +873,7 @@ def plot_yank_bias(plot_std=True, figure_dir_path=None):
     os.makedirs(figure_dir_path, exist_ok=True)
     output_file_path = os.path.join(figure_dir_path, 'Figure4-bias_hrex')
     plt.savefig(output_file_path + '.pdf')
-    plt.savefig(output_file_path + '.png', dpi=600)
+    # plt.savefig(output_file_path + '.png', dpi=600)
 
 
 def plot_equilibration_methods():
@@ -1509,16 +1515,13 @@ def plot_single_trajectories_figures(axes, system_data, system_mean_data,
     for ax in axes:
         ax.set_xlim((0, max(system_data['N energy evaluations'])))
 
-    # The x-label is shown only in the central plot.
-    if system_name == 'OA-G3':
-        ax.set_xlabel('N energy evaluations  [10$^6$]')
 
-
-def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors=True):
+def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors=True, output_path_dir=None):
     """Individual plots for each method with the 5 individual free energy and uncertainty trajectories."""
     sns.set_context('paper')
 
-    output_path_dir = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure1-individual-trajectories/')
+    if output_path_dir is None:
+        output_path_dir = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure1-individual-trajectories/')
     os.makedirs(output_path_dir, exist_ok=True)
 
     # -------------------- #
@@ -1598,6 +1601,9 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
             axes[0][i].set_yticklabels([])
             axes[1][i].set_yticklabels([])
 
+        # The x-label is shown only in the central plot.
+        axes[-1][1].set_xlabel('N energy evaluations  [10$^6$]')
+
         plt.tight_layout(pad=0.2, rect=[0.0, 0.0, 1.0, 0.85])
 
         # Create legend.
@@ -1608,11 +1614,96 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
         trajectory_axes[0].legend(handles=handles[1:], labels=labels, loc='upper left',
                                   bbox_to_anchor=bbox_to_anchor, ncol=6, fancybox=True,
                                   labelspacing=0.8, handletextpad=0.5, columnspacing=1.2)
-
         # Save figure.
         output_file_name = '{}-{}'.format(submission.receipt_id, submission.file_name)
         plt.savefig(os.path.join(output_path_dir, output_file_name + '.pdf'))
         # plt.savefig(os.path.join(output_path_dir, output_file_name + '.png'), dpi=300)
+        # plt.show()
+
+
+def plot_hrex_stat_ineff_trajectories():
+    """Individual plots for HREX with the 5 individual free energy and uncertainty trajectories
+    as a function of the statistical inefficiency."""
+    sns.set_context('paper')
+
+    # Limits of y-axis (free energies, uncertainties) by system.
+    y_limits = {
+        'CB8-G3': [(-14, -10), (0, 2)],
+        'OA-G3': [(-9, -5), (0, 1.5)],
+        'OA-G6': [(-9, -5), (0, 1.5)],
+    }
+
+    # Create output dir.
+    output_path_dir = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure-statistical-inefficiency')
+    os.makedirs(output_path_dir, exist_ok=True)
+
+    # Read the data, which is organized by statistical inefficiency.
+    # We'll then plot by system.
+    yank_analysis_by_statineff = collections.OrderedDict()
+    for stat_ineff in ['2', '5', '10', '20', '50', '100']:
+        data_dir_path = os.path.join('YankAnalysis', 'CorrelationAnalysis', 'statineff-{}'.format(stat_ineff))
+        yank_analysis = YankSamplingAnalysis(data_dir_path)
+        yank_analysis_by_statineff[stat_ineff] = yank_analysis
+
+    # Plot by system.
+    for system_name in ['CB8-G3', 'OA-G3', 'OA-G6']:
+        fig, axes = plt.subplots(nrows=4, ncols=3, figsize=(7.25, 9.8))
+
+        # Set figure title.
+        fig.suptitle('HREX uncertainty predictions as a function of\n'
+                     'statistical inefficiency for {}'.format(system_name))
+
+        # for system_name in unique_system_names:
+        for stat_ineff_idx, stat_ineff in enumerate(yank_analysis_by_statineff):
+            yank_analysis = yank_analysis_by_statineff[stat_ineff]
+            data = yank_analysis.get_free_energies_from_iteration(final_iteration=YANK_N_ITERATIONS,
+                                                               system_name=system_name)
+            mean_data = yank_analysis.get_free_energies_from_iteration(final_iteration=YANK_N_ITERATIONS,
+                                                                    system_name=system_name,
+                                                                    mean_trajectory=True)
+
+            # Plot on the correct axis.
+            DG_row = 2*int(stat_ineff_idx / 3)
+            col = stat_ineff_idx % 3
+            stat_ineff_axes = axes[DG_row:DG_row+2, col]
+            plot_single_trajectories_figures(stat_ineff_axes, data, mean_data, plot_errors=True,
+                                             reference_system_mean_data=None,
+                                             plot_methods_uncertainties=True)
+
+            # Set titles and limits.
+            title = 'Statistical inefficiency: {} ps'.format(stat_ineff)
+            if DG_row > 0:
+                title = '\n' + title
+            stat_ineff_axes[0].set_title(title, fontweight='bold')
+            stat_ineff_axes[0].set_ylim(y_limits[system_name][0])
+            stat_ineff_axes[1].set_ylim(y_limits[system_name][1])
+
+        # Keep ticks only in external plots.
+        for row_idx in range(axes.shape[0]):
+            for col_idx in range(axes.shape[1]):
+                if row_idx != len(axes[0]) - 1:
+                    axes[row_idx][col_idx].set_xticklabels([])
+                if col_idx != 0:
+                    axes[row_idx][col_idx].set_ylabel('')
+                    axes[row_idx][col_idx].set_yticklabels([])
+        # Set x label.
+        axes[-1][1].set_xlabel('N energy evaluations  [10$^6$]')
+
+        plt.tight_layout(pad=0.0, rect=[0.0, 0.0, 1.0, 0.88])
+
+        # Create legend.
+        # The first handle/label is the legend title "System ID" so we get rid of it.
+        handles, labels = axes[0][0].get_legend_handles_labels()
+        labels = ['replicate ' + str(i) for i in range(5)] + labels[6:]
+        bbox_to_anchor = (-0.1, 1.35)
+        axes[0][0].legend(handles=handles[1:], labels=labels, loc='upper left',
+                          bbox_to_anchor=bbox_to_anchor, ncol=6, fancybox=True,
+                          labelspacing=0.8, handletextpad=0.5, columnspacing=1.2)
+
+        # Save figure.
+        output_file_name = 'statineff-{}'.format(system_name)
+        # plt.savefig(os.path.join(output_path_dir, output_file_name + '.pdf'))
+        plt.savefig(os.path.join(output_path_dir, output_file_name + '.png'), dpi=300)
         # plt.show()
 
 
@@ -1697,318 +1788,7 @@ if __name__ == '__main__':
     # plot_equilibration_methods()
 
     # Plot individual trajectories.
-    # plot_all_single_trajectories_figures(main_submissions, yank_analysis)
-    import sys; sys.exit()
+    # plot_all_single_trajectories_figures(all_submissions, yank_analysis)
 
-    # # TODO REMOVE ME: CODE FOR SINGLE PLOT FOR SLIDES
-    # # Plot submission data.
-    # os.makedirs(SAMPLING_PLOT_DIR_PATH, exist_ok=True)
-    # palette_mean = sns.color_palette('dark')
-    # for submission in submissions:
-    #     if 'SOMD' not in submission.name:
-    #         continue
-    #
-    #     mean_free_energies = submission.mean_free_energies()
-    #     for system_name in submission.data['System name'].unique():
-    #         # Select the data for only this host-guest system.
-    #         data = submission.data[submission.data['System name'] == system_name]
-    #         mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
-    #
-    #         # Get the corresponding YANK free energies.
-    #         # The cost for the same system is the same for all replicates.
-    #         n_energy_evaluations = int(submission.cost.loc[system_name + '-0', 'N energy evaluations'])
-    #         yank_mean_data = yank_analysis.get_free_energies_from_energy_evaluations(n_energy_evaluations,
-    #                                                                              system_name=system_name,
-    #                                                                              mean_trajectory=True)
-    #
-    #         fig, ax = plt.subplots(figsize=(7.5, 6.5))
-    #
-    #         # Plot the 5 replicates trajectories.
-    #         sns.tsplot(data=data, time='Simulation percentage', value=DG_KEY,
-    #                    unit='System name', condition='System ID', color='pastel', ax=ax)
-    #
-    #         # Plot the submission mean trajetory with CI.
-    #         plot_mean_free_energy(mean_data, ax=ax, color_mean=palette_mean[0],
-    #                               label='Mean $\Delta$G')
-    #
-    #         # Plot YANK mean trajectory with CI.
-    #         plot_mean_free_energy(yank_mean_data, ax=ax, color_mean=palette_mean[2],
-    #                               label='Ref mean $\Delta$G')
-    #
-    #         # Create a bias axis.
-    #         ref_free_energy = reference_free_energies.loc[system_name, DG_KEY]
-    #         with sns.axes_style('white'):
-    #             ax2 = ax.twinx()
-    #             # Plot a vertical line to make the scale.
-    #             vertical_line = np.linspace(*ax.get_ylim()) - ref_free_energy
-    #             ax2.plot([50] * len(vertical_line), vertical_line, alpha=0.0001)
-    #             ax2.grid(alpha=0.5, linestyle='dashed', zorder=0)
-    #             # We add the bias y-label only on the rightmost Axis.
-    #             ax2.set_ylabel('Bias to reference [kcal/mol]')
-    #
-    #         # Set axis limits/titles.
-    #         ax.set_ylim((-20, 4))
-    #         ax.set_title('{} - {} ({})'.format(system_name, submission.name, submission.receipt_id))
-    #         ax.set_xlabel(ax.get_xlabel() + ' (N energy evaluations: {:,})'.format(n_energy_evaluations))
-    #         ax.legend(ncol=2)
-    #         plt.tight_layout()
-    #         output_path_dir = os.path.join(SAMPLING_PLOT_DIR_PATH,
-    #                                        '{}-{}.pdf'.format(submission.receipt_id, system_name))
-    #         # plt.show()
-    #         plt.savefig(output_path_dir)
-    # # TODO END REMOVE ME: CODE FOR SINGLE PLOT FOR SLIDES
-
-    # # TODO COMMENT FOR SEPARATE PLOTS
-    # n_systems = 3
-    # if PLOT_ERRORS:
-    #     raise NotImplementedError('Plot errors of all 3 systems in single figure is not supported.')
-    # else:
-    #     fig, axes = plt.subplots(nrows=1, ncols=n_systems, figsize=(6*n_systems, 6))
-    #
-    # # Plot YANK replicates isolated.
-    # # for system_name in reference_free_energies.index:
-    # system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
-    # for ax_idx, (system_name, ax) in enumerate(zip(system_names[:n_systems], axes)):
-    #     # Select the data for only this host-guest system.
-    #     yank_data = yank_analysis.get_system_free_energies(system_name)
-    #     yank_mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
-    #
-    #     # # TODO DECOMMENT FOR SEPARATE PLOTS
-    #     # if PLOT_ERRORS:
-    #     #     fig, axes = plt.subplots(nrows=2, figsize=(7, 12), sharex=True)
-    #     #     ax = axes[0]
-    #     # else:
-    #     #     fig, ax = plt.subplots(nrows=1, figsize=(7, 6))
-    #
-    #     # Plot the 5 replicates trajectories.
-    #     sns.tsplot(data=yank_data, time='N energy evaluations', value=DG_KEY,
-    #                unit='System name', condition='System ID', color='pastel', ax=ax)
-    #
-    #     # Plot the submission mean trajectory with CI.
-    #     plot_mean_free_energy(yank_mean_data, ax=ax, color_mean=palette_mean[0],
-    #                           x='N energy evaluations', label='Mean $\Delta$G')
-    #
-    #     # Plot EE NPT values.
-    #     ref2_dg = None
-    #     # if system_name == 'OA-G3':
-    #     #     ref2_dg = -6.0057999999999989
-    #     #     ref2_ci = 0.21634797116823681
-    #     # elif system_name == 'OA-G6':
-    #     #     ref2_dg = -6.8739999999999997
-    #     #     ref2_ci = 0.28182900923056731
-    #     # else:
-    #     #     ref2_dg = None
-    #     if ref2_dg is not None:
-    #         n_energy_evaluations = yank_mean_data['N energy evaluations'].values
-    #         ax.plot(n_energy_evaluations, [ref2_dg for _ in n_energy_evaluations],
-    #                 color=palette_mean[2], label='Ref2 mean $\Delta$G')
-    #         ax.fill_between(n_energy_evaluations, ref2_dg + ref2_ci, ref2_dg - ref2_ci, alpha=0.65)
-    #
-    #     # Set axis limits/titles.
-    #     ax.set_ylim((-13, -6))
-    #     # Set axis title.
-    #     # TODO DECOMMENT TITLE FOR SINGLE PLOT
-    #     # ax.set_title('{} - Reference'.format(system_name))
-    #     ax.legend(loc='lower right')
-    #
-    #     # TODO REMOVE AXIS IDX CONDITION FOR SINGLE PLOT
-    #     if ax_idx != 0:
-    #         ax.set_ylabel('')
-    #         ax.yaxis.set_ticklabels([])
-    #     else:
-    #         ax.set_ylabel('Reference\n' + ax.get_ylabel())
-    #
-    #     # Plot uncertainties and standard deviation of the 5 trajectories.
-    #     if PLOT_ERRORS:
-    #         # Remove x label of old axis.
-    #         ax.set_xlabel('')
-    #         # Plot the standard deviation and trajectory uncertainties.
-    #         ax = axes[1]
-    #         sns.tsplot(data=yank_data, time='N energy evaluations', value='d$\Delta$G [kcal/mol]',
-    #                    unit='System name', condition='System ID', color='pastel', ax=ax)
-    #         ax.plot(yank_mean_data['N energy evaluations'].values, yank_mean_data['std'].values, label='OA-G3 std')
-    #         ax.legend()
-    #
-    #     ax.legend(ncol=2)
-    #
-    # # TODO INDENT AND SWITCH OUTPUT PATH FOR SEPARATE PLOTS
-    # plt.tight_layout(pad=0.1)
-    # # plt.show()
-    # # output_path_dir = os.path.join(SAMPLING_PLOT_DIR_PATH,
-    # #                                'reference-{}.pdf'.format(system_name))
-    # output_path_dir = os.path.join(SAMPLING_PLOT_DIR_PATH,
-    #                                'reference.pdf'.format(system_name))
-    # plt.savefig(output_path_dir)
-
-
-    # =============================================================================
-    # FIGURES GENERATED FOR THE PAPER
-    # =============================================================================
-
-    # sns.set_context('paper')
-    #
-    # final_free_energies = {
-    #     'YANK NPT': {
-    #         'OA-G3': [-6.693039053, -6.712935302, -6.718535019, -6.67622114, -6.716658183],
-    #         'OA-G6': [-7.142365148, -7.174144518, -7.182525502, -7.137949615, -7.246234684]
-    #     },
-    #     'YANK NVT production PME': {
-    #         'OA-G3': [-6.765, -6.652, -6.695, -6.875, -6.682],
-    #         'OA-G6': [-7.132, -7.284, -7.093, -7.109, -7.114]
-    #     },
-    #     'YANK NVT matched PME': {
-    #         'OA-G3': [-6.639, -6.700, -6.556, -6.667, -6.654],
-    #         'OA-G6': [-7.133, -7.072, -7.245, -7.007, -7.241]
-    #     },
-    #     'EE NPT': {
-    #         'OA-G3': [-5.950, -5.841, -6.183, -5.856, -6.199],
-    #         'OA-G6': [-6.693, -6.712, -7.254, -6.887, -6.824]
-    #     },
-    #     'EE NVT production PME': {
-    #         'OA-G3': [-6.440, -6.767, -6.591, -6.522, -6.556],
-    #         'OA-G6': [-6.962, -6.978, -6.974, -7.203, -6.796]
-    #     },
-    #     'EE NVT matched PME': {
-    #         'OA-G3': [-6.645, -6.723, -6.484, -6.611, -6.583],
-    #         'OA-G6': [-6.676, -6.909, -6.971, -6.955, -7.052]
-    #     }
-    # }
-    #
-    # # Convert to Pandas Dataframe.
-    # replicate_free_energies = []
-    # for calculation_name, calculation_data in final_free_energies.items():
-    #     method, ensemble = calculation_name.split(' ', 1)
-    #     for system_id, data in calculation_data.items():
-    #         # dg, ddg = mean_confidence_interval(data)
-    #         for data_point in data:
-    #             replicate_free_energies.append({
-    #                 'method': method,
-    #                 'system': '{} - {}'.format(system_id, ensemble),
-    #                 '-'+DG_KEY: - data_point,
-    #                 # '$\Delta$G CI': ddg
-    #             })
-    # # Reorder bars.
-    # replicate_free_energies = sorted(replicate_free_energies, key=lambda x: x['system'])
-    # replicate_free_energies = pd.DataFrame(replicate_free_energies)
-
-    # # Compute average free energies and CI.
-    # from pkganalysis.stats import mean_confidence_interval
-    # mean_free_energies = {calculation_name: {system_id: mean_confidence_interval(data)
-    #                                          for system_id, data in calculation_data.items()}
-    #                       for calculation_name, calculation_data in final_free_energies.items()}
-    # from pprint import pprint
-    # pprint(mean_free_energies)
-
-
-    # BAR PLOT WITH NPT AND NVT RESULTS
-    # ====================================
-
-    # # Barplot.
-    # ax = sns.barplot(data=replicate_free_energies, x='system', y='-'+DG_KEY, hue='method', ci='sd')
-    # ax.legend(loc='upper left')
-    # ax.set_xticklabels(ax.get_xticklabels(), rotation=40)
-    # plt.tight_layout()
-    # # plt.show()
-    # plt.savefig('NVT_NPT_free_energies.png', dpi=300)
-
-
-
-
-    # =============================================================================
-    # FIGURES GENERATED FOR THE TALK
-    # =============================================================================
-    #
-    # for submission in submissions:
-    #     mean_free_energies = submission.mean_free_energies()
-    #
-    #     # fig, axes = plt.subplots(ncols=3)
-    #     for i, system_name in enumerate(submission.data['System name'].unique()):
-    #         # Select the data for only this host-guest system.
-    #         data = submission.data[submission.data['System name'] == system_name]
-    #         mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
-    #
-    #         # Get the corresponding YANK free energies.
-    #         # The cost for the same system is the same for all replicates.
-    #         n_energy_evaluations = int(submission.cost.loc[system_name + '-0', 'N energy evaluations'])
-    #         yank_mean_data = yank_analysis.get_free_energies_from_energy_evaluations(n_energy_evaluations,
-    #                                                                              system_name=system_name,
-    #                                                                              mean_trajectory=True)
-    #
-    #         fig, ax = plt.subplots(figsize=(7, 6))
-    #         # ax = axes[i]
-    #
-    #         # Plot the 5 replicates trajectories.
-    #         sns.tsplot(data=data, time='Simulation percentage', value=DG_KEY,
-    #                    unit='System name', condition='System ID', color='pastel', ax=ax)
-    #
-    #         # Plot the submission mean trajetory with CI.
-    #         plot_mean_free_energy(mean_data, ax=ax, color_mean=palette_mean[0],
-    #                               label='Mean $\Delta$G')
-    #
-    #         # Plot YANK mean trajectory with CI.
-    #         plot_mean_free_energy(yank_mean_data, ax=ax, color_mean=palette_mean[2],
-    #                               label='Ref mean $\Delta$G')
-    #
-    #         # Plot reference value.
-    #         ref_free_energy = reference_free_energies.loc[system_name, DG_KEY]
-    #         ax.plot(mean_data['Simulation percentage'], [ref_free_energy for _ in range(100)],
-    #                 color=palette_mean[1], ls='--', label='Ref final $\Delta$G')
-    #
-    #         # Set axis limits/titles.
-    #         ax.set_ylim((-20, 4))
-    #         ax.set_title(system_name)
-    #         ax.set_xlabel(ax.get_xlabel() + ' (N energy evaluations: {:,})'.format(n_energy_evaluations))
-    #         ax.legend(ncol=2)
-    #         plt.tight_layout()
-    #         output_path_dir = os.path.join(SAMPLING_PLOT_DIR_PATH,
-    #                                        '{}-{}.pdf'.format(submission.receipt_id, system_name))
-    #         # plt.show()
-    #         plt.savefig(output_path_dir)
-
-
-
-    # # fig, axes = plt.subplots(ncols=3, sharey=True, figsize=(15, 5))
-    # # for ax, system_name in zip(axes, reference_free_energies.index):
-    # for i, system_name in enumerate(reference_free_energies.index):
-    #     # Select the data for only this host-guest system.
-    #     yank_data = yank_analysis.get_system_free_energies(system_name)
-    #     yank_mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
-    #
-    #     fig, ax = plt.subplots(figsize=(6, 6))
-    #
-    #     # Plot the 5 replicates trajectories.
-    #     sns.tsplot(data=yank_data, time='N energy evaluations', value=DG_KEY,
-    #                unit='System name', condition='System ID', color='pastel', ax=ax)
-    #     #
-    #     # if i != 0:
-    #     #     ax.set_ylabel('')
-    #     #     ax.set_yticklabels([])
-    #     # elif i != 1:
-    #     #     ax.set_xlabel('')
-    #     if i != 0:
-    #         ax.set_ylim((-10, -5))
-    #
-    #     # Plot the submission mean trajectory with CI.
-    #     plot_mean_free_energy(yank_mean_data, ax=ax, color_mean=palette_mean[0],
-    #                           x='N energy evaluations', label='Mean $\Delta$G')
-    #
-    #     # Print second reference value.
-    #     # if i != 0:
-    #     #     mean_dg, sem_dg = travis_mean[system_name]
-    #     #     print('{}: {} \pm {}'.format(system_name, mean_dg, sem_dg))
-    #     #     n_energy_evaluations = yank_mean_data['N energy evaluations'].values
-    #     #     ax.plot(n_energy_evaluations, [mean_dg for _ in n_energy_evaluations],
-    #     #             color=palette_mean[2], label='Ref2 mean $\Delta$G')
-    #     #     ax.fill_between(n_energy_evaluations, mean_dg + sem_dg, mean_dg - sem_dg, alpha=0.65)
-    #
-    #     # Set axis limits/titles.
-    #     ax.set_title('{} - Reference'.format(system_name))
-    #     # ax.set_ylim((-15, -6))
-    #     ax.legend(ncol=2)
-    #     plt.tight_layout()
-    #     output_path_dir = os.path.join(SAMPLING_PLOT_DIR_PATH,
-    #                                    'reference-{}.pdf'.format(system_name))
-    #     # plt.show()
-    #     plt.savefig(output_path_dir)
-
-
+    # Plot statistical inefficiency analysis.
+    # plot_hrex_stat_ineff_trajectories()
