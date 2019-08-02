@@ -47,12 +47,12 @@ KELLY_COLORS = ['#F2F3F4', '#222222', '#F3C300', '#875692', '#F38400',     '#A1C
 TAB10_COLORS = sns.color_palette('tab10')
 # Index of Kelly's colors associated to each submission.
 SUBMISSION_COLORS = {
-    'AMBER/APR': KELLY_COLORS[11],
-    'OpenMM/WExplore': KELLY_COLORS[7],
+    'AMBER/APR': 'dodgerblue',#KELLY_COLORS[11],
+    'OpenMM/WExplore': 'gold', #KELLY_COLORS[7],
     'OpenMM/SOMD': KELLY_COLORS[4],
-    'GROMACS/EE': KELLY_COLORS[3],
+    'GROMACS/EE': 'darkviolet', #KELLY_COLORS[3],
     'GROMACS/EE-fullequil': KELLY_COLORS[10],
-    YANK_METHOD_PAPER_NAME: KELLY_COLORS[9],
+    YANK_METHOD_PAPER_NAME: '#4ECC41', #'limegreen', #KELLY_COLORS[9],
     'GROMACS/CT-NS-long': KELLY_COLORS[6],
     'GROMACS/CT-NS': KELLY_COLORS[1],
     'GROMACS/NS-Jarz-F': TAB10_COLORS[0],
@@ -198,7 +198,7 @@ def plot_mean_free_energy(mean_data, ax, x='Simulation percentage',
     return ax
 
 
-def plot_mean_data(mean_data, axes, color=None, label=None, x='N energy evaluations',
+def plot_mean_data(mean_data, axes, color=None, ls=None, label=None, x='N energy evaluations',
                    zorder=None, plot_std=True, plot_bias=True, plot_ci=True):
     """Plot free energy, variance and bias as a function of the cost in three different axes."""
     # Do not plot the part of data without index.
@@ -212,18 +212,18 @@ def plot_mean_data(mean_data, axes, color=None, label=None, x='N energy evaluati
 
     # Plot the submission mean trajectory with CI.
     plot_mean_free_energy(mean_data, x=x, ax=axes[0],
-                          color_mean=color, color_ci=color, zorder=zorder,
+                          color_mean=color, color_ci=color, ls=ls, zorder=zorder,
                           start=first_nonzero_idx, label=label, plot_ci=plot_ci)
 
     # Plot standard deviation of the trajectories.
     if plot_std:
         axes[1].plot(mean_data[x].values[first_nonzero_idx:] / scale,
                      mean_data['std'].values[first_nonzero_idx:], color=color, alpha=0.8,
-                     zorder=zorder, label=label)
+                     ls=ls, zorder=zorder, label=label)
     if plot_bias:
         axes[2].plot(mean_data[x].values[first_nonzero_idx:] / scale,
                      mean_data['bias'].values[first_nonzero_idx:], color=color, alpha=0.8,
-                     zorder=zorder, label=label)
+                     ls=ls, zorder=zorder, label=label)
 
 
 def align_yaxis(ax1, v1, ax2, v2):
@@ -241,7 +241,133 @@ def align_yaxis(ax1, v1, ax2, v2):
 
 
 # =============================================================================
-# FIGURE 2
+# FIGURE 2 - MEAN ERROR AND RELATIVE EFFICIENCY CARTOON
+# =============================================================================
+
+def plot_mean_error_cartoon():
+    """Plot the cartoon used to explain mean error and relative efficiency.
+
+    This is used as an example to clarify some gotchas with the difinition
+    of efficiency.
+    """
+    from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+    sns.set_context('paper')
+    sns.set_style('white')
+
+    def err_decay_func_square(decay_coeff, c):
+        return decay_coeff / np.sqrt(c)
+
+    def mean_error_square(decay_coeff, c_min, c_max):
+        return 2 * decay_coeff * (np.sqrt(c_max) - np.sqrt(c_min)) / (c_max - c_min)
+
+    def err_decay_func_B(decay_coeff, c):
+        return decay_coeff / c**(5/6)
+
+    def mean_error_B(decay_coeff, c_min, c_max):
+        return 6 * decay_coeff * (c_max**(1/6) - c_min**(1/6)) / (c_max - c_min)
+
+    decay_coeffs = {
+        'A': 1.0,
+        'B': 2.5,
+        'Z': 1.5,
+    }
+    c_ranges = collections.OrderedDict([
+        ("A'", np.arange(1, 4.5, 0.1)),
+        ("A''", np.arange(3, 6, 0.1)),
+        ("B", np.arange(2, 6.5, 0.1)),
+        ("Z", np.arange(1, 6.5, 0.1)),
+    ])
+
+    # Determine colors colors.
+    colors = {m: 'C'+str(i) for i, m in enumerate(sorted(c_ranges))}
+
+    # Plot the error trajectories.
+    fig, ax = plt.subplots(figsize=(3.5, 2.6))
+
+    for method_name in ["B", "Z", "A'", "A''"]:
+        color = colors[method_name]
+        c_range = c_ranges[method_name]
+        decay_coeff = decay_coeffs[method_name[0]]
+
+        if method_name == 'B':
+            err_decay_func = err_decay_func_B
+        else:
+            err_decay_func = err_decay_func_square
+        err = err_decay_func(decay_coeff, c_range)
+
+        # Plot error area.
+        ax.plot(c_range, err, color=color, label=method_name, zorder=1)
+        ax.fill_between(c_range, err, 0, color=color, alpha=0.5, zorder=0)
+
+        # Add method label.
+        c_method_label_idx = int(len(c_range) / 8)
+        ax.text(c_range[c_method_label_idx], err[c_method_label_idx]+0.01, method_name, fontsize=12)
+
+        if method_name[0] == 'A':
+            # Plot mean error.
+            c_min, c_max = min(c_range), max(c_range)
+            mean_err = mean_error_square(decay_coeff, c_min, c_max)
+            # Start mean error horizontal line from the error curve.
+            c_mean = (decay_coeff / mean_err)**2
+            ax.plot([0, c_mean], [mean_err, mean_err], color='black', ls='--', alpha=0.8, zorder=1)
+
+            # Add label mean error.
+            # ax.text(0.0, mean_err+0.025, '$\mathbb{E}[RMSE_{' + method_name + '}]$')
+            ax.text(1.05, mean_err+0.025, '$\mathbb{E}[RMSE_{' + method_name + '}]$', fontsize=9)
+
+            # Add c_min/max labels.
+            ax.text(c_min-0.4, -0.1, 'c$_{min,' + method_name + '}$', fontsize=9)
+            ax.text(c_max-0.4, -0.1, 'c$_{max,' + method_name + '}$', fontsize=9)
+
+    # Configure axes.
+    ax.set_xlim(1, 6.4)
+    ax.set_ylim(0, 2)
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.set_ylabel('$RMSE(\Delta G)$')
+    ax.set_xlabel('computational cost')
+    # Pull axes labels closest to axes.
+    ax.tick_params(axis='x', which='major', pad=2.0)
+    ax.yaxis.set_label_coords(0.0, 0.65)
+
+    # Plot the relative efficiencies in an inset plot.
+    ax_ins = inset_axes(ax, width='100%', height='100%', bbox_to_anchor=[145, 115, 90, 50])
+
+    # Compute relative efficiencies with respect to Z.
+
+    relative_efficiencies = collections.OrderedDict()
+    for method_name in ["B", "A''", "A'"]:
+        c_min, c_max = min(c_ranges[method_name]), max(c_ranges[method_name])
+        if method_name == 'B':
+            mean_error_func = mean_error_B
+        else:
+            mean_error_func = mean_error_square
+        mean_err_method = mean_error_func(decay_coeffs[method_name[0]], c_min, c_max)
+        mean_err_Z = mean_error_square(decay_coeffs['Z'], c_min, c_max)
+        relative_efficiencies[method_name] = -np.log(mean_err_method/mean_err_Z)
+
+    # Plot horizontal bar plot with all efficiencies.
+    labels, rel_effs = zip(*relative_efficiencies.items())
+    bar_colors = [colors[m] for m in labels]
+    # labels = ['$e_{err,' + str(l) + '/Z}$' for l in labels]
+    ax_ins.barh(y=labels, width=rel_effs, color=bar_colors, alpha=0.85)
+    ax_ins.set_title('relative efficiency / Z', pad=2.5)
+
+    plt.tight_layout(rect=[0.0, 0.0, 1.0, 1.0])
+
+    # Pull axes labels closest to axes.
+    ax_ins.set_xticks([0.0])
+    ax_ins.grid(axis='x')
+    ax_ins.tick_params(axis='x', which='major', pad=0.0)
+    ax_ins.tick_params(axis='y', which='major', pad=0.0)
+
+    output_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure2-efficiency_cartoon')
+    os.makedirs(output_dir_path, exist_ok=True)
+    plt.savefig(os.path.join(output_dir_path, 'error_trajectories.pdf'))
+
+
+# =============================================================================
+# FIGURE 2 - FREE ENERGY TRAJECTORIES
 # =============================================================================
 
 def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
@@ -282,12 +408,6 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
             # Add mean free energies for this system.
             system_mean_data = mean_free_energies[mean_free_energies['System name'] == system_name]
             n_energy_evaluations = system_mean_data['N energy evaluations'].values[-1]
-            # # TODO REMOVE ME
-            # if submission.paper_name == 'GROMACS/CT-NS' and 'OA' in system_name:
-            #     max_n_energy_evaluations[system_name] = n_energy_evaluations
-            #     continue
-            # elif 'APR' not in submission.paper_name:
-            #     continue
 
             all_mean_data[submission.paper_name][system_name] = system_mean_data
 
@@ -356,15 +476,6 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
                            zorder=zorder, label=method_name,
                            plot_std=plot_std, plot_bias=plot_bias)
 
-            # Plot adding full cost of Wang-Landau equilibration.
-            if 'EE' in method_name:
-                first_nonzero_idx = np.nonzero(mean_data[DG_KEY].values)[0][0]
-                calibration_cost = mean_data['N energy evaluations'].values[first_nonzero_idx] * 4
-                mean_data['N energy evaluations'] += calibration_cost
-                label = method_name + '-fullequil'
-                plot_mean_data(mean_data, axes[:,ax_idx], color=SUBMISSION_COLORS[label],
-                               zorder=zorder, label=label, plot_std=plot_std, plot_bias=plot_bias)
-
     # Fix labels.
     axes[0][0].set_ylabel('$\Delta$G [kcal/mol]')
     if plot_std:
@@ -415,10 +526,9 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     # a plot of the estimator variance, and the third the bias to the
     # asymptotic value.
     if zoomed:
-        # figsize = (7.25, 6.2)  # Without WExplorer
-        figsize = (7.25, 7.5)
+        figsize = (7.25, 7.0)  # Without WExplorer
     else:
-        figsize = (7.25, 7.5)  # With WExplorer
+        figsize = (7.25, 7.0)  # With WExplorer
     fig, axes = plt.subplots(nrows=3, ncols=3, figsize=figsize)
 
     # Optionally, remove WExplore.
@@ -493,8 +603,20 @@ def plot_all_nonequilibrium_switching(submissions):
     plt.tight_layout(pad=0.0, rect=[0.0, 0.00, 1.0, 0.85])
 
     # Plot legend.
-    axes[0].legend(loc='upper left', bbox_to_anchor=(0.1, 1.3),
-                   fancybox=True, ncol=3)
+    legend = axes[0].legend(loc='upper left', bbox_to_anchor=(0.6, 1.3),
+                            fancybox=True, ncol=3)
+    # Change legend labels to refer to estimator used rather than overall method ID.
+    legend_labels_map = {
+        'GROMACS/CT-NS-long': 'BAR-long',
+        'GROMACS/CT-NS': 'BAR',
+        'GROMACS/NS-Jarz-F': 'Jarzinski-Forward',
+        'GROMACS/NS-Jarz-R': 'Jarzinski-Reverse',
+        'GROMACS/NS-Gauss-F': 'Gaussian-Forward',
+        'GROMACS/NS-Gauss-R': 'Gaussian-Reverse',
+    }
+    for text in legend.get_texts():
+        text.set_text(legend_labels_map[text.get_text()])
+
     plt.subplots_adjust(wspace=0.35)
 
     # plt.show()
@@ -971,6 +1093,7 @@ def get_relative_efficiency_input(submission, yank_analysis, system_name):
     asymptotic_free_energy_ref = yank_analysis.get_reference_free_energies()[system_name]
     return free_energy_ref, free_energy_sub, asymptotic_free_energy_ref
 
+
 def compute_all_relative_efficiencies(
         free_energy_A, free_energy_B, ci, n_bootstrap_samples,
         asymptotic_free_energy_A=None, asymptotic_free_energy_B=None
@@ -1155,7 +1278,7 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
         if not same_plot:
             fig.suptitle(submission.paper_name)
 
-            output_file_base_name = '{}-{}'.format(submission.receipt_id, submission.file_name)
+            output_file_base_name = 'releff-{}-{}'.format(submission.file_name, submission.receipt_id)
             output_file_base_path = os.path.join(figure_dir_path, output_file_base_name)
             plt.savefig(output_file_base_path + '.pdf')
             # plt.savefig(output_file_base_path + '.png', dpi=600)
@@ -1415,6 +1538,37 @@ def print_relative_efficiency_table(
 # SUPPORTING INFORMATION FIGURES
 # =============================================================================
 
+def print_final_prediction_table(submissions, yank_analysis):
+    """Plot the table containing the fina binding free energy predictions for all replicates."""
+    for submission in all_submissions + [yank_analysis]:
+        # GROMACS/EE-fullequil predictions are identical to GROMACS/EE
+        if submission.paper_name == 'GROMACS/EE-fullequil':
+            continue
+
+        if isinstance(submission, YankSamplingAnalysis):
+            submission_data = yank_analysis.get_free_energies_from_iteration(final_iteration=YANK_N_ITERATIONS)
+        else:
+            submission_data = submission.data
+        submission_data = submission_data[submission_data['Simulation percentage'] == 100]
+
+        row_str = submission.paper_name + '  &  '
+        submission_final_DGs = []
+        for system_id in submission_data['System ID'].unique():
+            # GROMACS/EE doesn't have predictions for CB8-G3, and the
+            # GROMACS/CT-NS-long protocol was applied only to CB8-G3.
+            if (('GROMACS/EE' in submission.paper_name and 'CB8-G3' in system_id) or
+                        (submission.paper_name == 'GROMACS/CT-NS-long' and 'OA' in system_id)):
+                submission_final_DGs.append('')
+                continue
+
+            dg = submission_data.loc[submission_data['System ID'] == system_id, DG_KEY].values[0]
+            ddg = submission_data.loc[submission_data['System ID'] == system_id, DDG_KEY].values[0]
+            dg, ddg = reduce_to_first_significant_digit(dg, ddg)
+            submission_final_DGs.append(r'{} $\pm$ {}'.format(dg, ddg))
+        row_str += '  &  '.join(submission_final_DGs) + r'  \\'
+        print(row_str)
+
+
 def plot_single_trajectories_figures(axes, system_data, system_mean_data,
                                      reference_system_mean_data=None,
                                      plot_errors=True, plot_methods_uncertainties=True):
@@ -1615,7 +1769,7 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
                                   bbox_to_anchor=bbox_to_anchor, ncol=6, fancybox=True,
                                   labelspacing=0.8, handletextpad=0.5, columnspacing=1.2)
         # Save figure.
-        output_file_name = '{}-{}'.format(submission.receipt_id, submission.file_name)
+        output_file_name = 'replicates-{}-{}'.format(submission.file_name, submission.receipt_id)
         plt.savefig(os.path.join(output_path_dir, output_file_name + '.pdf'))
         # plt.savefig(os.path.join(output_path_dir, output_file_name + '.png'), dpi=300)
         # plt.show()
@@ -1640,7 +1794,7 @@ def plot_hrex_stat_ineff_trajectories():
     # Read the data, which is organized by statistical inefficiency.
     # We'll then plot by system.
     yank_analysis_by_statineff = collections.OrderedDict()
-    for stat_ineff in ['2', '5', '10', '20', '50', '100']:
+    for stat_ineff in ['5', '10', '20', '50', '100', '200']:
         data_dir_path = os.path.join('YankAnalysis', 'CorrelationAnalysis', 'statineff-{}'.format(stat_ineff))
         yank_analysis = YankSamplingAnalysis(data_dir_path)
         yank_analysis_by_statineff[stat_ineff] = yank_analysis
@@ -1677,6 +1831,8 @@ def plot_hrex_stat_ineff_trajectories():
             stat_ineff_axes[0].set_title(title, fontweight='bold')
             stat_ineff_axes[0].set_ylim(y_limits[system_name][0])
             stat_ineff_axes[1].set_ylim(y_limits[system_name][1])
+            stat_ineff_axes[0].set_ylabel('$\Delta$G [kcal/mol]')
+            stat_ineff_axes[1].set_ylabel('std($\Delta$G) [kcal/mol]')
 
         # Keep ticks only in external plots.
         for row_idx in range(axes.shape[0]):
@@ -1695,15 +1851,15 @@ def plot_hrex_stat_ineff_trajectories():
         # The first handle/label is the legend title "System ID" so we get rid of it.
         handles, labels = axes[0][0].get_legend_handles_labels()
         labels = ['replicate ' + str(i) for i in range(5)] + labels[6:]
-        bbox_to_anchor = (-0.1, 1.35)
+        bbox_to_anchor = (0.05, 1.35)
         axes[0][0].legend(handles=handles[1:], labels=labels, loc='upper left',
                           bbox_to_anchor=bbox_to_anchor, ncol=6, fancybox=True,
                           labelspacing=0.8, handletextpad=0.5, columnspacing=1.2)
 
         # Save figure.
         output_file_name = 'statineff-{}'.format(system_name)
-        # plt.savefig(os.path.join(output_path_dir, output_file_name + '.pdf'))
-        plt.savefig(os.path.join(output_path_dir, output_file_name + '.png'), dpi=300)
+        plt.savefig(os.path.join(output_path_dir, output_file_name + '.pdf'))
+        # plt.savefig(os.path.join(output_path_dir, output_file_name + '.png'), dpi=300)
         # plt.show()
 
 
@@ -1767,6 +1923,9 @@ if __name__ == '__main__':
     #     yank_analysis.export_by_submission(file_base_path, s)
     # export_submissions(all_submissions, reference_free_energies)
 
+    # Cartoon explaining mean error and relative efficiency.
+    # plot_mean_error_cartoon()
+
     # Create figure with free energy, standard deviation, and bias as a function of computational cost.
     # plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=False)
     # plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=True)
@@ -1786,6 +1945,12 @@ if __name__ == '__main__':
     # Plot figure for HREX bias analysis.
     # plot_yank_bias()
     # plot_equilibration_methods()
+
+    # Supporting information
+    # ----------------------
+
+    # Plot replicate predictions table.
+    # print_final_prediction_table(all_submissions, yank_analysis)
 
     # Plot individual trajectories.
     # plot_all_single_trajectories_figures(all_submissions, yank_analysis)
