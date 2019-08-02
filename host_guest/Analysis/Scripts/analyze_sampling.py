@@ -366,6 +366,122 @@ def plot_mean_error_cartoon():
     plt.savefig(os.path.join(output_dir_path, 'error_trajectories.pdf'))
 
 
+
+# =============================================================================
+# FIGURE 1 - SAMPLING CHALLENGE OVERVIEW
+# =============================================================================
+
+def plot_example_bias_variance(yank_analysis, type='mixed', cost='generic',
+                               max_n_eval_percentage=1.0,
+                               mixed_proportion=0.5,
+                               model_free_energy=None,
+                               plot_experimental_value=False):
+    """Free energy trajectories used to visualize bias and variance on the plots.
+
+    This is used to illustrate how bias and uncertainty are intended in the paper.
+
+    Parameters
+    ----------
+    type : str, optional
+        Can be 'single' (plot only CB8-G3-1), 'all' (plot all system IDs of CB8-G3),
+        'mean' (plot mean trajectory and uncertainties), and 'mixed (first part is
+        all system IDs and second part is mean trajectory and uncertainties).
+    cost : str, optional
+        Can be 'generic' (no label on x-axis) or 'neval' (x-axis in number of
+        energy evaluations).
+    mixed_proportion : float, optional
+        The proportion of all System IDs and mean trajectories in mixed-type plots.
+    """
+    # sns.set_context('paper', font_scale=1.6)
+    sns.set_style('white')
+    sns.set_context('paper', font_scale=1.0)
+
+    # Load the data
+    n_iterations = 40000
+    cb8_data = yank_analysis.get_free_energies_from_iteration(n_iterations, system_name='CB8-G3', mean_trajectory=False)
+    cb8_data_mean = yank_analysis.get_free_energies_from_iteration(n_iterations, system_name='CB8-G3', mean_trajectory=True)
+    max_n_eval = max(cb8_data_mean['N energy evaluations'])
+    max_n_eval_scaled = int(max_n_eval / N_ENERGY_EVALUATIONS_SCALE)
+    max_displayed_n_eval = next(x for x in cb8_data_mean['N energy evaluations'] if x >= max_n_eval * max_n_eval_percentage)
+    max_displayed_n_eval_scaled = int(max_displayed_n_eval / N_ENERGY_EVALUATIONS_SCALE)
+
+    # Determine the asymptotic free energy if not given.
+    if model_free_energy is None:
+        model_free_energy = cb8_data_mean[DG_KEY].values[-1]
+
+    # Scale the number of energy evaluations.
+    cb8_data.loc[:,'N energy evaluations'] /= N_ENERGY_EVALUATIONS_SCALE
+
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(2.5, 1.8))
+
+    if type == 'single':
+        # Plot only CB8-G3-1.
+        cb8_data_1 = cb8_data[cb8_data['System ID'] == 'CB8-G3-1']
+        sns.lineplot(data=cb8_data_1, x='N energy evaluations', y=DG_KEY,
+                     hue='System ID', palette='bright', ax=ax, alpha=0.6)
+    elif type == 'all':
+        # Plot the 5 replicates individual trajectories.
+        sns.lineplot(data=cb8_data, x='N energy evaluations', y=DG_KEY,
+                     hue='System ID', palette='bright', ax=ax, alpha=0.6)
+    elif type == 'mean':
+        # Plot the submission mean trajectory with CI.
+        plot_mean_free_energy(cb8_data_mean, x='N energy evaluations',  ax=ax,
+                              color_mean='black', plot_ci=True,
+                              color_ci='black',
+                              scale_n_energy_evaluations=True)
+    elif type == 'mixed':
+        # Plot all System IDs for the first half and mean/uncertainty in second half.
+        half_n_eval = max_displayed_n_eval_scaled * mixed_proportion
+        cb8_data_first_half = cb8_data[cb8_data['N energy evaluations'] <= half_n_eval + max_n_eval_scaled / 100]
+        sns.lineplot(data=cb8_data_first_half, x='N energy evaluations', y=DG_KEY,
+                     hue='System ID', palette='bright', ax=ax, alpha=0.6)
+
+        cb8_data_second_half = cb8_data_mean[cb8_data_mean['N energy evaluations'] >= half_n_eval * N_ENERGY_EVALUATIONS_SCALE]
+        plot_mean_free_energy(cb8_data_second_half, x='N energy evaluations',  ax=ax,
+                              color_mean='black', plot_ci=True,
+                              color_ci=(0.3, 0.3, 0.3), scale_n_energy_evaluations=True,
+                              ls='--')
+
+    try:
+        ax.get_legend().remove()
+    except AttributeError:
+        pass
+
+    # Set limits
+    x_lim = (0, max_displayed_n_eval_scaled)
+    ax.set_xlim(x_lim)
+    y_lim = (-12.5, -10.5)
+    ax.set_ylim(y_lim)
+
+    # Plot model and experiment indication. Both values are not real data, just an example.
+    model_free_energy = -10.75
+    final_prediction = cb8_data_mean[cb8_data_mean['N energy evaluations'] == max_displayed_n_eval][DG_KEY].values[0]
+    ax.plot(x_lim, [model_free_energy]*2, color='gray', ls='--')
+    ax.text(x_lim[-1]+(max_n_eval_scaled*max_n_eval_percentage)/100, model_free_energy, r'$\Delta$G$_{\theta}$')
+    ax.text(x_lim[-1]+(max_n_eval_scaled*max_n_eval_percentage)/100, final_prediction - 0.13, r'$\overline{\Delta G}$')
+
+    # Plot experimental value horizontal line only for generic plot.
+    if plot_experimental_value:
+        experiment_dg = -11.75
+        plt.plot(x_lim, [experiment_dg]*2, color='black')
+
+    if cost == 'neval':
+        ax.set_xlabel('N force/energy evaluations')
+    else:
+        ax.set_xlabel('Computational cost', labelpad=-5)
+    ax.set_ylabel('$\Delta$G', labelpad=-5)
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+
+    plt.tight_layout(pad=0.1, rect=[0.0, 0.0, 0.90, 1.0])
+
+    # Save file.
+    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure 1 - host-guest')
+    os.makedirs(figure_dir_path, exist_ok=True)
+    output_base_path = os.path.join(figure_dir_path, 'example_trajectories')
+    plt.savefig(output_base_path + '.pdf')
+
+
 # =============================================================================
 # FIGURE 2 - FREE ENERGY TRAJECTORIES
 # =============================================================================
@@ -1922,6 +2038,9 @@ if __name__ == '__main__':
     #     file_base_path = os.path.join(SAMPLING_DATA_DIR_PATH, s.receipt_id + '-reference')
     #     yank_analysis.export_by_submission(file_base_path, s)
     # export_submissions(all_submissions, reference_free_energies)
+
+    # Create example trajectory for the figure describing the challenge process.
+    # plot_example_bias_variance(yank_analysis, max_n_eval_percentage=0.4, mixed_proportion=0.3)
 
     # Cartoon explaining mean error and relative efficiency.
     # plot_mean_error_cartoon()
