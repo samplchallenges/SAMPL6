@@ -12,7 +12,7 @@ SM15,2.5,0.11,1.6
 SM16,2.95,0.27,1.6
 
 Name:
-YANK-GAFF-tip3p-wet
+YANK-GAFF-tip3p-wet-oct
 
 Software:
 yank=0.24.0=py36_0
