@@ -21,7 +21,7 @@ The following subsections describe the molecules included in this challenge, the
 - Mar 25, 2019  -  Experimental data release date 
 - May 16, 2019  -  SAMPL6 log *P* challenge virtual workshop
 - Aug 22-23, 2019  -  Joint D3R/SAMPL workshop, San Diego 
-- Sep 15, 2019  -  JCAMD special issue submissions due 
+- Oct 15, 2019  -  JCAMD special issue submissions due 
 
 Your predictions must be uploaded on the [D3R SAMPL6 web-page](https://drugdesigndata.org/about/sampl6) by March 22nd, 2019. 
 The experimental results will be released immediately after the challenge closes. 
@@ -264,6 +264,7 @@ and otherwise ensure that they meet the standards of the journal.
 
 Additionally, as a particular focus of SAMPL is on lessons learned, authors are urged to pay devote careful attention to highlighting what was learned from participation and how it might be of benefit to the field or to others employing similar methodologies.
 
+###  Including submission IDs in publications
 If you are preparing manuscripts reporting on your predictions in SAMPL6 Part II log *P* challenge, we kindly ask you to report the submission ID of your blind submission in your publication. Submission IDs are 5-character unique identifiers assigned to each submission and can be found in [this table](https://github.com/MobleyLab/SAMPL6/tree/master/physical_properties/logP/analysis#submission-ids-for-log-p-prediction-methods). We hope that including submission IDs in manuscripts will help to cross-reference between the papers in the special issue.
 
 ## Files provided
