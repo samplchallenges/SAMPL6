@@ -58,6 +58,7 @@ The SAMPL project was recently funded by the National Institutes of Health, for 
 ### Changes not yet in a release
 - [Molecular statistics analysis](./physical_properties/logP/analysis/analysis_outputs/MolecularStatisticsTables) added for SAMPL6 Part II logP Challenge. This analysis was performed to indicate logP values of which molecules of SAMPL6 logP Challenge set were more difficult for methods to predict accurately.
 - Information about SAMPL6 Virtual Workshop and JCAMD special issue for log *P* challenge were added to [logP_challenge_instructions.md](./logP_challenge_instructions.md).
+- JCAMD special issue paper submission deadline was extended to Oct. 15, 2019 for log *P* challenge.
 - (Post-challenge) Concentrations for certain CB8 host-guest titrations, as requested by participants.
 
 ## Challenge Overview
