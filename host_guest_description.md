@@ -59,4 +59,6 @@ Measurements are currently complete for all compounds shown, except Detrol and g
 You may wish to do these last, just in case unexpected difficulties are encountered for these last two.
 We will let you know of any updates regarding the experimental work (assuming you either sign up for the SAMPL e-mail list or monitor this GitHub repository).
 
+*Update July 31, 2019*: After the challenge, some participants inquired about the actual host cond guest concentrations for the experiments, in case guests might bind as dimers or for other reasons. Per Steven Murkli (Isaacs lab), for the oxaliplatin and 1,4-dimethylcyclohexane titrations, CB8 was at 0.0846 mM, oxaliplatin at 0.1879 mM, and Me2Cy6 at 0.1879 mM. For the aricept titration, CB8 was at 0.0729 mM, and aricept at 0.271 mM.
+
 Previous studies of CB7 have revealed that salt concentration can strongly influence both measured and computed binding free energies; e.g. see review in https://github.com/MobleyLab/benchmarksets, and it seems likely that this will also hold for  for CB8.
