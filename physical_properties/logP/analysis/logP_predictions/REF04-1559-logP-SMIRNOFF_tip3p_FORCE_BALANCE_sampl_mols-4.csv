@@ -1,0 +1,26 @@
+Predictions:
+SM02,4.79,0.27,1.6
+SM04,5.8,0.02,1.6
+SM07,3.73,0.17,1.6
+SM08,9.22,0.12,1.6
+SM09,5.33,0.29,1.6
+SM11,3.89,0.26,1.6
+SM12,5.82,0.36,1.6
+SM13,5.9,0.29,1.6
+SM14,2.93,0.04,1.6
+SM15,3.55,0.22,1.6
+SM16,2.82,0.15,1.6
+
+Name:
+YANK-SMIRNOFF-tip3p-ForceBalance-wet
+
+Software:
+yank=0.24.0=py36_0
+
+Category:
+Physical
+
+Method:
+SolvationToolkit was used to generate initial files (AMBER files, mol2 and PDB files), this was done in triplicate.
+Parameterized structures were split into different components and the solute/octanol was parameterized with SMIRNOFF and the water was parameterized with the TIP3P force balance water model, remerged and then saved as an Openmm system.
+The systems and PDBS were used as input files for YANK, which was used to obtain transfer free energies.

@@ -1,0 +1,24 @@
+Predictions:
+SM02,3.52,0.06,1.6
+SM04,4.63,0.05,1.6
+SM07,3.30,0.07,1.6
+SM08,8.36,0.05,1.6
+SM09,3.97,0.02,1.6
+SM11,3.64,0.12,1.6
+SM12,4.33,0.18,1.6
+SM13,4.49,0.16,1.6
+SM14,2.3,0.08,1.6
+SM15,3.15,0.14,1.6
+SM16,2.85,0.18,1.6
+
+Name:
+YANK-SMIRNOFF-tip3p-wet
+
+Software:
+yank=0.24.0=py36_0
+
+Category:
+Physical
+
+Method:
+Transfer free energies via YANK using SMIRNOFF and tip3p water model.
