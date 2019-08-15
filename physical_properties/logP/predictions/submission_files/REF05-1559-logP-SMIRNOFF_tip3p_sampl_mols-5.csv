@@ -12,7 +12,7 @@ SM15,3.15,0.14,1.6
 SM16,2.85,0.18,1.6
 
 Name:
-YANK-SMIRNOFF-tip3p-wet
+YANK-SMIRNOFF-tip3p-wet-oct
 
 Software:
 yank=0.24.0=py36_0
