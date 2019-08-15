@@ -12,7 +12,7 @@ SM15,4.01,0.21,1.6
 SM16,3.46,0.19,1.6
 
 Name:
-YANK-GAFF-tip3p-ForceBalance-wet-oct
+YANK-GAFF-TIP3P-FB-wet-oct
 
 Software:
 yank=0.24.0=py36_0

@@ -12,7 +12,7 @@ SM15,3.55,0.22,1.6
 SM16,2.82,0.15,1.6
 
 Name:
-YANK-SMIRNOFF-tip3p-ForceBalance-wet-oct
+YANK-SMIRNOFF-TIP3P-FB-wet-oct
 
 Software:
 yank=0.24.0=py36_0
