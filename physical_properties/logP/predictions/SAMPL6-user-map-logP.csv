@@ -92,3 +92,7 @@ id,uid,receipt_id,filename,submit_date,firstname,lastname,organization
 2689,36748,pnc4j,pnc4j-1559-logP-JingHuang-3.csv,1553319230,Jing,Huang,Westlake University
 2690,37777,zaqws,zaqws-1559-logP-GAFF_tip3p_FORCE_BALANCE_sampl_mols-1.csv,1553319237,Danielle,Bergazin,UCI
 2691,37777,zxcvb,zxcvb-1559-logP-GAFF_tip3p_sampl_mols-2.csv,1553319238,Danielle,Bergazin,UCI
+2692,37777,ztyui,ztyui-1559-logP-GAFF_OPC_sampl_mols-3.csv,1553319239,Danielle,Bergazin,UCI
+2693,37777,zedcx,zedcx-1559-logP-SMIRNOFF_tip3p_FORCE_BALANCE_sampl_mols-4.csv,1553319240,Danielle,Bergazin,UCI
+2694,37777,zbnvg,zbnvg-1559-logP-SMIRNOFF_tip3p_sampl_mols-5.csv,1553319241,Danielle,Bergazin,UCI
+2695,37777,zplmj,zplmj-1559-logP-SMIRNOFF_OPC_sampl_mols-6.csv,1553319242,Danielle,Bergazin,UCI

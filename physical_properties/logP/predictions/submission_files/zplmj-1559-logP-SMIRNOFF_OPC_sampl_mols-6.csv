@@ -1,0 +1,27 @@
+Predictions:
+SM02,5.61,0.13,1.6
+SM04,4.78,0.06,1.6
+SM07,4.05,0.38,1.6
+SM08,8.87,0.14,1.6
+SM09,4.76,0.24,1.6
+SM11,3.37,0.21,1.6
+SM12,4.96,0.4,1.6
+SM13,6.33,0.18,1.6
+SM14,3.37,0.43,1.6
+SM15,3.97,0.55,1.6
+SM16,4.13,0.34,1.6
+
+Name:
+YANK-SMIRNOFF-OPC-wet
+
+Software:
+yank=0.24.0=py36_0
+
+Category:
+Physical
+
+Method:
+SolvationToolkit was used to generate initial files (AMBER files, mol2 and PDB files), this was done in triplicate.
+Parameterized structures were split into different components and the solute/octanol was
+parameterized with SMIRNOFF and the water was parameterized with the OPC (optimal point charge) water model, remerged and then saved as an Openmm system.
+The systems and PDBS were used as input files for YANK, which was used to obtain transfer free energies.
