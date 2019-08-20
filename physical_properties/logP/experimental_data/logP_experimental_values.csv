@@ -1,12 +1,28 @@
 Molecule ID,logP mean,logP SEM,Assay Type,Experimental ID,Isomeric SMILES
-SM02,4.09,0.03,pH-metric octanol logP,M02,c1ccc2c(c1)c(ncn2)Nc3cccc(c3)C(F)(F)F
-SM04,3.98,0.03,pH-metric octanol logP,M04,c1ccc2c(c1)c(ncn2)NCc3ccc(cc3)Cl
-SM07,3.21,0.04,pH-metric octanol logP,M07,c1ccc(cc1)CNc2c3ccccc3ncn2
-SM08,3.10,0.03,pH-metric octanol logP (predose 80 uL octanol),M08,Cc1ccc2c(c1)c(c(c(=O)[nH]2)CC(=O)O)c3ccccc3
-SM09,3.03,0.07,pH-metric octanol logP,M09,COc1cccc(c1)Nc2c3ccccc3ncn2.Cl
-SM11,2.10,0.04,pH-metric octanol logP,M11,c1ccc(cc1)n2c3c(cn2)c(ncn3)N
-SM12,3.83,0.03,pH-metric octanol logP,M12,c1ccc2c(c1)c(ncn2)Nc3cccc(c3)Cl.Cl
-SM13,2.92,0.04,pH-metric octanol logP (predose 100 uL octanol),M13,Cc1cccc(c1)Nc2c3cc(c(cc3ncn2)OC)OC
-SM14,1.95,0.03,pH-metric octanol logP,M15,c1ccc(cc1)n2cnc3c2ccc(c3)N
-SM15,3.07,0.03,pH-metric octanol logP,M16,c1ccc2c(c1)ncn2c3ccc(cc3)O
-SM16,2.62,0.01,pH-metric octanol logP (predose 100 uL octanol),M18,c1cc(c(c(c1)Cl)C(=O)Nc2ccncc2)Cl
+34Dichlorophenol,3.39,0.02,pH-metric octanol logP,M04,c1cc(c(cc1O)Cl)Cl
+35Dichlorophenol,3.63,0.02,pH-metric octanol logP,M05,c1c(cc(cc1Cl)Cl)O
+3Bromoquinoline,2.91,0.04,pH-metric octanol logP,M08,c1ccc2c(c1)cc(cn2)Br
+3Chlorophenol,2.57,0.01,pH-metric octanol logP,M03,c1cc(cc(c1)Cl)O
+4Butoxyphenol,2.87,0.08,pH-metric octanol logP,M25,CCCCOc1ccc(cc1)O
+4Chlorophenol,2.45,0.01,pH-metric octanol logP,M02,c1cc(ccc1O)Cl
+4Ethoxyphenol,1.81,0.02,pH-metric octanol logP,M23,CCOc1ccc(cc1)O
+4lodophenol,2.9,0.02,pH-metric octanol logP,M06,c1cc(ccc1O)I
+4Methoxyphenol,1.41,0.03,pH-metric octanol logP,M22,COc1ccc(cc1)O
+4Pentoxyphenol,3.26,0.11,pH-metric octanol logP,M26,CCCCCOc1ccc(cc1)O
+4Propoxyphenol,2.31,0.03,pH-metric octanol logP,M24,CCCOc1ccc(cc1)O
+Acebutolol,1.75,0.19,pH-metric octanol logP,M19,CCCC(=O)Nc1ccc(c(c1)C(=O)C)OCC(CNC(C)C)O
+Amylobarbitone,2.01,0.03,pH-metric octanol logP,M12,CCC1(C(=O)NC(=O)NC1=O)CCC(C)C
+Benzoicacid,1.96,0.02,pH-metric octanol logP,M21,c1ccc(cc1)C(=O)O
+Butobarbitone,1.58,0.07,pH-metric octanol logP,M11,CCCCC1(C(=O)NC(=O)NC1=O)CC
+Celiprolol,1.92,0.04,pH-metric octanol logP,M18,CCN(CC)C(=O)Nc1ccc(c(c1)C(=O)C)OCC(CNC(C)(C)C)O
+Chlorpromazine,5.39,0.01,pH-metric octanol logP,M15,CN(C)CCCN1c2ccccc2Sc3c1cc(cc3)Cl
+Ketoprofen,3.14,0.02,pH-metric octanol logP,M17,CC(c1cccc(c1)C(=O)c2ccccc2)C(=O)O
+NMethylaniline,1.65,0.01,pH-metric octanol logP,M09,CNc1ccccc1
+Pentobarbitone,2.08,0.06,pH-metric octanol logP,M13,CCCC(C)C1(C(=O)NC(=O)NC1=O)CC
+Pericyazine,3.65,0.08,pH-metric octanol logP,M16,c1ccc2c(c1)N(c3cc(ccc3S2)C#N)CCCN4CCC(CC4)O
+Phenobarbitone,1.53,0.03,pH-metric octanol logP,M10,CCC1(C(=O)NC(=O)NC1=O)c2ccccc2
+Phenol,1.48,0.01,pH-metric octanol logP,M01,c1ccc(cc1)O
+Quinalbarbitone,2.39,0.02,pH-metric octanol logP,M14,CCCC(C)C1(C(=O)NC(=O)NC1=O)CC=C
+Quinoline,2.15,0.08,pH-metric octanol logP,M07,c1ccc2c(c1)cccn2
+rPropranolol,3.35,0.03,pH-metric octanol logP,M27,CC(C)NCC(COc1cccc2c1cccc2)O
+Sulfamethazine,0.89,0.03,pH-metric octanol logP,M20,Cc1cc(nc(n1)NS(=O)(=O)c2ccc(cc2)N)C
