@@ -2,8 +2,8 @@
 
 ## pKa Challenge
 
-This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules. 
-These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability. 
+This challenge consists of predicting microscopic and macroscopic pKas of 24 small organic molecules.
+These fragment-like small molecules are selected for their similarity to kinase inhibitors and for experimental tractability.
 Our aim is to evaluate how well current pKa prediction methods perform with drug fragment-like molecules through blind predictions.
 
 For detailed instructions for pKa challenge: [SAMPL6/pKa_challenge_instructions.md](https://github.com/MobleyLab/SAMPL6/blob/pKa/pKa_challenge_instructions.md)
@@ -27,4 +27,15 @@ Challenge submission due: Mar 22, 2019
 Experimental log *P* measurements were added to this repository after the log *P* challenge deadline and can be found here: [logP/experimental_data/](logP/experimental_data/)
 
 Performance evaluation of log P challenge can be found here: [/logP/analysis/](/logP/analysis/)
- 
+
+## Reference calculations
+
+As in many previous SAMPL challenges, the Mobley group ran reference calculations with several established techniques (in this cased based on alchemical free energy calculations), though we were late completing these calculations and they were only added well after the challenge closed.
+These calculations are added with submission IDs beginning with "REF" to clearly distinguish them from formal submissions, and analysis of statistics/performance overall with and without the reference calculations are being provided.
+All reference calculations used a comparable protocol with Yank for solvation free energies, but varied the force field, water model and/or water content of octanol.
+- `REF01`: GAFF force field, TIP3P-FB water, wet octanol
+- `REF02`: GAFF force field, TIP3P water, wet octanol
+- `REF03`: GAFF force field, OPC water, wet octanol
+- `REF04`: SMIRNOFF force field, TIP3P-FB water, wet octanol
+- `REF05`: SMIRNOFF force field, TIP3P water, wet octanol
+- `REF06`: SMIRNOFF force field, OPC water, wet octanol
