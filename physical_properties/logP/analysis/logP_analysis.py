@@ -1289,7 +1289,7 @@ if __name__ == '__main__':
     }
 
     # Load submissions data.
-    submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map, ref_submission_ids=['zaqws', 'zxcvb'])
+    submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map, ref_submission_ids=['REF01', 'REF02', 'REF03', 'REF04', 'REF05', 'REF06'])
 
     # Perform the analysis
 
