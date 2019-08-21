@@ -386,7 +386,12 @@ def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_lab
     # Error bar color
     sns_color = current_palette[2]
     # Bar colors
-    category_list = ["Physical", "Empirical", "Mixed", "Other"]
+    if color_label == "category":
+        category_list = ["Physical", "Empirical", "Mixed", "Other"]
+    elif color_label == "type":
+        category_list = ["Standard", "Reference"]
+    else:
+        Exception("Error: Unsupported label used for coloring")
     bar_color_dict = {}
     for i, cat in enumerate(category_list):
         bar_color_dict[cat] = current_palette[i]
@@ -425,10 +430,14 @@ def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_lab
 
     # create legend
     from matplotlib.lines import Line2D
-    custom_lines = [Line2D([0], [0], color=bar_color_dict["Physical"], lw=5),
-                    Line2D([0], [0], color=bar_color_dict["Empirical"], lw=5),
-                    Line2D([0], [0], color=bar_color_dict["Mixed"], lw=5),
-                    Line2D([0], [0], color=bar_color_dict["Other"], lw=5)]
+    if color_label == 'Category':
+        custom_lines = [Line2D([0], [0], color=bar_color_dict["Physical"], lw=5),
+                        Line2D([0], [0], color=bar_color_dict["Empirical"], lw=5),
+                        Line2D([0], [0], color=bar_color_dict["Mixed"], lw=5),
+                        Line2D([0], [0], color=bar_color_dict["Other"], lw=5)]
+    elif color_label == 'Type':
+        custom_lines = [Line2D([0], [0], color=bar_color_dict["Standard"], lw=5),
+                        Line2D([0], [0], color=bar_color_dict["Reference"], lw=5)]
     ax.legend(custom_lines, category_list)
 
 
