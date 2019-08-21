@@ -28,9 +28,9 @@ Experimental log *P* measurements were added to this repository after the log *P
 
 Performance evaluation of log P challenge can be found here: [/logP/analysis/](/logP/analysis/)
 
-## Reference calculations
+## Reference calculations, log *P* challenge
 
-As in many previous SAMPL challenges, the Mobley group ran reference calculations with several established techniques (in this cased based on alchemical free energy calculations), though we were late completing these calculations and they were only added well after the challenge closed.
+As in many previous SAMPL challenges, the Mobley group ran reference log *P* calculations with several established techniques (in this cased based on alchemical free energy calculations), though we were late completing these calculations and they were only added well after the challenge closed.
 These calculations are added with submission IDs beginning with "REF" to clearly distinguish them from formal submissions, and analysis of statistics/performance overall with and without the reference calculations are being provided.
 All reference calculations used a comparable protocol with Yank for solvation free energies, but varied the force field, water model and/or water content of octanol.
 - `REF01`: GAFF force field, TIP3P-FB water, wet octanol
