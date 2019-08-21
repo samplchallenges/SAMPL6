@@ -1,0 +1,1068 @@
+,receipt_id,participant,name,category,Molecule ID,logP (calc),logP SEM (calc),logP (exp),logP SEM (exp),$\Delta$logP error (calc - exp),logP model uncertainty
+0,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM02,4.03,0.31,4.09,0.03,-0.05999999999999961,0.31
+1,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM04,3.73,0.32,3.98,0.03,-0.25,0.31
+2,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM07,3.09,0.29,3.21,0.04,-0.1200000000000001,0.31
+3,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM08,2.53,0.46,3.1,0.03,-0.5700000000000003,0.31
+4,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM09,3.27,0.29,3.03,0.07,0.2400000000000002,0.31
+5,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM11,1.21,0.36,2.1,0.04,-0.8900000000000001,0.31
+6,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM12,3.82,0.33,3.83,0.03,-0.010000000000000231,0.31
+7,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM13,3.57,0.23,2.92,0.04,0.6499999999999999,0.31
+8,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM14,2.12,0.23,1.95,0.03,0.17000000000000015,0.31
+9,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM15,2.27,0.4,3.07,0.03,-0.7999999999999998,0.31
+10,yd6ub,Robert Fraczkiewicz,S+logP,Empirical,SM16,3.32,0.29,2.62,0.01,0.6999999999999997,0.31
+11,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM02,0.66,0.25,4.09,0.03,-3.4299999999999997,0.36
+12,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM04,4.33,0.31,3.98,0.03,0.3500000000000001,0.41
+13,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM07,0.76,0.11,3.21,0.04,-2.45,0.25
+14,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM08,-0.98,0.26,3.1,0.03,-4.08,0.33
+15,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM09,3.59,0.33,3.03,0.07,0.56,0.45
+16,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM11,-0.52,0.41,2.1,0.04,-2.62,0.54
+17,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM12,4.3,0.39,3.83,0.03,0.46999999999999975,0.58
+18,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM13,1.1,0.33,2.92,0.04,-1.8199999999999998,0.47
+19,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM14,0.7,0.14,1.95,0.03,-1.25,0.22
+20,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM15,-1.68,0.22,3.07,0.03,-4.75,0.39
+21,bq6fo,Hwangseo Park,Extended solvent-contact model approach,Mixed,SM16,4.54,0.38,2.62,0.01,1.92,0.51
+22,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM02,0.85,0.0,4.09,0.03,-3.2399999999999998,3.0
+23,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM04,-0.67,0.0,3.98,0.03,-4.65,3.0
+24,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM07,-1.09,0.0,3.21,0.04,-4.3,3.0
+25,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM08,-2.1,0.0,3.1,0.03,-5.2,3.0
+26,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM09,-2.62,0.0,3.03,0.07,-5.65,3.0
+27,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM11,-7.22,0.0,2.1,0.04,-9.32,3.0
+28,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM12,-0.93,0.0,3.83,0.03,-4.76,3.0
+29,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM13,-1.42,0.0,2.92,0.04,-4.34,3.0
+30,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM14,-4.04,0.0,1.95,0.03,-5.99,3.0
+31,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM15,-3.88,0.0,3.07,0.03,-6.949999999999999,3.0
+32,po4g2,Diogo Santos Martins,SAMPL5_49,Empirical,SM16,0.19,0.0,2.62,0.01,-2.43,3.0
+33,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM02,4.79,0.27,4.09,0.03,0.7000000000000002,1.6
+34,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM04,5.8,0.02,3.98,0.03,1.8199999999999998,1.6
+35,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM07,3.73,0.17,3.21,0.04,0.52,1.6
+36,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM08,9.22,0.12,3.1,0.03,6.120000000000001,1.6
+37,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM09,5.33,0.29,3.03,0.07,2.3000000000000003,1.6
+38,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM11,3.89,0.26,2.1,0.04,1.79,1.6
+39,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM12,5.82,0.36,3.83,0.03,1.9900000000000002,1.6
+40,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM13,5.9,0.29,2.92,0.04,2.9800000000000004,1.6
+41,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM14,2.93,0.04,1.95,0.03,0.9800000000000002,1.6
+42,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM15,3.55,0.22,3.07,0.03,0.48,1.6
+43,REF04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,SM16,2.82,0.15,2.62,0.01,0.19999999999999973,1.6
+44,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM02,0.82,0.0,4.09,0.03,-3.27,0.0
+45,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM04,1.45,0.0,3.98,0.03,-2.5300000000000002,0.0
+46,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM07,0.95,0.0,3.21,0.04,-2.26,0.0
+47,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM08,2.37,0.0,3.1,0.03,-0.73,0.0
+48,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM09,1.35,0.0,3.03,0.07,-1.6799999999999997,0.0
+49,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM11,1.22,0.0,2.1,0.04,-0.8800000000000001,0.0
+50,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM12,1.92,0.0,3.83,0.03,-1.9100000000000001,0.0
+51,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM13,2.39,0.0,2.92,0.04,-0.5299999999999998,0.0
+52,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM14,1.92,0.0,1.95,0.03,-0.030000000000000027,0.0
+53,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM15,1.92,0.0,3.07,0.03,-1.15,0.0
+54,rs4ns,Prajay Patel,BLYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM16,1.77,0.0,2.62,0.01,-0.8500000000000001,0.0
+55,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM02,2.74,0.0,4.09,0.03,-1.3499999999999996,0.0
+56,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM04,1.65,0.0,3.98,0.03,-2.33,0.0
+57,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM07,2.33,0.0,3.21,0.04,-0.8799999999999999,0.0
+58,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM08,1.44,0.0,3.1,0.03,-1.6600000000000001,0.0
+59,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM09,1.82,0.0,3.03,0.07,-1.2099999999999997,0.0
+60,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM11,0.54,0.0,2.1,0.04,-1.56,0.0
+61,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM12,2.61,0.0,3.83,0.03,-1.2200000000000002,0.0
+62,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM13,2.1,0.0,2.92,0.04,-0.8199999999999998,0.0
+63,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM14,1.38,0.0,1.95,0.03,-0.5700000000000001,0.0
+64,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM15,1.34,0.0,3.07,0.03,-1.7299999999999998,0.0
+65,o7djk,Michael Jones,B3PW91-TZ SMD wetoct,Physical,SM16,1.23,0.0,2.62,0.01,-1.3900000000000001,0.0
+66,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM02,6.26,0.46,4.09,0.03,2.17,1.2
+67,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM04,5.39,0.32,3.98,0.03,1.4099999999999997,1.2
+68,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM07,4.53,0.3,3.21,0.04,1.3200000000000003,1.2
+69,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM08,5.59,0.37,3.1,0.03,2.4899999999999998,1.2
+70,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM09,5.24,0.64,3.03,0.07,2.2100000000000004,1.2
+71,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM11,4.61,0.27,2.1,0.04,2.5100000000000002,1.2
+72,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM12,4.61,0.44,3.83,0.03,0.7800000000000002,1.2
+73,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM13,4.23,0.39,2.92,0.04,1.3100000000000005,1.2
+74,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM14,3.82,0.4,1.95,0.03,1.8699999999999999,1.2
+75,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM15,3.99,0.28,3.07,0.03,0.9200000000000004,1.2
+76,mwuua,Bogdan Iorga,MD-LigParGen-wetoct,Physical,SM16,4.67,0.32,2.62,0.01,2.05,1.2
+77,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM02,2.41,0.25,4.09,0.03,-1.6799999999999997,1.0
+78,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM04,4.9,0.26,3.98,0.03,0.9200000000000004,1.0
+79,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM07,4.1,0.2,3.21,0.04,0.8899999999999997,1.0
+80,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM08,4.36,0.61,3.1,0.03,1.2600000000000002,1.0
+81,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM09,3.77,0.28,3.03,0.07,0.7400000000000002,1.0
+82,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM11,2.32,0.35,2.1,0.04,0.21999999999999975,1.0
+83,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM12,5.0,0.28,3.83,0.03,1.17,1.0
+84,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM13,4.0,0.33,2.92,0.04,1.08,1.0
+85,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM14,1.38,0.34,1.95,0.03,-0.5700000000000001,1.0
+86,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM15,1.91,0.37,3.07,0.03,-1.16,1.0
+87,2ggir,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM16,3.67,0.36,2.62,0.01,1.0499999999999998,1.0
+88,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM02,3.09,0.0,4.09,0.03,-1.0,0.0
+89,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM04,1.99,0.0,3.98,0.03,-1.99,0.0
+90,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM07,2.66,0.0,3.21,0.04,-0.5499999999999998,0.0
+91,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM08,1.98,0.0,3.1,0.03,-1.12,0.0
+92,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM09,2.2,0.0,3.03,0.07,-0.8299999999999996,0.0
+93,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM11,0.88,0.0,2.1,0.04,-1.2200000000000002,0.0
+94,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM12,2.93,0.0,3.83,0.03,-0.8999999999999999,0.0
+95,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM13,2.52,0.0,2.92,0.04,-0.3999999999999999,0.0
+96,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM14,1.75,0.0,1.95,0.03,-0.19999999999999996,0.0
+97,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM15,1.73,0.0,3.07,0.03,-1.3399999999999999,0.0
+98,dyxbt,Michael Jones,B3PW91-TZ SMD set1,Physical,SM16,1.63,0.0,2.62,0.01,-0.9900000000000002,0.0
+99,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM02,4.42,0.0,4.09,0.03,0.33000000000000007,0.5
+100,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM04,3.86,0.0,3.98,0.03,-0.1200000000000001,0.5
+101,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM07,3.48,0.0,3.21,0.04,0.27,0.5
+102,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM08,2.85,0.0,3.1,0.03,-0.25,0.5
+103,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM09,3.44,0.0,3.03,0.07,0.41000000000000014,0.5
+104,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM11,2.0,0.0,2.1,0.04,-0.10000000000000009,0.5
+105,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM12,3.82,0.0,3.83,0.03,-0.010000000000000231,0.5
+106,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM13,3.84,0.0,2.92,0.04,0.9199999999999999,0.5
+107,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM14,2.21,0.0,1.95,0.03,0.26,0.5
+108,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM15,2.77,0.0,3.07,0.03,-0.2999999999999998,0.5
+109,hmz0n,Chris Loschen,cosmotherm_FINE19,Physical,SM16,3.05,0.0,2.62,0.01,0.4299999999999997,0.5
+110,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM02,2.25,0.29,4.09,0.03,-1.8399999999999999,3.0
+111,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM04,1.55,0.34,3.98,0.03,-2.4299999999999997,3.0
+112,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM07,0.05,0.32,3.21,0.04,-3.16,3.0
+113,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM08,2.88,0.5,3.1,0.03,-0.2200000000000002,3.0
+114,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM09,-0.23,0.3,3.03,0.07,-3.26,3.0
+115,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM11,1.74,0.36,2.1,0.04,-0.3600000000000001,3.0
+116,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM12,0.24,0.34,3.83,0.03,-3.59,3.0
+117,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM13,1.27,0.37,2.92,0.04,-1.65,3.0
+118,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM14,3.32,0.36,1.95,0.03,1.3699999999999999,3.0
+119,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM15,0.02,0.34,3.07,0.03,-3.05,3.0
+120,odex0,Ganesh Kamath,InterX_ARROW_2017_PIMD_SOLVENT2_WET_OCTANOL,Physical,SM16,1.77,0.38,2.62,0.01,-0.8500000000000001,3.0
+121,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM02,3.98,0.0,4.09,0.03,-0.10999999999999988,0.5
+122,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM04,3.74,0.0,3.98,0.03,-0.23999999999999977,0.5
+123,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM07,3.19,0.0,3.21,0.04,-0.020000000000000018,0.5
+124,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM08,2.74,0.0,3.1,0.03,-0.3599999999999999,0.5
+125,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM09,3.38,0.0,3.03,0.07,0.3500000000000001,0.5
+126,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM11,2.64,0.0,2.1,0.04,0.54,0.5
+127,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM12,4.29,0.0,3.83,0.03,0.45999999999999996,0.5
+128,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM13,3.41,0.0,2.92,0.04,0.4900000000000002,0.5
+129,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM14,2.24,0.0,1.95,0.03,0.29000000000000026,0.5
+130,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM15,2.28,0.0,3.07,0.03,-0.79,0.5
+131,3vqbi,Chris Loschen,cosmoquick_TZVP18+ML,Mixed,SM16,2.88,0.0,2.62,0.01,0.2599999999999998,0.5
+132,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM02,3.44,0.16,4.09,0.03,-0.6499999999999999,0.4
+133,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM04,2.95,0.12,3.98,0.03,-1.0299999999999998,0.35
+134,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM07,2.32,0.12,3.21,0.04,-0.8900000000000001,0.35
+135,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM08,3.13,0.0,3.1,0.03,0.029999999999999805,0.01
+136,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM09,3.17,0.16,3.03,0.07,0.14000000000000012,0.4
+137,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM11,1.58,0.0,2.1,0.04,-0.52,0.0
+138,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM12,3.29,0.16,3.83,0.03,-0.54,0.4
+139,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM13,3.43,0.16,2.92,0.04,0.5100000000000002,0.4
+140,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM14,3.83,0.01,1.95,0.03,1.8800000000000001,0.08
+141,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM15,3.92,0.01,3.07,0.03,0.8500000000000001,0.08
+142,h83sb,Evrim Arslan,Linear Regression with B3LYP/6-31G+,Mixed,SM16,5.14,0.0,2.62,0.01,2.5199999999999996,0.0
+143,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM02,7.05,0.21,4.09,0.03,2.96,1.0
+144,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM04,6.47,0.18,3.98,0.03,2.4899999999999998,1.0
+145,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM07,5.17,0.18,3.21,0.04,1.96,1.0
+146,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM08,3.23,0.32,3.1,0.03,0.1299999999999999,1.0
+147,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM09,5.37,0.23,3.03,0.07,2.3400000000000003,1.0
+148,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM11,4.38,0.22,2.1,0.04,2.28,1.0
+149,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM12,6.58,0.24,3.83,0.03,2.75,1.0
+150,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM13,5.69,0.25,2.92,0.04,2.7700000000000005,1.0
+151,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM14,3.74,0.18,1.95,0.03,1.7900000000000003,1.0
+152,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM15,4.67,0.17,3.07,0.03,1.6,1.0
+153,bzeez,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM16,4.3,0.35,2.62,0.01,1.6799999999999997,1.0
+154,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM02,3.14,0.0,4.09,0.03,-0.9499999999999997,2.08
+155,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM04,3.28,0.0,3.98,0.03,-0.7000000000000002,2.08
+156,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM07,3.09,0.0,3.21,0.04,-0.1200000000000001,2.08
+157,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM08,2.43,0.0,3.1,0.03,-0.6699999999999999,2.08
+158,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM09,3.35,0.0,3.03,0.07,0.3200000000000003,2.08
+159,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM11,2.19,0.0,2.1,0.04,0.08999999999999986,2.08
+160,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM12,3.51,0.0,3.83,0.03,-0.3200000000000003,2.08
+161,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM13,2.59,0.0,2.92,0.04,-0.33000000000000007,2.08
+162,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM14,2.47,0.0,1.95,0.03,0.5200000000000002,2.08
+163,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM15,2.37,0.0,3.07,0.03,-0.6999999999999997,2.08
+164,7egyc,Andrew Paluch,SMD-Solvation-Trained,Mixed,SM16,2.48,0.0,2.62,0.01,-0.14000000000000012,2.08
+165,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM02,2.6,0.0,4.09,0.03,-1.4899999999999998,2.77
+166,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM04,3.18,0.0,3.98,0.03,-0.7999999999999998,2.77
+167,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM07,2.76,0.0,3.21,0.04,-0.4500000000000002,2.77
+168,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM08,1.83,0.0,3.1,0.03,-1.27,2.77
+169,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM09,3.4,0.0,3.03,0.07,0.3700000000000001,2.77
+170,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM11,1.06,0.0,2.1,0.04,-1.04,2.77
+171,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM12,3.85,0.0,3.83,0.03,0.020000000000000018,2.77
+172,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM13,1.83,0.0,2.92,0.04,-1.0899999999999999,2.77
+173,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM14,1.7,0.0,1.95,0.03,-0.25,2.77
+174,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM15,1.58,0.0,3.07,0.03,-1.4899999999999998,2.77
+175,qz8d5,Andrew Paluch,SMD-Solvation,Physical,SM16,1.61,0.0,2.62,0.01,-1.01,2.77
+176,fmf7r,Mohammed Ali,dice,Mixed,SM02,2.0,2.0,4.09,0.03,-2.09,0.5
+177,fmf7r,Mohammed Ali,dice,Mixed,SM04,2.0,2.0,3.98,0.03,-1.98,0.5
+178,fmf7r,Mohammed Ali,dice,Mixed,SM07,3.0,1.0,3.21,0.04,-0.20999999999999996,0.5
+179,fmf7r,Mohammed Ali,dice,Mixed,SM08,4.0,3.0,3.1,0.03,0.8999999999999999,0.5
+180,fmf7r,Mohammed Ali,dice,Mixed,SM09,1.0,5.0,3.03,0.07,-2.03,0.5
+181,fmf7r,Mohammed Ali,dice,Mixed,SM11,3.0,5.0,2.1,0.04,0.8999999999999999,0.5
+182,fmf7r,Mohammed Ali,dice,Mixed,SM12,6.0,1.0,3.83,0.03,2.17,0.5
+183,fmf7r,Mohammed Ali,dice,Mixed,SM13,3.0,2.0,2.92,0.04,0.08000000000000007,0.5
+184,fmf7r,Mohammed Ali,dice,Mixed,SM14,1.0,1.0,1.95,0.03,-0.95,0.5
+185,fmf7r,Mohammed Ali,dice,Mixed,SM15,2.0,5.0,3.07,0.03,-1.0699999999999998,0.5
+186,fmf7r,Mohammed Ali,dice,Mixed,SM16,4.0,5.0,2.62,0.01,1.38,0.5
+187,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM02,2.88,0.4,4.09,0.03,-1.21,1.5
+188,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM04,5.19,0.64,3.98,0.03,1.2100000000000004,1.5
+189,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM07,3.3,0.37,3.21,0.04,0.08999999999999986,1.5
+190,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM08,3.17,0.79,3.1,0.03,0.06999999999999984,1.5
+191,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM09,-0.04,0.42,3.03,0.07,-3.07,1.5
+192,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM11,2.03,0.37,2.1,0.04,-0.07000000000000028,1.5
+193,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM12,4.67,0.34,3.83,0.03,0.8399999999999999,1.5
+194,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM13,2.79,0.73,2.92,0.04,-0.1299999999999999,1.5
+195,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM14,1.36,0.37,1.95,0.03,-0.5899999999999999,1.5
+196,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM15,2.47,0.39,3.07,0.03,-0.5999999999999996,1.5
+197,3wvyh,Andreas Kraemer,Alchemical-CGenFF,Physical,SM16,3.17,0.56,2.62,0.01,0.5499999999999998,1.5
+198,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM02,5.69,0.3,4.09,0.03,1.6000000000000005,1.2
+199,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM04,6.67,0.23,3.98,0.03,2.69,1.2
+200,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM07,5.19,0.2,3.21,0.04,1.9800000000000004,1.2
+201,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM08,8.55,0.24,3.1,0.03,5.450000000000001,1.2
+202,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM09,5.69,0.27,3.03,0.07,2.6600000000000006,1.2
+203,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM11,4.96,0.2,2.1,0.04,2.86,1.2
+204,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM12,6.2,0.25,3.83,0.03,2.37,1.2
+205,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM13,5.55,0.25,2.92,0.04,2.63,1.2
+206,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM14,4.21,0.22,1.95,0.03,2.26,1.2
+207,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM15,5.72,0.18,3.07,0.03,2.65,1.2
+208,cp8kv,Bogdan Iorga,MD-OPLSAA-dryoct,Physical,SM16,5.4,0.34,2.62,0.01,2.7800000000000002,1.2
+209,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM02,4.01,0.22,4.09,0.03,-0.08000000000000007,0.2
+210,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM04,3.48,0.26,3.98,0.03,-0.5,0.2
+211,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM07,3.06,0.11,3.21,0.04,-0.1499999999999999,0.2
+212,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM08,3.0,0.22,3.1,0.03,-0.10000000000000009,0.2
+213,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM09,3.17,0.16,3.03,0.07,0.14000000000000012,0.2
+214,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM11,1.52,0.16,2.1,0.04,-0.5800000000000001,0.2
+215,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM12,3.37,0.25,3.83,0.03,-0.45999999999999996,0.2
+216,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM13,3.96,0.2,2.92,0.04,1.04,0.2
+217,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM14,2.59,0.17,1.95,0.03,0.6399999999999999,0.2
+218,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM15,2.21,0.14,3.07,0.03,-0.8599999999999999,0.2
+219,7dhtp,Jose Jimenez Luna,LogP-prediction-method-name,Other,SM16,2.87,0.26,2.62,0.01,0.25,0.2
+220,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM02,1.01,0.0,4.09,0.03,-3.08,3.0
+221,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM04,1.28,0.0,3.98,0.03,-2.7,3.0
+222,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM07,1.06,0.0,3.21,0.04,-2.15,3.0
+223,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM08,0.75,0.0,3.1,0.03,-2.35,3.0
+224,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM09,0.92,0.0,3.03,0.07,-2.11,3.0
+225,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM11,0.05,0.0,2.1,0.04,-2.0500000000000003,3.0
+226,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM12,0.93,0.0,3.83,0.03,-2.9,3.0
+227,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM13,2.5,0.0,2.92,0.04,-0.41999999999999993,3.0
+228,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM14,0.86,0.0,1.95,0.03,-1.0899999999999999,3.0
+229,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM15,0.39,0.0,3.07,0.03,-2.6799999999999997,3.0
+230,ynquk,Diogo Santos Martins,TWOVAR,Empirical,SM16,0.72,0.0,2.62,0.01,-1.9000000000000001,3.0
+231,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM02,3.66,0.01,4.09,0.03,-0.4299999999999997,1.4
+232,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM04,3.0,0.01,3.98,0.03,-0.98,1.4
+233,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM07,2.65,0.01,3.21,0.04,-0.56,1.4
+234,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM08,1.62,0.01,3.1,0.03,-1.48,1.4
+235,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM09,2.31,0.01,3.03,0.07,-0.7199999999999998,1.4
+236,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM11,0.29,0.01,2.1,0.04,-1.81,1.4
+237,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM12,3.15,0.01,3.83,0.03,-0.6800000000000002,1.4
+238,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM13,2.22,0.01,2.92,0.04,-0.6999999999999997,1.4
+239,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM14,0.18,0.01,1.95,0.03,-1.77,1.4
+240,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM15,0.51,0.01,3.07,0.03,-2.5599999999999996,1.4
+241,rdsnw,Stefan Kast,EC_RISM_wet_P1w+1o,Physical,SM16,1.65,0.01,2.62,0.01,-0.9700000000000002,1.4
+242,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM02,0.63,0.0,4.09,0.03,-3.46,3.0
+243,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM04,1.04,0.0,3.98,0.03,-2.94,3.0
+244,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM07,0.25,0.0,3.21,0.04,-2.96,3.0
+245,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM08,-1.18,0.0,3.1,0.03,-4.28,3.0
+246,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM09,-0.26,0.0,3.03,0.07,-3.29,3.0
+247,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM11,-0.81,0.0,2.1,0.04,-2.91,3.0
+248,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM12,0.58,0.0,3.83,0.03,-3.25,3.0
+249,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM13,2.83,0.0,2.92,0.04,-0.08999999999999986,3.0
+250,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM14,1.51,0.0,1.95,0.03,-0.43999999999999995,3.0
+251,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM15,0.27,0.0,3.07,0.03,-2.8,3.0
+252,j4nb3,Diogo Santos Martins,FOURVAR,Empirical,SM16,0.12,0.0,2.62,0.01,-2.5,3.0
+253,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM02,3.24,0.0,4.09,0.03,-0.8499999999999996,0.34
+254,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM04,2.73,0.0,3.98,0.03,-1.25,0.34
+255,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM07,2.32,0.0,3.21,0.04,-0.8900000000000001,0.34
+256,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM08,1.51,0.0,3.1,0.03,-1.59,0.34
+257,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM09,2.31,0.0,3.03,0.07,-0.7199999999999998,0.34
+258,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM11,1.64,0.0,2.1,0.04,-0.4600000000000002,0.34
+259,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM12,2.94,0.0,3.83,0.03,-0.8900000000000001,0.34
+260,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM13,2.47,0.0,2.92,0.04,-0.44999999999999973,0.34
+261,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM14,1.59,0.0,1.95,0.03,-0.3599999999999999,0.34
+262,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM15,1.63,0.0,3.07,0.03,-1.44,0.34
+263,kuddg,Floriane Montanari,LogP-Pred-MTNN-GraphConv-Bayer,Empirical,SM16,1.76,0.0,2.62,0.01,-0.8600000000000001,0.34
+264,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM02,4.56,0.01,4.09,0.03,0.46999999999999975,0.83
+265,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM04,4.08,0.01,3.98,0.03,0.10000000000000009,0.83
+266,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM07,3.62,0.01,3.21,0.04,0.41000000000000014,0.83
+267,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM08,3.78,0.01,3.1,0.03,0.6799999999999997,0.83
+268,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM09,3.41,0.01,3.03,0.07,0.38000000000000034,0.83
+269,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM11,2.25,0.01,2.1,0.04,0.1499999999999999,0.83
+270,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM12,4.25,0.01,3.83,0.03,0.41999999999999993,0.83
+271,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM13,3.28,0.01,2.92,0.04,0.3599999999999999,0.83
+272,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM14,1.51,0.01,1.95,0.03,-0.43999999999999995,0.83
+273,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM15,1.85,0.01,3.07,0.03,-1.2199999999999998,0.83
+274,qyzjx,Stefan Kast,EC_RISM_dry_P1w+2o,Physical,SM16,3.0,0.01,2.62,0.01,0.3799999999999999,0.83
+275,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM02,3.74,0.01,4.09,0.03,-0.34999999999999964,1.51
+276,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM04,2.97,0.01,3.98,0.03,-1.0099999999999998,1.51
+277,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM07,2.6,0.01,3.21,0.04,-0.6099999999999999,1.51
+278,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM08,1.55,0.01,3.1,0.03,-1.55,1.51
+279,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM09,2.23,0.01,3.03,0.07,-0.7999999999999998,1.51
+280,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM11,0.22,0.01,2.1,0.04,-1.8800000000000001,1.51
+281,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM12,3.19,0.01,3.83,0.03,-0.6400000000000001,1.51
+282,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM13,1.99,0.01,2.92,0.04,-0.9299999999999999,1.51
+283,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM14,0.05,0.01,1.95,0.03,-1.9,1.51
+284,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM15,0.42,0.01,3.07,0.03,-2.65,1.51
+285,2tzb0,Stefan Kast,EC_RISM_dry_P1w+1o,Physical,SM16,1.64,0.01,2.62,0.01,-0.9800000000000002,1.51
+286,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM02,7.55,0.06,4.09,0.03,3.46,1.0
+287,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM04,7.15,0.04,3.98,0.03,3.1700000000000004,1.0
+288,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM07,5.64,0.04,3.21,0.04,2.4299999999999997,1.0
+289,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM08,4.3,0.05,3.1,0.03,1.1999999999999997,1.0
+290,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM09,7.17,0.05,3.03,0.07,4.140000000000001,1.0
+291,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM11,5.46,0.03,2.1,0.04,3.36,1.0
+292,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM12,7.31,0.05,3.83,0.03,3.4799999999999995,1.0
+293,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM13,8.92,0.08,2.92,0.04,6.0,1.0
+294,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM14,4.03,0.04,1.95,0.03,2.08,1.0
+295,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM15,5.26,0.04,3.07,0.03,2.19,1.0
+296,hf4wj,Esteban Vohringer-Martinez,MD/S-HI-GAFF-SPCE/MBAR/,Physical,SM16,4.52,0.04,2.62,0.01,1.8999999999999995,1.0
+297,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM02,4.18,0.0,4.09,0.03,0.08999999999999986,0.8
+298,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM04,3.45,0.0,3.98,0.03,-0.5299999999999998,0.8
+299,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM07,2.78,0.0,3.21,0.04,-0.43000000000000016,0.8
+300,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM08,4.69,0.0,3.1,0.03,1.5900000000000003,0.8
+301,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM09,3.21,0.0,3.03,0.07,0.18000000000000016,0.8
+302,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM11,1.71,0.0,2.1,0.04,-0.3900000000000001,0.8
+303,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM12,3.7,0.0,3.83,0.03,-0.1299999999999999,0.8
+304,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM13,4.28,0.0,2.92,0.04,1.3600000000000003,0.8
+305,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM14,1.77,0.0,1.95,0.03,-0.17999999999999994,0.8
+306,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM15,1.81,0.0,3.07,0.03,-1.2599999999999998,0.8
+307,kivfu,William Zamora,LogP-prediction-method-IEFPCM/MST,Physical,SM16,2.67,0.0,2.62,0.01,0.04999999999999982,0.8
+308,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM02,0.69,0.0,4.09,0.03,-3.4,0.0
+309,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM04,1.35,0.0,3.98,0.03,-2.63,0.0
+310,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM07,0.82,0.0,3.21,0.04,-2.39,0.0
+311,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM08,2.09,0.0,3.1,0.03,-1.0100000000000002,0.0
+312,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM09,1.2,0.0,3.03,0.07,-1.8299999999999998,0.0
+313,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM11,1.11,0.0,2.1,0.04,-0.99,0.0
+314,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM12,1.82,0.0,3.83,0.03,-2.01,0.0
+315,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM13,2.24,0.0,2.92,0.04,-0.6799999999999997,0.0
+316,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM14,1.75,0.0,1.95,0.03,-0.19999999999999996,0.0
+317,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM15,1.76,0.0,3.07,0.03,-1.3099999999999998,0.0
+318,fe8ws,Prajay Patel,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM16,1.64,0.0,2.62,0.01,-0.9800000000000002,0.0
+319,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM02,1.22,0.0,4.09,0.03,-2.87,0.0
+320,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM04,1.65,0.0,3.98,0.03,-2.33,0.0
+321,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM07,1.15,0.0,3.21,0.04,-2.06,0.0
+322,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM08,2.94,0.0,3.1,0.03,-0.16000000000000014,0.0
+323,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM09,1.76,0.0,3.03,0.07,-1.2699999999999998,0.0
+324,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM11,1.65,0.0,2.1,0.04,-0.4500000000000002,0.0
+325,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM12,2.34,0.0,3.83,0.03,-1.4900000000000002,0.0
+326,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM13,2.68,0.0,2.92,0.04,-0.23999999999999977,0.0
+327,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM14,2.38,0.0,1.95,0.03,0.42999999999999994,0.0
+328,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM15,2.37,0.0,3.07,0.03,-0.6999999999999997,0.0
+329,4p2ph,Prajay Patel,DLPNO-Solv-ccCA,Other,SM16,2.3,0.0,2.62,0.01,-0.3200000000000003,0.0
+330,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM02,4.55,0.05,4.09,0.03,0.45999999999999996,0.21
+331,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM04,4.02,0.08,3.98,0.03,0.03999999999999959,0.25
+332,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM07,3.74,0.08,3.21,0.04,0.5300000000000002,0.25
+333,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM08,2.99,0.15,3.1,0.03,-0.10999999999999988,0.14
+334,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM09,3.47,0.05,3.03,0.07,0.4400000000000004,0.21
+335,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM11,1.59,0.41,2.1,0.04,-0.51,0.39
+336,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM12,4.37,0.05,3.83,0.03,0.54,0.21
+337,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM13,4.2,0.05,2.92,0.04,1.2800000000000002,0.21
+338,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM14,2.8,0.15,1.95,0.03,0.8499999999999999,0.08
+339,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM15,2.55,0.15,3.07,0.03,-0.52,0.08
+340,5krdi,Evrim Arslan,ZINC15 versus PM3,Mixed,SM16,2.93,0.29,2.62,0.01,0.31000000000000005,0.28
+341,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM02,4.19,0.13,4.09,0.03,0.10000000000000053,0.28
+342,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM04,3.82,0.07,3.98,0.03,-0.16000000000000014,0.28
+343,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM07,3.11,0.12,3.21,0.04,-0.10000000000000009,0.28
+344,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM08,2.48,0.11,3.1,0.03,-0.6200000000000001,0.28
+345,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM09,3.45,0.08,3.03,0.07,0.4200000000000004,0.28
+346,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM11,1.51,0.08,2.1,0.04,-0.5900000000000001,0.28
+347,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM12,3.97,0.05,3.83,0.03,0.14000000000000012,0.28
+348,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM13,3.45,0.08,2.92,0.04,0.5300000000000002,0.28
+349,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM14,2.33,0.1,1.95,0.03,0.3800000000000001,0.28
+350,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM15,2.59,0.1,3.07,0.03,-0.48,0.28
+351,gmoq5,Boris Sattarov,Global XGBoost-Based QSPR LogP Predictor,Empirical,SM16,2.87,0.1,2.62,0.01,0.25,0.28
+352,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM02,5.37,0.13,4.09,0.03,1.2800000000000002,1.6
+353,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM04,4.82,0.11,3.98,0.03,0.8400000000000003,1.6
+354,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM07,3.91,0.12,3.21,0.04,0.7000000000000002,1.6
+355,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM08,9.41,0.02,3.1,0.03,6.3100000000000005,1.6
+356,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM09,4.78,0.17,3.03,0.07,1.7500000000000004,1.6
+357,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM11,3.74,0.25,2.1,0.04,1.6400000000000001,1.6
+358,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM12,5.6,0.51,3.83,0.03,1.7699999999999996,1.6
+359,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM13,5.99,0.17,2.92,0.04,3.0700000000000003,1.6
+360,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM14,2.84,0.1,1.95,0.03,0.8899999999999999,1.6
+361,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM15,4.01,0.21,3.07,0.03,0.94,1.6
+362,REF01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,SM16,3.46,0.19,2.62,0.01,0.8399999999999999,1.6
+363,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM02,3.2,0.37,4.09,0.03,-0.8899999999999997,1.5
+364,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM04,4.68,0.57,3.98,0.03,0.6999999999999997,1.5
+365,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM07,3.44,0.38,3.21,0.04,0.22999999999999998,1.5
+366,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM08,2.39,0.85,3.1,0.03,-0.71,1.5
+367,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM09,4.9,0.51,3.03,0.07,1.8700000000000006,1.5
+368,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM11,3.32,0.33,2.1,0.04,1.2199999999999998,1.5
+369,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM12,4.44,0.51,3.83,0.03,0.6100000000000003,1.5
+370,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM13,3.08,1.02,2.92,0.04,0.16000000000000014,1.5
+371,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM14,2.26,0.38,1.95,0.03,0.30999999999999983,1.5
+372,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM15,1.85,0.27,3.07,0.03,-1.2199999999999998,1.5
+373,2mi5w,Andreas Kraemer,Alchemical-CGenFF,Physical,SM16,3.64,0.54,2.62,0.01,1.02,1.5
+374,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM02,6.81,0.47,4.09,0.03,2.7199999999999998,2.0
+375,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM04,6.34,0.4,3.98,0.03,2.36,2.0
+376,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM07,5.05,0.43,3.21,0.04,1.8399999999999999,2.0
+377,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM08,2.48,0.64,3.1,0.03,-0.6200000000000001,2.0
+378,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM09,5.25,0.46,3.03,0.07,2.22,2.0
+379,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM11,4.45,0.56,2.1,0.04,2.35,2.0
+380,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM12,6.18,0.48,3.83,0.03,2.3499999999999996,2.0
+381,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM13,6.46,0.67,2.92,0.04,3.54,2.0
+382,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM14,3.42,0.49,1.95,0.03,1.47,2.0
+383,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM15,4.52,0.44,3.07,0.03,1.4499999999999997,2.0
+384,5svjv,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM16,5.25,1.56,2.62,0.01,2.63,2.0
+385,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM02,3.17,0.0,4.09,0.03,-0.9199999999999999,0.38
+386,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM04,3.02,0.0,3.98,0.03,-0.96,0.38
+387,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM07,2.61,0.0,3.21,0.04,-0.6000000000000001,0.38
+388,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM08,1.62,0.0,3.1,0.03,-1.48,0.38
+389,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM09,2.48,0.0,3.03,0.07,-0.5499999999999998,0.38
+390,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM11,1.92,0.0,2.1,0.04,-0.18000000000000016,0.38
+391,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM12,2.88,0.0,3.83,0.03,-0.9500000000000002,0.38
+392,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM13,2.43,0.0,2.92,0.04,-0.48999999999999977,0.38
+393,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM14,2.09,0.0,1.95,0.03,0.1399999999999999,0.38
+394,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM15,1.83,0.0,3.07,0.03,-1.2399999999999998,0.38
+395,wu52s,Floriane Montanari,LogP-PLS-ECFC4_CSsep-Bayer,Empirical,SM16,2.18,0.0,2.62,0.01,-0.43999999999999995,0.38
+396,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM02,2.31,0.29,4.09,0.03,-1.7799999999999998,3.0
+397,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM04,1.47,0.34,3.98,0.03,-2.51,3.0
+398,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM07,0.23,0.32,3.21,0.04,-2.98,3.0
+399,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM08,2.45,0.5,3.1,0.03,-0.6499999999999999,3.0
+400,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM09,-0.24,0.3,3.03,0.07,-3.2699999999999996,3.0
+401,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM11,1.95,0.36,2.1,0.04,-0.15000000000000013,3.0
+402,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM12,0.29,0.34,3.83,0.03,-3.54,3.0
+403,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM13,1.37,0.37,2.92,0.04,-1.5499999999999998,3.0
+404,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM14,3.43,0.36,1.95,0.03,1.4800000000000002,3.0
+405,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM15,-0.17,0.34,3.07,0.03,-3.2399999999999998,3.0
+406,padym,Ganesh Kamath,InterX_ARROW_2017_PIMD_WET_OCTANOL,Physical,SM16,1.92,0.38,2.62,0.01,-0.7000000000000002,3.0
+407,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM02,1.71,0.29,4.09,0.03,-2.38,3.0
+408,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM04,1.13,0.34,3.98,0.03,-2.85,3.0
+409,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM07,-0.09,0.32,3.21,0.04,-3.3,3.0
+410,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM08,1.97,0.5,3.1,0.03,-1.1300000000000001,3.0
+411,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM09,-0.12,0.3,3.03,0.07,-3.15,3.0
+412,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM11,1.76,0.36,2.1,0.04,-0.3400000000000001,3.0
+413,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM12,0.21,0.34,3.83,0.03,-3.62,3.0
+414,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM13,1.31,0.37,2.92,0.04,-1.6099999999999999,3.0
+415,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM14,2.87,0.36,1.95,0.03,0.9200000000000002,3.0
+416,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM15,-0.27,0.34,3.07,0.03,-3.34,3.0
+417,6cm6a,Ganesh Kamath,ARROW_2017_PIMD,Physical,SM16,2.11,0.38,2.62,0.01,-0.5100000000000002,3.0
+418,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM02,5.32,0.29,4.09,0.03,1.2300000000000004,1.2
+419,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM04,5.9,0.27,3.98,0.03,1.9200000000000004,1.2
+420,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM07,4.8,0.41,3.21,0.04,1.5899999999999999,1.2
+421,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM08,5.88,0.4,3.1,0.03,2.78,1.2
+422,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM09,3.97,0.33,3.03,0.07,0.9400000000000004,1.2
+423,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM11,2.25,0.27,2.1,0.04,0.1499999999999999,1.2
+424,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM12,5.16,0.26,3.83,0.03,1.33,1.2
+425,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM13,5.95,0.47,2.92,0.04,3.0300000000000002,1.2
+426,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM14,2.53,0.26,1.95,0.03,0.5799999999999998,1.2
+427,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM15,2.99,0.21,3.07,0.03,-0.07999999999999963,1.2
+428,sqosi,Bogdan Iorga,MD-AMBER-dryoct,Physical,SM16,4.58,0.36,2.62,0.01,1.96,1.2
+429,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM02,3.7,0.25,4.09,0.03,-0.3899999999999997,0.9
+430,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM04,3.91,0.2,3.98,0.03,-0.06999999999999984,0.9
+431,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM07,3.95,0.18,3.21,0.04,0.7400000000000002,0.9
+432,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM08,2.94,0.2,3.1,0.03,-0.16000000000000014,0.9
+433,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM09,4.03,0.21,3.03,0.07,1.0000000000000004,0.9
+434,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM11,2.12,0.19,2.1,0.04,0.020000000000000018,0.9
+435,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM12,3.5,0.18,3.83,0.03,-0.33000000000000007,0.9
+436,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM13,4.68,0.24,2.92,0.04,1.7599999999999998,0.9
+437,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM14,1.79,0.17,1.95,0.03,-0.15999999999999992,0.9
+438,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM15,1.47,0.16,3.07,0.03,-1.5999999999999999,0.9
+439,5mahv,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on Hydration Free Energy,Mixed,SM16,1.98,0.16,2.62,0.01,-0.6400000000000001,0.9
+440,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM02,1.88,0.29,4.09,0.03,-2.21,3.0
+441,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM04,1.28,0.34,3.98,0.03,-2.7,3.0
+442,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM07,-0.01,0.32,3.21,0.04,-3.2199999999999998,3.0
+443,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM08,2.09,0.5,3.1,0.03,-1.0100000000000002,3.0
+444,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM09,-0.22,0.3,3.03,0.07,-3.25,3.0
+445,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM11,1.57,0.36,2.1,0.04,-0.53,3.0
+446,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM12,0.16,0.34,3.83,0.03,-3.67,3.0
+447,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM13,1.18,0.37,2.92,0.04,-1.74,3.0
+448,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM14,2.67,0.36,1.95,0.03,0.72,3.0
+449,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM15,-0.34,0.34,3.07,0.03,-3.4099999999999997,3.0
+450,fcspk,Ganesh Kamath,ARROW_2017_PIMD_SOLVENT2,Physical,SM16,1.98,0.38,2.62,0.01,-0.6400000000000001,3.0
+451,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM02,4.18,0.13,4.09,0.03,0.08999999999999986,0.29
+452,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM04,3.7,0.14,3.98,0.03,-0.2799999999999998,0.29
+453,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM07,3.06,0.07,3.21,0.04,-0.1499999999999999,0.29
+454,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM08,2.41,0.1,3.1,0.03,-0.69,0.29
+455,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM09,3.36,0.14,3.03,0.07,0.33000000000000007,0.29
+456,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM11,1.57,0.09,2.1,0.04,-0.53,0.29
+457,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM12,3.97,0.09,3.83,0.03,0.14000000000000012,0.29
+458,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM13,3.43,0.07,2.92,0.04,0.5100000000000002,0.29
+459,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM14,2.31,0.1,1.95,0.03,0.3600000000000001,0.29
+460,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM15,2.32,0.1,3.07,0.03,-0.75,0.29
+461,sq07q,Boris Sattarov,Local XGBoost-Based QSPR LogP Predictor,Empirical,SM16,3.28,0.14,2.62,0.01,0.6599999999999997,0.29
+462,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM02,4.44,0.29,4.09,0.03,0.35000000000000053,1.6
+463,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM04,5.31,0.3,3.98,0.03,1.3299999999999996,1.6
+464,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM07,4.35,0.36,3.21,0.04,1.1399999999999997,1.6
+465,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM08,8.71,0.08,3.1,0.03,5.610000000000001,1.6
+466,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM09,5.7,0.37,3.03,0.07,2.6700000000000004,1.6
+467,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM11,3.4,0.2,2.1,0.04,1.2999999999999998,1.6
+468,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM12,5.41,0.3,3.83,0.03,1.58,1.6
+469,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM13,6.34,0.6,2.92,0.04,3.42,1.6
+470,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM14,3.05,0.22,1.95,0.03,1.0999999999999999,1.6
+471,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM15,3.84,0.26,3.07,0.03,0.77,1.6
+472,REF03,Danielle Bergazin,YANK-GAFF-OPC-wet-oct,Physical,SM16,3.66,0.34,2.62,0.01,1.04,1.6
+473,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM02,2.69,0.0,4.09,0.03,-1.4,1.5
+474,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM04,2.58,0.0,3.98,0.03,-1.4,1.5
+475,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM07,2.16,0.0,3.21,0.04,-1.0499999999999998,1.5
+476,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM08,2.1,0.0,3.1,0.03,-1.0,1.5
+477,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM09,1.87,0.0,3.03,0.07,-1.1599999999999997,1.5
+478,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM11,1.11,0.0,2.1,0.04,-0.99,1.5
+479,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM12,2.56,0.0,3.83,0.03,-1.27,1.5
+480,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM13,2.37,0.0,2.92,0.04,-0.5499999999999998,1.5
+481,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM14,1.76,0.0,1.95,0.03,-0.18999999999999995,1.5
+482,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM15,1.77,0.0,3.07,0.03,-1.2999999999999998,1.5
+483,mm0jf,Jing Huang,LogP-prediction-SMD-HuangLab,Physical,SM16,1.59,0.0,2.62,0.01,-1.03,1.5
+484,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM02,2.5,0.2,4.09,0.03,-1.5899999999999999,0.26
+485,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM04,2.86,0.46,3.98,0.03,-1.12,0.48
+486,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM07,2.21,0.45,3.21,0.04,-1.0,0.74
+487,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM08,1.39,0.22,3.1,0.03,-1.7100000000000002,0.23
+488,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM09,1.41,0.38,3.03,0.07,-1.6199999999999999,0.62
+489,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM11,0.48,0.0,2.1,0.04,-1.62,0.0
+490,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM12,2.4,0.39,3.83,0.03,-1.4300000000000002,0.41
+491,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM13,1.22,0.21,2.92,0.04,-1.7,0.27
+492,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM14,1.47,0.01,1.95,0.03,-0.48,0.01
+493,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM15,1.64,0.07,3.07,0.03,-1.43,0.1
+494,6fyg5,Evrim Arslan,Solvation-M062X,Physical,SM16,0.5,0.14,2.62,0.01,-2.12,0.24
+495,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM02,6.37,0.14,4.09,0.03,2.2800000000000002,0.72
+496,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM04,4.24,0.06,3.98,0.03,0.26000000000000023,0.72
+497,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM07,3.2,0.24,3.21,0.04,-0.009999999999999787,0.72
+498,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM08,2.2,0.01,3.1,0.03,-0.8999999999999999,0.72
+499,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM09,2.12,0.01,3.03,0.07,-0.9099999999999997,0.72
+500,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM11,1.7,0.04,2.1,0.04,-0.40000000000000013,0.72
+501,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM12,4.15,0.01,3.83,0.03,0.3200000000000003,0.72
+502,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM13,2.37,0.59,2.92,0.04,-0.5499999999999998,0.72
+503,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM14,-2.35,0.01,1.95,0.03,-4.3,0.72
+504,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM15,-0.35,0.01,3.07,0.03,-3.42,0.72
+505,fyx45,Jing Huang,LogP-prediction-Drude-FEP-HuangLab,Physical,SM16,3.06,0.2,2.62,0.01,0.43999999999999995,0.72
+506,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM02,1.25,1.61,4.09,0.03,-2.84,1.5
+507,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM04,-1.28,0.66,3.98,0.03,-5.26,1.5
+508,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM07,-1.26,0.69,3.21,0.04,-4.47,1.5
+509,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM08,0.43,0.75,3.1,0.03,-2.67,1.5
+510,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM09,-0.01,1.61,3.03,0.07,-3.0399999999999996,1.5
+511,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM11,1.15,0.35,2.1,0.04,-0.9500000000000002,1.5
+512,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM12,2.07,0.86,3.83,0.03,-1.7600000000000002,1.5
+513,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM13,1.12,1.35,2.92,0.04,-1.7999999999999998,1.5
+514,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM14,0.52,0.34,1.95,0.03,-1.43,1.5
+515,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM15,0.04,0.51,3.07,0.03,-3.03,1.5
+516,5585v,Andreas Kraemer,Alchemical-CGenFF,Physical,SM16,3.47,0.54,2.62,0.01,0.8500000000000001,1.5
+517,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM02,6.01,0.4,4.09,0.03,1.92,1.2
+518,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM04,5.85,0.34,3.98,0.03,1.8699999999999997,1.2
+519,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM07,4.93,0.26,3.21,0.04,1.7199999999999998,1.2
+520,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM08,5.59,0.29,3.1,0.03,2.4899999999999998,1.2
+521,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM09,4.83,0.42,3.03,0.07,1.8000000000000003,1.2
+522,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM11,4.82,0.32,2.1,0.04,2.72,1.2
+523,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM12,5.83,0.26,3.83,0.03,2.0,1.2
+524,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM13,5.83,0.47,2.92,0.04,2.91,1.2
+525,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM14,1.32,0.28,1.95,0.03,-0.6299999999999999,1.2
+526,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM15,4.03,0.31,3.07,0.03,0.9600000000000004,1.2
+527,eufcy,Bogdan Iorga,MD-LigParGen-dryoct,Physical,SM16,4.28,0.32,2.62,0.01,1.6600000000000001,1.2
+528,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM02,4.19,0.01,4.09,0.03,0.10000000000000053,0.77
+529,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM04,3.86,0.01,3.98,0.03,-0.1200000000000001,0.77
+530,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM07,3.46,0.01,3.21,0.04,0.25,0.77
+531,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM08,3.37,0.01,3.1,0.03,0.27,0.77
+532,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM09,3.22,0.01,3.03,0.07,0.1900000000000004,0.77
+533,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM11,2.01,0.01,2.1,0.04,-0.0900000000000003,0.77
+534,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM12,3.92,0.01,3.83,0.03,0.08999999999999986,0.77
+535,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM13,3.22,0.01,2.92,0.04,0.30000000000000027,0.77
+536,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM14,1.42,0.01,1.95,0.03,-0.53,0.77
+537,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM15,1.71,0.01,3.07,0.03,-1.3599999999999999,0.77
+538,j8nwc,Stefan Kast,EC_RISM_wet_P1w+2o,Physical,SM16,2.73,0.01,2.62,0.01,0.10999999999999988,0.77
+539,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM02,2.41,0.18,4.09,0.03,-1.6799999999999997,0.18
+540,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM04,2.66,0.27,3.98,0.03,-1.3199999999999998,0.2
+541,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM07,2.36,0.4,3.21,0.04,-0.8500000000000001,0.89
+542,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM08,1.35,0.11,3.1,0.03,-1.75,0.16
+543,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM09,1.88,0.18,3.03,0.07,-1.15,0.4
+544,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM11,0.14,0.25,2.1,0.04,-1.96,0.35
+545,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM12,2.7,0.12,3.83,0.03,-1.13,0.16
+546,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM13,2.36,0.43,2.92,0.04,-0.56,0.59
+547,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM14,1.94,0.01,1.95,0.03,-0.010000000000000009,0.01
+548,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM15,1.79,0.07,3.07,0.03,-1.2799999999999998,0.1
+549,pcv32,Evrim Arslan,Solvation- WB97X-D,Physical,SM16,1.44,0.22,2.62,0.01,-1.1800000000000002,0.38
+550,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM02,3.05,0.08,4.09,0.03,-1.04,0.15
+551,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM04,2.77,0.26,3.98,0.03,-1.21,0.37
+552,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM07,2.69,0.24,3.21,0.04,-0.52,0.53
+553,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM08,1.35,0.02,3.1,0.03,-1.75,0.03
+554,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM09,1.82,0.23,3.03,0.07,-1.2099999999999997,0.5
+555,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM11,0.45,0.0,2.1,0.04,-1.6500000000000001,0.0
+556,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM12,2.35,0.19,3.83,0.03,-1.48,0.27
+557,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM13,1.95,0.08,2.92,0.04,-0.97,0.15
+558,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM14,1.77,0.01,1.95,0.03,-0.17999999999999994,0.01
+559,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM15,1.88,0.07,3.07,0.03,-1.19,0.26
+560,zdj0j,Evrim Arslan,Solvation-B3LYP,Physical,SM16,1.36,0.21,2.62,0.01,-1.26,0.36
+561,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM02,1.28,0.0,4.09,0.03,-2.8099999999999996,0.0
+562,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM04,1.7,0.0,3.98,0.03,-2.2800000000000002,0.0
+563,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM07,1.2,0.0,3.21,0.04,-2.01,0.0
+564,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM08,2.92,0.0,3.1,0.03,-0.18000000000000016,0.0
+565,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM09,1.81,0.0,3.03,0.07,-1.2199999999999998,0.0
+566,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM11,1.66,0.0,2.1,0.04,-0.44000000000000017,0.0
+567,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM12,2.39,0.0,3.83,0.03,-1.44,0.0
+568,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM13,2.71,0.0,2.92,0.04,-0.20999999999999996,0.0
+569,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM14,2.41,0.0,1.95,0.03,0.4600000000000002,0.0
+570,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM15,2.38,0.0,3.07,0.03,-0.69,0.0
+571,arw58,Prajay Patel,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM16,2.33,0.0,2.62,0.01,-0.29000000000000004,0.0
+572,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM02,6.92,0.05,4.09,0.03,2.83,1.0
+573,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM04,6.57,0.04,3.98,0.03,2.5900000000000003,1.0
+574,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM07,5.01,0.03,3.21,0.04,1.7999999999999998,1.0
+575,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM08,3.95,0.05,3.1,0.03,0.8500000000000001,1.0
+576,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM09,6.55,0.05,3.03,0.07,3.52,1.0
+577,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM11,4.85,0.03,2.1,0.04,2.7499999999999996,1.0
+578,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM12,6.7,0.06,3.83,0.03,2.87,1.0
+579,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM13,7.82,0.07,2.92,0.04,4.9,1.0
+580,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM14,3.5,0.03,1.95,0.03,1.55,1.0
+581,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM15,4.77,0.03,3.07,0.03,1.6999999999999997,1.0
+582,4nfzz,Esteban Vohringer-Martinez,MD/S-HI-GAFF-TIP3P/MBAR/,Physical,SM16,4.06,0.04,2.62,0.01,1.4399999999999995,1.0
+583,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM02,2.75,0.0,4.09,0.03,-1.3399999999999999,0.0
+584,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM04,1.65,0.0,3.98,0.03,-2.33,0.0
+585,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM07,2.33,0.0,3.21,0.04,-0.8799999999999999,0.0
+586,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM08,1.45,0.0,3.1,0.03,-1.6500000000000001,0.0
+587,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM09,1.83,0.0,3.03,0.07,-1.1999999999999997,0.0
+588,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM11,0.54,0.0,2.1,0.04,-1.56,0.0
+589,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM12,2.61,0.0,3.83,0.03,-1.2200000000000002,0.0
+590,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM13,2.11,0.0,2.92,0.04,-0.81,0.0
+591,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM14,1.38,0.0,1.95,0.03,-0.5700000000000001,0.0
+592,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM15,1.34,0.0,3.07,0.03,-1.7299999999999998,0.0
+593,ahmtf,Michael Jones,B3PW91-TZ SMD kcl-wet-oct,Physical,SM16,1.24,0.0,2.62,0.01,-1.3800000000000001,0.0
+594,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM02,4.3,0.08,4.09,0.03,0.20999999999999996,0.5
+595,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM04,4.28,0.07,3.98,0.03,0.30000000000000027,0.5
+596,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM07,3.68,0.08,3.21,0.04,0.4700000000000002,0.5
+597,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM08,3.04,0.08,3.1,0.03,-0.06000000000000005,0.5
+598,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM09,3.6,0.07,3.03,0.07,0.5700000000000003,0.5
+599,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM11,1.75,0.06,2.1,0.04,-0.3500000000000001,0.5
+600,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM12,4.23,0.08,3.83,0.03,0.40000000000000036,0.5
+601,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM13,3.76,0.07,2.92,0.04,0.8399999999999999,0.5
+602,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM14,2.5,0.05,1.95,0.03,0.55,0.5
+603,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM15,2.63,0.05,3.07,0.03,-0.43999999999999995,0.5
+604,hdpuj,Raymond Lui,"RayLogP-II, a cheminformatic QSPR model predicting the octanol/water partition coefficient, logP.",Empirical,SM16,3.32,0.05,2.62,0.01,0.6999999999999997,0.5
+605,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM02,5.23,0.77,4.09,0.03,1.1400000000000006,2.0
+606,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM04,5.0,1.11,3.98,0.03,1.02,2.0
+607,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM07,3.58,0.91,3.21,0.04,0.3700000000000001,2.0
+608,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM08,4.6,2.74,3.1,0.03,1.4999999999999996,2.0
+609,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM09,4.19,1.36,3.03,0.07,1.1600000000000006,2.0
+610,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM11,4.05,0.77,2.1,0.04,1.9499999999999997,2.0
+611,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM12,5.95,1.72,3.83,0.03,2.12,2.0
+612,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM13,4.83,2.5,2.92,0.04,1.9100000000000001,2.0
+613,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM14,2.72,0.56,1.95,0.03,0.7700000000000002,2.0
+614,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM15,3.0,0.63,3.07,0.03,-0.06999999999999984,2.0
+615,ggm6n,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM16,3.41,1.37,2.62,0.01,0.79,2.0
+616,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM02,3.55,0.0,4.09,0.03,-0.54,2.4
+617,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM04,2.79,0.0,3.98,0.03,-1.19,2.4
+618,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM07,2.49,0.0,3.21,0.04,-0.7199999999999998,2.4
+619,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM08,2.5,0.0,3.1,0.03,-0.6000000000000001,2.4
+620,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM09,3.29,0.0,3.03,0.07,0.26000000000000023,2.4
+621,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM11,0.88,0.0,2.1,0.04,-1.2200000000000002,2.4
+622,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM12,3.22,0.0,3.83,0.03,-0.6099999999999999,2.4
+623,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM13,3.41,0.0,2.92,0.04,0.4900000000000002,2.4
+624,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM14,2.08,0.0,1.95,0.03,0.13000000000000012,2.4
+625,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM15,2.32,0.0,3.07,0.03,-0.75,2.4
+626,dbmg3,Andrew Paluch,GC-LSER,Empirical,SM16,2.7,0.0,2.62,0.01,0.08000000000000007,2.4
+627,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM02,3.55,0.0,4.09,0.03,-0.54,1.49
+628,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM04,3.55,0.0,3.98,0.03,-0.43000000000000016,1.49
+629,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM07,3.35,0.0,3.21,0.04,0.14000000000000012,1.49
+630,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM08,2.29,0.0,3.1,0.03,-0.81,1.49
+631,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM09,3.26,0.0,3.03,0.07,0.22999999999999998,1.49
+632,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM11,2.25,0.0,2.1,0.04,0.1499999999999999,1.49
+633,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM12,3.62,0.0,3.83,0.03,-0.20999999999999996,1.49
+634,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM13,2.32,0.0,2.92,0.04,-0.6000000000000001,1.49
+635,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM14,2.77,0.0,1.95,0.03,0.8200000000000001,1.49
+636,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM15,2.56,0.0,3.07,0.03,-0.5099999999999998,1.49
+637,xxh4i,Andrew Paluch,SM12-Solvation-Trained,Mixed,SM16,2.35,0.0,2.62,0.01,-0.27,1.49
+638,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM02,4.25,0.05,4.09,0.03,0.16000000000000014,0.8
+639,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM04,3.29,0.08,3.98,0.03,-0.69,0.8
+640,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM07,2.64,0.07,3.21,0.04,-0.5699999999999998,0.8
+641,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM08,3.36,0.03,3.1,0.03,0.2599999999999998,0.8
+642,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM09,3.32,0.05,3.03,0.07,0.29000000000000004,0.8
+643,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM11,1.02,0.06,2.1,0.04,-1.08,0.8
+644,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM12,3.99,0.08,3.83,0.03,0.16000000000000014,0.8
+645,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM13,3.91,0.03,2.92,0.04,0.9900000000000002,0.8
+646,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM14,1.45,0.18,1.95,0.03,-0.5,0.8
+647,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM15,2.14,0.24,3.07,0.03,-0.9299999999999997,0.8
+648,tc4xa,Samarjeet Prasad,NHLBI-NN-5HL,Empirical,SM16,2.65,0.09,2.62,0.01,0.029999999999999805,0.8
+649,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM02,5.61,0.13,4.09,0.03,1.5200000000000005,1.6
+650,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM04,4.78,0.06,3.98,0.03,0.8000000000000003,1.6
+651,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM07,4.05,0.38,3.21,0.04,0.8399999999999999,1.6
+652,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM08,8.87,0.14,3.1,0.03,5.77,1.6
+653,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM09,4.76,0.24,3.03,0.07,1.73,1.6
+654,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM11,3.37,0.21,2.1,0.04,1.27,1.6
+655,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM12,4.96,0.4,3.83,0.03,1.13,1.6
+656,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM13,6.33,0.18,2.92,0.04,3.41,1.6
+657,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM14,3.37,0.43,1.95,0.03,1.4200000000000002,1.6
+658,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM15,3.97,0.55,3.07,0.03,0.9000000000000004,1.6
+659,REF06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,SM16,4.13,0.34,2.62,0.01,1.5099999999999998,1.6
+660,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM02,3.3,0.0,4.09,0.03,-0.79,2.77
+661,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM04,3.9,0.0,3.98,0.03,-0.08000000000000007,2.77
+662,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM07,3.51,0.0,3.21,0.04,0.2999999999999998,2.77
+663,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM08,2.79,0.0,3.1,0.03,-0.31000000000000005,2.77
+664,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM09,3.89,0.0,3.03,0.07,0.8600000000000003,2.77
+665,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM11,1.68,0.0,2.1,0.04,-0.42000000000000015,2.77
+666,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM12,4.33,0.0,3.83,0.03,0.5,2.77
+667,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM13,2.47,0.0,2.92,0.04,-0.44999999999999973,2.77
+668,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM14,2.32,0.0,1.95,0.03,0.3699999999999999,2.77
+669,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM15,2.45,0.0,3.07,0.03,-0.6199999999999997,2.77
+670,ypmr0,Andrew Paluch,SM8-Solvation,Physical,SM16,2.44,0.0,2.62,0.01,-0.18000000000000016,2.77
+671,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM02,1.04,0.0,4.09,0.03,-3.05,3.0
+672,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM04,-0.47,0.0,3.98,0.03,-4.45,3.0
+673,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM07,-0.91,0.0,3.21,0.04,-4.12,3.0
+674,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM08,-2.07,0.0,3.1,0.03,-5.17,3.0
+675,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM09,-2.43,0.0,3.03,0.07,-5.46,3.0
+676,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM11,-5.57,0.0,2.1,0.04,-7.67,3.0
+677,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM12,-0.76,0.0,3.83,0.03,-4.59,3.0
+678,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM13,-1.24,0.0,2.92,0.04,-4.16,3.0
+679,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM14,-2.82,0.0,1.95,0.03,-4.77,3.0
+680,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM15,-2.65,0.0,3.07,0.03,-5.72,3.0
+681,pku5g,Diogo Santos Martins,SAMPL5_49_retro3,Empirical,SM16,0.3,0.0,2.62,0.01,-2.3200000000000003,3.0
+682,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM02,3.11,0.0,4.09,0.03,-0.98,2.06
+683,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM04,3.23,0.0,3.98,0.03,-0.75,2.06
+684,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM07,3.01,0.0,3.21,0.04,-0.20000000000000018,2.06
+685,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM08,2.21,0.0,3.1,0.03,-0.8900000000000001,2.06
+686,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM09,3.18,0.0,3.03,0.07,0.15000000000000036,2.06
+687,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM11,1.69,0.0,2.1,0.04,-0.41000000000000014,2.06
+688,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM12,3.4,0.0,3.83,0.03,-0.43000000000000016,2.06
+689,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM13,2.34,0.0,2.92,0.04,-0.5800000000000001,2.06
+690,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM14,2.24,0.0,1.95,0.03,0.29000000000000026,2.06
+691,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM15,2.27,0.0,3.07,0.03,-0.7999999999999998,2.06
+692,ji2zm,Andrew Paluch,SM8-Solvation-Trained,Mixed,SM16,2.24,0.0,2.62,0.01,-0.3799999999999999,2.06
+693,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM02,3.11,0.56,4.09,0.03,-0.98,0.5
+694,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM04,2.72,0.56,3.98,0.03,-1.2599999999999998,0.5
+695,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM07,2.37,0.56,3.21,0.04,-0.8399999999999999,0.5
+696,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM08,2.83,0.56,3.1,0.03,-0.27,0.5
+697,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM09,2.82,0.56,3.03,0.07,-0.20999999999999996,0.5
+698,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM11,0.9,0.56,2.1,0.04,-1.2000000000000002,0.5
+699,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM12,3.02,0.56,3.83,0.03,-0.81,0.5
+700,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM13,3.18,0.56,2.92,0.04,0.26000000000000023,0.5
+701,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM14,2.44,0.56,1.95,0.03,0.49,0.5
+702,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM15,2.59,0.56,3.07,0.03,-0.48,0.5
+703,kxsp3,Prajay Patel,PLS2 from NIST data and QM-generated QSAR Descriptors,Mixed,SM16,2.67,0.56,2.62,0.01,0.04999999999999982,0.5
+704,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM02,1.71,0.64,4.09,0.03,-2.38,2.0
+705,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM04,4.31,0.55,3.98,0.03,0.3299999999999996,2.0
+706,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM07,3.73,0.54,3.21,0.04,0.52,2.0
+707,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM08,2.9,2.32,3.1,0.03,-0.20000000000000018,2.0
+708,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM09,2.98,0.71,3.03,0.07,-0.04999999999999982,2.0
+709,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM11,2.0,0.88,2.1,0.04,-0.10000000000000009,2.0
+710,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM12,4.51,0.59,3.83,0.03,0.6799999999999997,2.0
+711,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM13,3.33,0.79,2.92,0.04,0.41000000000000014,2.0
+712,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM14,0.54,0.54,1.95,0.03,-1.41,2.0
+713,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM15,1.28,0.85,3.07,0.03,-1.7899999999999998,2.0
+714,y0xxd,Piero Procacci,FS-GM (Fast switching Growth Method),Physical,SM16,2.58,0.72,2.62,0.01,-0.040000000000000036,2.0
+715,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM02,3.61,0.3,4.09,0.03,-0.48,0.6
+716,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM04,3.93,0.25,3.98,0.03,-0.04999999999999982,0.5
+717,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM07,3.63,0.33,3.21,0.04,0.41999999999999993,0.7
+718,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM08,2.62,0.33,3.1,0.03,-0.48,0.7
+719,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM09,3.81,0.24,3.03,0.07,0.7800000000000002,0.5
+720,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM11,1.28,0.26,2.1,0.04,-0.8200000000000001,0.5
+721,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM12,4.6,0.27,3.83,0.03,0.7699999999999996,0.5
+722,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM13,3.67,0.39,2.92,0.04,0.75,0.8
+723,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM14,0.94,0.34,1.95,0.03,-1.01,0.7
+724,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM15,1.74,0.35,3.07,0.03,-1.3299999999999998,0.7
+725,nh6c0,Alexei Nikitin,Molecular-Dynamics-Expanded-Ensembles,Physical,SM16,3.11,0.31,2.62,0.01,0.48999999999999977,0.6
+726,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM02,3.39,0.07,4.09,0.03,-0.6999999999999997,0.71
+727,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM04,3.56,0.06,3.98,0.03,-0.41999999999999993,0.71
+728,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM07,3.04,0.05,3.21,0.04,-0.16999999999999993,0.71
+729,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM08,2.04,0.05,3.1,0.03,-1.06,0.71
+730,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM09,2.89,0.05,3.03,0.07,-0.13999999999999968,0.71
+731,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM11,1.96,0.05,2.1,0.04,-0.14000000000000012,0.71
+732,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM12,3.2,0.06,3.83,0.03,-0.6299999999999999,0.71
+733,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM13,3.22,0.05,2.92,0.04,0.30000000000000027,0.71
+734,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM14,2.17,0.07,1.95,0.03,0.21999999999999997,0.71
+735,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM15,2.04,0.05,3.07,0.03,-1.0299999999999998,0.71
+736,w6jta,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM16,2.84,0.06,2.62,0.01,0.21999999999999975,0.71
+737,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM02,2.32,0.0,4.09,0.03,-1.77,1.82
+738,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM04,3.27,0.0,3.98,0.03,-0.71,1.82
+739,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM07,3.11,0.0,3.21,0.04,-0.10000000000000009,1.82
+740,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM08,1.75,0.0,3.1,0.03,-1.35,1.82
+741,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM09,3.05,0.0,3.03,0.07,0.020000000000000018,1.82
+742,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM11,3.17,0.0,2.1,0.04,1.0699999999999998,1.82
+743,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM12,3.31,0.0,3.83,0.03,-0.52,1.82
+744,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM13,2.82,0.0,2.92,0.04,-0.10000000000000009,1.82
+745,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM14,3.03,0.0,1.95,0.03,1.0799999999999998,1.82
+746,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM15,2.64,0.0,3.07,0.03,-0.4299999999999997,1.82
+747,bqeuh,Andrew Paluch,ISIDA-LSER,Empirical,SM16,2.7,0.0,2.62,0.01,0.08000000000000007,1.82
+748,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM02,3.25,0.06,4.09,0.03,-0.8399999999999999,0.77
+749,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM04,3.41,0.05,3.98,0.03,-0.5699999999999998,0.77
+750,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM07,2.87,0.04,3.21,0.04,-0.33999999999999986,0.77
+751,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM08,2.19,0.05,3.1,0.03,-0.9100000000000001,0.77
+752,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM09,2.72,0.04,3.03,0.07,-0.3099999999999996,0.77
+753,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM11,1.96,0.05,2.1,0.04,-0.14000000000000012,0.77
+754,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM12,3.12,0.04,3.83,0.03,-0.71,0.77
+755,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM13,3.2,0.04,2.92,0.04,0.28000000000000025,0.77
+756,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM14,2.19,0.05,1.95,0.03,0.24,0.77
+757,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM15,1.9,0.04,3.07,0.03,-1.17,0.77
+758,gnxuu,Shuzhe Wang,ML Prediction using MD Feature Vector Trained on logP_octanol_water,Mixed,SM16,2.67,0.04,2.62,0.01,0.04999999999999982,0.77
+759,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM02,4.12,0.15,4.09,0.03,0.03000000000000025,0.39
+760,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM04,3.08,0.003,3.98,0.03,-0.8999999999999999,0.05
+761,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM07,3.86,0.003,3.21,0.04,0.6499999999999999,0.05
+762,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM08,3.13,0.0,3.1,0.03,0.029999999999999805,0.01
+763,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM09,-1.76,0.15,3.03,0.07,-4.79,0.39
+764,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM11,4.65,0.0,2.1,0.04,2.5500000000000003,0.005
+765,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM12,3.75,0.15,3.83,0.03,-0.08000000000000007,0.39
+766,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM13,3.68,0.15,2.92,0.04,0.7600000000000002,0.39
+767,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM14,2.38,0.01,1.95,0.03,0.42999999999999994,0.09
+768,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM15,2.59,0.01,3.07,0.03,-0.48,0.09
+769,03cyy,Evrim Arslan,Linear Regression-B3LYP/6-311G**,Mixed,SM16,4.1,0.02,2.62,0.01,1.4799999999999995,0.12
+770,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM02,5.41,0.25,4.09,0.03,1.3200000000000003,1.2
+771,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM04,5.98,0.23,3.98,0.03,2.0000000000000004,1.2
+772,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM07,5.2,0.44,3.21,0.04,1.9900000000000002,1.2
+773,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM08,4.77,0.23,3.1,0.03,1.6699999999999995,1.2
+774,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM09,4.76,0.43,3.03,0.07,1.73,1.2
+775,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM11,3.18,0.24,2.1,0.04,1.08,1.2
+776,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM12,5.22,0.27,3.83,0.03,1.3899999999999997,1.2
+777,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM13,6.72,0.31,2.92,0.04,3.8,1.2
+778,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM14,3.07,0.34,1.95,0.03,1.1199999999999999,1.2
+779,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM15,3.13,0.44,3.07,0.03,0.06000000000000005,1.2
+780,6nmtt,Bogdan Iorga,MD-AMBER-wetoct,Physical,SM16,4.64,0.63,2.62,0.01,2.0199999999999996,1.2
+781,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM02,4.37,0.69,4.09,0.03,0.28000000000000025,0.5
+782,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM04,2.93,0.69,3.98,0.03,-1.0499999999999998,0.5
+783,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM07,2.56,0.69,3.21,0.04,-0.6499999999999999,0.5
+784,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM08,2.82,0.69,3.1,0.03,-0.28000000000000025,0.5
+785,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM09,1.74,0.69,3.03,0.07,-1.2899999999999998,0.5
+786,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM11,-1.52,0.69,2.1,0.04,-3.62,0.5
+787,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM12,1.84,0.69,3.83,0.03,-1.99,0.5
+788,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM13,2.92,0.69,2.92,0.04,0.0,0.5
+789,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM14,1.38,0.69,1.95,0.03,-0.5700000000000001,0.5
+790,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM15,2.81,0.69,3.07,0.03,-0.2599999999999998,0.5
+791,cr3hs,Prajay Patel,PLS3 from NIST data and QM-generated QSAR Descriptors subset,Mixed,SM16,3.2,0.69,2.62,0.01,0.5800000000000001,0.5
+792,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM02,3.07,0.37,4.09,0.03,-1.02,1.5
+793,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM04,5.01,0.57,3.98,0.03,1.0299999999999998,1.5
+794,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM07,3.37,0.38,3.21,0.04,0.16000000000000014,1.5
+795,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM08,2.94,0.85,3.1,0.03,-0.16000000000000014,1.5
+796,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM09,4.6,0.51,3.03,0.07,1.5699999999999998,1.5
+797,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM11,3.04,0.33,2.1,0.04,0.94,1.5
+798,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM12,4.57,0.51,3.83,0.03,0.7400000000000002,1.5
+799,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM13,2.96,1.02,2.92,0.04,0.040000000000000036,1.5
+800,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM14,2.01,0.38,1.95,0.03,0.05999999999999983,1.5
+801,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM15,2.27,0.27,3.07,0.03,-0.7999999999999998,1.5
+802,ujsgv,Andreas Kraemer,Alchemical-CGenFF,Physical,SM16,3.47,0.54,2.62,0.01,0.8500000000000001,1.5
+803,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM02,3.52,0.06,4.09,0.03,-0.5699999999999998,1.6
+804,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM04,4.63,0.05,3.98,0.03,0.6499999999999999,1.6
+805,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM07,3.3,0.07,3.21,0.04,0.08999999999999986,1.6
+806,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM08,8.36,0.05,3.1,0.03,5.26,1.6
+807,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM09,3.97,0.02,3.03,0.07,0.9400000000000004,1.6
+808,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM11,3.64,0.12,2.1,0.04,1.54,1.6
+809,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM12,4.33,0.18,3.83,0.03,0.5,1.6
+810,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM13,4.49,0.16,2.92,0.04,1.5700000000000003,1.6
+811,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM14,2.3,0.08,1.95,0.03,0.34999999999999987,1.6
+812,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM15,3.15,0.14,3.07,0.03,0.08000000000000007,1.6
+813,REF05,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-wet-oct,Physical,SM16,2.85,0.18,2.62,0.01,0.22999999999999998,1.6
+814,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM02,4.24,0.76,4.09,0.03,0.15000000000000036,0.5
+815,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM04,4.4,0.76,3.98,0.03,0.4200000000000004,0.5
+816,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM07,4.23,0.76,3.21,0.04,1.0200000000000005,0.5
+817,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM08,4.85,0.76,3.1,0.03,1.7499999999999996,0.5
+818,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM09,4.68,0.76,3.03,0.07,1.65,0.5
+819,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM11,3.54,0.76,2.1,0.04,1.44,0.5
+820,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM12,3.92,0.76,3.83,0.03,0.08999999999999986,0.5
+821,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM13,5.14,0.76,2.92,0.04,2.2199999999999998,0.5
+822,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM14,3.81,0.76,1.95,0.03,1.86,0.5
+823,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM15,3.18,0.76,3.07,0.03,0.11000000000000032,0.5
+824,7gg6s,Prajay Patel,MLR from NIST data and QM-generated QSAR Descriptors,Mixed,SM16,2.96,0.76,2.62,0.01,0.33999999999999986,0.5
+825,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM02,3.58,0.15,4.09,0.03,-0.5099999999999998,0.57
+826,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM04,3.82,0.16,3.98,0.03,-0.16000000000000014,0.57
+827,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM07,2.81,0.18,3.21,0.04,-0.3999999999999999,0.57
+828,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM08,2.27,0.15,3.1,0.03,-0.8300000000000001,0.57
+829,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM09,2.84,0.12,3.03,0.07,-0.18999999999999995,0.57
+830,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM11,1.8,0.15,2.1,0.04,-0.30000000000000004,0.57
+831,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM12,3.08,0.23,3.83,0.03,-0.75,0.57
+832,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM13,2.93,0.37,2.92,0.04,0.010000000000000231,0.57
+833,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM14,1.99,0.08,1.95,0.03,0.040000000000000036,0.57
+834,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM15,2.11,0.12,3.07,0.03,-0.96,0.57
+835,0a7a8,Shuzhe Wang,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Mixed,SM16,3.19,0.07,2.62,0.01,0.5699999999999998,0.57
+836,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM02,5.4,0.29,4.09,0.03,1.3100000000000005,3.0
+837,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM04,5.68,0.28,3.98,0.03,1.6999999999999997,3.0
+838,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM07,4.15,0.27,3.21,0.04,0.9400000000000004,3.0
+839,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM08,4.04,0.3,3.1,0.03,0.94,3.0
+840,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM09,4.49,0.24,3.03,0.07,1.4600000000000004,3.0
+841,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM11,2.77,0.2,2.1,0.04,0.6699999999999999,3.0
+842,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM12,5.23,0.23,3.83,0.03,1.4000000000000004,3.0
+843,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM13,5.37,0.24,2.92,0.04,2.45,3.0
+844,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM14,2.73,0.21,1.95,0.03,0.78,3.0
+845,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM15,3.01,0.21,3.07,0.03,-0.06000000000000005,3.0
+846,v2q0t,Ganesh Kamath,InterX_GAFF_WET_OCTANOL,Physical,SM16,3.72,0.28,2.62,0.01,1.1,3.0
+847,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM02,6.45,0.06,4.09,0.03,2.3600000000000003,1.0
+848,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM04,4.82,0.04,3.98,0.03,0.8400000000000003,1.0
+849,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM07,4.03,0.06,3.21,0.04,0.8200000000000003,1.0
+850,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM08,2.88,0.05,3.1,0.03,-0.2200000000000002,1.0
+851,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM09,4.68,0.05,3.03,0.07,1.65,1.0
+852,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM11,3.3,0.03,2.1,0.04,1.1999999999999997,1.0
+853,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM12,5.4,0.04,3.83,0.03,1.5700000000000003,1.0
+854,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM13,5.21,0.07,2.92,0.04,2.29,1.0
+855,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM14,1.99,0.03,1.95,0.03,0.040000000000000036,1.0
+856,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM15,4.02,0.03,3.07,0.03,0.9499999999999997,1.0
+857,jjd0b,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-TIP3P/MBAR/,Physical,SM16,3.16,0.04,2.62,0.01,0.54,1.0
+858,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM02,4.39,0.05,4.09,0.03,0.2999999999999998,0.72
+859,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM04,2.86,0.12,3.98,0.03,-1.12,0.72
+860,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM07,2.09,0.11,3.21,0.04,-1.12,0.72
+861,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM08,3.41,0.09,3.1,0.03,0.31000000000000005,0.72
+862,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM09,3.27,0.03,3.03,0.07,0.2400000000000002,0.72
+863,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM11,0.96,0.1,2.1,0.04,-1.1400000000000001,0.72
+864,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM12,3.96,0.04,3.83,0.03,0.1299999999999999,0.72
+865,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM13,3.97,0.11,2.92,0.04,1.0500000000000003,0.72
+866,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM14,1.6,0.07,1.95,0.03,-0.34999999999999987,0.72
+867,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM15,1.58,0.05,3.07,0.03,-1.4899999999999998,0.72
+868,g6dwz,Samarjeet Prasad,NHLBI-NN-3HL,Empirical,SM16,2.0,0.06,2.62,0.01,-0.6200000000000001,0.72
+869,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM02,4.24,0.65,4.09,0.03,0.15000000000000036,0.5
+870,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM04,4.28,0.65,3.98,0.03,0.30000000000000027,0.5
+871,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM07,4.17,0.65,3.21,0.04,0.96,0.5
+872,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM08,4.8,0.65,3.1,0.03,1.6999999999999997,0.5
+873,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM09,4.56,0.65,3.03,0.07,1.5299999999999998,0.5
+874,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM11,3.3,0.65,2.1,0.04,1.1999999999999997,0.5
+875,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM12,3.6,0.65,3.83,0.03,-0.22999999999999998,0.5
+876,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM13,5.07,0.65,2.92,0.04,2.1500000000000004,0.5
+877,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM14,3.6,0.65,1.95,0.03,1.6500000000000001,0.5
+878,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM15,2.91,0.65,3.07,0.03,-0.1599999999999997,0.5
+879,f3dpg,Prajay Patel,PLS from NIST data and QM-generated QSAR Descriptors,Mixed,SM16,2.73,0.65,2.62,0.01,0.10999999999999988,0.5
+880,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM02,0.71,0.0,4.09,0.03,-3.38,0.0
+881,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM04,1.37,0.0,3.98,0.03,-2.61,0.0
+882,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM07,0.85,0.0,3.21,0.04,-2.36,0.0
+883,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM08,2.14,0.0,3.1,0.03,-0.96,0.0
+884,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM09,1.21,0.0,3.03,0.07,-1.8199999999999998,0.0
+885,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM11,1.15,0.0,2.1,0.04,-0.9500000000000002,0.0
+886,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM12,1.82,0.0,3.83,0.03,-2.01,0.0
+887,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM13,2.27,0.0,2.92,0.04,-0.6499999999999999,0.0
+888,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM14,1.81,0.0,1.95,0.03,-0.1399999999999999,0.0
+889,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM15,1.8,0.0,3.07,0.03,-1.2699999999999998,0.0
+890,hsotx,Prajay Patel,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM16,1.64,0.0,2.62,0.01,-0.9800000000000002,0.0
+891,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM02,2.54,0.51,4.09,0.03,-1.5499999999999998,1.2
+892,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM04,0.0,10.0,3.98,0.03,-3.98,1.2
+893,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM07,4.08,0.38,3.21,0.04,0.8700000000000001,1.2
+894,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM08,3.62,1.0,3.1,0.03,0.52,1.2
+895,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM09,0.2,1.34,3.03,0.07,-2.8299999999999996,1.2
+896,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM11,2.42,0.34,2.1,0.04,0.31999999999999984,1.2
+897,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM12,0.0,10.0,3.83,0.03,-3.83,1.2
+898,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM13,4.16,0.57,2.92,0.04,1.2400000000000002,1.2
+899,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM14,1.93,0.39,1.95,0.03,-0.020000000000000018,1.2
+900,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM15,2.79,0.36,3.07,0.03,-0.2799999999999998,1.2
+901,3oqhx,Bogdan Iorga,MD-CHARMM-dryoct,Physical,SM16,0.0,10.0,2.62,0.01,-2.62,1.2
+902,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM02,7.18,0.07,4.09,0.03,3.09,1.0
+903,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM04,5.36,0.05,3.98,0.03,1.3800000000000003,1.0
+904,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM07,4.52,0.06,3.21,0.04,1.3099999999999996,1.0
+905,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM08,3.14,0.06,3.1,0.03,0.040000000000000036,1.0
+906,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM09,5.27,0.06,3.03,0.07,2.2399999999999998,1.0
+907,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM11,3.93,0.04,2.1,0.04,1.83,1.0
+908,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM12,5.8,0.06,3.83,0.03,1.9699999999999998,1.0
+909,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM13,5.69,0.07,2.92,0.04,2.7700000000000005,1.0
+910,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM14,2.4,0.04,1.95,0.03,0.44999999999999996,1.0
+911,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM15,4.47,0.04,3.07,0.03,1.4,1.0
+912,ke5gu,Esteban Vohringer-Martinez,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,SM16,3.67,0.04,2.62,0.01,1.0499999999999998,1.0
+913,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM02,3.71,0.0,4.09,0.03,-0.3799999999999999,0.48
+914,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM04,4.31,0.0,3.98,0.03,0.3299999999999996,0.48
+915,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM07,3.93,0.0,3.21,0.04,0.7200000000000002,0.48
+916,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM08,3.06,0.0,3.1,0.03,-0.040000000000000036,0.48
+917,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM09,4.16,0.0,3.03,0.07,1.1300000000000003,0.48
+918,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM11,2.23,0.0,2.1,0.04,0.1299999999999999,0.48
+919,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM12,4.81,0.0,3.83,0.03,0.9799999999999995,0.48
+920,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM13,2.27,0.0,2.92,0.04,-0.6499999999999999,0.48
+921,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM14,2.95,0.0,1.95,0.03,1.0000000000000002,0.48
+922,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM15,2.78,0.0,3.07,0.03,-0.29000000000000004,0.48
+923,6cdyo,Andrew Paluch,SM12-Solvation,Physical,SM16,2.37,0.0,2.62,0.01,-0.25,0.48
+924,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM02,0.66,0.0,4.09,0.03,-3.4299999999999997,0.0
+925,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM04,1.33,0.0,3.98,0.03,-2.65,0.0
+926,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM07,0.8,0.0,3.21,0.04,-2.41,0.0
+927,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM08,2.07,0.0,3.1,0.03,-1.0300000000000002,0.0
+928,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM09,1.17,0.0,3.03,0.07,-1.8599999999999999,0.0
+929,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM11,1.09,0.0,2.1,0.04,-1.01,0.0
+930,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM12,1.8,0.0,3.83,0.03,-2.0300000000000002,0.0
+931,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM13,2.23,0.0,2.92,0.04,-0.69,0.0
+932,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM14,1.72,0.0,1.95,0.03,-0.22999999999999998,0.0
+933,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM15,1.73,0.0,3.07,0.03,-1.3399999999999999,0.0
+934,5t0yn,Prajay Patel,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM16,1.62,0.0,2.62,0.01,-1.0,0.0
+935,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM02,6.26,0.43,4.09,0.03,2.17,1.0
+936,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM04,5.23,0.31,3.98,0.03,1.2500000000000004,1.0
+937,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM07,4.02,0.25,3.21,0.04,0.8099999999999996,1.0
+938,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM08,2.77,0.56,3.1,0.03,-0.33000000000000007,1.0
+939,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM09,3.66,0.54,3.03,0.07,0.6300000000000003,1.0
+940,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM11,3.53,0.27,2.1,0.04,1.4299999999999997,1.0
+941,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM12,5.72,0.41,3.83,0.03,1.8899999999999997,1.0
+942,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM13,4.07,0.49,2.92,0.04,1.1500000000000004,1.0
+943,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM14,3.04,0.25,1.95,0.03,1.09,1.0
+944,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM15,2.94,0.24,3.07,0.03,-0.1299999999999999,1.0
+945,25s67,Piero Procacci,FS-AGM (Fast switching Annihilation/Growth Method),Physical,SM16,3.37,0.32,2.62,0.01,0.75,1.0
+946,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM02,2.92,0.27,4.09,0.03,-1.17,0.39
+947,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM04,3.1,0.29,3.98,0.03,-0.8799999999999999,0.41
+948,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM07,2.72,0.18,3.21,0.04,-0.48999999999999977,0.25
+949,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM08,2.31,0.22,3.1,0.03,-0.79,0.31
+950,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM09,4.97,0.37,3.03,0.07,1.94,0.53
+951,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM11,1.55,0.45,2.1,0.04,-0.55,0.64
+952,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM12,4.32,0.47,3.83,0.03,0.4900000000000002,0.67
+953,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM13,6.14,0.41,2.92,0.04,3.2199999999999998,0.58
+954,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM14,1.88,0.13,1.95,0.03,-0.07000000000000006,0.19
+955,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM15,2.67,0.18,3.07,0.03,-0.3999999999999999,0.26
+956,hwf2k,Chung Kee-Choo,Extended solvent-contact model approach,Empirical,SM16,2.35,0.4,2.62,0.01,-0.27,0.57
+957,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM02,5.74,0.23,4.09,0.03,1.6500000000000004,1.2
+958,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM04,6.64,0.26,3.98,0.03,2.6599999999999997,1.2
+959,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM07,4.73,0.18,3.21,0.04,1.5200000000000005,1.2
+960,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM08,7.59,0.25,3.1,0.03,4.49,1.2
+961,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM09,4.92,0.25,3.03,0.07,1.8900000000000001,1.2
+962,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM11,4.76,0.22,2.1,0.04,2.6599999999999997,1.2
+963,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM12,5.97,0.28,3.83,0.03,2.1399999999999997,1.2
+964,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM13,5.32,0.28,2.92,0.04,2.4000000000000004,1.2
+965,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM14,4.49,0.18,1.95,0.03,2.54,1.2
+966,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM15,5.33,0.17,3.07,0.03,2.2600000000000002,1.2
+967,623c0,Bogdan Iorga,MD-OPLSAA-wetoct,Physical,SM16,6.27,0.25,2.62,0.01,3.6499999999999995,1.2
+968,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM02,1.32,0.2,4.09,0.03,-2.7699999999999996,1.45
+969,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM04,2.1,0.39,3.98,0.03,-1.88,1.09
+970,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM07,2.49,1.2,3.21,0.04,-0.7199999999999998,1.09
+971,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM08,1.52,3.58,3.1,0.03,-1.58,1.09
+972,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM09,1.59,0.68,3.03,0.07,-1.4399999999999997,1.09
+973,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM11,1.98,1.7,2.1,0.04,-0.1200000000000001,1.09
+974,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM12,-0.31,2.46,3.83,0.03,-4.14,1.45
+975,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM13,0.79,0.52,2.92,0.04,-2.13,1.09
+976,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM14,-0.53,0.07,1.95,0.03,-2.48,1.09
+977,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM15,0.0,0.16,3.07,0.03,-3.07,1.09
+978,pnc4j,Jing Huang,LogP-prediction-Drude-Umbrella-HuangLab,Physical,SM16,0.59,0.89,2.62,0.01,-2.0300000000000002,1.09
+979,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM02,5.04,0.0,4.09,0.03,0.9500000000000002,0.72
+980,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM04,4.42,0.0,3.98,0.03,0.43999999999999995,0.72
+981,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM07,3.96,0.0,3.21,0.04,0.75,0.72
+982,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM08,3.34,0.0,3.1,0.03,0.23999999999999977,0.72
+983,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM09,4.28,0.0,3.03,0.07,1.2500000000000004,0.72
+984,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM11,2.44,0.0,2.1,0.04,0.33999999999999986,0.72
+985,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM12,4.77,0.0,3.83,0.03,0.9399999999999995,0.72
+986,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM13,4.52,0.0,2.92,0.04,1.5999999999999996,0.72
+987,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM14,2.49,0.0,1.95,0.03,0.5400000000000003,0.72
+988,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM15,2.38,0.0,3.07,0.03,-0.69,0.72
+989,d7vth,Andrew Paluch,UFZ-LSER,Empirical,SM16,3.44,0.0,2.62,0.01,0.8199999999999998,0.72
+990,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM02,3.8,2e-06,4.09,0.03,-0.29000000000000004,0.68
+991,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM04,3.25,1.45e-06,3.98,0.03,-0.73,0.68
+992,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM07,3.23,9.76e-06,3.21,0.04,0.020000000000000018,0.68
+993,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM08,2.49,2.35e-07,3.1,0.03,-0.6099999999999999,0.68
+994,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM09,2.9,2.26e-06,3.03,0.07,-0.1299999999999999,0.68
+995,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM11,1.65,9.99e-07,2.1,0.04,-0.4500000000000002,0.68
+996,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM12,3.63,0.0,3.83,0.03,-0.20000000000000018,0.68
+997,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM13,3.08,0.0,2.92,0.04,0.16000000000000014,0.68
+998,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM14,2.41,0.0,1.95,0.03,0.4600000000000002,0.68
+999,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM15,2.34,5.23e-07,3.07,0.03,-0.73,0.68
+1000,dqxk4,Davy Guan,LogP_SMD_Solvation_DFT,Physical,SM16,1.8,1.13e-06,2.62,0.01,-0.8200000000000001,0.68
+1001,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM02,4.6,0.14,4.09,0.03,0.5099999999999998,1.6
+1002,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM04,4.29,0.13,3.98,0.03,0.31000000000000005,1.6
+1003,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM07,3.26,0.16,3.21,0.04,0.04999999999999982,1.6
+1004,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM08,7.96,0.13,3.1,0.03,4.859999999999999,1.6
+1005,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM09,3.84,0.06,3.03,0.07,0.81,1.6
+1006,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM11,2.87,0.05,2.1,0.04,0.77,1.6
+1007,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM12,4.55,0.06,3.83,0.03,0.7199999999999998,1.6
+1008,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM13,4.49,0.13,2.92,0.04,1.5700000000000003,1.6
+1009,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM14,1.73,0.12,1.95,0.03,-0.21999999999999997,1.6
+1010,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM15,2.5,0.11,3.07,0.03,-0.5699999999999998,1.6
+1011,REF02,Danielle Bergazin,YANK-GAFF-TIP3P-wet-oct,Physical,SM16,2.95,0.27,2.62,0.01,0.33000000000000007,1.6
+1012,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM02,0.79,0.0,4.09,0.03,-3.3,0.0
+1013,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM04,1.43,0.0,3.98,0.03,-2.55,0.0
+1014,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM07,0.91,0.0,3.21,0.04,-2.3,0.0
+1015,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM08,2.33,0.0,3.1,0.03,-0.77,0.0
+1016,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM09,1.34,0.0,3.03,0.07,-1.6899999999999997,0.0
+1017,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM11,1.18,0.0,2.1,0.04,-0.9200000000000002,0.0
+1018,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM12,1.92,0.0,3.83,0.03,-1.9100000000000001,0.0
+1019,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM13,2.36,0.0,2.92,0.04,-0.56,0.0
+1020,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM14,1.84,0.0,1.95,0.03,-0.10999999999999988,0.0
+1021,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM15,1.87,0.0,3.07,0.03,-1.1999999999999997,0.0
+1022,jc68f,Prajay Patel,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM16,1.77,0.0,2.62,0.01,-0.8500000000000001,0.0
+1023,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM02,1.6,0.29,4.09,0.03,-2.4899999999999998,3.0
+1024,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM04,0.09,0.34,3.98,0.03,-3.89,3.0
+1025,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM07,-0.99,0.32,3.21,0.04,-4.2,3.0
+1026,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM08,3.61,0.5,3.1,0.03,0.5099999999999998,3.0
+1027,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM09,-1.52,0.3,3.03,0.07,-4.55,3.0
+1028,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM11,1.77,0.36,2.1,0.04,-0.33000000000000007,3.0
+1029,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM12,0.03,0.34,3.83,0.03,-3.8000000000000003,3.0
+1030,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM13,0.65,0.37,2.92,0.04,-2.27,3.0
+1031,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM14,2.56,0.36,1.95,0.03,0.6100000000000001,3.0
+1032,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM15,0.0,0.34,3.07,0.03,-3.07,3.0
+1033,eg52i,Ganesh Kamath,ARROW_2017,Physical,SM16,3.42,0.38,2.62,0.01,0.7999999999999998,3.0
+1034,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM02,4.23,0.18,4.09,0.03,0.14000000000000057,0.68
+1035,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM04,3.93,0.2,3.98,0.03,-0.04999999999999982,0.68
+1036,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM07,3.41,0.18,3.21,0.04,0.20000000000000018,0.68
+1037,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM08,4.14,0.19,3.1,0.03,1.0399999999999996,0.68
+1038,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM09,3.42,0.19,3.03,0.07,0.3900000000000001,0.68
+1039,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM11,2.33,0.19,2.1,0.04,0.22999999999999998,0.68
+1040,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM12,3.88,0.19,3.83,0.03,0.04999999999999982,0.68
+1041,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM13,3.74,0.19,2.92,0.04,0.8200000000000003,0.68
+1042,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM14,2.62,0.19,1.95,0.03,0.6700000000000002,0.68
+1043,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM15,2.93,0.2,3.07,0.03,-0.13999999999999968,0.68
+1044,vzgyt,Jae Hong Shin,rfs-logp,Empirical,SM16,3.08,0.18,2.62,0.01,0.45999999999999996,0.68
+1045,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM02,0.79,0.0,4.09,0.03,-3.3,0.0
+1046,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM04,1.43,0.0,3.98,0.03,-2.55,0.0
+1047,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM07,0.91,0.0,3.21,0.04,-2.3,0.0
+1048,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM08,2.34,0.0,3.1,0.03,-0.7600000000000002,0.0
+1049,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM09,1.35,0.0,3.03,0.07,-1.6799999999999997,0.0
+1050,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM11,1.18,0.0,2.1,0.04,-0.9200000000000002,0.0
+1051,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM12,1.92,0.0,3.83,0.03,-1.9100000000000001,0.0
+1052,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM13,2.37,0.0,2.92,0.04,-0.5499999999999998,0.0
+1053,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM14,1.84,0.0,1.95,0.03,-0.10999999999999988,0.0
+1054,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM15,1.87,0.0,3.07,0.03,-1.1999999999999997,0.0
+1055,c7t5j,Prajay Patel,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,SM16,1.78,0.0,2.62,0.01,-0.8400000000000001,0.0
+1056,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM02,0.89,0.62,4.09,0.03,-3.1999999999999997,1.5
+1057,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM04,1.66,0.65,3.98,0.03,-2.3200000000000003,1.5
+1058,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM07,2.43,0.41,3.21,0.04,-0.7799999999999998,1.5
+1059,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM08,0.42,1.28,3.1,0.03,-2.68,1.5
+1060,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM09,0.01,0.98,3.03,0.07,-3.02,1.5
+1061,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM11,3.44,0.42,2.1,0.04,1.3399999999999999,1.5
+1062,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM12,1.39,0.83,3.83,0.03,-2.4400000000000004,1.5
+1063,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM13,0.21,1.04,2.92,0.04,-2.71,1.5
+1064,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM14,2.14,0.28,1.95,0.03,0.19000000000000017,1.5
+1065,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM15,2.07,0.27,3.07,0.03,-1.0,1.5
+1066,tzzb5,Andreas Kraemer,Alchemical-CGenFF,Physical,SM16,3.47,0.54,2.62,0.01,0.8500000000000001,1.5
