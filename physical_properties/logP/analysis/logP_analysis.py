@@ -598,6 +598,9 @@ class SamplSubmission:
     # The IDs of the submissions used for testing the validation.
     TEST_SUBMISSIONS = {}
 
+    # The IDs of submissions used for reference calculations
+    REF_SUBMISSIONS = []
+
     # Section of the submission file.
     SECTIONS = {}
 
@@ -617,6 +620,11 @@ class SamplSubmission:
         self.receipt_id = file_data[0]
         if self.receipt_id in self.TEST_SUBMISSIONS:
             raise IgnoredSubmissionError('This submission has been used for tests.')
+
+        # Check if this is a reference submission
+        self.reference_submission = False
+        if self.receipt_id in self.REF_SUBMISSIONS:
+            self.reference_submission = True
 
         # Check this is the correct challenge.
         self.challenge_id = int(file_data[1])
@@ -812,11 +820,19 @@ class logPSubmission(SamplSubmission):
 # =============================================================================
 
 
-def load_submissions(directory_path, user_map):
+def load_submissions(directory_path, user_map, ref_submission_ids = []):
+    """Load submissions from a specified directory using a specified user map.
+    Optional argument:
+        ref_ids: List specifying submission IDs (alphanumeric, typically) of
+        reference submissions which are to be ignored/analyzed separately.
+    Returns: submissions
+    """
     submissions = []
     for file_path in glob.glob(os.path.join(directory_path, '*.csv')):
         try:
             submission = logPSubmission(file_path, user_map)
+            if len(ref_submission_ids)>0:
+                submission.REF_SUBMISSIONS = ref_submission_ids
 
         except IgnoredSubmissionError:
             continue
@@ -1097,7 +1113,7 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
                 '\\begin{document}\n'
                 '\\begin{center}\n')
         statistics_latex.to_latex(f, column_format='|cccccccc|', escape=False, index=False, longtable=True)
-        f.write('\end{center}\n' 
+        f.write('\end{center}\n'
                 '\nNotes\n\n'
                 '- RMSE: Root mean square error\n\n'
                 '- MAE: Mean absolute error\n\n'
@@ -1273,7 +1289,7 @@ if __name__ == '__main__':
     }
 
     # Load submissions data.
-    submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
+    submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map, ref_submission_ids=['zaqws', 'zxcvb'])
 
     # Perform the analysis
 

@@ -7,7 +7,7 @@ Molecular statistics analysis was performed to indicate logP values of which mol
 
 ## Manifest
 - `run.sh` - Bash script that run python analysis scripts and compiles TeX files.
-- `logP_analysis.py` - Python script that parses submissions and performs the analysis.
+- `logP_analysis.py` - Python script that parses submissions and performs the analysis. Provides separate treatment for reference calculations, which are not formally part of the challenge but are provided as reference/comparison methods.
 - `logP_analysis_refcalcs.py` - Attempts to extend `logP_analysis.py` to add support for reference calculations -- calculations which are not formally part of the challenge but are provided as reference or comparison methods.
 - `logP_analysis2.py` - Python script that performs the analysis of molecular statistics (Error statistics, MAE and RMSE, calculated across methods for each molecule.)
 - `logP_predictions/` - This directory includes SAMPL6 type III pKa submission files.
@@ -43,7 +43,9 @@ Molecular statistics analysis was performed to indicate logP values of which mol
     - `Mixed/` - This directory contains table and barplots of molecular statistics analysis calculated only for methods in Mixed method category.
     - `Other/` - This directory contains table and barplots of molecular statistics analysis calculated only for methods in Other method category.
     - `Physical/` - This directory contains table and barplots of molecular statistics analysis calculated only for methods in Physical method category.
-
+- `analysis_outputs_withrefs/` - Duplicates the `analysis_outputs` directory, but also includes analysis of Mobley lab reference calculations, which were not formal submissions. In addition to the plot categories above, also adds, under `MolecularStatisticsTables`, the following new plots:
+    - `MAE_vs_method_plot_colored_by_type.pdf`: Barplot showing overall performance by MAE, with reference calculations colored differently.
+    - `RMSE_vs_method_plot_colored_by_type.pdf`: Barplot showing overall performance by RMSE, with reference calculations colored differently.
 
 
   ## Submission IDs for log *P* prediction methods
