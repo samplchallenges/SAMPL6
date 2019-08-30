@@ -772,7 +772,7 @@ class logPSubmission(SamplSubmission):
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=1000) #10000
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10) #10000
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
@@ -803,7 +803,7 @@ class logPSubmission(SamplSubmission):
         expt = data_mod_unc.loc[:, "logP mean (expt)"].values
         dcalc = data_mod_unc.loc[:, "logP model uncertainty"].values
         dexpt = data_mod_unc.loc[:, "logP SEM (expt)"].values
-        n_bootstrap_samples = 1000 #1000
+        n_bootstrap_samples = 10 #1000
 
         X, Y, error_slope, error_slope_std, slopes = getQQdata(calc, expt, dcalc, dexpt, boot_its=n_bootstrap_samples)
         #print(X)
@@ -1131,13 +1131,14 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     os.makedirs(latex_directory_path, exist_ok=True)
     with open(os.path.join(latex_directory_path, file_base_name + '.tex'), 'w') as f:
         f.write('\\documentclass{article}\n'
-                '\\usepackage[a4paper,margin=0.005in,tmargin=0.5in,landscape]{geometry}\n'
+                '\\usepackage[a4paper,margin=0.005in,tmargin=0.5in,lmargin=0.5in,rmargin=0.5in,landscape]{geometry}\n'
                 '\\usepackage{booktabs}\n'
                 '\\usepackage{longtable}\n'
                 '\\pagenumbering{gobble}\n'
                 '\\begin{document}\n'
-                '\\begin{center}\n')
-        statistics_latex.to_latex(f, column_format='|cccccccc|', escape=False, index=False, longtable=True)
+                '\\begin{center}\n'
+                '\\scriptsize\n')
+        statistics_latex.to_latex(f, column_format='|ccccccccc|', escape=False, index=False, longtable=True)
         f.write('\end{center}\n'
                 '\nNotes\n\n'
                 '- RMSE: Root mean square error\n\n'
@@ -1145,6 +1146,7 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
                 '- ME: Mean error\n\n'
                 '- R2: R-squared, square of Pearson correlation coefficient\n\n'
                 '- m: slope of the line fit to predicted vs experimental logP values\n\n'
+                '- $\\tau$:  Kendall rank correlation coefficient\n\n'
                 '- ES: error slope calculated from the QQ Plots of model uncertainty predictions\n\n'
                 '- Mean and 95\% confidence intervals of RMSE, MAE, ME, R2, and m were calculated by bootstrapping with 10000 samples.\n\n'
                 '- 95\% confidence intervals of ES were calculated by bootstrapping with 1000 samples.'
