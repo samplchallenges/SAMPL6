@@ -868,17 +868,17 @@
 866,-0.34999999999999987,SM14,Empirical,1.6,1.95,0.07,0.03,0.72,NHLBI-NN-3HL,Samarjeet Prasad,g6dwz
 867,-1.4899999999999998,SM15,Empirical,1.58,3.07,0.05,0.03,0.72,NHLBI-NN-3HL,Samarjeet Prasad,g6dwz
 868,-0.6200000000000001,SM16,Empirical,2.0,2.62,0.06,0.01,0.72,NHLBI-NN-3HL,Samarjeet Prasad,g6dwz
-869,-0.33999999999999986,SM02,Physical,3.75,4.09,0.3,0.03,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-870,0.7100000000000004,SM04,Physical,4.69,3.98,0.12,0.03,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-871,0.0,SM07,Physical,3.21,3.21,0.05,0.04,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-872,5.630000000000001,SM08,Physical,8.73,3.1,0.04,0.03,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-873,0.3700000000000001,SM09,Physical,3.4,3.03,0.19,0.07,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-874,1.2799999999999998,SM11,Physical,3.38,2.1,0.2,0.04,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-875,0.4299999999999997,SM12,Physical,4.26,3.83,0.14,0.03,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-876,1.0,SM13,Physical,3.92,2.92,0.3,0.04,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-877,-0.050000000000000044,SM14,Physical,1.9,1.95,0.21,0.03,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-878,-0.5799999999999996,SM15,Physical,2.49,3.07,0.14,0.03,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
-879,-0.16000000000000014,SM16,Physical,2.46,2.62,0.1,0.01,1.6,YANK-GAFF_OPC_wet_oct,Danielle Bergazin,REF07
+869,-0.33999999999999986,SM02,Physical,3.75,4.09,0.3,0.03,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+870,0.7100000000000004,SM04,Physical,4.69,3.98,0.12,0.03,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+871,0.0,SM07,Physical,3.21,3.21,0.05,0.04,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+872,5.630000000000001,SM08,Physical,8.73,3.1,0.04,0.03,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+873,0.3700000000000001,SM09,Physical,3.4,3.03,0.19,0.07,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+874,1.2799999999999998,SM11,Physical,3.38,2.1,0.2,0.04,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+875,0.4299999999999997,SM12,Physical,4.26,3.83,0.14,0.03,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+876,1.0,SM13,Physical,3.92,2.92,0.3,0.04,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+877,-0.050000000000000044,SM14,Physical,1.9,1.95,0.21,0.03,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+878,-0.5799999999999996,SM15,Physical,2.49,3.07,0.14,0.03,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
+879,-0.16000000000000014,SM16,Physical,2.46,2.62,0.1,0.01,1.6,YANK-SMIRNOFF_tip3p_dry_octanol,Danielle Bergazin,REF07
 880,0.15000000000000036,SM02,Mixed,4.24,4.09,0.65,0.03,0.5,PLS from NIST data and QM-generated QSAR Descriptors,Prajay Patel,f3dpg
 881,0.30000000000000027,SM04,Mixed,4.28,3.98,0.65,0.03,0.5,PLS from NIST data and QM-generated QSAR Descriptors,Prajay Patel,f3dpg
 882,0.96,SM07,Mixed,4.17,3.21,0.65,0.04,0.5,PLS from NIST data and QM-generated QSAR Descriptors,Prajay Patel,f3dpg
