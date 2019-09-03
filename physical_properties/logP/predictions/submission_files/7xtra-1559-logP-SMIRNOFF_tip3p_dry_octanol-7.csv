@@ -1,0 +1,24 @@
+Predictions:
+SM02,3.75,0.3,1.6
+SM04,4.69,0.12,1.6
+SM07,3.21,0.05,1.6
+SM08,8.73,0.04,1.6
+SM09,3.4,0.19,1.6
+SM11,3.38,0.2,1.6
+SM12,4.26,0.14,1.6
+SM13,3.92,0.3,1.6
+SM14,1.9,0.21,1.6
+SM15,2.49,0.14,1.6
+SM16,2.46,0.1,1.6
+
+Name:
+YANK-GAFF_OPC_wet_oct
+
+Software:
+YANK
+
+Category:
+Physical
+
+Method:
+Transfer free energies via YANK.
