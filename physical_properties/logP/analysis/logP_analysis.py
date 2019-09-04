@@ -772,7 +772,7 @@ class logPSubmission(SamplSubmission):
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10) #10000
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000) #10000
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
@@ -803,7 +803,7 @@ class logPSubmission(SamplSubmission):
         expt = data_mod_unc.loc[:, "logP mean (expt)"].values
         dcalc = data_mod_unc.loc[:, "logP model uncertainty"].values
         dexpt = data_mod_unc.loc[:, "logP SEM (expt)"].values
-        n_bootstrap_samples = 10 #1000
+        n_bootstrap_samples = 1000 #1000
 
         X, Y, error_slope, error_slope_std, slopes = getQQdata(calc, expt, dcalc, dexpt, boot_its=n_bootstrap_samples)
         #print(X)
