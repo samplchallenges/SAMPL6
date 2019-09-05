@@ -61,6 +61,7 @@ The SAMPL project was recently funded by the National Institutes of Health, for 
 - JCAMD special issue paper submission deadline was extended to Oct. 15, 2019 for log *P* challenge.
 - (Post-challenge) Concentrations for certain CB8 host-guest titrations, as requested by participants.
 - (Post-challenge) Add reference calculations done by the Mobley lab, and separate analysis of those reference calculations.
+- (Post-challenge) Add Kendall's Tau calculation to log *P* challenge analysis.
 
 ## Challenge Overview
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))

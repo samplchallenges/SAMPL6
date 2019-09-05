@@ -7,8 +7,7 @@ Molecular statistics analysis was performed to indicate logP values of which mol
 
 ## Manifest
 - `run.sh` - Bash script that run python analysis scripts and compiles TeX files.
-- `logP_analysis.py` - Python script that parses submissions and performs the analysis. Provides separate treatment for reference calculations, which are not formally part of the challenge but are provided as reference/comparison methods.
-- `logP_analysis_refcalcs.py` - Attempts to extend `logP_analysis.py` to add support for reference calculations -- calculations which are not formally part of the challenge but are provided as reference or comparison methods.
+- `logP_analysis.py` - Python script that parses submissions and performs the analysis. Provides two separate treatment for blind predictions alone (output directory: `analysis_outputs/`) and blind predictions together with reference calculations (output directory: `analysis_outputs_withrefs/`). Reference calculations are not formally part of the challenge but are provided as reference/comparison methods. They are collected after the blind challenge deadline.
 - `logP_analysis2.py` - Python script that performs the analysis of molecular statistics (Error statistics, MAE and RMSE, calculated across methods for each molecule.)
 - `logP_predictions/` - This directory includes SAMPL6 type III pKa submission files.
 
@@ -19,7 +18,8 @@ Molecular statistics analysis was performed to indicate logP values of which mol
   - `pKaCorrelationPlotsWithSEM/` - This directory contains similar plots to the `pKaCorrelationPlots/` directory with error bars added for Standard Error of the Mean(SEM) of experimental and predicted values for submissions that reported these values. Since experimental log *P* SEM values are small horizontal error bars are mostly not visible.
   - `AbsoluteErrorPlots/` - This directory contains a bar plot for each method showing the absolute error for each log *P* prediction compared to experimental value.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table, bootstrap distributions of performance statistics, and overall performance comparison plots based on RMSE and MAE values.
-    - `statistics.pdf` - A table of performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), and error slope(ES)) for all the submissions.
+    - `statistics.pdf` - A table of performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), Kendall's Tau, and error slope(ES)) for all the submissions.
+    - `statistics.csv`- A table of performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), Kendall's Tau, and error slope(ES)) for all the submissions.
     - `RMSE_vs_method_plot.pdf`
     - `RMSE_vs_method_plot_colored_by_method_category.pdf`
     - `RMSE_vs_method_plot_for_Physical_category.pdf`
@@ -32,6 +32,12 @@ Molecular statistics analysis was performed to indicate logP values of which mol
     - `MAE_vs_method_plot_for_Empirical_category.pdf`
     - `MAE_vs_method_plot_for_Mixed_category.pdf`
     - `MAE_vs_method_plot_for_Other_category.pdf`
+    - `kendalls_tau_vs_method_plot.pdf`
+    - `kendalls_tau_vs_method_plot_colored_by_method_category.pdf`
+    - `kendalls_tau_vs_method_plot_for_Physical_category.pdf`
+    - `kendalls_tau_vs_method_plot_for_Empirical_category.pdf`
+    - `kendalls_tau_vs_method_plot_for_Mixed_category.pdf`
+    - `kendalls_tau_vs_method_plot_for_Other_category.pdf` 
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
   - `QQPlots/` - Quantile-Quantile plots for the analysis of model uncertainty predictions.
   - `MolecularStatisticsTables/` - This directory contains tables and barplots of molecular statistics analysis (Error statistics, MAE and RMSE, calculated across methods for each molecule.)
@@ -50,7 +56,7 @@ Molecular statistics analysis was performed to indicate logP values of which mol
 
   ## Submission IDs for log *P* prediction methods
 
- SAMPL6 log *P* challenge submissions were listed in the ascending order of RMSE.
+ SAMPL6 log *P* challenge blind submissions were listed in the ascending order of RMSE.
 
 | Submission ID | Method Name |  Category    |
 |---------------|-------------|--------------|
@@ -145,3 +151,20 @@ Molecular statistics analysis was performed to indicate logP values of which mol
 | hf4wj	| MD/S-HI-GAFF-SPCE/MBAR/	| Physical |
 | pku5g	| SAMPL5_49_retro3 |	Empirical |
 | po4g2	| SAMPL5_49	| Empirical |
+
+
+ ## Submission IDs for reference log *P* prediction methods
+
+Reference calculations are not formally part of the challenge but are provided as reference/comparison methods. 
+They are collected after the blind challenge deadline. 
+SAMPL6 log *P* challenge reference submissions were listed in the ascending order of RMSE.
+
+| Submission ID | Method Name |  Category    |
+|---------------|-------------|--------------|
+| REF02 | YANK-GAFF-TIP3P-wet-oct | Physical |
+| REF05 | YANK-SMIRNOFF-TIP3P-wet-oct | Physical |
+| REF06 | YANK-SMIRNOFF-OPC-wet-oct	| Physical |
+| REF03 | YANK-GAFF-OPC-wet-oct | Physical |
+| REF01 | YANK-GAFF-TIP3P-FB-wet-oct | Physical |
+| REF04 | YANK-SMIRNOFF-TIP3P-FB-wet-oct	| Physical |
+

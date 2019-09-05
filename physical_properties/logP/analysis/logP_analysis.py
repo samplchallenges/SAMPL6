@@ -65,8 +65,13 @@ def rmse(data):
     rmse = np.sqrt((error**2).mean())
     return rmse
 
+def kendall_tau(data):
+    x, y = data.T
+    correlation, p_value = scipy.stats.kendalltau(x, y)
+    return correlation
 
-def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootstrap_samples=10):#1000):
+
+def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootstrap_samples=1000):
     """Compute bootstrap confidence interval for the given statistics functions."""
     # Handle case where only a single function is passed.
     #print("SAMPLES:\n", samples)
@@ -767,7 +772,7 @@ class logPSubmission(SamplSubmission):
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10)#10000)
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000) #10000
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
@@ -798,7 +803,7 @@ class logPSubmission(SamplSubmission):
         expt = data_mod_unc.loc[:, "logP mean (expt)"].values
         dcalc = data_mod_unc.loc[:, "logP model uncertainty"].values
         dexpt = data_mod_unc.loc[:, "logP SEM (expt)"].values
-        n_bootstrap_samples = 10#1000
+        n_bootstrap_samples = 1000 #1000
 
         X, Y, error_slope, error_slope_std, slopes = getQQdata(calc, expt, dcalc, dexpt, boot_its=n_bootstrap_samples)
         #print(X)
@@ -1126,13 +1131,14 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     os.makedirs(latex_directory_path, exist_ok=True)
     with open(os.path.join(latex_directory_path, file_base_name + '.tex'), 'w') as f:
         f.write('\\documentclass{article}\n'
-                '\\usepackage[a4paper,margin=0.005in,tmargin=0.5in,landscape]{geometry}\n'
+                '\\usepackage[a4paper,margin=0.005in,tmargin=0.5in,lmargin=0.5in,rmargin=0.5in,landscape]{geometry}\n'
                 '\\usepackage{booktabs}\n'
                 '\\usepackage{longtable}\n'
                 '\\pagenumbering{gobble}\n'
                 '\\begin{document}\n'
-                '\\begin{center}\n')
-        statistics_latex.to_latex(f, column_format='|cccccccc|', escape=False, index=False, longtable=True)
+                '\\begin{center}\n'
+                '\\scriptsize\n')
+        statistics_latex.to_latex(f, column_format='|ccccccccc|', escape=False, index=False, longtable=True)
         f.write('\end{center}\n'
                 '\nNotes\n\n'
                 '- RMSE: Root mean square error\n\n'
@@ -1140,6 +1146,7 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
                 '- ME: Mean error\n\n'
                 '- R2: R-squared, square of Pearson correlation coefficient\n\n'
                 '- m: slope of the line fit to predicted vs experimental logP values\n\n'
+                '- $\\tau$:  Kendall rank correlation coefficient\n\n'
                 '- ES: error slope calculated from the QQ Plots of model uncertainty predictions\n\n'
                 '- Mean and 95\% confidence intervals of RMSE, MAE, ME, R2, and m were calculated by bootstrapping with 10000 samples.\n\n'
                 '- 95\% confidence intervals of ES were calculated by bootstrapping with 1000 samples.'
@@ -1221,7 +1228,37 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
             plt.savefig(directory_path + "/MAE_vs_method_plot_colored_by_type.pdf")
 
 
-        # Plot RMSE and MAE comparison plots for each category separately
+        # Kendall's Tau comparison plot
+        # Reorder based on Kendall's Tau value
+        df_statistics_tau = df_statistics.sort_values(by="kendall_tau", inplace=False, ascending=False)
+
+        barplot_with_CI_errorbars(df=df_statistics_tau, x_label="ID", y_label="kendall_tau",
+                                  y_lower_label="kendall_tau_lower_bound",
+                                  y_upper_label="kendall_tau_upper_bound", figsize=(22, 10))
+        plt.savefig(directory_path + "/kendalls_tau_vs_method_plot.pdf")
+
+        # Kendall's Tau  comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics_tau, x_label="ID", y_label="kendall_tau",
+                                                   y_lower_label="kendall_tau_lower_bound",
+                                                   y_upper_label="kendall_tau_upper_bound", color_label="category",
+                                                   figsize=(22, 10))
+        # plt.ylim(-1.0, 1.0)
+        plt.savefig(directory_path + "/kendalls_tau_vs_method_plot_colored_by_method_category.pdf")
+
+
+        # Do same graph with colorizing by reference calculation
+        if not ignore_refcalcs:
+            # MAE comparison plot with each category colored separately
+            barplot_with_CI_errorbars_colored_by_label(df=df_statistics_tau, x_label="ID", y_label="kendall_tau",
+                                                       y_lower_label="kendall_tau_lower_bound",
+                                                       y_upper_label="kendall_tau_upper_bound", color_label="type",
+                                                       figsize=(22, 10))
+            plt.ylim(0.0, 7.0)
+            plt.savefig(directory_path + "/kendalls_tau_vs_method_plot_colored_by_type.pdf")
+
+
+
+        # Plot RMSE, MAE, Kendall's Tau comparison plots for each category separately
         category_list = ["Physical","Empirical", "Mixed", "Other"]
 
         for category in category_list:
@@ -1231,7 +1268,7 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
             # Take subsection of dataframe for each category
             df_statistics_1category = df_statistics.loc[df_statistics['category'] == category]
             df_statistics_MAE_1category = df_statistics_MAE.loc[df_statistics_MAE['category'] == category]
-
+            df_statistics_tau_1category = df_statistics_tau.loc[df_statistics_tau['category'] == category]
 
             # RMSE comparison plot for each category
             barplot_with_CI_errorbars(df=df_statistics_1category, x_label="ID", y_label="RMSE", y_lower_label="RMSE_lower_bound",
@@ -1247,6 +1284,14 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
             plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
             plt.ylim(0.0, 7.0)
             plt.savefig(directory_path + "/MAE_vs_method_plot_for_{}_category.pdf".format(category))
+
+            # Kendall's Tau  comparison plot for each category
+            barplot_with_CI_errorbars(df=df_statistics_tau_1category, x_label="ID", y_label="kendall_tau",
+                                      y_lower_label="kendall_tau_lower_bound",
+                                      y_upper_label="kendall_tau_upper_bound", figsize=(12, 10))
+            plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
+            # plt.ylim(-1.0, 1.0)
+            plt.savefig(directory_path + "/kendalls_tau_vs_method_plot_for_{}_category.pdf".format(category))
 
 
 def generate_QQplots_for_model_uncertainty(input_file_name, directory_path):
@@ -1313,21 +1358,29 @@ if __name__ == '__main__':
         ('ME', me),
         ('R2', r2),
         ('m', slope),
+        ('kendall_tau', kendall_tau)
     ])
     ordering_functions = {
         'ME': lambda x: abs(x),
         'R2': lambda x: -x,
         'm': lambda x: abs(1 - x),
+        'kendall_tau': lambda x: -x
     }
     latex_header_conversions = {
         'R2': 'R$^2$',
         'RMSE': 'RMSE',
         'MAE': 'MAE',
         'ME': 'ME',
+        'kendall_tau': '$\\tau$'
     }
+
+    # ==========================================================================================
+    # Analysis of standard blind submissions WITHOUT reference calculations
+    # ==========================================================================================
 
     # Load submissions data.
     submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
+
     # Perform the analysis
 
     output_directory_path='./analysis_outputs'
@@ -1355,7 +1408,7 @@ if __name__ == '__main__':
                                     ordering_functions=ordering_functions,
                                     latex_header_conversions=latex_header_conversions)
 
-    # Generate RMSE and MAE comparison plots.
+    # Generate RMSE, MAE, Kendall's Tau comparison plots.
     statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
     generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
 
@@ -1396,7 +1449,7 @@ if __name__ == '__main__':
                                     ordering_functions=ordering_functions,
                                     latex_header_conversions=latex_header_conversions, ignore_refcalcs = False)
 
-    # Generate RMSE and MAE comparison plots.
+    # Generate RMSE, MAE, and Kendall's Tau comparison plots.
     statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
     generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
 
