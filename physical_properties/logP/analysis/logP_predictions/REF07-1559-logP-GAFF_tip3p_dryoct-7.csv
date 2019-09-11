@@ -1,0 +1,24 @@
+Predictions:
+SM02,4.26,0.08,1.6
+SM04,4.14,0.08,1.6
+SM07,3.2,0.29,1.6
+SM08,8.42,0.05,1.6
+SM09,3.84,0.02,1.6
+SM11,2.43,0.09,1.6
+SM12,5.04,0.09,1.6
+SM13,4.2,0.06,1.6
+SM14,1.6,0.11,1.6
+SM15,2.31,0.08,1.6
+SM16,2.69,0.09,1.6
+
+Name:
+YANK-GAFF_tip3p_dry_octanol
+
+Software:
+YANK
+
+Category:
+Physical
+
+Method:
+Transfer free energies via YANK.
