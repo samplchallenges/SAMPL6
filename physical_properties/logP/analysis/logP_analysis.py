@@ -613,7 +613,7 @@ class SamplSubmission:
     TEST_SUBMISSIONS = {}
 
     # The IDs of submissions used for reference calculations
-    REF_SUBMISSIONS = ['REF01', 'REF02', 'REF03', 'REF04', 'REF05', 'REF06']
+    REF_SUBMISSIONS = ['REF01', 'REF02', 'REF03', 'REF04', 'REF05', 'REF06', 'REF07', 'REF08']
 
 
     # Section of the submission file.
