@@ -29,7 +29,7 @@ This is equivalent to 200 octanol molecules and 74 water molecules.
 #The octanol boxes (for the dry octanol phase) had about 211 octanol molecules.
 The water boxes had about 1497 molecules. The box dimensions were about 40x40x40 Angstroms in all cases.
 
-AMBER files were used to create OpenMM systems parameterized with GAFF and the TIP3P water model.
+OpenMM systems were created and parameterized with GAFF and the TIP3P water model using amber files.
 These systems were carefully equilibrated as follows- minimization (0.5fs timestep) until convergence
 was reached,100ps NVT (1.0fs timestep), 100ps NPT (2.0fs timestep), followed by 500ns NPT (2.0fs timestep).
 PDBs of the equilibrated system were saved. OpenMM systems parameterized with GAFF and the TIP3P water
