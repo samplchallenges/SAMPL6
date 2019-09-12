@@ -53,7 +53,7 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
 ## Remarks
 - Submissions with submission IDs nb001, nb002, nb003, nb004, nb005 and nb005 include non-blind corrections to pKa predictions of only SM22 molecule. pKas of the rest of the molecules in these submissions were blindly predicted before experimental data was released.
 
-- pKa predictions of Epik-sequencial method (submission ID: nb007) were not blind. They were submitted after the submission deadline to be used as a reference method.
+- pKa predictions of Epik, Jaguar, Chemicalize, and MoKa were not blind (submission IDs noted as nbXXX). They were submitted after the submission deadline as reference methods.
 
 ## Submission IDs
 ### Submission IDs for Type III Submissions
