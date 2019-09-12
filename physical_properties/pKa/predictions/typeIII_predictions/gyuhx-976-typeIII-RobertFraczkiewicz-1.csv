@@ -111,5 +111,5 @@ ADMET Predictor 8.5, Simulations Plus, Inc., 2017
 # All text following the "Method:" keyword will be regarded as part of your free text methods description. 
 Method: 
 A QSPR method that uses neural network ensembles and microstate level resolution. 
-Details are published in Fraczkiewicz, R.; Lobell, M.; Göller, A. H.; Krenz, U.; Schoenneis, R.; Clark, R. D.; Hillisch, A. Best of Both Worlds: Combining Pharma Data and State of the Art Modeling Technology To Improve in Silico pKa Prediction. Journal of Chemical Information and Modeling 2014, 55, 389-397.
+Details are published in Fraczkiewicz, R.; Lobell, M.; Goller, A. H.; Krenz, U.; Schoenneis, R.; Clark, R. D.; Hillisch, A. Best of Both Worlds: Combining Pharma Data and State of the Art Modeling Technology To Improve in Silico pKa Prediction. Journal of Chemical Information and Modeling 2014, 55, 389-397.
 Aliphatic hydroxyls and amides as well as all secondary microstates were included.

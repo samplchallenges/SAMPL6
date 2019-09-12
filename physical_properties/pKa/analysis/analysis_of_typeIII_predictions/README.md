@@ -21,6 +21,15 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
   - `AbsoluteErrorPlots\` - This directory contains a bar plot for each method showing the absolute error for each macroscopic pKa prediction compared to experiment.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table and bootstrap distributions of performance statistics.  
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
+    - `typeIII_submission_collection.csv` - A table of prediction data matched with experimental data according to closest algorithm.
+    - `typeIII_submission_full_collection.csv` - A table that contains prediction data matched to experimental data and also entries for unmatched experimental and predicted pKas for each submission. 
+    - `MAE_vs_method_plot.pdf`
+    - `MAE_vs_method_plot_colored_by_method_category.pdf`
+    - `RMSE_vs_method_plot.pdf`
+    - `RMSE_vs_method_plot_colored_by_method_category.pdf`
+    - `unmatched_pKa_vs_method_plot.pdf`
+    - `statistics.csv` - A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m))
+    - `statistics_with_unmatched_pKa_numbers.csv`- A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m)) and number unmatched pKas for each submission (number of experimental pKas predictions missed, number of extra predicted pKas).
     
 - `analysis_outputs_hungarian/` -  All analysis outputs that uses "Hungarian" assignment method are organized under this directory.
   - `statistics_table.pdf` - A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m)) for all the submissions. Also includes submission IDs assigned to each submission.
@@ -30,11 +39,21 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
   - `AbsoluteErrorPlots\` - This directory contains a bar plot for each method showing the absolute error for each macroscopic pKa prediction compared to experiment.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table and bootstrap distributions of performance statistics.  
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
+    - `typeIII_submission_collection.csv` - A table of prediction data matched with experimental data according to Hungarian algorithm.
+    - `typeIII_submission_full_collection.csv` - A table that contains prediction data matched to experimental data and also entries for unmatched experimental and predicted pKas for each submission. 
+    - `MAE_vs_method_plot.pdf`
+    - `MAE_vs_method_plot_colored_by_method_category.pdf`
+    - `RMSE_vs_method_plot.pdf`
+    - `RMSE_vs_method_plot_colored_by_method_category.pdf`
+    - `unmatched_pKa_vs_method_plot.pdf`
+    - `statistics.csv` - A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m))
+    - `statistics_with_unmatched_pKa_numbers.csv`- A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m)) and number unmatched pKas for each submission (number of experimental pKas predictions missed, number of extra predicted pKas).
+
 
 ## Remarks
 - Submissions with submission IDs nb001, nb002, nb003, nb004, nb005 and nb005 include non-blind corrections to pKa predictions of only SM22 molecule. pKas of the rest of the molecules in these submissions were blindly predicted before experimental data was released.
 
-- pKa predictions of Epik-sequencial method (submission ID: nb007) were not blind. They were submitted after the submission deadline to be used as a reference method.
+- pKa predictions of Epik, Jaguar, Chemicalize, and MoKa were not blind (submission IDs noted as nbXXX). They were submitted after the submission deadline as reference methods.
 
 ## Submission IDs
 ### Submission IDs for Type III Submissions
@@ -44,8 +63,12 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
 | gyuhx |	S+pKa |  
 | xmyhm |	ACD/pKa Classic |  
 | yqkga |	ReSCoSS conformations // COSMOtherm pKa |
-| nb007 | Epik-sequential|
+| nb017 |	MoKa |
+| nb007 | Epik Scan |
+| nb010 |	Epik Microscopic |
 | 8xt50 |	ReSCoSS conformations // DSD-BLYP-D3 reranking // COSMOtherm pKa |
+| nb013	| Jaguar |
+| nb015 |	Chemicalize v18.23 (ChemAxon MarvinSketch v18.23) |
 | p0jba |	macroscopic pKa prediction from microscopic pKa predicted with Gaussian and separate fitting for neutral to negative and for positive to neutral transformations |
 | 37xm8	| ACD/pKa GALAS | 
 | hytjn	| OE Gaussian Process | 
