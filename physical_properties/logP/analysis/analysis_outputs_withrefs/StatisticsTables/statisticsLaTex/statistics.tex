@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage[a4paper,margin=0.005in,tmargin=0.5in,lmargin=0.5in,rmargin=0.5in,landscape]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\pagenumbering{gobble}
+\begin{document}
+\begin{center}
+\scriptsize
+\begin{longtable}{|ccccccccc|}
+\toprule
+    ID &                                             name &               RMSE &                MAE &                   ME &              R$^2$ &                  m &             $\tau$ &                 ES \\
+\midrule
+\endhead
+\midrule
+\multicolumn{9}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+ 1xtra &                        YANK-GAFF\_tip3p-wet\_oct &  0.91 [0.72, 1.11] &  0.78 [0.61, 0.97] &    0.41 [0.08, 0.70] &  0.58 [0.33, 0.79] &  1.04 [0.66, 1.54] &  0.55 [0.32, 0.73] &  1.25 [1.17, 1.34] \\
+ 8xtra &  YANK-extra\_mols\_SMIRNOFF\_tip3p\_dry\_octanol &  1.01 [0.68, 1.33] &  0.78 [0.56, 1.03] &    0.39 [0.04, 0.73] &  0.49 [0.11, 0.78] &  0.99 [0.42, 1.43] &  0.46 [0.14, 0.71] &  1.25 [1.12, 1.36] \\
+ 4xtra &                    YANK-SMIRNOFF\_tip3p-wet\_oct &  1.05 [0.75, 1.32] &  0.82 [0.60, 1.08] &   0.30 [-0.09, 0.66] &  0.49 [0.15, 0.73] &  1.05 [0.55, 1.53] &  0.47 [0.21, 0.69] &  1.22 [1.09, 1.34] \\
+ 7xtra &      YANK-extra\_mols\_GAFF\_tip3p\_dry\_octanol &  1.05 [0.85, 1.25] &  0.93 [0.75, 1.12] &    0.62 [0.28, 0.93] &  0.58 [0.30, 0.79] &  1.07 [0.71, 1.55] &  0.57 [0.33, 0.76] &  1.18 [1.07, 1.28] \\
+ 3xtra &                  YANK-SMIRNOFF\_tip3pFB-wet\_oct &  1.08 [0.62, 1.47] &  0.71 [0.43, 1.03] &  -0.31 [-0.73, 0.06] &  0.46 [0.16, 0.74] &  1.02 [0.57, 1.56] &  0.53 [0.28, 0.75] &  1.26 [1.12, 1.38] \\
+ 2xtra &                      YANK-GAFF\_tip3pFB-wet\_oct &  1.11 [0.65, 1.50] &  0.72 [0.42, 1.05] &  -0.20 [-0.63, 0.20] &  0.54 [0.26, 0.78] &  1.23 [0.87, 1.80] &  0.57 [0.34, 0.78] &  1.25 [1.09, 1.39] \\
+ 5xtra &                     YANK-SMIRNOFF\_OPC\_wet\_oct &  1.16 [0.74, 1.59] &  0.83 [0.56, 1.15] &  -0.10 [-0.55, 0.31] &  0.45 [0.14, 0.75] &  1.11 [0.70, 1.57] &  0.52 [0.28, 0.71] &  1.22 [1.07, 1.34] \\
+ 6xtra &                         YANK-GAFF\_OPC\_wet\_oct &  1.28 [0.72, 1.79] &  0.87 [0.56, 1.26] &  -0.28 [-0.77, 0.16] &  0.44 [0.11, 0.73] &  1.17 [0.53, 1.81] &  0.47 [0.18, 0.71] &  1.21 [1.05, 1.35] \\
+\end{longtable}
+\end{center}
+
+Notes
+
+- RMSE: Root mean square error
+
+- MAE: Mean absolute error
+
+- ME: Mean error
+
+- R2: R-squared, square of Pearson correlation coefficient
+
+- m: slope of the line fit to predicted vs experimental logP values
+
+- $\tau$:  Kendall rank correlation coefficient
+
+- ES: error slope calculated from the QQ Plots of model uncertainty predictions
+
+- Mean and 95\% confidence intervals of RMSE, MAE, ME, R2, and m were calculated by bootstrapping with 10000 samples.
+
+- 95\% confidence intervals of ES were calculated by bootstrapping with 1000 samples.\end{document}
