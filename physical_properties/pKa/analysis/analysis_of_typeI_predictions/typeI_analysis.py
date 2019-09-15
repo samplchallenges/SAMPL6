@@ -21,6 +21,7 @@ import scipy.stats
 # Paths to input data.
 PKA_TYPEI_SUBMISSIONS_DIR_PATH = './typeI_predictions'
 EXPERIMENTAL_DATA_FILE_PATH = '../../experimental_data/pKa_experimental_values.csv'
+EXPERIMENTAL_MICROSTATE_DATA_FILE_PATH = '../../experimental_data/experimental_microstates.csv'
 
 # =============================================================================
 # STATS FUNCTIONS
@@ -57,7 +58,7 @@ def rmse(data):
     return rmse
 
 
-def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootstrap_samples=10000):
+def compute_bootstrap_statistics(samples, stats_funcs, percentile=0.95, n_bootstrap_samples=10000): #10000
     """Compute bootstrap confidence interval for the given statistics functions."""
     # Handle case where only a single function is passed.
     try:
@@ -180,8 +181,9 @@ def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label
     data[delta_upper_yerr_label] = data[y_upper_label] - data[y_label]
 
     # Color
-    current_palette = sns.color_palette()
-    sns_color = current_palette[1]
+    #current_palette = sns.color_palette()
+    current_palette = sns.color_palette("GnBu_d")
+    sns_color = current_palette[3]
 
     # Plot style
     plt.close()
@@ -202,6 +204,85 @@ def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label
     plt.ylabel(y_label)
 
 
+def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_label, y_upper_label, color_label, figsize=False):
+    """Creates bar plot of a given dataframe with asymmetric error bars for y axis.	
+        Args:	
+            df: Pandas Dataframe that should have columns with columnnames specified in other arguments.	
+            x_label: str, column name of x axis categories	
+            y_label: str, column name of y axis values	
+            y_lower_label: str, column name of lower error values of y axis	
+            y_upper_label: str, column name of upper error values of y axis	
+            color_label: str, column name of label that will determine the color of bars	
+            figsize: tuple, size in inches. Default value is False.	
+        """
+    # Column names for new columns for delta y_err which is calculated as | y_err - y |
+    delta_lower_yerr_label = "$\Delta$" + y_lower_label
+    delta_upper_yerr_label = "$\Delta$" + y_upper_label
+    data = df  # Pandas DataFrame
+    data.loc[:, delta_lower_yerr_label] = data.loc[:, y_label] - data.loc[:, y_lower_label]
+    data.loc[:, delta_upper_yerr_label] = data.loc[:, y_upper_label] - data.loc[:, y_label]
+
+     # Color
+    current_palette = sns.color_palette()
+    # Error bar color
+    sns_color = current_palette[2]
+    # Bar colors
+    if color_label == "category":
+        category_list = ["QM", "DL", "LFER", "QSPR/ML"]
+    elif color_label == "type":
+        category_list = ["Standard", "Reference"]
+    else:
+        Exception("Error: Unsupported label used for coloring")
+    bar_color_dict = {}
+    for i, cat in enumerate(category_list):
+        bar_color_dict[cat] = current_palette[i]
+    print("bar_color_dict:\n", bar_color_dict)
+
+
+    # Plot style
+    plt.close()
+    plt.style.use(["seaborn-talk", "seaborn-whitegrid"])
+    plt.rcParams['axes.labelsize'] = 18
+    plt.rcParams['xtick.labelsize'] = 14
+    plt.rcParams['ytick.labelsize'] = 16
+    # plt.tight_layout()
+    bar_width = 0.70
+
+    # If figsize is specified
+    if figsize != False:
+        plt.figure(figsize=figsize)
+
+    # Plot
+    x = range(len(data[y_label]))
+    y = data[y_label]
+    #barlist = plt.bar(x, y)
+    fig, ax = plt.subplots(figsize=figsize)
+    barlist = ax.bar(x, y, width=bar_width)
+
+    plt.xticks(x, data[x_label], rotation=90)
+    plt.errorbar(x, y, yerr=(data[delta_lower_yerr_label], data[delta_upper_yerr_label]),
+                  fmt="none", ecolor='gray', capsize=3, elinewidth=2, capthick=True)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+
+    # Reset color of bars ased on color label
+    #print("data.columns:\n",data.columns)
+    for i, c_label in enumerate(data.loc[:, color_label]):
+        barlist[i].set_color(bar_color_dict[c_label])
+
+    # create legend
+    from matplotlib.lines import Line2D
+    if color_label == 'category':
+        custom_lines = [Line2D([0], [0], color=bar_color_dict["QM"], lw=5),
+                        Line2D([0], [0], color=bar_color_dict["DL"], lw=5),
+                        Line2D([0], [0], color=bar_color_dict["LFER"], lw=5),
+                        Line2D([0], [0], color=bar_color_dict["QSPR/ML"], lw=5)]
+    elif color_label == 'type':
+        custom_lines = [Line2D([0], [0], color=bar_color_dict["Standard"], lw=5),
+                        Line2D([0], [0], color=bar_color_dict["Reference"], lw=5)]
+    ax.legend(custom_lines, category_list)
+
+
 def barplot(df, x_label, y_label, title):
     """Creates bar plot of a given dataframe.
 
@@ -218,7 +299,9 @@ def barplot(df, x_label, y_label, title):
     plt.rcParams['axes.labelsize'] = 18
     plt.rcParams['xtick.labelsize'] = 14
     plt.rcParams['ytick.labelsize'] = 16
-    #plt.tight_layout()
+    plt.tight_layout()
+    bar_width = 0.70
+    plt.figure(figsize=(10, 7))
 
     # Plot
     data = df
@@ -430,7 +513,7 @@ class pKaTypeISubmission(SamplSubmission):
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000)
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000) #10000
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
@@ -820,6 +903,134 @@ def add_pKa_IDs_to_matching_predictions_hungarian(df_pred, df_exp):
     return df_pred_matched, df_pred_unmatched
 
 
+def microstate_matching(pred_pKas, pred_pKa_SEMs, pred_HA_microstate_IDs, pred_A_microstate_IDs,
+                        exp_pKas, exp_pKa_SEMs, exp_HA_microstate_IDs, exp_A_microstate_IDs, exp_pKa_IDs):
+    """
+    Matches experimental and predicted micoscopic pKas based on reported microstate ID pairs.
+    Both microstate IDs and the order should match the experiment, for microscopic pKa match.
+
+    :param pred_pKas:
+    :param exp_pKa_means:
+    :param exp_pKa_SEMs:
+    :param exp_pKa_IDs:
+    :return:
+    """
+    matched = pd.DataFrame()
+
+    # Create a list of experimental microstate ID pairs (list of tuples)
+    exp_ID_pairs = []
+    for i in range(len(exp_HA_microstate_IDs)):
+        exp_ID_pair = (exp_HA_microstate_IDs[i], exp_A_microstate_IDs[i])
+        exp_ID_pairs.append(exp_ID_pair)
+
+    # Iterate through predicted ID pairs to see if it matches to any experimental ID pair.
+    for i in range(len(pred_HA_microstate_IDs)):
+        pred_ID_pair = (pred_HA_microstate_IDs[i], pred_A_microstate_IDs[i])
+
+        # Check for matches in experimental microstate ID pair list
+        for j, exp_ID_pair in enumerate(exp_ID_pairs):
+            if pred_ID_pair == exp_ID_pair:
+                match = {"pKa mean(pred)": pred_pKas[i], "pKa SEM(pred)": pred_pKa_SEMs[i],
+                         'microstate ID of HA(pred)': pred_HA_microstate_IDs[i],
+                         'microstate ID of A(pred)': pred_A_microstate_IDs[i],
+                         'pKa mean(exp)': exp_pKas[j], 'pKa SEM(exp)': exp_pKa_SEMs[j],
+                         'microstate ID of HA(exp)': exp_HA_microstate_IDs[j],
+                         'microstate ID of A(exp)': exp_A_microstate_IDs[j],
+                         'pKa ID': exp_pKa_IDs[j]}
+
+                matched = matched.append(match, ignore_index=True)
+
+    return matched
+
+
+def add_pKa_IDs_to_matching_predictions_microstate_based_matching(df_pred, df_exp):
+    """Add pKa ID column to dataframe of predictions based on
+    the minimum error match to experimental pKas.
+
+    Args:
+        df_pred: Pandas Dataframe of pKa predictions
+        df_exp: Pandas Dataframe of experimental pKas (stacked)
+
+    Returns:
+        df_pred_matched: A dataframe of predicted pKa values that gave the best match to experimental values.
+        Other predicted pKa values are ignored.
+        df_pred_unmatched: A dataframe of predicted pKas that were not matched to experimental pKa values
+
+    """
+
+    # iterate over molecule IDs of the submission
+    df_pred["pKa ID"] = np.NaN
+
+    # Create a column of molecule IDs
+    # df_pred["Molecule ID"] = df_pred.index
+    df_pred["Molecule ID"] = np.NaN
+    df_pred = df_pred.reset_index(drop=True) # Reset dataframe index from Molecule IDs to index integers
+    print("\ndf_pred:\n", df_pred)
+    for i, row in enumerate(df_pred.iterrows()):
+        mol_id = df_pred.loc[i, "Microstate ID of HA"].split("_")[0]
+        print("mol_id:", mol_id)
+        df_pred.loc[i, "Molecule ID"] = mol_id
+
+    for mol_id, df_pred_mol in df_pred.groupby("Molecule ID"):
+        print("mol_id: ", mol_id)
+        print("df_pred_mol:\n", df_pred_mol)
+
+        df_exp_mol = df_exp[df_exp["Molecule ID"] == mol_id]
+        print("df_exp_mol:\n", df_exp_mol)
+        # Create numpy array of predicted pKas and SEMS
+        pred_pKas = np.array(df_pred_mol["pKa mean"])  # if there is multiple predicted pKas
+        pred_pKa_SEMs = np.array(df_pred_mol["pKa SEM"])
+        try:
+            len(df_pred_mol["pKa mean"])
+        except TypeError:
+            pred_pKas = np.array([df_pred_mol["pKa mean"]])  # if there is single predicted pKa
+            pred_pKa_SEMs = np.array([df_pred_mol["pKa SEM"]])
+
+        # Create numpy arrays of microstates IDs of HA and microstate IDs of A
+        pred_HA_microstate_IDs = np.array(df_pred_mol["Microstate ID of HA"])  # if there is multiple predicted pKas
+        pred_A_microstate_IDs = np.array(df_pred_mol["Microstate ID of A"])  # if there is multiple predicted pKas
+        try:
+            len(df_pred_mol["Microstate ID of HA"])
+        except TypeError:
+            pred_HA_microstate_IDs = np.array([df_pred_mol["Microstate ID of HA"]])  # if there is single predicted pKa
+            pred_A_microstate_IDs = np.array([df_pred_mol["Microstate ID of A"]])  # if there is single predicted pKa
+
+        # Create numpy array of experimental pKa means, pKa SEM , pKa_ID, experimental microstate ID of HA and H
+        exp_pKa_means = np.array(df_exp_mol.loc[:, "pKa (exp)"].values)
+        exp_pKa_SEMs = np.array(df_exp_mol.loc[:, "pKa SEM (exp)"].values)
+        exp_pKa_IDs = np.array(df_exp_mol.loc[:, "pKa ID"].values)
+        exp_HA_microstate_IDs = np.array(df_exp_mol.loc[:, "Microstate ID of HA"].values)
+        exp_A_microstate_IDs = np.array(df_exp_mol.loc[:, "Microstate ID of A"].values)
+
+        # Match predicted pKas to experimental pKa that gives the smallest error
+        df_pKa_match = microstate_matching(pred_pKas, pred_pKa_SEMs, pred_HA_microstate_IDs, pred_A_microstate_IDs,
+                                           exp_pKa_means, exp_pKa_SEMs, exp_HA_microstate_IDs, exp_A_microstate_IDs,
+                                           exp_pKa_IDs)
+        df_pKa_match["Molecule ID"] = mol_id
+        print("df_pKa_match:\n", df_pKa_match)
+
+        # Add matched pKa IDs to prediction data frame
+        for index, row in enumerate(df_pKa_match.iterrows()):
+            pred_pKa = row[1]["pKa mean(pred)"]
+            pKa_ID = row[1]["pKa ID"]
+
+            # store in the correct position in prediction dataframe
+
+            df_pred.loc[(df_pred["Molecule ID"] == mol_id) & (df_pred["pKa mean"] == pred_pKa), "pKa ID"] = pKa_ID
+
+    # Save unmatched pKas in df_pred_unmatched dataframe
+    df_pred_unmatched = df_pred.loc[pd.isnull(df_pred["pKa ID"])]
+
+    # Drop predicted pKas that didn't match to experimental values
+    df_pred_matched = df_pred.dropna(subset=["pKa ID"]).reset_index(drop=True)
+
+    # If there are multiple microscopic pKas with the same exact value keep only the first one
+    df_pred_matched.drop_duplicates(subset="pKa mean", keep="first", inplace=True)
+
+    return df_pred_matched, df_pred_unmatched
+
+
+
 class pKaTypeISubmissionCollection:
     """A collection of TypeI pKa submissions."""
 
@@ -827,7 +1038,7 @@ class pKaTypeISubmissionCollection:
     PKA_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR = 'pKaCorrelationPlotsWithSEM'
     PKA_CORRELATION_PLOT_BY_PKA_PATH_DIR = 'error_for_each_microscopic_pKa.pdf'
     ABSOLUTE_ERROR_VS_PKA_PLOT_PATH_DIR = 'AbsoluteErrorPlots'
-    available_matching = ["closest", "hungarian"]
+    available_matching = ["closest", "hungarian","microstate"]
 
     def __init__(self, submissions, experimental_data, output_directory_path, pka_typei_submission_collection_file_path, matching_algorithm, ignore):
 
@@ -868,14 +1079,20 @@ class pKaTypeISubmissionCollection:
             data = []
 
             # Match predicted pKas to experimental pKa IDs and update submissions with pKa ID column
+            print("Experimental data:\n", experimental_data)
             for submission in submissions:
                 if matching_algorithm == 'hungarian':
                     (submission.data_matched, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions_hungarian(df_pred =submission.data, df_exp = experimental_data)
                     print("\nsubmission.data_matched:\n", submission.data_matched)
                 elif matching_algorithm == 'closest':
                     (submission.data_matched, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions(df_pred=submission.data, df_exp=experimental_data)
+                elif matching_algorithm == 'microstate':
+                    (submission.data_matched, submission.data_unmatched) = add_pKa_IDs_to_matching_predictions_microstate_based_matching(df_pred=submission.data, df_exp=experimental_data)
+                    print("\nsubmission.data_matched:\n", submission.data_matched)
+
 
                 submission.data_matched.set_index("pKa ID", inplace=True)
+                print("\nsubmission.data_matched:\n", submission.data_matched)
                 # recreate pKa ID column
                 #submission.data_matched["pKa ID"] = submission.data_matched.index
 
@@ -1007,6 +1224,206 @@ class pKaTypeISubmissionCollection:
             plt.savefig(output_path)
 
 
+class pKaTypeISubmissionFullCollection:
+    """A collection of TypeI pKa submissions. It includes entries of unmatched experimental pKas and also unmatched	
+    predicted pKas for each submission."""
+
+    available_matching = ["closest", "hungarian", "microstate"]
+
+    def __init__(self, submissions, experimental_data, output_directory_path, pka_typei_submission_full_collection_file_path,
+                 pka_typei_submission_collection_file_path, matching_algorithm, ignore):
+
+        if matching_algorithm.lower() not in pKaTypeISubmissionFullCollection.available_matching:
+            raise ValueError("Choose a matching algorithm from {}".format(", ".join(pKaTypeISubmissionFullCollection.available_matching)))
+
+        # Check if full submission collection file already exists.
+        if os.path.isfile(pka_typei_submission_full_collection_file_path):
+            print("Analysis will be done using the existing typeIII_submission_full_collection.csv file.")
+
+            self.full_data = pd.read_csv(pka_typei_submission_full_collection_file_path)
+            print("\n SubmissionFullCollection: \n")
+            print(self.full_data)
+
+
+        else: # Build collection dataframe starting from the collection file. Unmatched pKa entries must be added.
+
+            # Import matched pKa from submission collection file.
+            self.full_data = pd.read_csv(pka_typei_submission_collection_file_path, index_col=0)
+            print("\n SubmissionFullCollection (without unmatched entries): \n")
+            print(self.full_data)
+
+            # Add entires for unmatched experimental pKas
+            print("\n Experimental data: \n")
+            print(experimental_data)
+
+            # Iterate through submissions in collection to find unmatched experimental pKas
+            receipt_IDs = set(self.full_data["receipt_id"])
+
+            new_data_for_collection = []
+
+            for receipt_ID in receipt_IDs:
+                df_1method = self.full_data[self.full_data["receipt_id"] == receipt_ID]
+                print("Collection of submission {}:".format(receipt_ID))
+                print(df_1method)
+
+                participant = df_1method["participant"].values[0]
+
+                submission_name = df_1method["name"].values[0]
+
+                # Iterate through each molecule ID of the submission
+                molecule_IDs = list(df_1method["Molecule ID"])
+                molecule_IDs = list(dict.fromkeys(molecule_IDs)) # remove repeating molecule IDs
+
+                for molecule_ID in molecule_IDs:
+                    df_1method_1mol = df_1method[df_1method["Molecule ID"] == molecule_ID]
+                    #print("{} prediction from submission {} :".format(molecule_ID, receipt_ID))
+                    #print(df_1method_1mol)
+
+                    # Check experimental pKas of each molecule
+                    exp_pKas = experimental_data[experimental_data["Molecule ID"] == molecule_ID]["pKa mean"].values
+                    exp_pKa_IDs = experimental_data[experimental_data["Molecule ID"] == molecule_ID]["pKa ID"].values
+                    exp_pKa_SEMs = experimental_data[experimental_data["Molecule ID"] == molecule_ID]["pKa SEM"].values
+                    #print("Experimental pKas for {}: {}".format(molecule_ID, exp_pKas))
+
+                    # Are experimental pKas matched to predictions
+                    for i, exp_pKa in enumerate(exp_pKas):
+
+                        # If not matched add an entry for missing experimental pKa to full collection
+                        if exp_pKa not in df_1method_1mol["pKa (exp)"].values:
+                            #print("Experimental pKa {} of {} was not matched to predicted pKas. New line will be added to full collection.".format(exp_pKa, molecule_ID))
+
+                            # pKa ID of experimental pKa
+                            exp_pKa = exp_pKa_IDs[i]
+
+                            # SEM of experimental pKa
+                            exp_pKa_SEM = exp_pKa_SEMs[i]
+
+                            new_data_for_collection.append({
+                                'receipt_id': receipt_ID,
+                                'participant': participant,
+                                'name': submission_name,
+                                'Molecule ID': molecule_ID,
+                                'pKa ID': exp_pKa,
+                                'pKa (calc)': "--",
+                                'pKa SEM (calc)': "--",
+                                'pKa (exp)': exp_pKa,
+                                'pKa SEM (exp)': exp_pKa_SEM,
+                                '$\Delta$pKa error (calc - exp)': "--"
+                            })
+            # Transform into Pandas DataFrame.
+            self.unmatched_exp_data = pd.DataFrame(data=new_data_for_collection)
+            # self.output_directory_path = output_directory_path
+
+            print("Unmatched_exp_data:")
+            print(self.unmatched_exp_data)
+            print(self.unmatched_exp_data.shape)
+
+
+            # Iterate through submissions in collection to find unmatched predicted pKas
+
+            new_data_for_collection = []
+
+            for submission in submissions:
+                #print("participant:", submission.participant)
+                #print("method name:", submission.name)
+                #print("receipt ID:", submission.receipt_id)
+                #print("\n submission.data:\n", submission.data)
+
+                receipt_ID = submission.receipt_id
+
+                df_collection_1method = self.full_data[self.full_data["receipt_id"] == receipt_ID]
+
+                # Iterate through each molecule ID of the submission
+                molecule_IDs = list(submission.data.index)
+                molecule_IDs = list(dict.fromkeys(molecule_IDs)) # remove repeating molecule IDs
+
+                for molecule_ID in molecule_IDs:
+                #for molecule_ID in molecule_IDs:
+                    df_1method_1mol = submission.data.loc[molecule_ID,:]
+                    #print("\ndf_1method_1mol: \n")
+                    #print(df_1method_1mol)
+
+                    # Iterate through each predicted pKa and check if it exist in matched collection
+
+                    try:
+                        pred_pKas = df_1method_1mol["pKa mean"].values
+                    except:
+                        pred_pKas = [df_1method_1mol["pKa mean"]]
+                        #print("pred_pKas:", pred_pKas)
+
+                    try:
+                        pred_pKa_SEMs = df_1method_1mol["pKa SEM"].values
+                    except:
+                        pred_pKa_SEMs = [df_1method_1mol["pKa SEM"]]
+                        #print("pred_pKa_SEMs:", pred_pKa_SEMs)
+
+
+                    for i, pred_pKa in enumerate(pred_pKas):
+
+                        df_collection_1method_1mol = df_collection_1method[df_collection_1method["Molecule ID"] == molecule_ID]
+                        #print("\ndf_collection_1method_1mol\n", df_collection_1method_1mol)
+
+                        # If not matched add an entry for missing predicted pKa to full collection
+                        if pred_pKa not in df_collection_1method_1mol["pKa (calc)"].values:
+                            print("Predicted pKa {} of {} was not matched to experimental pKas. New line will be added to fill collection".format(pred_pKa, molecule_ID))
+
+                            # SEM of predicted pKa
+                            pred_pKa_SEM = pred_pKa_SEMs[i]
+
+                            new_data_for_collection.append({
+                                'participant': submission.participant,
+                                'receipt_id': receipt_ID,
+                                'name': submission.name,
+                                'Molecule ID': molecule_ID,
+                                'pKa ID': "--",
+                                'pKa (calc)': pred_pKa,
+                                'pKa SEM (calc)': pred_pKa_SEM,
+                                'pKa (exp)': "--",
+                                'pKa SEM (exp)': "--",
+                                '$\Delta$pKa error (calc - exp)': "--"
+                            })
+
+            # Transform into Pandas DataFrame.
+            self.unmatched_pred_data = pd.DataFrame(data=new_data_for_collection)
+
+            # Combine full_data, unmatched_pred_data, and unmatched_exp_data into one data frame
+
+            print("Collection (full data before adding unmatched):")
+            print(self.full_data)
+            print(self.full_data.shape)
+
+            print("Unmatched_pred_data:")
+            print(self.unmatched_pred_data)
+            print(self.unmatched_pred_data.shape)
+
+            print("Unmatched_exp_data.head():")
+            print(self.unmatched_exp_data)
+            print(self.unmatched_exp_data.shape)
+
+            self.full_data = pd.concat([self.full_data, self.unmatched_pred_data, self.unmatched_exp_data], axis=0, join='outer')
+
+            # Remove predictions of ignored molecules from pKaTyoeISubmissionFULLCollection.data
+            print("TypeI microscopic pKa analysis ignores predictions of following molecules: ", ignore)
+
+            self.data_ignored = self.full_data
+            for ignored_mol_ID in ignore:
+                print("ignored_mol_ID:", ignored_mol_ID)
+                self.data_ignored = self.data_ignored.loc[self.data_ignored["Molecule ID"] != ignored_mol_ID, :]
+            self.full_data = self.data_ignored
+
+            print("\n SubmissionFullCollection (including unmatched pKas): \n")
+            print(self.full_data)
+            print(self.full_data.shape)
+
+
+            # Create general output directory.
+            self.output_directory_path = output_directory_path
+            os.makedirs(self.output_directory_path, exist_ok=True)
+
+            # Save collection.data dataframe in a CSV file.
+            self.full_data.to_csv(pka_typei_submission_full_collection_file_path, index=False)
+
+
 def generate_statistics_tables(submissions, stats_funcs, directory_path, file_base_name,
                                 sort_stat=None, ordering_functions=None,
                                 latex_header_conversions=None):
@@ -1087,9 +1504,12 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
         statistics_latex.to_latex(f, column_format='|ccccccc|', escape=False, index=False, longtable=True)
         f.write('\end{center}\n' 
                 '\nNotes\n\n'
+                '- In this analysis we assumed well separated experimental macroscopic pKas represent microscopic pKas. '
+                'Molecules with experimental pKa values at least 3 units apart were considered\n\n' 
+                'well-separated. SM14 and SM18 which do not satify this criteria are ignored in this analysis.\n\n'
                 '- Mean and 95\% confidence intervals of statistic values were calculated by bootstrapping.\n\n'
-                '- pKa predictions of Epik method (submission ID: nb00X) were not blind. They were submitted after the submission deadline to be used as a reference method.\n\n'
-                'pKas of the rest of the molecules in these submissions were blindly predicted before experimental data was released.\n\n'
+                '- pKa predictions of Epik, Jaguar, Chemicalize, and MoKa were not blind (submission IDs noted as nbXXX). They were submitted after the submission deadline as reference methods.\n\n'
+                '- pKas of the rest of the molecules in these submissions were blindly predicted before experimental data was released.\n\n'
                 '\end{document}\n')
 
     # Violin plots by statistics across submissions.
@@ -1111,21 +1531,51 @@ def generate_statistics_tables(submissions, stats_funcs, directory_path, file_ba
     # plt.show()
     plt.savefig(file_base_path + '_bootstrap_distributions.pdf')
 
-def generate_performance_comparison_plots(statistics_filename, directory_path):
+def generate_performance_comparison_plots(statistics_filename, directory_path, method_df):
         # Read statistics table
         statistics_file_path = os.path.join(directory_path, statistics_filename)
         df_statistics = pd.read_csv(statistics_file_path)
-        #print("\n df_statistics \n", df_statistics)
+
+
+        # Create new column to save categories
+        df_statistics["category"] = np.NaN
+        print("\n df_statistics \n", df_statistics)
+
+        # Get category labels for coloring form method map dataframe and record it in df_statistics
+        # Column label: Category For Plot Colors
+        receipt_IDs = df_statistics["ID"]
+
+        for i, receipt_ID in enumerate(receipt_IDs):
+            # find the line in method map to record it's coloring category
+            category = method_df[method_df["typeI submission ID"]==receipt_ID]["Category For Plot Colors"].values[0]
+            df_statistics.loc[i, "category"] = category
 
         # RMSE comparison plot
         barplot_with_CI_errorbars(df=df_statistics, x_label="ID", y_label="RMSE", y_lower_label="RMSE_lower_bound",
                                   y_upper_label="RMSE_upper_bound")
         plt.savefig(directory_path + "/RMSE_vs_method_plot.pdf")
 
+
+        # RMSE comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics, x_label="ID", y_label="RMSE",
+                                  y_lower_label="RMSE_lower_bound",
+                                  y_upper_label="RMSE_upper_bound", color_label = "category", figsize=(10, 7))
+        plt.ylim(0.0, 7.0)
+        plt.savefig(directory_path + "/RMSE_vs_method_plot_colored_by_method_category.pdf")
+
+
         # MAE comparison plot
         barplot_with_CI_errorbars(df=df_statistics, x_label="ID", y_label="MAE", y_lower_label="MAE_lower_bound",
                                   y_upper_label="MAE_upper_bound")
         plt.savefig(directory_path + "/MAE_vs_method_plot.pdf")
+
+        # MAE comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics, x_label="ID", y_label="MAE",
+                                                   y_lower_label="MAE_lower_bound",
+                                                   y_upper_label="MAE_upper_bound", color_label="category",
+                                                   figsize=(10, 7))
+        plt.ylim(0.0, 7.0)
+        plt.savefig(directory_path + "/MAE_vs_method_plot_colored_by_method_category.pdf")
 
 
 # =============================================================================
@@ -1153,6 +1603,19 @@ if __name__ == '__main__':
     experimental_data.set_index("pKa ID", inplace=True)
     experimental_data["pKa ID"] = experimental_data.index
     print("Experimental data: \n", experimental_data)
+
+    # Read experimental microstates data
+    with open(EXPERIMENTAL_MICROSTATE_DATA_FILE_PATH, 'r') as f:
+        names = ('Microstate ID of A', 'Microstate ID of HA', 'Molecule ID', 'pKa (exp)', 'pKa SEM (exp)', 'pKa ID', 'pKa3 SEM',
+                 'Microstate identification source')
+        experimental_microstate_data = pd.read_csv(f, names=names, skiprows=1)
+
+    # Convert numeric values to dtype float.
+    for col in experimental_microstate_data.columns[3:5]:
+            experimental_microstate_data[col] = pd.to_numeric(experimental_microstate_data[col], errors='coerce')
+
+    # Make pKa ID as the index of experimental_microstate_data
+    experimental_microstate_data = experimental_microstate_data.set_index("pKa ID", drop=False)
 
     # Import user map.
     with open('../../predictions/SAMPL6_user_map_pKa.csv', 'r') as f:
@@ -1187,15 +1650,32 @@ if __name__ == '__main__':
     submissions_typeI = load_submissions(PKA_TYPEI_SUBMISSIONS_DIR_PATH, user_map)
 
     # Perform the analysis using the different algorithms for matching predictions to experiment
+    #for algorithm in ['closest', 'hungarian','microstate']:
     for algorithm in ['closest', 'hungarian']:
-    #for algorithm in ['hungarian']:
+    #for algorithm in ['microstate']:
 
         output_directory_path='./analysis_outputs_{}'.format(algorithm)
         pka_typei_submission_collection_file_path = '{}/typeI_submission_collection.csv'.format(output_directory_path)
+        pka_typei_submission_full_collection_file_path = '{}/typeI_submission_full_collection.csv'.format(
+        output_directory_path)
 
+        # For microstate matching a different experimental data file will be used:
+        # experimental_microstate_data instead of experimental_data
+        if algorithm == 'microstate':
+            experimental_data = experimental_microstate_data
+
+        # Collection of matched pKa values
         collection_typeI= pKaTypeISubmissionCollection(submissions_typeI, experimental_data,
                                                        output_directory_path, pka_typei_submission_collection_file_path,
                                                        algorithm, ignore = ignored_mol_IDs_for_typeI_analysis)
+
+        # Collection of matched and unmatched pKa values
+        full_collection_typeI = pKaTypeISubmissionFullCollection(submissions_typeI, experimental_data,
+                                                                 output_directory_path,
+                                                                 pka_typei_submission_full_collection_file_path,
+                                                                 pka_typei_submission_collection_file_path, algorithm,
+                                                                 ignore = ignored_mol_IDs_for_typeI_analysis)
+
 
         # Generate plots and tables.
         for collection in [collection_typeI]:
@@ -1216,9 +1696,17 @@ if __name__ == '__main__':
                                        ordering_functions=ordering_functions,
                                        latex_header_conversions=latex_header_conversions)
 
+        # Import method map for coloring comparison plots
+        with open('../../predictions/SAMPL6_method_map_pKa.csv', 'r') as f:
+            method_map = pd.read_csv(f)
+
         # Generate RMSE and MAE comparison plots.
         statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
-        generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
+        generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path,
+                                              method_df = method_map)
+
+
+
 
 
 
