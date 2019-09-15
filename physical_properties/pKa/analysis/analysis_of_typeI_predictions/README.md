@@ -25,6 +25,15 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
   - `AbsoluteErrorPlots\` - This directory contains a bar plot for each method showing the absolute error for each macroscopic pKa prediction compared to experiment.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table and bootstrap distributions of performance statistics.  
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
+    - `typeI_submission_collection.csv` - A table of prediction data matched with experimental data according to closest algorithm.
+    - `typeI_submission_full_collection.csv` - A table that contains prediction data matched to experimental data and also entries for unmatched experimental and predicted pKas for each submission.
+    - `MAE_vs_method_plot.pdf`
+    - `MAE_vs_method_plot_colored_by_method_category.pdf`
+    - `RMSE_vs_method_plot.pdf`
+    - `RMSE_vs_method_plot_colored_by_method_category.pdf`
+    - `unmatched_pKa_vs_method_plot.pdf`
+    - `statistics.csv` - A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m))
+    - `statistics_with_unmatched_pKa_numbers.csv` - A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m)) and number unmatched pKas for each submission (number of experimental pKas predictions missed, number of extra predicted pKas).
     
 - `analysis_outputs_hungarian/` -  All analysis outputs that uses "Hungarian" assignment method are organized under this directory.
   - `statistics_table.pdf` - A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m)) for all the submissions. Also includes submission IDs assigned to each submission.
@@ -34,9 +43,18 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
   - `AbsoluteErrorPlots\` - This directory contains a bar plot for each method showing the absolute error for each macroscopic pKa prediction compared to experiment.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table and bootstrap distributions of performance statistics.  
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
+    - `typeI_submission_collection.csv` - A table of prediction data matched with experimental data according to Hungarian algorithm.
+    - `typeI_submission_full_collection.csv` - A table that contains prediction data matched to experimental data and also entries for unmatched experimental and predicted pKas for each submission.
+    - `MAE_vs_method_plot.pdf`
+    - `MAE_vs_method_plot_colored_by_method_category.pdf`
+    - `RMSE_vs_method_plot.pdf`
+    - `RMSE_vs_method_plot_colored_by_method_category.pdf`
+    - `unmatched_pKa_vs_method_plot.pdf`
+    - `statistics.csv` - A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m))
+    - `statistics_with_unmatched_pKa_numbers.csv` - A table of performance statistics (RMSE, MAE, ME, R^2 and linear regression slope(m)) and number unmatched pKas for each submission (number of experimental pKas predictions missed, number of extra predicted pKas).
 
 ## Remarks
-- pKa calculations with Epik were done after the experimental data was released online and will be considered as reference predictions. Epik predictions will be added to this analysis soon.
+- pKa calculations with Epik, Jaguar, and MoKa were done after the experimental data was released online and will be considered as reference predictions. These non-blind submissions have Submission IDs `nbXXX`.
 - pKas of the rest of the submissions were blindly predicted before experimental data was released.
 
 
@@ -44,6 +62,7 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
 ### Submission IDs for Type III Submissions
 | Submission ID | Method Name |
 |---------------|-------------|
+| nb011 | Jaguar | 
 | hdiyq |	S+pKa |
 | epvmk |	EC-RISM/MP2/cc-pVTZ-P2-phi-noThiols-2par |
 | xnoe0 |	EC-RISM/MP2/cc-pVTZ-P2-phi-all-2par |
@@ -51,10 +70,12 @@ Predicted pKas that were not matched to experimental pKas were excluded from thi
 | gdqeg	| PCM/B3LYP/6-311+G(d,p) |
 | ftc8w	| EC-RISM/MP2/cc-pVTZ-P2-q-noThiols-2par |
 | ccpmw	| ReSCoSS conformations // COSMOtherm pKa |
+| nb008 | Epik Microscopic |
 | kxztt	| EC-RISM/MP2/6-311+G(d,p)-P3NI-q-noThiols-2par |
 | 0xi4b	| EC-RISM/B3LYP/6-311+G(d,p)-P3NI-phi-noThiols-2par |
 | cywyk	| EC-RISM/B3LYP/6-311+G(d,p)-P2-phi-noThiols-2par |
 | nxaaw	| EC-RISM/B3LYP/6-311+G(d,p)-P3NI-q-noThiols-2par |
+| nb016 | MoKa |
 | eyetm	| ReSCoSS conformations // DSD-BLYP-D3 reranking // COSMOtherm pKa |
 | cm2yq	| EC-RISM/MP2/6-311+G(d,p)-P3NI-phi-noThiols-2par |
 | 2umai	| EC-RISM/MP2/6-311+G(d,p)-P3NI-phi-all-2par |
