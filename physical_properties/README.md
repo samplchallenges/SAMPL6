@@ -58,3 +58,10 @@ All reference calculations used a comparable protocol with Yank for solvation fr
 - `REF06`: YANK, SMIRNOFF force field, OPC water, wet octanol
 - `REF07`: YANK, GAFF force field, TIP3P water, dry octanol
 - `REF08`: YANK, SMIRNOFF force field, TIP3P water, dry octanol
+
+Thomas Fox contributed additional reference calculations that represent frequently used empirical log *P* prediction methods.
+- `REF09`: clogP (Biobyte)
+- `REF10`: h_logP (MOE)
+- `REF11`: logP(o/w) (MOE)
+- `REF12`: MoKa_logP
+- `REF13`: SlogP (MOE)
