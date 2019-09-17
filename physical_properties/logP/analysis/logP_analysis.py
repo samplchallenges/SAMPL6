@@ -287,6 +287,8 @@ def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=No
     y_values = data.loc[:, y_lab]
     data = data[[x_lab, y_lab]]
 
+    print(data)
+    
     # Find extreme values to make axes equal.
     min_limit = np.ceil(min(data.min()) - 1)
     max_limit = np.floor(max(data.max()) + 1)
