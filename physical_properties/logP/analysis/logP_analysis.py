@@ -1494,13 +1494,13 @@ if __name__ == '__main__':
 
     # Generate plots and tables.
     for collection in [collection_logP]:
-        #collection.generate_correlation_plots()
-        #collection.generate_correlation_plots_with_SEM()
+        collection.generate_correlation_plots()
+        collection.generate_correlation_plots_with_SEM()
         collection.generate_correlation_plots_with_SEM_method_comparison()
-        #collection.generate_molecules_plot()
-        #collection.generate_absolute_error_vs_molecule_ID_plot()
+        collection.generate_molecules_plot()
+        collection.generate_absolute_error_vs_molecule_ID_plot()
 
-    """
+
     import shutil
 
     if os.path.isdir('{}/StatisticsTables'.format(output_directory_path)):
@@ -1520,7 +1520,6 @@ if __name__ == '__main__':
     # Generate QQ-Plots for model uncertainty predictions
     QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
     generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
-    """
 
     #==========================================================================================
     # Repeat analysis WITH reference calculations
@@ -1537,10 +1536,10 @@ if __name__ == '__main__':
 
     # Generate plots and tables.
     for collection in [collection_logP]:
-        #collection.generate_correlation_plots()
-        #collection.generate_correlation_plots_with_SEM()
+        collection.generate_correlation_plots()
+        collection.generate_correlation_plots_with_SEM()
         collection.generate_correlation_plots_with_SEM_method_comparison()
-        """collection.generate_molecules_plot()
+        collection.generate_molecules_plot()
         collection.generate_absolute_error_vs_molecule_ID_plot()
 
     import shutil
@@ -1562,4 +1561,3 @@ if __name__ == '__main__':
     # Generate QQ-Plots for model uncertainty predictions
     QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
     generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
-"""
