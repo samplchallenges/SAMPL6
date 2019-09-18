@@ -22,6 +22,9 @@ import matplotlib.patches as patches
 from pylab import rcParams
 from operator import itemgetter, attrgetter
 
+#for method comparison plot
+import itertools
+
 
 # =============================================================================
 # CONSTANTS
@@ -287,6 +290,8 @@ def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=No
     y_values = data.loc[:, y_lab]
     data = data[[x_lab, y_lab]]
 
+    print(data)
+
     # Find extreme values to make axes equal.
     min_limit = np.ceil(min(data.min()) - 1)
     max_limit = np.floor(max(data.max()) + 1)
@@ -319,6 +324,54 @@ def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=No
     plt.xlim(axes_limits)
     plt.ylim(axes_limits)
 
+
+def plot_correlation_with_SEM_Method_Comparison(x_lab, y_lab, x_err_lab, y_err_lab, dataX, dataY, receipt_id_1, receipt_id_2, title=None, color=None, ax=None):
+    # Extract only logP values.
+    x_error = dataX.loc[:, x_err_lab]
+    y_error = dataY.loc[:, y_err_lab]
+    x_values = dataX.loc[:, x_lab]
+    y_values = dataY.loc[:, y_lab]
+    #combine data for use below
+    x = dataX.filter(['Molecule ID','logP (calc)'], axis=1)
+    y = dataY.filter(['Molecule ID','logP (calc)'], axis=1)
+    combined = pd.merge(x, y, on='Molecule ID')
+    combined = combined[['logP (calc)_x', 'logP (calc)_y']]
+
+    # Find extreme values to make axes equal.
+    min_limit = np.ceil(min(combined.min()) - 1)
+    max_limit = np.floor(max(combined.max()) + 1)
+    axes_limits = np.array([min_limit, max_limit])
+
+    # Color
+    current_palette = sns.color_palette()
+    sns_blue = current_palette[0]
+
+    # Plot
+    plt.figure(figsize=(6, 6))
+    grid = sns.regplot(x=x_values, y=y_values, data=combined, color=color, ci=None)
+
+    plt.errorbar(x=x_values, y=y_values, xerr=x_error, yerr=y_error, fmt="o", ecolor=sns_blue, capthick='2',
+                 label='SEM', alpha=0.75)
+    plt.axis("equal")
+
+    if len(title) > 70:
+        plt.title(title[:70]+"...")
+    else:
+        plt.title(title)
+
+    # Add diagonal line.
+    grid.plot(axes_limits, axes_limits, ls='--', c='black', alpha=0.8, lw=0.7)
+
+    # Add shaded area for 0.5-1 logP error.
+    palette = sns.color_palette('BuGn_r')
+    grid.fill_between(axes_limits, axes_limits - 0.5, axes_limits + 0.5, alpha=0.2, color=palette[2])
+    grid.fill_between(axes_limits, axes_limits - 1, axes_limits + 1, alpha=0.2, color=palette[3])
+
+    grid.set_xlabel("{} Calculated logP".format(receipt_id_1))
+    grid.set_ylabel("{} Calculated logP".format(receipt_id_2))
+
+    plt.xlim(axes_limits)
+    plt.ylim(axes_limits)
 
 def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label, figsize=False):
     """Creates bar plot of a given dataframe with asymmetric error bars for y axis.
@@ -860,6 +913,7 @@ class logPSubmissionCollection:
 
     LOGP_CORRELATION_PLOT_BY_METHOD_PATH_DIR = 'logPCorrelationPlots'
     LOGP_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR = 'logPCorrelationPlotsWithSEM'
+    LOGP_CORRELATION_PLOT_WITH_SEM_METHOD_COMPARISON_PATH_DIR = 'logPCorrelationPlotsWithSEMMethodComparison'
     LOGP_CORRELATION_PLOT_BY_LOGP_PATH_DIR = 'error_for_each_logP.pdf'
     ABSOLUTE_ERROR_VS_LOGP_PLOT_PATH_DIR = 'AbsoluteErrorPlots'
 
@@ -985,6 +1039,54 @@ class logPSubmissionCollection:
             # plt.show()
             output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
             plt.savefig(output_path)
+
+    def generate_correlation_plots_with_SEM_method_comparison(self):
+        # logP correlation plots.
+        output_dir_path = os.path.join(self.output_directory_path,
+                                       self.LOGP_CORRELATION_PLOT_WITH_SEM_METHOD_COMPARISON_PATH_DIR)
+        os.makedirs(output_dir_path, exist_ok=True)
+
+        #data = self.data
+        for category_name, category_df in self.data.groupby('category'):
+            save_path = os.path.join(output_dir_path, category_name)
+            #Make folder for each methods category
+            os.makedirs(save_path, exist_ok=True)
+            all_ids = category_df.receipt_id.unique()
+            #Make unique combinations of all the submissions
+            unique_combinations = list(itertools.combinations(all_ids, 2))
+            for receipt_id_1, receipt_id_2 in unique_combinations:
+                dataX = self.data[self.data.receipt_id == receipt_id_1]
+                dataY = self.data[self.data.receipt_id == receipt_id_2]
+                title = '{} ({}) VS {} ({})'.format(receipt_id_1, dataX.name.unique()[0],
+                                                    receipt_id_2, dataY.name.unique()[0])
+
+                plt.close('all')
+                plot_correlation_with_SEM_Method_Comparison(x_lab='logP (calc)', y_lab='logP (calc)',
+                                                            x_err_lab='logP SEM (calc)', y_err_lab='logP SEM (calc)',
+                                                            dataX=dataX, dataY=dataY, title=title,
+                                                            receipt_id_1=receipt_id_1, receipt_id_2=receipt_id_2)
+                plt.tight_layout()
+
+                #Place method comparison plots in seperate folders
+                #Not all method categories will have comparisons to reference calculations
+                count_reference = sum(ID in [receipt_id_1, receipt_id_2] for ID in SamplSubmission.REF_SUBMISSIONS)
+                if count_reference == 2:
+                    Reference_Reference_Comparison_PATH = os.path.join(save_path, "Reference_Reference_Comparison")
+                    os.makedirs(Reference_Reference_Comparison_PATH, exist_ok=True)
+                    output_path = os.path.join(Reference_Reference_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
+                    plt.savefig(output_path)
+                if count_reference == 1:
+                    Participant_Reference_Comparison_PATH = os.path.join(save_path, "Participant_Reference_Comparison")
+                    os.makedirs(Participant_Reference_Comparison_PATH, exist_ok=True)
+                    output_path = os.path.join(Participant_Reference_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
+                    plt.savefig(output_path)
+                if count_reference == 0:
+                    Participant_Participant_Comparison_PATH = os.path.join(save_path, "Participant_Participant_Comparison")
+                    os.makedirs(Participant_Participant_Comparison_PATH, exist_ok=True)
+                    output_path = os.path.join(Participant_Participant_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
+                    plt.savefig(output_path)
+
+
 
     def generate_molecules_plot(self):
         # Correlation plot by molecules.
@@ -1392,11 +1494,13 @@ if __name__ == '__main__':
 
     # Generate plots and tables.
     for collection in [collection_logP]:
-        collection.generate_correlation_plots()
-        collection.generate_correlation_plots_with_SEM()
-        collection.generate_molecules_plot()
-        collection.generate_absolute_error_vs_molecule_ID_plot()
+        #collection.generate_correlation_plots()
+        #collection.generate_correlation_plots_with_SEM()
+        collection.generate_correlation_plots_with_SEM_method_comparison()
+        #collection.generate_molecules_plot()
+        #collection.generate_absolute_error_vs_molecule_ID_plot()
 
+    """
     import shutil
 
     if os.path.isdir('{}/StatisticsTables'.format(output_directory_path)):
@@ -1416,7 +1520,7 @@ if __name__ == '__main__':
     # Generate QQ-Plots for model uncertainty predictions
     QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
     generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
-
+    """
 
     #==========================================================================================
     # Repeat analysis WITH reference calculations
@@ -1433,9 +1537,10 @@ if __name__ == '__main__':
 
     # Generate plots and tables.
     for collection in [collection_logP]:
-        collection.generate_correlation_plots()
-        collection.generate_correlation_plots_with_SEM()
-        collection.generate_molecules_plot()
+        #collection.generate_correlation_plots()
+        #collection.generate_correlation_plots_with_SEM()
+        collection.generate_correlation_plots_with_SEM_method_comparison()
+        """collection.generate_molecules_plot()
         collection.generate_absolute_error_vs_molecule_ID_plot()
 
     import shutil
@@ -1457,3 +1562,4 @@ if __name__ == '__main__':
     # Generate QQ-Plots for model uncertainty predictions
     QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
     generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
+"""
