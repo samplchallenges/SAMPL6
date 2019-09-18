@@ -22,6 +22,9 @@ import matplotlib.patches as patches
 from pylab import rcParams
 from operator import itemgetter, attrgetter
 
+#for method comparison plot
+import itertools
+
 
 # =============================================================================
 # CONSTANTS
@@ -120,6 +123,7 @@ def compute_range_table(stepsize=0.001, maxextent=10):
     --------
     - range: NumPy array giving integration range (x) where integration range runs -x to +x
     - integral: NumPy arrange giving integrals over specified integration range.
+
     Arguments (optional):
     ---------------------
     - stepsize: Step size to advance integration range by each trial. Default: 0.001
@@ -217,12 +221,14 @@ Optionally, 'returnunc = True', which returns a third value -- experimental unce
 def getQQdata(calc, expt, dcalc, dexpt, boot_its):
     """
     Takes calculated and experimental values and their uncertainties
+
     Parameters
     ----------
     calc: predicted logP value
     expt: experimental logP value
     dcalc: predicted model uncertainty
     dexp: experimental logP SEM
+
     Outputs
     -------
     X: array of x axis values for QQ-plot
@@ -276,18 +282,60 @@ def plot_correlation(x, y, data, title=None, color=None, kind='joint', ax=None):
     ax.fill_between(axes_limits, axes_limits - 1, axes_limits + 1, alpha=0.2, color=palette[3])
 
 
-def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, dataX, dataY, combined, receipt_id_1, receipt_id_2, title=None, color=None, ax=None):
+def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, data, title=None, color=None, ax=None):
+    # Extract only logP values.
+    x_error = data.loc[:, x_err_lab]
+    y_error = data.loc[:, y_err_lab]
+    x_values = data.loc[:, x_lab]
+    y_values = data.loc[:, y_lab]
+    data = data[[x_lab, y_lab]]
+
+    print(data)
+
+    # Find extreme values to make axes equal.
+    min_limit = np.ceil(min(data.min()) - 1)
+    max_limit = np.floor(max(data.max()) + 1)
+    axes_limits = np.array([min_limit, max_limit])
+
+    # Color
+    current_palette = sns.color_palette()
+    sns_blue = current_palette[0]
+
+    # Plot
+    plt.figure(figsize=(6, 6))
+    grid = sns.regplot(x=x_values, y=y_values, data=data, color=color, ci=None)
+    plt.errorbar(x=x_values, y=y_values, xerr=x_error, yerr=y_error, fmt="o", ecolor=sns_blue, capthick='2',
+                 label='SEM', alpha=0.75)
+    plt.axis("equal")
+
+    if len(title) > 70:
+        plt.title(title[:70]+"...")
+    else:
+        plt.title(title)
+
+    # Add diagonal line.
+    grid.plot(axes_limits, axes_limits, ls='--', c='black', alpha=0.8, lw=0.7)
+
+    # Add shaded area for 0.5-1 logP error.
+    palette = sns.color_palette('BuGn_r')
+    grid.fill_between(axes_limits, axes_limits - 0.5, axes_limits + 0.5, alpha=0.2, color=palette[2])
+    grid.fill_between(axes_limits, axes_limits - 1, axes_limits + 1, alpha=0.2, color=palette[3])
+
+    plt.xlim(axes_limits)
+    plt.ylim(axes_limits)
+
+
+def plot_correlation_with_SEM_Method_Comparison(x_lab, y_lab, x_err_lab, y_err_lab, dataX, dataY, receipt_id_1, receipt_id_2, title=None, color=None, ax=None):
     # Extract only logP values.
     x_error = dataX.loc[:, x_err_lab]
     y_error = dataY.loc[:, y_err_lab]
     x_values = dataX.loc[:, x_lab]
     y_values = dataY.loc[:, y_lab]
-    #combined_data = dataX.append(dataY, ignore_index=True)
+    #combine data for use below
+    x = dataX.filter(['Molecule ID','logP (calc)'], axis=1)
+    y = dataY.filter(['Molecule ID','logP (calc)'], axis=1)
+    combined = pd.merge(x, y, on='Molecule ID')
     combined = combined[['logP (calc)_x', 'logP (calc)_y']]
-
-    print('x_values',x_values)
-    print('y_values',y_values)
-    print('combined',combined)
 
     # Find extreme values to make axes equal.
     min_limit = np.ceil(min(combined.min()) - 1)
@@ -325,10 +373,9 @@ def plot_correlation_with_SEM(x_lab, y_lab, x_err_lab, y_err_lab, dataX, dataY, 
     plt.xlim(axes_limits)
     plt.ylim(axes_limits)
 
-
-
 def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label, figsize=False):
     """Creates bar plot of a given dataframe with asymmetric error bars for y axis.
+
     Args:
         df: Pandas Dataframe that should have columns with columnnames specified in other arguments.
         x_label: str, column name of x axis categories
@@ -336,6 +383,7 @@ def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label
         y_lower_label: str, column name of lower error values of y axis
         y_upper_label: str, column name of upper error values of y axis
         figsize: tuple, size in inches. Default value is False.
+
     """
     # Column names for new columns for delta y_err which is calculated as | y_err - y |
     delta_lower_yerr_label = "$\Delta$" + y_lower_label
@@ -373,6 +421,7 @@ def barplot_with_CI_errorbars(df, x_label, y_label, y_lower_label, y_upper_label
 
 def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_label, y_upper_label, color_label, figsize=False):
     """Creates bar plot of a given dataframe with asymmetric error bars for y axis.
+
         Args:
             df: Pandas Dataframe that should have columns with columnnames specified in other arguments.
             x_label: str, column name of x axis categories
@@ -381,6 +430,7 @@ def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_lab
             y_upper_label: str, column name of upper error values of y axis
             color_label: str, column name of label that will determine the color of bars
             figsize: tuple, size in inches. Default value is False.
+
         """
     # Column names for new columns for delta y_err which is calculated as | y_err - y |
     delta_lower_yerr_label = "$\Delta$" + y_lower_label
@@ -451,11 +501,13 @@ def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_lab
 
 def barplot(df, x_label, y_label, title):
     """Creates bar plot of a given dataframe.
+
     Args:
         df: Pandas Dataframe that should have columns with columnnames specified in other arguments.
         x_label: str, column name of x axis categories
         y_label: str, column name of y axis values
         title: str, the title of the plot
+
     """
     # Plot style
     plt.close()
@@ -723,14 +775,17 @@ class SamplSubmission:
 
 class logPSubmission(SamplSubmission):
     """A submission for logP challenge.
+
     Parameters
     ----------
     file_path : str
         The path to the submission file
+
     Raises
     ------
     IgnoredSubmission
         If the submission ID is among the ignored submissions.
+
     """
 
     # The D3R challenge IDs that are handled by this class.
@@ -857,6 +912,7 @@ class logPSubmissionCollection:
 
     LOGP_CORRELATION_PLOT_BY_METHOD_PATH_DIR = 'logPCorrelationPlots'
     LOGP_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR = 'logPCorrelationPlotsWithSEM'
+    LOGP_CORRELATION_PLOT_WITH_SEM_METHOD_COMPARISON_PATH_DIR = 'logPCorrelationPlotsWithSEMMethodComparison'
     LOGP_CORRELATION_PLOT_BY_LOGP_PATH_DIR = 'error_for_each_logP.pdf'
     ABSOLUTE_ERROR_VS_LOGP_PLOT_PATH_DIR = 'AbsoluteErrorPlots'
 
@@ -907,11 +963,16 @@ class logPSubmissionCollection:
 
 
                 for mol_ID, series in submission.data.iterrows():
+                    #print("mol_ID:", mol_ID)
+                    #print("series:\n", series)
 
+                    #mol_ID = series[1]["Molecule ID"]
+
+                    #pKa_mean_exp = experimental_data.loc[experimental_data["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
                     logP_mean_exp = experimental_data.loc[mol_ID, 'logP mean']
                     logP_SEM_exp = experimental_data.loc[mol_ID, 'logP SEM']
 
-
+                    #pKa_mean_pred = submission.data.loc[submission.data["pKa ID"] == pKa_ID, 'pKa mean'].values[0]
                     logP_mean_pred = submission.data.loc[mol_ID, "logP mean"]
                     logP_SEM_pred = submission.data.loc[mol_ID, "logP SEM"]
                     logP_model_uncertainty =  submission.data.loc[mol_ID, "logP model uncertainty"]
@@ -943,43 +1004,122 @@ class logPSubmissionCollection:
             # Save collection.data dataframe in a CSV file.
             self.data.to_csv(logP_submission_collection_file_path)
 
+    def generate_correlation_plots(self):
+        # logP correlation plots.
+        output_dir_path = os.path.join(self.output_directory_path,
+                                       self.LOGP_CORRELATION_PLOT_BY_METHOD_PATH_DIR)
+        os.makedirs(output_dir_path, exist_ok=True)
+        for receipt_id in self.data.receipt_id.unique():
+            data = self.data[self.data.receipt_id == receipt_id]
+            title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 
+            plt.close('all')
+            plot_correlation(x='logP (exp)', y='logP (calc)',
+                             data=data, title=title, kind='joint')
+            plt.tight_layout()
+            # plt.show()
+            output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
+            plt.savefig(output_path)
 
     def generate_correlation_plots_with_SEM(self):
         # logP correlation plots.
         output_dir_path = os.path.join(self.output_directory_path,
                                        self.LOGP_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR)
+        os.makedirs(output_dir_path, exist_ok=True)
+        for receipt_id in self.data.receipt_id.unique():
+            data = self.data[self.data.receipt_id == receipt_id]
+            title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 
+            plt.close('all')
+            plot_correlation_with_SEM(x_lab='logP (exp)', y_lab='logP (calc)',
+                                      x_err_lab='logP SEM (exp)', y_err_lab='logP SEM (calc)',
+                                      data=data, title=title)
+            plt.tight_layout()
+            # plt.show()
+            output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
+            plt.savefig(output_path)
+
+    def generate_correlation_plots_with_SEM_method_comparison(self):
+        # logP correlation plots.
+        output_dir_path = os.path.join(self.output_directory_path,
+                                       self.LOGP_CORRELATION_PLOT_WITH_SEM_METHOD_COMPARISON_PATH_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
 
-
-        import itertools
-        data = self.data
-
-        for category_name, category_df in data.groupby('category'):
+        #data = self.data
+        for category_name, category_df in self.data.groupby('category'):
             save_path = os.path.join(output_dir_path, category_name)
+            #Make folder for each methods category
             os.makedirs(save_path, exist_ok=True)
             all_ids = category_df.receipt_id.unique()
+            #Make unique combinations of all the submissions
             unique_combinations = list(itertools.combinations(all_ids, 2))
             for receipt_id_1, receipt_id_2 in unique_combinations:
                 dataX = self.data[self.data.receipt_id == receipt_id_1]
                 dataY = self.data[self.data.receipt_id == receipt_id_2]
                 title = '{} ({}) VS {} ({})'.format(receipt_id_1, dataX.name.unique()[0],
-                                            receipt_id_2, dataY.name.unique()[0])
-                x = dataX.filter(['Molecule ID','logP (calc)'], axis=1)
-                y = dataY.filter(['Molecule ID','logP (calc)'], axis=1)
-                combined = pd.merge(x, y, on='Molecule ID')
+                                                    receipt_id_2, dataY.name.unique()[0])
 
                 plt.close('all')
-                plot_correlation_with_SEM(x_lab='logP (calc)', y_lab='logP (calc)',
-                                          x_err_lab='logP SEM (calc)', y_err_lab='logP SEM (calc)',
-                                          dataX=dataX, dataY=dataY, combined=combined, title=title,
-                                          receipt_id_1=receipt_id_1, receipt_id_2=receipt_id_2)
-
+                plot_correlation_with_SEM_Method_Comparison(x_lab='logP (calc)', y_lab='logP (calc)',
+                                                            x_err_lab='logP SEM (calc)', y_err_lab='logP SEM (calc)',
+                                                            dataX=dataX, dataY=dataY, title=title,
+                                                            receipt_id_1=receipt_id_1, receipt_id_2=receipt_id_2)
                 plt.tight_layout()
 
-                output_path = os.path.join(save_path, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
-                plt.savefig(output_path)
+                #Place method comparison plots in seperate folders
+                #Not all method categories will have comparisons to reference calculations
+                count_reference = sum(ID in [receipt_id_1, receipt_id_2] for ID in SamplSubmission.REF_SUBMISSIONS)
+                if count_reference == 2:
+                    Reference_Reference_Comparison_PATH = os.path.join(save_path, "Reference_Reference_Comparison")
+                    os.makedirs(Reference_Reference_Comparison_PATH, exist_ok=True)
+                    output_path = os.path.join(Reference_Reference_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
+                    plt.savefig(output_path)
+                if count_reference == 1:
+                    Participant_Reference_Comparison_PATH = os.path.join(save_path, "Participant_Reference_Comparison")
+                    os.makedirs(Participant_Reference_Comparison_PATH, exist_ok=True)
+                    output_path = os.path.join(Participant_Reference_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
+                    plt.savefig(output_path)
+                if count_reference == 0:
+                    Participant_Participant_Comparison_PATH = os.path.join(save_path, "Participant_Participant_Comparison")
+                    os.makedirs(Participant_Participant_Comparison_PATH, exist_ok=True)
+                    output_path = os.path.join(Participant_Participant_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
+                    plt.savefig(output_path)
+
+
+
+    def generate_molecules_plot(self):
+        # Correlation plot by molecules.
+        plt.close('all')
+        data_ordered_by_mol_ID = self.data.sort_values(["Molecule ID"], ascending=["True"])
+        sns.set(rc={'figure.figsize': (8.27,11.7)})
+        sns.violinplot(y='Molecule ID', x='$\Delta$logP error (calc - exp)', data=data_ordered_by_mol_ID,
+                           inner='point', linewidth=1, width=1.2)
+        plt.tight_layout()
+        # plt.show()
+        plt.savefig(os.path.join(self.output_directory_path, self.LOGP_CORRELATION_PLOT_BY_LOGP_PATH_DIR))
+
+    def generate_absolute_error_vs_molecule_ID_plot(self):
+        """
+        For each method a bar plot is generated so that absolute errors of each molecule can be compared.
+        """
+        # Setup output directory
+        output_dir_path = os.path.join(self.output_directory_path,
+                                       self.ABSOLUTE_ERROR_VS_LOGP_PLOT_PATH_DIR)
+        os.makedirs(output_dir_path, exist_ok=True)
+
+        # Calculate absolute errors.
+        self.data["absolute error"] = np.NaN
+        self.data.loc[:, "absolute error"] = np.absolute(self.data.loc[:, "$\Delta$logP error (calc - exp)"])
+
+        # Create a separate plot for each submission.
+        for receipt_id in self.data.receipt_id.unique():
+            data = self.data[self.data.receipt_id == receipt_id]
+            title = '{} ({})'.format(receipt_id, data.name.unique()[0])
+
+            plt.close('all')
+            barplot(df=data, x_label="Molecule ID", y_label="absolute error", title=title)
+            output_path = os.path.join(output_dir_path, '{}.pdf'.format(receipt_id))
+            plt.savefig(output_path)
 
 
 def generate_statistics_tables(submissions, stats_funcs, directory_path, file_base_name,
@@ -1336,9 +1476,50 @@ if __name__ == '__main__':
         'kendall_tau': '$\\tau$'
     }
 
+    # ==========================================================================================
+    # Analysis of standard blind submissions WITHOUT reference calculations
+    # ==========================================================================================
+
+    # Load submissions data.
+    submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
+
+    # Perform the analysis
+
+    output_directory_path='./analysis_outputs'
+    logP_submission_collection_file_path = '{}/logP_submission_collection.csv'.format(output_directory_path)
+
+    collection_logP= logPSubmissionCollection(submissions_logP, experimental_data,
+                                             output_directory_path, logP_submission_collection_file_path)
+
+    # Generate plots and tables.
+    for collection in [collection_logP]:
+        #collection.generate_correlation_plots()
+        #collection.generate_correlation_plots_with_SEM()
+        collection.generate_correlation_plots_with_SEM_method_comparison()
+        #collection.generate_molecules_plot()
+        #collection.generate_absolute_error_vs_molecule_ID_plot()
+
+    """
+    import shutil
+
+    if os.path.isdir('{}/StatisticsTables'.format(output_directory_path)):
+        shutil.rmtree('{}/StatisticsTables'.format(output_directory_path))
 
 
+    for submissions, type in zip([submissions_logP], ['logP']):
+        generate_statistics_tables(submissions, stats_funcs, directory_path=output_directory_path + '/StatisticsTables',
+                                    file_base_name='statistics', sort_stat='RMSE',
+                                    ordering_functions=ordering_functions,
+                                    latex_header_conversions=latex_header_conversions)
 
+    # Generate RMSE, MAE, Kendall's Tau comparison plots.
+    statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
+    generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
+
+    # Generate QQ-Plots for model uncertainty predictions
+    QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
+    generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
+    """
 
     #==========================================================================================
     # Repeat analysis WITH reference calculations
@@ -1355,4 +1536,29 @@ if __name__ == '__main__':
 
     # Generate plots and tables.
     for collection in [collection_logP]:
-        collection.generate_correlation_plots_with_SEM()
+        #collection.generate_correlation_plots()
+        #collection.generate_correlation_plots_with_SEM()
+        collection.generate_correlation_plots_with_SEM_method_comparison()
+        """collection.generate_molecules_plot()
+        collection.generate_absolute_error_vs_molecule_ID_plot()
+
+    import shutil
+
+    if os.path.isdir('{}/StatisticsTables'.format(output_directory_path)):
+        shutil.rmtree('{}/StatisticsTables'.format(output_directory_path))
+
+
+    for submissions, type in zip([submissions_logP], ['logP']):
+        generate_statistics_tables(submissions, stats_funcs, directory_path=output_directory_path + '/StatisticsTables',
+                                    file_base_name='statistics', sort_stat='RMSE',
+                                    ordering_functions=ordering_functions,
+                                    latex_header_conversions=latex_header_conversions, ignore_refcalcs = False)
+
+    # Generate RMSE, MAE, and Kendall's Tau comparison plots.
+    statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
+    generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
+
+    # Generate QQ-Plots for model uncertainty predictions
+    QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
+    generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
+"""
