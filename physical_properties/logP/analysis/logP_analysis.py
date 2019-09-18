@@ -1046,6 +1046,11 @@ class logPSubmissionCollection:
                                        self.LOGP_CORRELATION_PLOT_WITH_SEM_METHOD_COMPARISON_PATH_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
 
+        # subfolders for the different comparisons
+        Reference_Reference_Comparison_PATH = os.path.join(save_path, "Reference_Reference_Comparison")
+        Participant_Reference_Comparison_PATH = os.path.join(save_path, "Participant_Reference_Comparison")
+        Participant_Participant_Comparison_PATH = os.path.join(save_path, "Participant_Participant_Comparison")
+
         for category_name, category_df in self.data.groupby('category'):
             save_path = os.path.join(output_dir_path, category_name)
             #Make folder for each methods category
@@ -1070,17 +1075,14 @@ class logPSubmissionCollection:
                 #Not all method categories will have comparisons to reference calculations
                 count_reference = sum(ID in [receipt_id_1, receipt_id_2] for ID in SamplSubmission.REF_SUBMISSIONS)
                 if count_reference == 2:
-                    Reference_Reference_Comparison_PATH = os.path.join(save_path, "Reference_Reference_Comparison")
                     os.makedirs(Reference_Reference_Comparison_PATH, exist_ok=True)
                     output_path = os.path.join(Reference_Reference_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
                     plt.savefig(output_path)
-                if count_reference == 1:
-                    Participant_Reference_Comparison_PATH = os.path.join(save_path, "Participant_Reference_Comparison")
+                elif count_reference == 1:
                     os.makedirs(Participant_Reference_Comparison_PATH, exist_ok=True)
                     output_path = os.path.join(Participant_Reference_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
                     plt.savefig(output_path)
-                if count_reference == 0:
-                    Participant_Participant_Comparison_PATH = os.path.join(save_path, "Participant_Participant_Comparison")
+                else:
                     os.makedirs(Participant_Participant_Comparison_PATH, exist_ok=True)
                     output_path = os.path.join(Participant_Participant_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
                     plt.savefig(output_path)
