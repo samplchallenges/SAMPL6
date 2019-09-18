@@ -15,7 +15,8 @@ Molecular statistics analysis was performed to indicate logP values of which mol
    Also includes submission IDs assigned to each submission.
   - `error_for_each_logP.pdf` - Violin plots that show error distribution of predictions related to each experimental log *P*.
   - `logPCorrelationPlots/` - This directory contains plots of predicted vs. experimental log *P* values with linear regression line (blue) for each method. Files are named by submission ID of each method, which can be found in `statistics_table.pdf`. In correlation plots, dashed black line has slope of 1. Dark and light green shaded areas indicate +-0.5 and +-1.0 log *P* unit error regions, respectively.
-  - `pKaCorrelationPlotsWithSEM/` - This directory contains similar plots to the `pKaCorrelationPlots/` directory with error bars added for Standard Error of the Mean(SEM) of experimental and predicted values for submissions that reported these values. Since experimental log *P* SEM values are small horizontal error bars are mostly not visible.
+  - `logPCorrelationPlotsWithSEM/` - This directory contains similar plots to the `logPCorrelationPlots/` directory with error bars added for Standard Error of the Mean(SEM) of experimental and predicted values for submissions that reported these values. Since experimental log *P* SEM values are small horizontal error bars are mostly not visible.
+  - `logPCorrelationPlotsWithSEMMethodComparison/` - This directory contains plots similar to the `logPCorrelationPlots/` directory, except these compare the calculated log *P* of methods.
   - `AbsoluteErrorPlots/` - This directory contains a bar plot for each method showing the absolute error for each log *P* prediction compared to experimental value.
   - `StatisticsTables/` - This directory contains machine readable copies of Statistics Table, bootstrap distributions of performance statistics, and overall performance comparison plots based on RMSE and MAE values.
     - `statistics.pdf` - A table of performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), Kendall's Tau, and error slope(ES)) for all the submissions.
@@ -37,7 +38,7 @@ Molecular statistics analysis was performed to indicate logP values of which mol
     - `kendalls_tau_vs_method_plot_for_Physical_category.pdf`
     - `kendalls_tau_vs_method_plot_for_Empirical_category.pdf`
     - `kendalls_tau_vs_method_plot_for_Mixed_category.pdf`
-    - `kendalls_tau_vs_method_plot_for_Other_category.pdf` 
+    - `kendalls_tau_vs_method_plot_for_Other_category.pdf`
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
   - `QQPlots/` - Quantile-Quantile plots for the analysis of model uncertainty predictions.
   - `MolecularStatisticsTables/` - This directory contains tables and barplots of molecular statistics analysis (Error statistics, MAE and RMSE, calculated across methods for each molecule.)
@@ -155,8 +156,8 @@ Molecular statistics analysis was performed to indicate logP values of which mol
 
  ## Submission IDs for reference log *P* prediction methods
 
-Reference calculations are not formally part of the challenge but are provided as reference/comparison methods. 
-They are collected after the blind challenge deadline. 
+Reference calculations are not formally part of the challenge but are provided as reference/comparison methods.
+They are collected after the blind challenge deadline.
 SAMPL6 log *P* challenge reference submissions were listed in the ascending order of RMSE.
 
 | Submission ID | Method Name |  Category    |
@@ -176,4 +177,3 @@ SAMPL6 log *P* challenge reference submissions were listed in the ascending orde
 | REF11 | logP(o/w) (MOE) | Empirical |
 | REF12 | MoKa_logP | Empirical |
 | REF13 | SlogP (MOE) | Empirical |
-
