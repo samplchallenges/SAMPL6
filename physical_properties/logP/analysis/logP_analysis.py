@@ -1046,7 +1046,6 @@ class logPSubmissionCollection:
                                        self.LOGP_CORRELATION_PLOT_WITH_SEM_METHOD_COMPARISON_PATH_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
 
-        #data = self.data
         for category_name, category_df in self.data.groupby('category'):
             save_path = os.path.join(output_dir_path, category_name)
             #Make folder for each methods category
@@ -1085,7 +1084,6 @@ class logPSubmissionCollection:
                     os.makedirs(Participant_Participant_Comparison_PATH, exist_ok=True)
                     output_path = os.path.join(Participant_Participant_Comparison_PATH, '{}-{}.pdf'.format(receipt_id_1, receipt_id_2))
                     plt.savefig(output_path)
-
 
 
     def generate_molecules_plot(self):
