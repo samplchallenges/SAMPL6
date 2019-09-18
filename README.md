@@ -64,6 +64,7 @@ The SAMPL project was recently funded by the National Institutes of Health, for 
 - (Post-challenge) Add Kendall's Tau calculation to log *P* challenge analysis.
 - (Post-challenge) Update pKa challenge type III analysis: add unmatched pKa statistics, new reference calculations, and performance comparison plots colored by method.
 - (Post-challenge) Update pKa challenge type I analysis: add unmatched pKa statistics, new reference calculations, and performance comparison plots colored by method.
+- (Post-challenge) Add reference calculation done by Thomas Fox (empirical logP prediction methods).
 
 ## Challenge Overview
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
