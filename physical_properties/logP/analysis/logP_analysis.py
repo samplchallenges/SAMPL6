@@ -614,7 +614,7 @@ class SamplSubmission:
 
     # The IDs of submissions used for reference calculations
     REF_SUBMISSIONS = ['REF01', 'REF02', 'REF03', 'REF04', 'REF05', 'REF06', 'REF07', 'REF08',
-                       'REF09', 'REF10', 'REF11', 'REF12', 'REF13']
+                       'REF09', 'REF10', 'REF11', 'REF12', 'REF13', 'REF14']
 
 
     # Section of the submission file.
@@ -1379,7 +1379,7 @@ if __name__ == '__main__':
     # Analysis of standard blind submissions WITHOUT reference calculations
     # ==========================================================================================
 
-    # Load submissions data.
+    '''# Load submissions data.
     submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
 
     # Perform the analysis
@@ -1415,7 +1415,7 @@ if __name__ == '__main__':
 
     # Generate QQ-Plots for model uncertainty predictions
     QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
-    generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
+    generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)'''
 
 
     #==========================================================================================
@@ -1433,7 +1433,7 @@ if __name__ == '__main__':
 
     # Generate plots and tables.
     for collection in [collection_logP]:
-        collection.generate_correlation_plots()
+        #collection.generate_correlation_plots()
         collection.generate_correlation_plots_with_SEM()
         collection.generate_molecules_plot()
         collection.generate_absolute_error_vs_molecule_ID_plot()
