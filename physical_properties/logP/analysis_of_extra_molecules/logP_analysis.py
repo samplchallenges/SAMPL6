@@ -29,7 +29,8 @@ from operator import itemgetter, attrgetter
 
 # Paths to input data.
 LOGP_SUBMISSIONS_DIR_PATH = './logP_predictions'
-EXPERIMENTAL_DATA_FILE_PATH = '../experimental_data/logP_experimental_values.csv'
+EXPERIMENTAL_DATA_FILE_PATH = './logP_experimental_values.csv'
+USER_MAP_FILE_PATH = './extra-user-map-logP.csv'
 
 # =============================================================================
 # STATS FUNCTIONS
@@ -613,8 +614,8 @@ class SamplSubmission:
     TEST_SUBMISSIONS = {}
 
     # The IDs of submissions used for reference calculations
-    REF_SUBMISSIONS = ['REF01', 'REF02', 'REF03', 'REF04', 'REF05', 'REF06', 'REF07', 'REF08',
-                       'REF09', 'REF10', 'REF11', 'REF12', 'REF13']
+    REF_SUBMISSIONS = ["EXT01", "EXT02", "EXT03", "EXT04", "EXT05", "EXT06", "EXT07", "EXT08", "EXT09", "EXT10",
+                       "EXT11", "EXT12", "EXT13"]
 
 
     # Section of the submission file.
@@ -625,7 +626,7 @@ class SamplSubmission:
 
     def __init__(self, file_path, user_map):
         file_name = os.path.splitext(os.path.basename(file_path))[0]
-        print(file_name)
+        print("File name:", file_name)
         file_data = file_name.split('-')
 
         # Check if this is a deleted submission.
@@ -648,6 +649,8 @@ class SamplSubmission:
 
         # Store user map information.
         user_map_record = user_map[user_map.receipt_id == self.receipt_id]
+        print("Receipt ID:", self.receipt_id)
+        print("User map record:\n",user_map_record)
         assert len(user_map_record) == 1
         user_map_record = user_map_record.iloc[0]
 
@@ -773,7 +776,7 @@ class logPSubmission(SamplSubmission):
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000) #10000
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=1000) #10000
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
@@ -1349,7 +1352,7 @@ if __name__ == '__main__':
     print("Experimental data: \n", experimental_data)
 
     # Import user map.
-    with open('../predictions/SAMPL6-user-map-logP.csv', 'r') as f:
+    with open(USER_MAP_FILE_PATH, 'r') as f:
         user_map = pd.read_csv(f)
 
     # Configuration: statistics to compute.
@@ -1379,43 +1382,43 @@ if __name__ == '__main__':
     # Analysis of standard blind submissions WITHOUT reference calculations
     # ==========================================================================================
 
-    # Load submissions data.
-    submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
-
-    # Perform the analysis
-
-    output_directory_path='./analysis_outputs'
-    logP_submission_collection_file_path = '{}/logP_submission_collection.csv'.format(output_directory_path)
-
-    collection_logP= logPSubmissionCollection(submissions_logP, experimental_data,
-                                             output_directory_path, logP_submission_collection_file_path)
-
-    # Generate plots and tables.
-    for collection in [collection_logP]:
-        collection.generate_correlation_plots()
-        collection.generate_correlation_plots_with_SEM()
-        collection.generate_molecules_plot()
-        collection.generate_absolute_error_vs_molecule_ID_plot()
-
-    import shutil
-
-    if os.path.isdir('{}/StatisticsTables'.format(output_directory_path)):
-        shutil.rmtree('{}/StatisticsTables'.format(output_directory_path))
-
-
-    for submissions, type in zip([submissions_logP], ['logP']):
-        generate_statistics_tables(submissions, stats_funcs, directory_path=output_directory_path + '/StatisticsTables',
-                                    file_base_name='statistics', sort_stat='RMSE',
-                                    ordering_functions=ordering_functions,
-                                    latex_header_conversions=latex_header_conversions)
-
-    # Generate RMSE, MAE, Kendall's Tau comparison plots.
-    statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
-    generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
-
-    # Generate QQ-Plots for model uncertainty predictions
-    QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
-    generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
+    # # Load submissions data.
+    # submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
+    #
+    # # Perform the analysis
+    #
+    # output_directory_path='./analysis_outputs'
+    # logP_submission_collection_file_path = '{}/logP_submission_collection.csv'.format(output_directory_path)
+    #
+    # collection_logP= logPSubmissionCollection(submissions_logP, experimental_data,
+    #                                          output_directory_path, logP_submission_collection_file_path)
+    #
+    # # Generate plots and tables.
+    # for collection in [collection_logP]:
+    #     collection.generate_correlation_plots()
+    #     collection.generate_correlation_plots_with_SEM()
+    #     collection.generate_molecules_plot()
+    #     collection.generate_absolute_error_vs_molecule_ID_plot()
+    #
+    # import shutil
+    #
+    # if os.path.isdir('{}/StatisticsTables'.format(output_directory_path)):
+    #     shutil.rmtree('{}/StatisticsTables'.format(output_directory_path))
+    #
+    #
+    # for submissions, type in zip([submissions_logP], ['logP']):
+    #     generate_statistics_tables(submissions, stats_funcs, directory_path=output_directory_path + '/StatisticsTables',
+    #                                 file_base_name='statistics', sort_stat='RMSE',
+    #                                 ordering_functions=ordering_functions,
+    #                                 latex_header_conversions=latex_header_conversions)
+    #
+    # # Generate RMSE, MAE, Kendall's Tau comparison plots.
+    # statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
+    # generate_performance_comparison_plots(statistics_filename="statistics.csv", directory_path=statistics_directory_path)
+    #
+    # # Generate QQ-Plots for model uncertainty predictions
+    # QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
+    # generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
 
 
     #==========================================================================================
