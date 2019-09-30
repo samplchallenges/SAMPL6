@@ -11,10 +11,10 @@ python logP_analysis.py
 python logP_analysis2.py
 
 # Compile LaTeX statistic table twice for better rendering
-pdflatex ./analysis_outputs/StatisticsTables/statisticsLaTex/statistics.tex
-pdflatex ./analysis_outputs/StatisticsTables/statisticsLaTex/statistics.tex
+pdflatex ./analysis_outputs_withrefs/StatisticsTables/statisticsLaTex/statistics.tex
+pdflatex ./analysis_outputs_withrefs/StatisticsTables/statisticsLaTex/statistics.tex
 rm statistics.log 
 rm statistics.aux 
 rm texput.log
-mv statistics.pdf ./analysis_outputs/StatisticsTables/  
+mv statistics.pdf ./analysis_outputs_withrefs/StatisticsTables/  
 

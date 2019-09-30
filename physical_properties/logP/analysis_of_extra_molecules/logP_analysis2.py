@@ -16,7 +16,7 @@ from matplotlib import pyplot as plt
 # PLOTTING FUNCTIONS
 # =============================================================================
 
-def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, y_lower_label, y_upper_label):
+def barplot_with_CI_errorbars_and_2groups(df1, df2, x_label, y_label, y_lower_label, y_upper_label):
     """Creates bar plot of a given dataframe with asymmetric error bars for y axis.
     Args:
         df: Pandas Dataframe that should have columns with columnnames specified in other arguments.
@@ -38,11 +38,11 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
     plt.close()
     plt.style.use(["seaborn-talk", "seaborn-whitegrid"])
     plt.rcParams['axes.labelsize'] = 18
-    plt.rcParams['xtick.labelsize'] = 14
+    plt.rcParams['xtick.labelsize'] = 12
     plt.rcParams['ytick.labelsize'] = 16
     plt.tight_layout()
     #plt.figure(figsize=(8, 6))
-    bar_width = 0.2
+    bar_width = 0.4
     current_palette = sns.color_palette("deep")
 
     fig, ax = plt.subplots(figsize=(8, 6))
@@ -73,33 +73,6 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
     plt.errorbar(index + bar_width, y, yerr=(data[delta_lower_yerr_label], data[delta_upper_yerr_label]),
                  fmt="none", ecolor=error_color, capsize=2, capthick=True, elinewidth=1)
 
-    # Plot 3nd group of data
-    data = df3  # Pandas DataFrame
-    data[delta_lower_yerr_label] = data[y_label] - data[y_lower_label]
-    data[delta_upper_yerr_label] = data[y_upper_label] - data[y_label]
-    index = np.arange(df3.shape[0])
-
-    x = range(len(data[y_label]))
-    y = data[y_label]
-    # plt.bar(x, y)
-    ax.bar(index + 2*bar_width, y, label="Empirical", width=bar_width, color=current_palette[2])
-    plt.xticks(index + bar_width + bar_width / 2, data[x_label], rotation=90)
-    plt.errorbar(index + 2*bar_width, y, yerr=(data[delta_lower_yerr_label], data[delta_upper_yerr_label]),
-                 fmt="none", ecolor=error_color, capsize=2, capthick=True, elinewidth=1)
-
-    # Plot 4nd group of data
-    data = df4  # Pandas DataFrame
-    data[delta_lower_yerr_label] = data[y_label] - data[y_lower_label]
-    data[delta_upper_yerr_label] = data[y_upper_label] - data[y_label]
-    index = np.arange(df4.shape[0])
-
-    x = range(len(data[y_label]))
-    y = data[y_label]
-    # plt.bar(x, y)
-    ax.bar(index + 3*bar_width, y, label="Empirical", width=bar_width, color=current_palette[3])
-    plt.xticks(index + 1*bar_width + bar_width / 2, data[x_label], rotation=90)
-    plt.errorbar(index + 3*bar_width, y, yerr=(data[delta_lower_yerr_label], data[delta_upper_yerr_label]),
-                 fmt="none", ecolor=error_color, capsize=2, capthick=True, elinewidth=1)
 
 
     plt.xlabel(x_label)
@@ -108,10 +81,8 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
     # create legend
     from matplotlib.lines import Line2D
     custom_lines = [Line2D([0], [0], color=current_palette[0], lw=5),
-                    Line2D([0], [0], color=current_palette[1], lw=5),
-                    Line2D([0], [0], color=current_palette[2], lw=5),
-                    Line2D([0], [0], color=current_palette[3], lw=5)]
-    ax.legend(custom_lines, ["Physical", "Empirical","Mixed","Other"])
+                    Line2D([0], [0], color=current_palette[1], lw=5)]
+    ax.legend(custom_lines, ["Physical", "Empirical"])
 
 
 # =============================================================================
@@ -119,7 +90,7 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
 # =============================================================================
 
 # Paths to input data.
-LOGP_COLLECTION_PATH = './analysis_outputs/logP_submission_collection.csv'
+LOGP_COLLECTION_PATH = './analysis_outputs_withrefs/logP_submission_collection.csv'
 
 # =============================================================================
 # UTILITY FUNCTIONS
@@ -205,12 +176,16 @@ def calc_MAE_for_molecules_across_all_predictions(collection_df, directory_path,
     # Plot MAE and RMSE of each molecule across predictions as a bar plot
     barplot_with_CI_errorbars(df = molecular_statistics_df, x_label = 'Molecule ID',
                               y_label = 'MAE', y_lower_label = 'MAE_lower_CI', y_upper_label = 'MAE_upper_CI',
-                              figsize=(7.5, 6))
+                              figsize=(8, 6))
+    plt.rcParams['xtick.labelsize'] = 12
+    plt.tight_layout()
     plt.savefig(directory_path + "/MAE_vs_molecule_ID_plot.pdf")
 
     barplot_with_CI_errorbars(df=molecular_statistics_df, x_label = 'Molecule ID',
                               y_label = 'RMSE', y_lower_label = 'RMSE_lower_CI', y_upper_label = 'RMSE_upper_CI',
-                              figsize=(7.5, 6))
+                              figsize=(8, 6))
+    plt.rcParams['xtick.labelsize'] = 12
+    plt.tight_layout()
     plt.savefig(directory_path + "/RMSE_vs_molecule_ID_plot.pdf")
 
 
@@ -253,14 +228,12 @@ def calc_MAE_for_molecules_across_selected_predictions(collection_df, selected_m
     calc_MAE_for_molecules_across_all_predictions(collection_df=collection_df_subset, directory_path=subset_directory_path, file_base_name=file_base_name)
 
 
-def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path, group1, group2, group3, group4, file_base_name):
+def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path, group1, group2, file_base_name):
 
 
     # Read molecular_error_statistics table
     df_gr1 = pd.read_csv(directory_path + "/" + group1 + "/molecular_error_statistics_for_{}_methods.csv".format(group1))
     df_gr2 = pd.read_csv(directory_path + "/" + group2 + "/molecular_error_statistics_for_{}_methods.csv".format(group2))
-    df_gr3 = pd.read_csv(directory_path + "/" + group3 + "/molecular_error_statistics_for_{}_methods.csv".format(group3))
-    df_gr4 = pd.read_csv(directory_path + "/" + group4 + "/molecular_error_statistics_for_{}_methods.csv".format(group4))
 
 
     # Reorder dataframes based on the order of molecular MAE statistic of first group (Physical methods)
@@ -271,19 +244,13 @@ def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path,
     df_gr2_reordered = df_gr2_reordered.reindex(index=df_gr1['Molecule ID']) #Reset row order based on index of df_gr1
     df_gr2_reordered = df_gr2_reordered.reset_index()
 
-    df_gr3_reordered = df_gr3.set_index("Molecule ID")
-    df_gr3_reordered = df_gr3_reordered.reindex(index=df_gr1['Molecule ID'])  # Reset row order based on index of df_gr1
-    df_gr3_reordered = df_gr3_reordered.reset_index()
-
-    df_gr4_reordered = df_gr4.set_index("Molecule ID")
-    df_gr4_reordered = df_gr4_reordered.reindex(index=df_gr1['Molecule ID'])  # Reset row order based on index of df_gr1
-    df_gr4_reordered = df_gr4_reordered.reset_index()
 
     # Plot
     # Molecular labels will be taken from 1st dataframe, so the second dataframe should have the same molecule ID order.
-    barplot_with_CI_errorbars_and_4groups(df1=df_gr1, df2=df_gr2_reordered, df3=df_gr3_reordered, df4=df_gr4_reordered,
+    barplot_with_CI_errorbars_and_2groups(df1=df_gr1, df2=df_gr2_reordered,
                                           x_label="Molecule ID", y_label="MAE",
                                           y_lower_label="MAE_lower_CI", y_upper_label="MAE_upper_CI")
+    plt.tight_layout()
     plt.savefig(molecular_statistics_directory_path + "/" + file_base_name + ".pdf")
 
     # Same comparison plot with only QM results (only for presentation effects)
@@ -302,7 +269,7 @@ if __name__ == '__main__':
     collection_data = read_collection_file(collection_file_path = LOGP_COLLECTION_PATH)
 
     # Create new directory to store molecular statistics
-    output_directory_path = './analysis_outputs'
+    output_directory_path = './analysis_outputs_withrefs'
     analysis_directory_name = 'MolecularStatisticsTables'
 
     if os.path.isdir('{}/{}'.format(output_directory_path, analysis_directory_name)):
@@ -316,7 +283,7 @@ if __name__ == '__main__':
 
 
     # Calculate MAE for each molecule across each method category
-    list_of_method_categories = ["Physical", "Empirical", "Mixed", "Other"]
+    list_of_method_categories = ["Physical", "Empirical"]
     for category in list_of_method_categories:
         calc_MAE_for_molecules_across_selected_predictions(collection_df=collection_data,
                                                        selected_method_group=category,
@@ -326,7 +293,6 @@ if __name__ == '__main__':
     # Create comparison plot of MAE for each molecule across method categories
     create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path=molecular_statistics_directory_path,
                                                                  group1='Physical', group2='Empirical',
-                                                                 group3="Mixed", group4='Other',
                                                                  file_base_name="molecular_MAE_comparison_between_method_categories")
 
 

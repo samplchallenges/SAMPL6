@@ -776,7 +776,7 @@ class logPSubmission(SamplSubmission):
 
         # Create lists of stats functions to pass to compute_bootstrap_statistics.
         stats_funcs_names, stats_funcs = zip(*stats_funcs.items())
-        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=1000) #10000
+        bootstrap_statistics = compute_bootstrap_statistics(data.as_matrix(), stats_funcs, n_bootstrap_samples=10000) #10000
 
         # Return statistics as dict preserving the order.
         return collections.OrderedDict((stats_funcs_names[i], bootstrap_statistics[i])
