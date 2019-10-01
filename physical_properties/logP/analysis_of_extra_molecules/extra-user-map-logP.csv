@@ -1,0 +1,14 @@
+id,uid,receipt_id,filename,submit_date,firstname,lastname,organization
+1,37777,EXT01,EXT01-1559-logP-extra_mols_GAFF_tip3pFB-2.csv,post-deadline,Danielle,Bergazin,UCI
+2,37777,EXT02,EXT02-1559-logP-extra_mols_GAFF_tip3p-1.csv,post-deadline,Danielle,Bergazin,UCI
+3,37777,EXT03,EXT03-1559-logP-extra_mols_GAFF_OPC_wetoct-6.csv,post-deadline,Danielle,Bergazin,UCI
+4,37777,EXT04,EXT04-1559-logP-extra_mols_SMIRNOFF_tip3pFB-3.csv,post-deadline,Danielle,Bergazin,UCI
+5,37777,EXT05,EXT05-1559-logP-extra_mols_SMIRNOFF_tip3p-4.csv,post-deadline,Danielle,Bergazin,UCI
+6,37777,EXT06,EXT06-1559-logP-extra_mols_SMIRNOFF_OPC_wetoct-5.csv,post-deadline,Danielle,Bergazin,UCI
+7,37777,EXT07,EXT07-1559-logP-extra_mols_GAFF_tip3p_dry_octanol-7.csv,post-deadline,Danielle,Bergazin,UCI
+8,37777,EXT08,EXT08-1559-logP-extra_mols_SMIRNOFF_tip3p_dry_octanol-8.csv,post-deadline,Danielle,Bergazin,UCI
+9,38888,EXT09,EXT09-1559-logP-extra_mol_clogP54-1.csv,post-deadline,Thomas,Fox,Boehringer Ingelheim
+10,38888,EXT10,EXT10-1559-logP-extra_mol_hlogP-1.csv,post-deadline,Thomas,Fox,Boehringer Ingelheim
+11,38888,EXT11,EXT11-1559-logP-extra_mol_logPow-1.csv,post-deadline,Thomas,Fox,Boehringer Ingelheim
+12,38888,EXT12,EXT12-1559-logP-extra_mol_mokalogP-1.csv,post-deadline,Thomas,Fox,Boehringer Ingelheim
+13,38888,EXT13,EXT13-1559-logP-extra_mol_SlogP-1.csv,post-deadline,Thomas,Fox,Boehringer Ingelheim
