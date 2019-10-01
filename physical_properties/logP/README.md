@@ -22,4 +22,4 @@ Experimental log *P* measurements was made available in this repository after th
 - `/experimental_data/` - Experimental measurements of log *P* values.
 - `/predictions/` - Prediction files submitted to SAMPL6 log *P* challenge. Reference calculations are also present, but have submission IDs containing the tag `REF` to distinguish them from other submissions
 - `/analysis/` - Analysis of log *P* predictions of challenge molecules.
-- `/analysis_of_extra_molecules/` - Analysis of log *P* predictions of extra molecules (not a part of SAMPL6 log *P* challenge) with reference calculation methods.
+- `/analysis_of_extra_molecules/` - Analysis of log *P* predictions of extra molecules (not a part of SAMPL6 log *P* challenge) with reference calculation methods. The "extra molecules" dataset is composed of potentiometric log *P* values of 27 small molecules published by Slater et al. (1994).
