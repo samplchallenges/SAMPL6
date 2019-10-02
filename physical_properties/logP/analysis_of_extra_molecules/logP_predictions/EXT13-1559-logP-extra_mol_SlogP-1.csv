@@ -1,0 +1,83 @@
+# PARTITION COEFFICIENT PREDICTIONS 
+#  
+# This file will be automatically parsed. It must contain the following four elements:  
+# predictions, name of method, software listing, and method description.  
+# These elements must be provided in the order shown with their respective headers. 
+# 
+# is considered a comment and will be ignored when parsing. 
+# 
+# PREDICTION SECTION 
+# 
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted. 
+# Please report logP standard error of the mean (SEM) and logP model uncertainty.  
+# The data in each prediction line should be structured as follows: 
+# Molecule ID, logP, logP SEM, logP model uncertainty 
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here.  
+Predictions: 
+34Dichlorophenol,2.70,0.00,0.00
+35Dichlorophenol,2.70,0.00,0.00
+3Bromoquinoline,3.00,0.00,0.00
+3Chlorophenol,2.05,0.00,0.00
+4Butoxyphenol,2.57,0.00,0.00
+4Chlorophenol,2.05,0.00,0.00
+4Ethoxyphenol,1.79,0.00,0.00
+4lodophenol,2.00,0.00,0.00
+4Methoxyphenol,1.40,0.00,0.00
+4Pentoxyphenol,2.96,0.00,0.00
+4Propoxyphenol,2.18,0.00,0.00
+Acebutolol,2.37,0.00,0.00
+Amylobarbitone,1.18,0.00,0.00
+Benzoicacid,1.38,0.00,0.00
+Butobarbitone,0.94,0.00,0.00
+Celiprolol,2.89,0.00,0.00
+Chlorpromazine,4.89,0.00,0.00
+Ketoprofen,3.11,0.00,0.00
+NMethylaniline,1.73,0.00,0.00
+Pentobarbitone,1.18,0.00,0.00
+Pericyazine,4.01,0.00,0.00
+Phenobarbitone,0.70,0.00,0.00
+Phenol,1.39,0.00,0.00
+Quinalbarbitone,1.35,0.00,0.00
+Quinoline,2.23,0.00,0.00
+rPropranolol,2.58,0.00,0.00
+Sulfamethazine,1.48,0.00,0.00
+
+ 
+# NAME SECTION 
+# 
+# Please provide an informal but informative name of the method used.  
+# The 'Name:' keyword is required as shown here. 
+Name: 
+SlogP (MOE)
+ 
+# SOFTWARE SECTION 
+# 
+# List all major software packages used and their versions. 
+# Create a new line for each software. 
+# The 'Software:' keyword is required. 
+Software: 
+moe 2019.0101
+ 
+# METHOD CATEGORY SECTION 
+# 
+# State which method category your prediction method is better described as: 
+# `Physical`, `Empirical`, `Mixed`, or `Other`. 
+# Pick only one category label. 
+# The `Category:` keyword is required. 
+Category: 
+Empirical
+
+ 
+# METHOD DESCRIPTION SECTION 
+# 
+# Methodology and computational details. 
+# Level of details should be roughly equivalent to that used in a publication. 
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated. 
+# Use as many lines of text as you need. 
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
+Method: 
+The logP values were calculated with moe2019.01.01 from Chemical Computing Group, Montreal, Canada (https://www.chemcomp.com)
+The method is a re-implementation of the method described in 
+Wildman, S.A., Crippen, G.M.; Prediction of Physiochemical Parameters by Atomic Contributions; J. Chem. Inf. Comput. Sci. 39 (1999) 868–873.
+The training set for SlogP was ~7000 structures.
+As the method does not return a SEM or model uncertainty, both values are set to zero.
