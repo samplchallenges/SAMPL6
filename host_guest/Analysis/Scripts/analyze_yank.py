@@ -548,17 +548,16 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Run YANK analysis.
-    # analyze_yank(args.jobid, args.jobspersystem, cleanup=True, dry_run=True)
-    analyze_yank(args.jobid, args.jobspersystem, cleanup=True, dry_run=True,
-                 analyzer_class=InstantaneousWorkAnalyzer)
+    analyze_yank(args.jobid, args.jobspersystem, cleanup=True, dry_run=True)
+    # analyze_yank(args.jobid, args.jobspersystem, cleanup=True, dry_run=True,
+    #              analyzer_class=InstantaneousWorkAnalyzer)
 
     # Collect data for YANK restraint sensitivity analysis.
-    system_id = SYSTEM_IDS[args.jobid-1]
-    analyze_yank_restraint(system_id)
+    # system_id = SYSTEM_IDS[args.jobid-1]
+    # analyze_yank_restraint(system_id)
 
     # Collect data for YANK bias analysis.
-    # analyze_yank_bias(args.jobid, args.jobspersystem, cleanup=False, dry_run=True)
-    # analyze_yank_bias(args.jobid, args.jobspersystem, cleanup=False, dry_run=False, analyzer_class=BARAnalyzer)
+    # analyze_yank_bias(args.jobid, args.jobspersystem, cleanup=True, dry_run=True)
 
     # Collect data for YANK correlation analysis.
     # analyze_yank_correlation(args.jobid, args.jobspersystem, cleanup=True, dry_run=True)

@@ -4,7 +4,6 @@ import itertools
 import os
 
 import numpy as np
-import pymbar
 import scipy.spatial
 
 
@@ -164,29 +163,50 @@ def iterate_bound_waters(system_id, state=True):
         yield temp
 
 
-def plot_n_bound_waters_trajectory(system_id):
+def plot_n_bound_waters_trajectory(system_id, trajectory_type='state',
+                                   plot_statistical_inefficiency=True,
+                                   state_indices=None, file_suffix=''):
     # Plot the bound waters trajectories in two columns (first for replicas, second for states)
-    n_states = get_n_states(system_id)
-    fig, axes = plt.subplots(nrows=n_states+1, ncols=2, figsize=(8, 1.2*n_states))
+    import pymbar
+
+    if state_indices is None:
+        n_states = get_n_states(system_id)
+        state_indices = frozenset(range(n_states))
+    else:
+        n_states = len(state_indices)
+
+    state_flag = True if trajectory_type == 'state' else False
+
+    n_cols = 2
+    n_rows = n_states + 1 if plot_statistical_inefficiency else n_states
+    n_rows = int(np.ceil(n_rows/n_cols))
+    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(8, 1.2*n_rows))
 
     # Obtain all the saved n_water_bound trajectories for the system.
-    for col_idx, trajectory_type in enumerate(['replica', 'state']):
-        state_flag = True if trajectory_type == 'state' else False
-        all_n_bound_waters = []
-        for state_idx, n_bound_waters in enumerate(iterate_bound_waters(system_id, state=state_flag)):
-            ax = axes[state_idx+1][col_idx]
-            ax.plot(n_bound_waters)
-            # Add info about statistical inefficiency.
-            g_t = pymbar.timeseries.statisticalInefficiency(n_bound_waters)
-            ax.set_title('{} {}\nstatistical inefficiency {:.2f} ps'.format(trajectory_type, state_idx, g_t))
-            ax.set_xlabel('iteration')
-            ax.set_ylabel('n bound waters')
-            ax.set_ylim((0, 15))
+    all_n_bound_waters = []
+    n_plotted = 0
+    for state_idx, n_bound_waters in enumerate(iterate_bound_waters(system_id, state=state_flag)):
+        if state_idx not in state_indices:
+            continue
 
-            all_n_bound_waters.append(n_bound_waters)
+        row_idx = int(n_plotted / 2)
+        col_idx = n_plotted % n_cols
+        ax = axes[row_idx][col_idx]
 
-        # Plot super-replica correlation function.
-        ax = axes[0][col_idx]
+        ax.plot(n_bound_waters)
+        # Add info about statistical inefficiency.
+        g_t = pymbar.timeseries.statisticalInefficiency(n_bound_waters)
+        ax.set_title('{} {}\nstatistical inefficiency {:.2f} ps'.format(trajectory_type, state_idx, g_t))
+        ax.set_xlabel('iteration')
+        ax.set_ylabel('n bound waters')
+        ax.set_ylim((0, 15))
+
+        all_n_bound_waters.append(n_bound_waters)
+        n_plotted += 1
+
+    # Plot super-replica correlation function.
+    if plot_statistical_inefficiency:
+        ax = axes[-1][-1]
         g_t, C_t = pymbar.timeseries.statisticalInefficiencyMultiple(all_n_bound_waters, fast=False,
                                                                      return_correlation_function=True)
         t = [x[0] for x in C_t]
@@ -196,13 +216,16 @@ def plot_n_bound_waters_trajectory(system_id):
         ax.set_xlabel('t')
         ax.set_ylabel('correlation')
 
-    fig.suptitle('System: ' + system_id, y=0.993)
+    fig.suptitle('Trajectories of the number of bound waters for ' + system_id, y=0.993)
     fig.tight_layout(rect=[0, 0, 1, 0.99])
     # plt.show()
-    plt.savefig(os.path.join(PLOTS_DIR_PATH, system_id + '-traj.pdf'))
+    file_name = system_id + '-' + trajectory_type + '-water-traj' + file_suffix + '.pdf'
+    plt.savefig(os.path.join(PLOTS_DIR_PATH, file_name))
 
 
 def plot_replicas_statistical_inefficiencies(system_ids):
+    import pymbar
+
     n_cols = len(system_ids)
     fig, axes = plt.subplots(nrows=2, ncols=len(system_ids), figsize=(4*n_cols, 4))
 
@@ -235,6 +258,8 @@ def plot_replicas_statistical_inefficiencies(system_ids):
 
 
 def plot_distribution_n_bound_waters(system_id):
+    import pymbar
+
     n_states = get_n_states(system_id)
     n_cols = 4
     n_rows = int(np.ceil(n_states / n_cols))
@@ -320,6 +345,8 @@ def plot_paper_trajectories(replica_indices):
     Plot the part of Figure 5 containing the state trajectories and the
     bound water trajectories and correlation functions.
     """
+    import pymbar
+
     n_rows = len(replica_indices) + 1
     n_cols = 1
     fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(7.25/5*2.9, 3), sharex=True)
@@ -341,7 +368,7 @@ def plot_paper_trajectories(replica_indices):
                 scatter = plot_replica_trajectories(replica_state_indices, all_n_bound_waters,
                                                     replica_idx, xlabel=None, ax=axes[row_idx],
                                                     step=1, state_index_ticks=False)
-            fig.suptitle('Examples of replica trajectories', fontsize='medium')
+            fig.suptitle('Examples of replica trajectories', fontsize='medium', x=0.6)
             max_state_colorbar = np.max(replica_state_indices)
 
         # Plot the correlation functions.
@@ -377,11 +404,12 @@ def plot_paper_trajectories(replica_indices):
     colorbar.ax.tick_params(axis='y', which='major', pad=0.2)
 
     # plt.show()
-    # plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure5-waters', 'trajectories.pdf'))
-    plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure5-waters', 'trajectories.png'), dpi=600)
+    # plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure7-waters', 'trajectories.pdf'))
+    plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure7-waters', 'trajectories.png'), dpi=600)
 
 
-def plot_paper_distributions(system_id, skip):
+def plot_paper_distributions_2d(system_id, skip):
+    """"""
     n_bound_waters = list(iterate_bound_waters(system_id, state=True))
     n_states = len(n_bound_waters)
     max_n_waters = max(max(traj) for traj in n_bound_waters)
@@ -424,8 +452,168 @@ def plot_paper_distributions(system_id, skip):
 
     fig.tight_layout(pad=0.1)
     # plt.show()
-    fig.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure5-waters', '{}-distribution.pdf'.format(system_id)))
-    # plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure5-waters', '{}-dist.png'.format(system_id), dpi=300))
+    fig.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure7-waters', '{}-distribution.pdf'.format(system_id)))
+    # plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure7-waters', '{}-dist.png'.format(system_id), dpi=300))
+
+
+def plot_paper_distributions_isometric(system_id, skip):
+    sns.set_style('white')
+
+    n_bound_waters = list(iterate_bound_waters(system_id, state=True))
+    n_states = len(n_bound_waters)
+    max_n_waters = max(max(traj) for traj in n_bound_waters)
+    state_indices = list(range(0, len(n_bound_waters), skip))
+
+    # Create bins sequence to feed to matplotlib.hist().
+    bins = [-0.5+i for i in range(max_n_waters+2)]
+
+    # Make sure the decoupled state is in.
+    if state_indices[-1] != n_states - 1:
+        state_indices.append(n_states - 1)
+
+    # Select color.
+    color_palette = itertools.cycle(sns.color_palette('viridis', n_colors=len(state_indices)))
+
+    fig, axes = plt.subplots(nrows=len(state_indices), figsize=(7.25/5*2, 3))
+
+    diagonality = 0.05
+    for ax_idx, (ax, state_idx) in enumerate(zip(reversed(axes), state_indices)):
+        state_bound_waters = np.array(n_bound_waters[state_idx])
+        if state_idx == 0:
+            label = 'Bound'
+        elif state_idx == n_states - 1:
+            label = 'Decoupled'
+        else:
+            label = 'State {}'.format(state_idx+1)
+        state_color = next(color_palette)
+
+        shift = diagonality * ax_idx
+
+        # Truncate the bins to what we actually need.
+        bins = [-0.5+i+shift for i in range(min(state_bound_waters), max(state_bound_waters)+2)]
+        ax.hist(state_bound_waters + shift, bins=bins, density=True, color=state_color, label=label,
+                edgecolor='black', alpha=0.75)
+
+        # Plot horizontal line to give a sense of perspective
+        ax.plot([-0.25 + shift - diagonality*len(state_indices), max_n_waters + shift + -0.5], [0, 0], color='black', lw=0.7)
+
+        ax.set_xlim(-0.25 - diagonality*len(state_indices), max_n_waters + diagonality*len(state_indices) + -0.5)
+        ax.spines['left'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
+        ax.patch.set_facecolor('none')
+        ax.set_xticks([])
+        ax.set_yticks([])
+        # ax.set_yticklabels([state_idx])
+
+    axes[-1].set_xticks(list(range(max_n_waters)))
+    axes[-1].tick_params(axis='x', which='major', pad=0.2)
+    # ax.tick_params(axis='y', which='major', pad=0.2)
+    axes[0].set_title('Bound water molecules distribution\nby state in {}'.format(system_id))
+    # ax.set_ylabel('density')
+    axes[-1].set_xlabel('n bound waters')
+    # ax.legend(fontsize='x-small', ncol=2, loc='upper right', bbox_to_anchor=(1.015, 1.015), fancybox=False)
+    # ax.get_legend().remove()
+
+    fig.tight_layout(h_pad=-5, w_pad=5)
+    # plt.show()
+    fig.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure7-waters', '{}-distribution-iso.pdf'.format(system_id)))
+    # plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure7-waters', '{}-dist-iso.png'.format(system_id), dpi=300))
+
+
+def plot_paper_distributions_3d(system_id, skip):
+    from mpl_toolkits.mplot3d import Axes3D
+
+    n_bound_waters = list(iterate_bound_waters(system_id, state=True))
+    n_states = len(n_bound_waters)
+    max_n_waters = max(max(traj) for traj in n_bound_waters)
+    state_indices = list(range(0, len(n_bound_waters), skip))
+
+    # Make sure the decoupled state is in.
+    if state_indices[-1] != n_states - 1:
+        state_indices.append(n_states - 1)
+
+    n_selected_states = len(state_indices)
+
+    # Determine the color of each state.
+    color_palette = sns.color_palette('viridis', n_colors=n_selected_states)
+    # color_palette = sns.color_palette('viridis', n_colors=n_states)
+    # color_palette = itertools.cycle(sns.color_palette('viridis', n_colors=len(state_indices)))
+
+    fig = plt.figure(figsize=(7.25/5*2, 3))
+    ax = fig.add_subplot(111, projection='3d', elev=0, azim=0)
+    # ax.view_init(elev=0, azim=-90)
+    ax.view_init(elev=110, azim=-70)
+    # ax.set_top_view()
+
+    # Configure grid (monkey-patching).
+    axinfo = {'grid' : {'color': (0, 0, 0, 1), 'linewidth': 0.0, 'linestyle': '-'}}
+    ax.w_xaxis._axinfo.update({**axinfo, 'juggled': (1, 0, 2)})
+    ax.w_yaxis._axinfo.update({**axinfo, 'juggled': (0, 1, 2)})
+    ax.w_zaxis._axinfo.update({**axinfo, 'juggled': (0, 2, 1)})
+    # ax.view_init(elev=110, azim=-90)
+
+    # Create bins sequence to feed to matplotlib.hist().
+    bins = [-0.5+i for i in range(max_n_waters+2)]
+
+    # The X-axis is the same for all states.
+    xs = np.array(list(range(0, max_n_waters+1)))
+
+    # Plot states in reverse order so that z-order is correct.
+    for state_color, state_idx in zip(color_palette, state_indices):
+        state_bound_waters = n_bound_waters[state_idx]
+        if state_idx == 0:
+            label = 'Bound'
+        elif state_idx == n_states - 1:
+            label = 'Decoupled'
+        else:
+            label = 'State {}'.format(state_idx+1)
+
+        # Create a normalized histogram of bound water counts for this particular state.
+        hist, bin_edges = np.histogram(state_bound_waters, bins=bins, density=True)
+
+        # Plot the histogram for this particular state.
+        barcontainer = ax.bar(xs, hist, zs=n_states-state_idx, zdir='z', color=state_color, alpha=0.8,
+                              edgecolor='black', label=label)
+
+    # # Plot states in reverse order so that z-order is correct.
+    # hists = []
+    # for state_idx in state_indices:
+    #     state_bound_waters = n_bound_waters[state_idx]
+    #     # Create a normalized histogram of bound water counts for this particular state.
+    #     hist, bin_edges = np.histogram(state_bound_waters, bins=bins, density=True)
+    #     hists.append(hist)
+    #
+    # xs = np.array(list(xs)*n_selected_states)
+    # ys = np.array([i for i in state_indices for _ in range(max_n_waters+1)])
+    # zs = np.zeros(len(xs))
+    # dx = 0.8
+    # dy = 0
+    # dz = np.array(hists).flatten()
+    # # colors = [c for c in color_palette for _ in range(max_n_waters+1)]
+    # colors = [color_palette[i] for i in ys]
+    #
+    # # Plot the 3D histogram for this particular state.
+    # ax.bar3d(xs, ys, zs, dx, dy, dz, color=colors, alpha=0.8,
+    #          edgecolor='black', lw=0.5)
+
+
+    # ax.set_xlim(-0.5, max_n_waters)
+    # ax.set_xticks(list(range(max_n_waters+1)))
+    # ax.tick_params(axis='x', which='major', pad=0.2)
+    # ax.tick_params(axis='y', which='major', pad=0.2)
+    ax.set_title('Bound water molecules distribution\nby state in {}'.format(system_id))
+    ax.set_xlabel('n bound waters')
+    ax.set_ylabel('density')
+    ax.set_zlabel('state index')
+    # ax.legend(fontsize='x-small', ncol=2, loc='upper right', bbox_to_anchor=(1.015, 1.015), fancybox=False)
+    # ax.get_legend().remove()
+
+    fig.tight_layout(pad=0.1)
+    # plt.show()
+    fig.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure7-waters', '{}-distribution-3d.pdf'.format(system_id)))
+    # plt.savefig(os.path.join(PAPER_IMAGES_DIR_PATH, 'Figure7-waters', '{}-dist-3d.png'.format(system_id), dpi=300))
 
 
 # =============================================================================
@@ -446,25 +634,30 @@ if __name__ == '__main__':
     # From here on, parallelization is not supported.
     # -----------------------------------------------
 
-    # for system_id in ['CB8-G3-0', 'OA-G3-0', 'OA-G6-0']:
-    #     extract_replica_state_indices(system_id)
+    for system_id in ['CB8-G3-0', 'OA-G3-0', 'OA-G6-0']:
+        extract_replica_state_indices(system_id)
 
     from matplotlib import pyplot as plt
     import seaborn as sns
     sns.set_context('paper', font_scale=0.7)
     sns.set_style('whitegrid')
     system_ids = ['CB8-G3-0', 'OA-G3-0', 'OA-G6-0']
-    # system_ids = ['CB8-G3-0']
-
-    # # Analysis plot.
-    # # TODO: Make these available as SI figures?
-    # plot_replicas_statistical_inefficiencies(system_ids)
-    # # for system_id in system_ids:
-    # #     plot_n_bound_waters_trajectory(system_id)
-    # #     plot_distribution_n_bound_waters(system_id)
+    system_ids = ['CB8-G3-0']
 
     # Paper figures.
-    # plot_paper_trajectories(replica_indices=[1, 5])
+    plot_paper_trajectories(replica_indices=[1, 5])
     for system_id in system_ids:
-        # plot_paper_trajectories_old(system_id, replica_indices=[1, 5, 10])
-        plot_paper_distributions(system_id, skip=4)
+        plot_paper_distributions_isometric(system_id, skip=4)
+
+    # Supporting information.
+    for system_id in system_ids:
+        for i, indices in enumerate([range(24), range(24, 48), range(48, 69)]):
+            plot_n_bound_waters_trajectory(system_id, trajectory_type='state',
+                                           plot_statistical_inefficiency=False,
+                                           state_indices=frozenset(indices),
+                                           file_suffix='-'+str(i))
+
+    # # Other figures.
+    # plot_replicas_statistical_inefficiencies(system_ids)
+    # for system_id in system_ids:
+    #     plot_distribution_n_bound_waters(system_id)
