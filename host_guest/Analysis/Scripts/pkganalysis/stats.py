@@ -9,6 +9,7 @@
 
 import numpy as np
 import scipy.stats
+import scipy.special
 
 
 # =============================================================================
@@ -53,8 +54,54 @@ def rmse(data):
 
 
 # =============================================================================
-# STANDARD ERROR OF THE MEAN
+# STANDARD ERROR OF THE MEAN, VARIANCE, AND STANDARD DEVIATION
 # =============================================================================
+
+def _unbiased_std_Kn(data):
+    """Compute the factor used to unbias the Bessel-corrected sample std"""
+    n = len(data)
+    # Use the log gamma function for numerical stability.
+    loggamma1 = scipy.special.gammaln((n-1)/2)
+    loggamma2 = scipy.special.gammaln(n/2)
+    k_n = np.sqrt((n-1)/2) * np.exp(loggamma1 - loggamma2)
+    return k_n
+
+
+def unbiased_std(data):
+    """For n ~< 10, the sqrt of the Bessel-corrected variance is a biased estimate of the std.
+
+    This function implement the unbiased estimate.
+
+    See http://web.eecs.umich.edu/~fessler/papers/files/tr/stderr.pdf.
+
+    """
+    bessel_std = np.std(data, ddof=1)
+    k_n = _unbiased_std_Kn(data)
+    return k_n * bessel_std
+
+
+def ci_unbiased_std(data, confidence=0.95):
+    u_std = unbiased_std(data)
+    k_n = _unbiased_std_Kn(data)
+    # The error is chi-distributed
+    n = len(data)
+    scale = k_n * u_std / np.sqrt(n-1)
+    chi_interval = scipy.stats.chi.interval(alpha=confidence, df=n-1, scale=scale)
+    return chi_interval
+
+
+def unbiased_sem(data):
+    """Compute the standard error of the mean with the unbiased estimate of the std."""
+    n = len(data)
+    return unbiased_std(data) / np.sqrt(n)
+
+
+def unbiased_mean_confidence_interval(data, confidence=0.95):
+    norm_statistics = scipy.stats.norm.interval(alpha=confidence)[1]
+    sem = unbiased_sem(data)
+    mean = np.mean(data)
+    return mean, norm_statistics * sem
+
 
 def mean_confidence_interval(data, confidence=0.95):
     """Compute mean and t-based confidence interval for the data.
@@ -71,7 +118,7 @@ def mean_confidence_interval(data, confidence=0.95):
     ci : float
         The confidence interval around the mean.
     """
-    t_statistics = scipy.stats.t.interval(alpha=0.95, df=len(data)-1)[1]
+    t_statistics = scipy.stats.t.interval(alpha=confidence, df=len(data)-1)[1]
     sem = scipy.stats.sem(data)
     mean = np.mean(data)
     return mean, t_statistics * sem

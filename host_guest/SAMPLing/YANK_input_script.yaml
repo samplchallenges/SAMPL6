@@ -1,0 +1,224 @@
+---
+options:
+  verbose: yes
+  resume_setup: yes
+  resume_simulation: yes
+  output_dir: .
+
+  temperature: 298.15*kelvin
+  pressure: 1*atmosphere
+  constraints: HBonds
+  anisotropic_dispersion_cutoff: 10*angstroms
+
+  minimize: yes
+  number_of_iterations: 40000
+  nsteps_per_iteration: 500
+  timestep: 2*femtoseconds
+  checkpoint_interval: 100
+
+  annihilate_electrostatics: yes
+  annihilate_sterics: no
+  alchemical_pme_treatment: exact
+
+
+# Solvents
+# --------
+
+solvents:
+  PME:
+    nonbonded_method: PME
+    nonbonded_cutoff: 10*angstroms
+    switch_distance: 9*angstroms
+    ewald_error_tolerance: 1.0e-4
+
+
+# Systems
+# -------
+
+common_system: &common_system
+  ligand_dsl: resname GST
+  solvent: PME
+
+systems:
+  CB8-G3-0:
+    phase1_path: [CB8-G3-0/complex.prmtop, CB8-G3-0/complex.rst7]
+    phase2_path: [CB8-G3-0/solvent.prmtop, CB8-G3-0/solvent.rst7]
+    <<: *common_system
+  CB8-G3-1:
+    phase1_path: [CB8-G3-1/complex.prmtop, CB8-G3-1/complex.rst7]
+    phase2_path: [CB8-G3-1/solvent.prmtop, CB8-G3-1/solvent.rst7]
+    <<: *common_system
+  CB8-G3-2:
+    phase1_path: [CB8-G3-2/complex.prmtop, CB8-G3-2/complex.rst7]
+    phase2_path: [CB8-G3-2/solvent.prmtop, CB8-G3-2/solvent.rst7]
+    <<: *common_system
+  CB8-G3-3:
+    phase1_path: [CB8-G3-3/complex.prmtop, CB8-G3-3/complex.rst7]
+    phase2_path: [CB8-G3-3/solvent.prmtop, CB8-G3-3/solvent.rst7]
+    <<: *common_system
+  CB8-G3-4:
+    phase1_path: [CB8-G3-4/complex.prmtop, CB8-G3-4/complex.rst7]
+    phase2_path: [CB8-G3-4/solvent.prmtop, CB8-G3-4/solvent.rst7]
+    <<: *common_system
+  OA-G3-0:
+    phase1_path: [OA-G3-0/complex.prmtop, OA-G3-0/complex.rst7]
+    phase2_path: [OA-G3-0/solvent.prmtop, OA-G3-0/solvent.rst7]
+    <<: *common_system
+  OA-G3-1:
+    phase1_path: [OA-G3-1/complex.prmtop, OA-G3-1/complex.rst7]
+    phase2_path: [OA-G3-1/solvent.prmtop, OA-G3-1/solvent.rst7]
+    <<: *common_system
+  OA-G3-2:
+    phase1_path: [OA-G3-2/complex.prmtop, OA-G3-2/complex.rst7]
+    phase2_path: [OA-G3-2/solvent.prmtop, OA-G3-2/solvent.rst7]
+    <<: *common_system
+  OA-G3-3:
+    phase1_path: [OA-G3-3/complex.prmtop, OA-G3-3/complex.rst7]
+    phase2_path: [OA-G3-3/solvent.prmtop, OA-G3-3/solvent.rst7]
+    <<: *common_system
+  OA-G3-4:
+    phase1_path: [OA-G3-4/complex.prmtop, OA-G3-4/complex.rst7]
+    phase2_path: [OA-G3-4/solvent.prmtop, OA-G3-4/solvent.rst7]
+    <<: *common_system
+  OA-G6-0:
+    phase1_path: [OA-G6-0/complex.prmtop, OA-G6-0/complex.rst7]
+    phase2_path: [OA-G6-0/solvent.prmtop, OA-G6-0/solvent.rst7]
+    <<: *common_system
+  OA-G6-1:
+    phase1_path: [OA-G6-1/complex.prmtop, OA-G6-1/complex.rst7]
+    phase2_path: [OA-G6-1/solvent.prmtop, OA-G6-1/solvent.rst7]
+    <<: *common_system
+  OA-G6-2:
+    phase1_path: [OA-G6-2/complex.prmtop, OA-G6-2/complex.rst7]
+    phase2_path: [OA-G6-2/solvent.prmtop, OA-G6-2/solvent.rst7]
+    <<: *common_system
+  OA-G6-3:
+    phase1_path: [OA-G6-3/complex.prmtop, OA-G6-3/complex.rst7]
+    phase2_path: [OA-G6-3/solvent.prmtop, OA-G6-3/solvent.rst7]
+    <<: *common_system
+  OA-G6-4:
+    phase1_path: [OA-G6-4/complex.prmtop, OA-G6-4/complex.rst7]
+    phase2_path: [OA-G6-4/solvent.prmtop, OA-G6-4/solvent.rst7]
+    <<: *common_system
+
+protocols:
+  protocol-CB8G3:
+    complex:
+      alchemical_path:
+        lambda_electrostatics: [1.000, 0.965, 0.926, 0.893, 0.861, 0.824, 0.790, 0.750, 0.705, 0.666,
+                                0.628, 0.596, 0.555, 0.515, 0.472, 0.433, 0.389, 0.345, 0.295, 0.245,
+                                0.195, 0.145, 0.095, 0.052, 0.002, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000]
+        lambda_sterics:        [1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 0.990, 0.975, 0.960, 0.928,
+                                0.895, 0.859, 0.826, 0.792, 0.761, 0.732, 0.702, 0.672, 0.642, 0.617,
+                                0.591, 0.566, 0.545, 0.520, 0.496, 0.470, 0.446, 0.422, 0.399, 0.382,
+                                0.367, 0.351, 0.333, 0.310, 0.292, 0.281, 0.268, 0.250, 0.242, 0.234,
+                                0.223, 0.204, 0.183, 0.157, 0.129, 0.104, 0.071, 0.040, 0.000]
+    solvent:
+      alchemical_path:
+        lambda_electrostatics: [1.000, 0.956, 0.920, 0.885, 0.853, 0.823, 0.785, 0.752, 0.719, 0.682,
+                                0.644, 0.610, 0.572, 0.533, 0.495, 0.461, 0.422, 0.381, 0.337, 0.293,
+                                0.243, 0.193, 0.137, 0.087, 0.037, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000]
+        lambda_sterics:        [1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 0.958, 0.914, 0.864, 0.819,
+                                0.780, 0.743, 0.705, 0.675, 0.640, 0.605, 0.579, 0.551, 0.525, 0.499,
+                                0.470, 0.444, 0.418, 0.388, 0.362, 0.340, 0.316, 0.297, 0.283, 0.264,
+                                0.250, 0.239, 0.225, 0.212, 0.201, 0.185, 0.166, 0.145, 0.117, 0.083,
+                                0.039, 0.000]
+  protocol-OAG3:
+    complex:
+      alchemical_path:
+        lambda_electrostatics: [1.000, 0.971, 0.944, 0.914, 0.885, 0.857, 0.828, 0.803, 0.771, 0.743,
+                                0.715, 0.687, 0.662, 0.630, 0.601, 0.569, 0.539, 0.509, 0.478, 0.444,
+                                0.422, 0.383, 0.344, 0.303, 0.265, 0.226, 0.193, 0.155, 0.123, 0.099,
+                                0.075, 0.031, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000]
+        lambda_sterics:        [1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 0.985, 0.965, 0.937, 0.879, 0.821, 0.771, 0.728,
+                                0.678, 0.635, 0.585, 0.543, 0.493, 0.450, 0.416, 0.374, 0.334, 0.294,
+                                0.257, 0.217, 0.185, 0.160, 0.136, 0.098, 0.068, 0.039, 0.000]
+    solvent:
+      alchemical_path:
+        lambda_electrostatics: [1.000, 0.969, 0.931, 0.895, 0.854, 0.816, 0.781, 0.745, 0.710, 0.673,
+                                0.634, 0.599, 0.558, 0.523, 0.487, 0.454, 0.422, 0.382, 0.345, 0.312,
+                                0.277, 0.236, 0.200, 0.163, 0.129, 0.106, 0.078, 0.055, 0.025, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000]
+        lambda_sterics:        [1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                0.935, 0.877, 0.820, 0.762, 0.712, 0.667, 0.609, 0.567, 0.529, 0.490,
+                                0.452, 0.414, 0.381, 0.344, 0.314, 0.289, 0.262, 0.238, 0.214, 0.184,
+                                0.150, 0.105, 0.046, 0.000]
+  protocol-OAG6:
+    complex:
+      alchemical_path:
+        lambda_electrostatics: [1.000, 0.961, 0.924, 0.887, 0.850, 0.814, 0.773, 0.737, 0.699, 0.660,
+                                0.626, 0.588, 0.546, 0.502, 0.463, 0.413, 0.378, 0.336, 0.294, 0.254,
+                                0.218, 0.181, 0.144, 0.114, 0.079, 0.055, 0.031, 0.007, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000]
+        lambda_sterics:        [1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 0.987,
+                                0.970, 0.950, 0.900, 0.850, 0.800, 0.750, 0.700, 0.650, 0.600, 0.550,
+                                0.500, 0.458, 0.415, 0.365, 0.315, 0.265, 0.222, 0.197, 0.172, 0.147,
+                                0.115, 0.080, 0.048, 0.018, 0.000]
+    solvent:
+      alchemical_path:
+        lambda_electrostatics: [1.000, 0.972, 0.935, 0.895, 0.856, 0.818, 0.781, 0.746, 0.707, 0.670,
+                                0.631, 0.596, 0.552, 0.516, 0.481, 0.447, 0.411, 0.373, 0.332, 0.296,
+                                0.257, 0.218, 0.186, 0.150, 0.120, 0.089, 0.058, 0.008, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+                                0.000, 0.000]
+        lambda_sterics:        [1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+                                1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 0.925,
+                                0.857, 0.799, 0.744, 0.694, 0.644, 0.594, 0.544, 0.502, 0.460, 0.420,
+                                0.385, 0.352, 0.320, 0.295, 0.270, 0.243, 0.216, 0.187, 0.158, 0.117,
+                                0.058, 0.000]
+
+experiment-CB8G3:
+  system: !Combinatorial [CB8-G3-0, CB8-G3-1, CB8-G3-2, CB8-G3-3, CB8-G3-4]
+  protocol: protocol-CB8G3
+  restraint:
+    type: Harmonic
+    restrained_ligand_atoms: (resname GST) and (mass > 1.5)
+    restrained_receptor_atoms: (resname HST) and (mass > 1.5)
+    spring_constant: 0.2*kilocalories_per_mole/(angstrom**2)
+
+experiment-OAG3:
+  system: !Combinatorial [OA-G3-0, OA-G3-1, OA-G3-2, OA-G3-3, OA-G3-4]
+  protocol: protocol-OAG3
+  restraint:
+    type: Harmonic
+    restrained_ligand_atoms: (resname GST) and (mass > 1.5)
+    restrained_receptor_atoms: (resname HST) and (mass > 1.5)
+    spring_constant: 0.17*kilocalories_per_mole/(angstrom**2)
+
+experiment-OAG6:
+  system: !Combinatorial [OA-G6-0, OA-G6-1, OA-G6-2, OA-G6-3, OA-G6-4]
+  protocol: protocol-OAG6
+  restraint:
+    type: Harmonic
+    restrained_ligand_atoms: (resname GST) and (mass > 1.5)
+    restrained_receptor_atoms: (resname HST) and (mass > 1.5)
+    spring_constant: 0.17*kilocalories_per_mole/(angstrom**2)
+
+experiments: [experiment-CB8G3, experiment-OAG3, experiment-OAG6]
