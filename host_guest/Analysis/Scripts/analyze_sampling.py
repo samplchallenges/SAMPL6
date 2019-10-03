@@ -16,6 +16,7 @@ import pandas as pd
 import scipy as sp
 import seaborn as sns
 from matplotlib import pyplot as plt
+from pkganalysis.stats import mean_confidence_interval
 from pkganalysis.sampling import (SamplingSubmission, YankSamplingAnalysis,
                                   YANK_N_ITERATIONS, DG_KEY, DDG_KEY, export_dictionary)
 from pkganalysis.submission import (load_submissions)
@@ -48,17 +49,34 @@ TAB10_COLORS = sns.color_palette('tab10')
 # Index of Kelly's colors associated to each submission.
 SUBMISSION_COLORS = {
     'AMBER/APR': 'dodgerblue',#KELLY_COLORS[11],
-    'OpenMM/WExplore': 'gold', #KELLY_COLORS[7],
+    'OpenMM/REVO': 'gold', #KELLY_COLORS[7],
     'OpenMM/SOMD': KELLY_COLORS[4],
     'GROMACS/EE': 'darkviolet', #KELLY_COLORS[3],
     'GROMACS/EE-fullequil': KELLY_COLORS[10],
     YANK_METHOD_PAPER_NAME: '#4ECC41', #'limegreen', #KELLY_COLORS[9],
-    'GROMACS/CT-NS-long': KELLY_COLORS[6],
-    'GROMACS/CT-NS': KELLY_COLORS[1],
+    'GROMACS/NS-DS/SB-long': KELLY_COLORS[6],
+    'GROMACS/NS-DS/SB': KELLY_COLORS[1],
     'GROMACS/NS-Jarz-F': TAB10_COLORS[0],
     'GROMACS/NS-Jarz-R': TAB10_COLORS[1],
     'GROMACS/NS-Gauss-F': TAB10_COLORS[2],
     'GROMACS/NS-Gauss-R': TAB10_COLORS[4],
+    'NAMD/BAR': 'saddlebrown'
+}
+
+SUBMISSION_LINE_STYLES = {
+    'AMBER/APR': '--',
+    'OpenMM/REVO': '-',
+    'OpenMM/SOMD': '-',
+    'GROMACS/EE': '-',
+    'GROMACS/EE-fullequil': '-',
+    YANK_METHOD_PAPER_NAME: '-',
+    'GROMACS/NS-DS/SB-long': '-',
+    'GROMACS/NS-DS/SB': '-',
+    'GROMACS/NS-Jarz-F': '-',
+    'GROMACS/NS-Jarz-R': '-',
+    'GROMACS/NS-Gauss-F': '-',
+    'GROMACS/NS-Gauss-R': '-',
+    'NAMD/BAR': '--',
 }
 
 N_ENERGY_EVALUATIONS_SCALE = 1e6
@@ -241,133 +259,6 @@ def align_yaxis(ax1, v1, ax2, v2):
 
 
 # =============================================================================
-# FIGURE 2 - MEAN ERROR AND RELATIVE EFFICIENCY CARTOON
-# =============================================================================
-
-def plot_mean_error_cartoon():
-    """Plot the cartoon used to explain mean error and relative efficiency.
-
-    This is used as an example to clarify some gotchas with the difinition
-    of efficiency.
-    """
-    from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-    sns.set_context('paper')
-    sns.set_style('white')
-
-    def err_decay_func_square(decay_coeff, c):
-        return decay_coeff / np.sqrt(c)
-
-    def mean_error_square(decay_coeff, c_min, c_max):
-        return 2 * decay_coeff * (np.sqrt(c_max) - np.sqrt(c_min)) / (c_max - c_min)
-
-    def err_decay_func_B(decay_coeff, c):
-        return decay_coeff / c**(5/6)
-
-    def mean_error_B(decay_coeff, c_min, c_max):
-        return 6 * decay_coeff * (c_max**(1/6) - c_min**(1/6)) / (c_max - c_min)
-
-    decay_coeffs = {
-        'A': 1.0,
-        'B': 2.5,
-        'Z': 1.5,
-    }
-    c_ranges = collections.OrderedDict([
-        ("A'", np.arange(1, 4.5, 0.1)),
-        ("A''", np.arange(3, 6, 0.1)),
-        ("B", np.arange(2, 6.5, 0.1)),
-        ("Z", np.arange(1, 6.5, 0.1)),
-    ])
-
-    # Determine colors colors.
-    colors = {m: 'C'+str(i) for i, m in enumerate(sorted(c_ranges))}
-
-    # Plot the error trajectories.
-    fig, ax = plt.subplots(figsize=(3.5, 2.6))
-
-    for method_name in ["B", "Z", "A'", "A''"]:
-        color = colors[method_name]
-        c_range = c_ranges[method_name]
-        decay_coeff = decay_coeffs[method_name[0]]
-
-        if method_name == 'B':
-            err_decay_func = err_decay_func_B
-        else:
-            err_decay_func = err_decay_func_square
-        err = err_decay_func(decay_coeff, c_range)
-
-        # Plot error area.
-        ax.plot(c_range, err, color=color, label=method_name, zorder=1)
-        ax.fill_between(c_range, err, 0, color=color, alpha=0.5, zorder=0)
-
-        # Add method label.
-        c_method_label_idx = int(len(c_range) / 8)
-        ax.text(c_range[c_method_label_idx], err[c_method_label_idx]+0.01, method_name, fontsize=12)
-
-        if method_name[0] == 'A':
-            # Plot mean error.
-            c_min, c_max = min(c_range), max(c_range)
-            mean_err = mean_error_square(decay_coeff, c_min, c_max)
-            # Start mean error horizontal line from the error curve.
-            c_mean = (decay_coeff / mean_err)**2
-            ax.plot([0, c_mean], [mean_err, mean_err], color='black', ls='--', alpha=0.8, zorder=1)
-
-            # Add label mean error.
-            # ax.text(0.0, mean_err+0.025, '$\mathbb{E}[RMSE_{' + method_name + '}]$')
-            ax.text(1.05, mean_err+0.025, '$\mathbb{E}[RMSE_{' + method_name + '}]$', fontsize=9)
-
-            # Add c_min/max labels.
-            ax.text(c_min-0.4, -0.1, 'c$_{min,' + method_name + '}$', fontsize=9)
-            ax.text(c_max-0.4, -0.1, 'c$_{max,' + method_name + '}$', fontsize=9)
-
-    # Configure axes.
-    ax.set_xlim(1, 6.4)
-    ax.set_ylim(0, 2)
-    ax.set_xticklabels([])
-    ax.set_yticklabels([])
-    ax.set_ylabel('$RMSE(\Delta G)$')
-    ax.set_xlabel('computational cost')
-    # Pull axes labels closest to axes.
-    ax.tick_params(axis='x', which='major', pad=2.0)
-    ax.yaxis.set_label_coords(0.0, 0.65)
-
-    # Plot the relative efficiencies in an inset plot.
-    ax_ins = inset_axes(ax, width='100%', height='100%', bbox_to_anchor=[145, 115, 90, 50])
-
-    # Compute relative efficiencies with respect to Z.
-
-    relative_efficiencies = collections.OrderedDict()
-    for method_name in ["B", "A''", "A'"]:
-        c_min, c_max = min(c_ranges[method_name]), max(c_ranges[method_name])
-        if method_name == 'B':
-            mean_error_func = mean_error_B
-        else:
-            mean_error_func = mean_error_square
-        mean_err_method = mean_error_func(decay_coeffs[method_name[0]], c_min, c_max)
-        mean_err_Z = mean_error_square(decay_coeffs['Z'], c_min, c_max)
-        relative_efficiencies[method_name] = -np.log(mean_err_method/mean_err_Z)
-
-    # Plot horizontal bar plot with all efficiencies.
-    labels, rel_effs = zip(*relative_efficiencies.items())
-    bar_colors = [colors[m] for m in labels]
-    # labels = ['$e_{err,' + str(l) + '/Z}$' for l in labels]
-    ax_ins.barh(y=labels, width=rel_effs, color=bar_colors, alpha=0.85)
-    ax_ins.set_title('relative efficiency / Z', pad=2.5)
-
-    plt.tight_layout(rect=[0.0, 0.0, 1.0, 1.0])
-
-    # Pull axes labels closest to axes.
-    ax_ins.set_xticks([0.0])
-    ax_ins.grid(axis='x')
-    ax_ins.tick_params(axis='x', which='major', pad=0.0)
-    ax_ins.tick_params(axis='y', which='major', pad=0.0)
-
-    output_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure2-efficiency_cartoon')
-    os.makedirs(output_dir_path, exist_ok=True)
-    plt.savefig(os.path.join(output_dir_path, 'error_trajectories.pdf'))
-
-
-
-# =============================================================================
 # FIGURE 1 - SAMPLING CHALLENGE OVERVIEW
 # =============================================================================
 
@@ -483,7 +374,137 @@ def plot_example_bias_variance(yank_analysis, type='mixed', cost='generic',
 
 
 # =============================================================================
-# FIGURE 2 - FREE ENERGY TRAJECTORIES
+# FIGURE 2 - MEAN ERROR AND RELATIVE EFFICIENCY CARTOON
+# =============================================================================
+
+def plot_mean_error_cartoon():
+    """Plot the cartoon used to explain mean error and relative efficiency.
+
+    This is used as an example to clarify some gotchas with the difinition
+    of efficiency.
+    """
+    from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+    sns.set_context('paper')
+    sns.set_style('white')
+
+    def err_decay_func_square(decay_coeff, c):
+        return decay_coeff / np.sqrt(c)
+
+    def mean_error_square(decay_coeff, c_min, c_max):
+        return 2 * decay_coeff * (np.sqrt(c_max) - np.sqrt(c_min)) / (c_max - c_min)
+
+    def err_decay_func_B(decay_coeff, c):
+        return decay_coeff / c**(5/6)
+
+    def mean_error_B(decay_coeff, c_min, c_max):
+        return 6 * decay_coeff * (c_max**(1/6) - c_min**(1/6)) / (c_max - c_min)
+
+    decay_coeffs = {
+        'A': 1.0,
+        'B': 2.5,
+        'Z': 1.5,
+    }
+    c_ranges = collections.OrderedDict([
+        ("A'", np.arange(1, 4.5, 0.1)),
+        ("A''", np.arange(3, 6, 0.1)),
+        ("B", np.arange(2, 6.5, 0.1)),
+        ("Z", np.arange(1, 6.5, 0.1)),
+    ])
+
+    # Determine colors colors.
+    colors = {m: 'C'+str(i) for i, m in enumerate(sorted(c_ranges))}
+
+    # Plot the error trajectories.
+    fig, ax = plt.subplots(figsize=(3.5, 2.6))
+
+    # method_names = ["B", "Z", "A'", "A''"]
+    method_names = ["Z", "A'", "A''"]
+    for method_name in method_names:
+        color = colors[method_name]
+        c_range = c_ranges[method_name]
+        decay_coeff = decay_coeffs[method_name[0]]
+
+        if method_name == 'B':
+            err_decay_func = err_decay_func_B
+        else:
+            err_decay_func = err_decay_func_square
+        err = err_decay_func(decay_coeff, c_range)
+
+        # Plot error area.
+        ax.plot(c_range, err, color=color, label=method_name, zorder=1)
+        ax.fill_between(c_range, err, 0, color=color, alpha=0.5, zorder=0)
+
+        # Add method label.
+        c_method_label_idx = int(len(c_range) / 8)
+        ax.text(c_range[c_method_label_idx], err[c_method_label_idx]+0.01, method_name, fontsize=12)
+
+        if method_name[0] == 'A':
+            # Plot mean error.
+            c_min, c_max = min(c_range), max(c_range)
+            mean_err = mean_error_square(decay_coeff, c_min, c_max)
+            # Start mean error horizontal line from the error curve.
+            c_mean = (decay_coeff / mean_err)**2
+            ax.plot([0, c_mean], [mean_err, mean_err], color='black', ls='--', alpha=0.8, zorder=1)
+
+            # Add label mean error.
+            # ax.text(1.05, mean_err+0.025, '$\mathbb{E}[RMSE_{' + method_name + '}]$', fontsize=9)
+            ax.text(-0.3, mean_err+0.025, '$\mathbb{E}[RMSE_{' + method_name + '}]$', fontsize=9)
+
+            # Add c_min/max labels.
+            ax.text(c_min-0.4, -0.1, 'c$_{min,' + method_name + '}$', fontsize=9)
+            ax.text(c_max-0.4, -0.1, 'c$_{max,' + method_name + '}$', fontsize=9)
+
+    # Configure axes.
+    ax.set_xlim(1, 6.4)
+    ax.set_ylim(0, 2)
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.set_ylabel('$RMSE(\Delta G)$')
+    ax.set_xlabel('computational cost')
+    # Pull axes labels closest to axes.
+    ax.tick_params(axis='x', which='major', pad=2.0)
+    ax.yaxis.set_label_coords(0.0, 0.65)
+
+    # Plot the relative efficiencies in an inset plot.
+    ax_ins = inset_axes(ax, width='100%', height='100%', bbox_to_anchor=[145, 115, 90, 50])
+
+    # Compute relative efficiencies with respect to Z.
+
+    relative_efficiencies = collections.OrderedDict()
+    for method_name in [name for name in method_names if name != 'Z']:
+        c_min, c_max = min(c_ranges[method_name]), max(c_ranges[method_name])
+        if method_name == 'B':
+            mean_error_func = mean_error_B
+        else:
+            mean_error_func = mean_error_square
+        mean_err_method = mean_error_func(decay_coeffs[method_name[0]], c_min, c_max)
+        mean_err_Z = mean_error_square(decay_coeffs['Z'], c_min, c_max)
+        relative_efficiencies[method_name] = -np.log(mean_err_method/mean_err_Z)
+
+    # Plot horizontal bar plot with all efficiencies.
+    labels, rel_effs = zip(*relative_efficiencies.items())
+    bar_colors = [colors[m] for m in labels]
+    labels = [l + '/Z' for l in labels]
+    # labels = ['$e_{err,' + str(l) + '/Z}$' for l in labels]
+    ax_ins.barh(y=labels, width=rel_effs, color=bar_colors, alpha=0.85)
+    ax_ins.set_title('relative efficiency', pad=2.5)
+
+    # plt.tight_layout(rect=[0.0, 0.0, 1.0, 1.0])
+    plt.tight_layout(rect=[0.1, 0.0, 1.0, 1.0])
+
+    # Pull axes labels closest to axes.
+    ax_ins.set_xticks([0.0])
+    ax_ins.grid(axis='x')
+    ax_ins.tick_params(axis='x', which='major', pad=0.0)
+    ax_ins.tick_params(axis='y', which='major', pad=0.0)
+
+    output_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure2-efficiency_cartoon')
+    os.makedirs(output_dir_path, exist_ok=True)
+    plt.savefig(os.path.join(output_dir_path, 'error_trajectories.pdf'))
+
+
+# =============================================================================
+# FIGURE 3 - FREE ENERGY TRAJECTORIES
 # =============================================================================
 
 def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
@@ -570,15 +591,16 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
     for method_name in sorted(all_mean_data.keys()):
         submission_mean_data = all_mean_data[method_name]
         submission_color = SUBMISSION_COLORS[method_name]
+        submission_ls = SUBMISSION_LINE_STYLES[method_name]
 
         # Plot free energy trajectories.
         for system_name, mean_data in submission_mean_data.items():
             ax_idx = system_columns[system_name]
 
             # The OA prediction of the NS short protocol are the same of the long protocol submission file.
-            if method_name == 'GROMACS/CT-NS-long' and system_name != 'CB8-G3':
+            if method_name == 'GROMACS/NS-DS/SB-long' and system_name != 'CB8-G3':
                 # Just add the label.
-                axes[0][ax_idx].plot([], color=submission_color, label=method_name)
+                axes[0][ax_idx].plot([], color=submission_color, ls=submission_ls, label=method_name)
                 continue
 
             # Update maximum number of energy evaluations.
@@ -589,7 +611,7 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
             # Determine zorder and plot.
             zorder = zorders[system_name][method_name]
             plot_mean_data(mean_data, axes[:,ax_idx], color=submission_color,
-                           zorder=zorder, label=method_name,
+                           ls=submission_ls, zorder=zorder, label=method_name,
                            plot_std=plot_std, plot_bias=plot_bias)
 
     # Fix labels.
@@ -637,29 +659,32 @@ def plot_submissions_trajectory(submissions, yank_analysis, axes, y_limits=None,
 
 def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
     """Plot free energy trajectories, std, and bias of the challenge entries."""
+    sns.set_style('whitegrid')
+    sns.set_context('paper')
+
     # Create a figure with 3 columns (one for each system) and 2 rows.
     # The first row contains the free energy trajectory and CI, the second
     # a plot of the estimator variance, and the third the bias to the
     # asymptotic value.
     if zoomed:
-        figsize = (7.25, 7.0)  # Without WExplorer
+        figsize = (7.25, 7.0)  # Without REVO
     else:
-        figsize = (7.25, 7.0)  # With WExplorer
+        figsize = (7.25, 7.0)  # With REVO
     fig, axes = plt.subplots(nrows=3, ncols=3, figsize=figsize)
 
-    # Optionally, remove WExplore.
+    # Optionally, remove REVO.
     if zoomed:
         submissions = [s for s in submissions if s.name not in ['WExploreRateRatio']]
 
     if zoomed:
-        # Y-axis limits when WExplore calculations are excluded.
+        # Y-axis limits when REVO calculations are excluded.
         y_limits = [
             [(-15, -10), (-9, -4), (-9, -4)],
             [(0, 2), (0, 0.8), (0, 0.8)],
             [(-3, 1), (-0.6, 0.6), (-0.6, 0.6)],
         ]
     else:
-        # Y-axis limits when WExplore calculations are included.
+        # Y-axis limits when REVO calculations are included.
         y_limits = [
             [(-17, -9), (-13, -5), (-13, -5)],
             [(0, 2), (0, 1.75), (0, 1.75)],
@@ -670,30 +695,34 @@ def plot_all_entries_trajectory(submissions, yank_analysis, zoomed=False):
 
     # Show/save figure.
     if zoomed:
-        plt.tight_layout(h_pad=0.2, rect=[0.0, 0.00, 1.0, 0.92], w_pad=0.0)  # Without WExplorer
+        plt.tight_layout(h_pad=0.2, rect=[0.0, 0.00, 1.0, 0.92], w_pad=0.0)  # Without REVO
     else:
-        plt.tight_layout(h_pad=0.2, rect=[0.0, 0.00, 1.0, 0.92])  # With WExplorer
+        plt.tight_layout(h_pad=0.2, rect=[0.0, 0.00, 1.0, 0.92])  # With REVO
 
     # Plot legend.
     if zoomed:
-        # bbox_to_anchor = (2.52, 1.55)  # Without WExplorer.
+        # bbox_to_anchor = (2.52, 1.55)  # Without REVO.
         bbox_to_anchor = (2.4, 1.48)
     else:
-        bbox_to_anchor = (2.4, 1.48)  # With WExplorer.
+        bbox_to_anchor = (2.4, 1.48)  # With REVO.
     axes[0][1].legend(loc='upper right', bbox_to_anchor=bbox_to_anchor,
                       fancybox=True, ncol=4)
     plt.subplots_adjust(wspace=0.35)
     # plt.show()
     if zoomed:
-        file_name = 'Figure2-free_energy_trajectories_zoomed'
+        file_name = 'Figure3-free_energy_trajectories_zoomed'
     else:
-        file_name = 'Figure2-free_energy_trajectories'
-    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure2-free_energy_trajectories')
+        file_name = 'Figure3-free_energy_trajectories'
+    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure3-free_energy_trajectories')
     os.makedirs(figure_dir_path, exist_ok=True)
     output_base_path = os.path.join(figure_dir_path, file_name)
     plt.savefig(output_base_path + '.pdf')
     # plt.savefig(output_base_path + '.png', dpi=500)
 
+
+# =============================================================================
+# FIGURE 4 - NONEQUILIBRIUM SWITCHING ESTIMATOR COMPARISON
+# =============================================================================
 
 def plot_all_nonequilibrium_switching(submissions):
     """Plot free energy trajectories, std, and bias of the nonequilibrium-switching calculations."""
@@ -701,7 +730,7 @@ def plot_all_nonequilibrium_switching(submissions):
     # The first row contains the free energy trajectory and CI, the second
     # a plot of the estimator variance, and the third the bias to the
     # asymptotic value.
-    figsize = (7.25, 3.5)  # With WExplorer
+    figsize = (7.25, 3.5)
     fig, axes = plt.subplots(nrows=1, ncols=3, figsize=figsize)
 
     # Select nonequilibrium-switching calculations with estimators.
@@ -723,10 +752,10 @@ def plot_all_nonequilibrium_switching(submissions):
                             fancybox=True, ncol=3)
     # Change legend labels to refer to estimator used rather than overall method ID.
     legend_labels_map = {
-        'GROMACS/CT-NS-long': 'BAR-long',
-        'GROMACS/CT-NS': 'BAR',
-        'GROMACS/NS-Jarz-F': 'Jarzinski-Forward',
-        'GROMACS/NS-Jarz-R': 'Jarzinski-Reverse',
+        'GROMACS/NS-DS/SB-long': 'BAR-long',
+        'GROMACS/NS-DS/SB': 'BAR',
+        'GROMACS/NS-Jarz-F': 'Jarzynski-Forward',
+        'GROMACS/NS-Jarz-R': 'Jarzynski-Reverse',
         'GROMACS/NS-Gauss-F': 'Gaussian-Forward',
         'GROMACS/NS-Gauss-R': 'Gaussian-Reverse',
     }
@@ -736,15 +765,15 @@ def plot_all_nonequilibrium_switching(submissions):
     plt.subplots_adjust(wspace=0.35)
 
     # plt.show()
-    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure3-nonequilibrium_comparison')
+    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure4-nonequilibrium_comparison')
     os.makedirs(figure_dir_path, exist_ok=True)
-    output_base_path = os.path.join(figure_dir_path, 'Figure3-nonequilibrium_comparison')
+    output_base_path = os.path.join(figure_dir_path, 'Figure4-nonequilibrium_comparison')
     plt.savefig(output_base_path + '.pdf')
     # plt.savefig(output_base_path + '.png', dpi=500)
 
 
 # =============================================================================
-# FIGURE 3
+# FIGURE 5 - BAROSTAT AND RESTRAINT
 # =============================================================================
 
 # Directories containing the volume information of YANK and GROMACS/EE.
@@ -760,23 +789,58 @@ def plot_volume_distributions(axes, plot_predicted=False):
     from simtk import unit
 
     # Load data.
-    yank_volumes = collections.OrderedDict([
+    mc_volumes = collections.OrderedDict([
         (1, np.load(os.path.join(YANK_VOLUMES_DIR_PATH, 'volumes_pressure100.npy'))),
         (100, np.load(os.path.join(YANK_VOLUMES_DIR_PATH, 'volumes_pressure10000.npy'))),
     ])
+    mc_volumes_hrex = collections.OrderedDict([
+        (1, np.load(os.path.join(YANK_VOLUMES_DIR_PATH, 'hrex_state_volumes_state0.npy'))),
+        (58, np.load(os.path.join(YANK_VOLUMES_DIR_PATH, 'hrex_state_volumes_state58.npy'))),
+    ])
 
-    ee_volumes = collections.OrderedDict([
+    b_volumes = collections.OrderedDict([
         (1, np.load(os.path.join(EE_VOLUMES_DIR_PATH, '1atm_vanilla.npy'))),
         (100, np.load(os.path.join(EE_VOLUMES_DIR_PATH, '100atm_vanilla.npy'))),
     ])
+    b_volumes_ee = collections.OrderedDict([
+        (1, np.load(os.path.join(EE_VOLUMES_DIR_PATH, '1atm_expanded.npy'))),
+        (100, np.load(os.path.join(EE_VOLUMES_DIR_PATH, '100atm_expanded.npy'))),
+    ])
 
-    titles = ['Monte Carlo barostat', 'Berendsen barostat']
-    for ax, volume_trajectories, title in zip(axes, [yank_volumes, ee_volumes], titles):
+    # Print some statistics for each distribution.
+    for volume_trajectories, label in [(mc_volumes, 'MC-MD  '),
+                                       (mc_volumes_hrex, 'MC-HREX'),
+                                       (b_volumes, 'BB-MD    '),
+                                       (b_volumes_ee, 'BB-EE    ')]:
         for pressure, trajectory in volume_trajectories.items():
-            label = '$\\rho$(V|{}atm)'.format(pressure)
-            print('{}: mean={:.3f}nm^3, var={:.3f}'.format(label, np.mean(trajectory),
-                                                           np.var(trajectory)))
-            ax = sns.distplot(trajectory, label=label, hist=True, ax=ax)
+            n = len(trajectory)
+            t_stat = 2.326  # 98% CI
+
+            mean = np.mean(trajectory)
+            sem = scipy.stats.sem(trajectory)
+            mean_ci = t_stat * sem
+
+            var = np.var(trajectory, ddof=1)
+            # Standard error of variance if volume is gaussianly distributed
+            sev = var * np.sqrt(2 / (n-1))
+            var_ci = t_stat * sev
+
+            skew = scipy.stats.skew(trajectory)
+            # Standard error of skewness if volume is gaussianly distributed
+            ses = np.sqrt( 6*n*(n-1) / ((n-2)*(n+1)*(n+3)) )
+            skew_ci = t_stat * ses
+            print('{}-{} (n={}): mean={:.3f} +- {:.3f}nm^3\t\tvar={:.3f} +- {:.3f}\tskew={:.3f} +- {:.3f}'.format(
+                pressure, label, n, mean, mean_ci, var, var_ci, skew, skew_ci))
+
+    # Plot the 1atm vs 100atm comparison.
+    barostats = ['B', 'MC']
+    for ax, volume_trajectories, barostat in zip(axes, [b_volumes, mc_volumes], barostats):
+        barostat += ',MD'
+        barostat = 'MD'
+
+        for pressure, trajectory in volume_trajectories.items():
+            label = '$\\rho_{{\mathrm{{{}}}}}$(V|{}atm)'.format(barostat, pressure)
+            ax = sns.distplot(trajectory, label=label, hist=False, ax=ax)
 
         if plot_predicted:
             # Plot predicted distribution.
@@ -797,15 +861,37 @@ def plot_volume_distributions(axes, plot_predicted=False):
             predicted = np.array([predicted_distribution(v) / normalizing_factor for v in volumes])
 
             # Set the scale.
-            label = '$\\rho$(V|{}atm)$\cdot e^{{\\beta ({}atm - {}atm) V}}$'.format(original_pressure, new_pressure, original_pressure)
-            ax.plot(volumes, predicted, label=label)
+            label = '$\\rho_{{\mathrm{{{}}}}}$(V|{}atm)$\cdot e^{{\\beta ({}atm - {}atm) V}}$'.format(barostat, original_pressure, new_pressure, original_pressure)
+            ax.plot(volumes, predicted, ls='--', label=label)
             # ax.plot(volumes, [fit.pdf([v], *fit_parameters) for v in volumes], label='original')
-            ax.set_ylabel('density')
 
-        ax.set_title(title + ' volume distribution')
-        ax.legend(fontsize='xx-small')
-        ax.set_xlim((78.5, 82.0))
-        ax.set_xlabel('Volume [nm^3]')
+    # Plot comparison MD vs expanded ensemble and HREX volumes.
+    for ax_idx, (trajectory, label) in enumerate([
+        (b_volumes_ee[1], 'B,EE'), (mc_volumes_hrex[1], 'MC,HREX')
+    ]):
+        label = 'E'
+        ax = axes[ax_idx]
+        label = '$\\rho_{{\mathrm{{{}}}}}$(V|1atm)'.format(label)
+        sns.distplot(trajectory, label=label, hist=False, ax=ax)
+
+    # Set titles and configure axes.
+    axes[0].set_title('Berendsen barostat volume distribution', pad=2.0)
+    axes[1].set_title('Monte Carlo barostat volume distribution', pad=2.0)
+    for ax_idx in range(len(axes)):
+        axes[ax_idx].set_xlim((78.8, 81.2))
+        axes[ax_idx].set_ylim((0.0, 6.0))
+        axes[ax_idx].set_ylabel('density')
+    axes[0].set_xlabel('', labelpad=0.3)
+    axes[1].set_xlabel('Volume [nm^3]', labelpad=0.3)
+
+    # Create single legend for both MC and B barostat axes.
+    bbox_to_anchor = (-0.1, -0.15)
+    axes[0].legend(fontsize='xx-small', loc='upper left', bbox_to_anchor=bbox_to_anchor, ncol=4,
+                   fancybox=True, labelspacing=0.7, handletextpad=0.4, columnspacing=1.1,)
+    # axes[0].get_legend().remove()
+    axes[1].get_legend().remove()
+
+    plt.tight_layout(pad=0, rect=[0.0, 0.0, 1.0, 1.0])
 
 
 # Directory with the restraint information.
@@ -925,22 +1011,22 @@ def plot_restraint_analysis(system_id, axes):
     kde = True
     restraint_cutoff = plot_restraint_distance_distribution(system_id, ax, kde=kde)
     # Set restraint distance distribution lables and titles.
-    ax.set_title('Harmonic restraint radius distribution')
+    ax.set_title('Restrained ligand-receptor distance', pad=2.0)
     if kde is False:
         ax.set_ylabel('Number of samples')
     else:
         ax.set_ylabel('density')
-    ax.legend(loc='upper right', fontsize='xx-small')
-    ax.set_xlabel('Restraint radius [A]')
+    ax.legend(loc='upper right', fontsize='x-small')
+    ax.set_xlabel('Restrained distance [$\mathrm{\AA}$]', labelpad=0.3)
 
     # Free energy as a function of restraint distance.
     ax = axes[1]
-    ax.set_title('$\Delta G$ as a function of restraint radius cutoff')
+    ax.set_title('$\Delta G$ as a function of restraint radius cutoff', pad=2.0 )
     plot_restraint_profile(system_id, ax, restraint_cutoff)
     # Labels and legend.
-    ax.set_xlabel('Restraint radius cutoff [A]')
+    ax.set_xlabel('Restraint radius cutoff [$\mathrm{\AA}$]', labelpad=0.3)
     ax.set_ylabel('$\Delta G$ [kcal/mol]')
-    ax.legend(fontsize='xx-small')
+    ax.legend(fontsize='x-small')
 
 
 def plot_restraint_and_barostat_analysis():
@@ -948,10 +1034,10 @@ def plot_restraint_and_barostat_analysis():
     import seaborn as sns
     from matplotlib import pyplot as plt
     sns.set_style('whitegrid')
-    sns.set_context('paper')
+    sns.set_context('paper', font_scale=1.0)
 
     # Create two columns, each of them share the x-axis.
-    fig = plt.figure(figsize=(7.25, 5))
+    fig = plt.figure(figsize=(7.25, 4))
     # Restraint distribution axes.
     ax1 = fig.add_subplot(221)
     ax2 = fig.add_subplot(223, sharex=ax1)
@@ -969,21 +1055,22 @@ def plot_restraint_and_barostat_analysis():
     plot_restraint_analysis(system_id, restraint_axes)
     # Configure axes.
     restraint_axes[0].set_xlim((0, 10.045))
+    restraint_axes[1].set_ylim((-7, -3.9))
 
     for ax in restraint_axes + barostat_axes:
-        ax.tick_params(axis='x', which='major', pad=0.2)
-        ax.tick_params(axis='y', which='major', pad=0.2)
-    plt.tight_layout(pad=0.5)
+        ax.tick_params(axis='x', which='major', pad=0.1)
+        ax.tick_params(axis='y', which='major', pad=0.1)
+    plt.tight_layout(pad=0.3)
 
     # plt.show()
-    output_file_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure3-restraint_barostat',
+    output_file_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure5-restraint_barostat',
                                     'restraint_barostat.pdf')
     os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
     plt.savefig(output_file_path)
 
 
 # =============================================================================
-# FIGURE 4
+# FIGURE 6 - HREX INITIAL BIAS
 # =============================================================================
 
 def plot_yank_system_bias(system_name, data_dir_paths, axes, shift_to_origin=True, plot_std=True):
@@ -1042,10 +1129,10 @@ def plot_yank_bias(plot_std=True, figure_dir_path=None):
     # with all sub-trajectories shifted to the origin.
     what_to_plot = [
         ('CB8-G3', False),
-        ('CB8-G3', True),
-        ('OA-G3', True),
+        # ('CB8-G3', True),
+        ('OA-G3', False),
         # ('OA-G3', False),
-        # ('OA-G6', False),
+        ('OA-G6', False),
     ]
 
     if plot_std:
@@ -1053,7 +1140,7 @@ def plot_yank_bias(plot_std=True, figure_dir_path=None):
     else:
         n_rows = 1
     n_cols = len(what_to_plot)
-    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(7.25, 4.6))
+    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(7.25, 4.0))
 
     # The loops are based on a two dimensional array of axes.
     if n_rows == 1:
@@ -1076,8 +1163,7 @@ def plot_yank_bias(plot_std=True, figure_dir_path=None):
     }
     for column_idx, (system_name, _) in enumerate(what_to_plot):
         axes[0][column_idx].set_ylim(ylimits[system_name])
-    if plot_std:
-        for column_idx in range(3):
+        if plot_std:
             axes[1][column_idx].set_ylim((0, 0.6))
 
     for row_idx, ax_idx in itertools.product(range(n_rows), range(n_cols)):
@@ -1093,74 +1179,352 @@ def plot_yank_bias(plot_std=True, figure_dir_path=None):
     axes[0][0].set_ylabel('$\Delta$G [kcal/mol]')
     if plot_std:
         axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
-    axes[-1][1].set_xlabel('HREX iteration')
 
-    plt.tight_layout(h_pad=0.1, rect=[0.0, 0.00, 1.0, 0.92])
+    # If there is an odd number of columns print x label only on the central one.
+    if n_cols % 2 == 1:
+        axes[-1][1].set_xlabel('HREX iteration')
+    else:
+        for ax in axes[-1]:
+            ax.set_xlabel('HREX iteration')
+
+    plt.tight_layout(h_pad=0.1, rect=[0.0, 0.00, 1.0, 0.91])
 
     handles, labels = axes[0][0].get_legend_handles_labels()
     handles = [handles[-1]] + handles[:-1]
     labels = [labels[-1]] + labels[:-1]
-    bbox_to_anchor = (-0.1, 1.45)
+    bbox_to_anchor = (0.4, 1.53)
     axes[0][0].legend(handles, labels, loc='upper left', bbox_to_anchor=bbox_to_anchor,
-                      title='n discarded initial iterations', ncol=len(data_dir_paths)+1,
-                      fancybox=True)
+                      title='number of discarded initial iterations', ncol=len(data_dir_paths)+1,
+                      fancybox=True, labelspacing=0.8, handletextpad=0.5, columnspacing=1.2,
+                      fontsize='small')
 
     # plt.show()
     if figure_dir_path is None:
-        figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure4-bias_hrex')
+        figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure6-bias_hrex')
     os.makedirs(figure_dir_path, exist_ok=True)
-    output_file_path = os.path.join(figure_dir_path, 'Figure4-bias_hrex')
+    output_file_path = os.path.join(figure_dir_path, 'Figure6-bias_hrex')
     plt.savefig(output_file_path + '.pdf')
     # plt.savefig(output_file_path + '.png', dpi=600)
 
 
-def plot_equilibration_methods():
-    """Plot the different trajectories obtained through the reduced potential and instantaneous work equilibration."""
-    sns.set_context('paper', font_scale=1.2)
+# =============================================================================
+# SUPPORTING INFORMATION - EXAMPLE OF HREX BIAS
+# =============================================================================
 
-    yank_analysis_potential = YankSamplingAnalysis(YANK_ANALYSIS_DIR_PATH)
-    yank_analysis_work = YankSamplingAnalysis('YankAnalysis/Sampling_instantaneouswork/')
+def simulate_correlation_samples():
+    """Simulation of bias from same initial configuration.
 
-    fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(7.25, 8))
+    There are 3 states as different harmonic oscillators, but all
+    or almost all the samples come from the first (bound) state to
+    simulate what happens when they don't decorrelate fast enough.
+    The hypothesis is that most is that starting from the bound
+    state causes the initial free energy to be artificially negative
+    if the correlation times are long.
 
-    ylimits = {
-        'CB8-G3': (-12.5, -10.5),
-        'OA-G3': (-8, -6),
-        'OA-G6': (-8, -6)
+    The second (discharged) state is just a shifted harmonic oscillator
+    (same free energy as bound state). The third (unbound) is shifted
+    and has much higher entropy.
+
+    """
+    from numpy.random import normal
+    from pymbar import MBAR
+
+    def harmonic_oscillator_free_energy(sigma):
+        """Analytical expression for the free energy of a harmonic oscillator."""
+        #return - np.log(2 * np.pi * sigma**2) * 3.0 / 2.0  # 3D oscillator
+        return - np.log(np.sqrt(2 * np.pi) * sigma)
+
+    def harmonic_oscillator_potential(x, loc, std):
+        """Compute potential of the given positions given location
+        and standard deviation of the Gaussian distribution.
+
+        Potentials are returned in units of kT.
+        """
+        spring_constant = 1 / std**2
+        return spring_constant / 2.0 * (x - loc)**2
+
+    def print_free_energies(Deltaf_ij, dDeltaf_ij):
+        mbar_str = ', '.join(['{:.4f} +- {:.4f}'.format(f, df) for f, df in zip(Deltaf_ij[:,0], dDeltaf_ij[:,0])])
+        print('MBAR      :', mbar_str)
+        analytical_str = ', '.join(['{:.4f}          '.format(f) for f in analytical_Deltaf])
+        print('Analytical:', analytical_str)
+
+    def compute_mbar_free_energy(all_samples, shifts, stds, analytical_f):
+        n_states = len(all_samples)
+
+        # u_kn[k,n] is the reduced potential energy n-th sample evaluated at state k.
+        u_kn = np.empty(shape=(n_states, n_states*n_samples))
+
+        # Convert samples to potentials.
+        for k in range(n_states):
+            for sampled_k, samples in enumerate(all_samples):
+                start = sampled_k * n_samples
+                end = (sampled_k + 1) * n_samples
+                u_kn[k,start:end] = harmonic_oscillator_potential(samples, loc=shifts[k], std=stds[k])
+
+        # Compute MBAR free energy.
+        N_k = np.array([n_samples] * n_states)
+        mbar = MBAR(u_kn, N_k=N_k, initial_f_k=analytical_f)
+        Deltaf_ij, dDeltaf_ij, _ = mbar.getFreeEnergyDifferences()
+        return Deltaf_ij, dDeltaf_ij
+
+
+    # Determine standard deviation and shift of the harmonic distributions.
+    n_samples = 5000000
+    stds = np.array([2.0, 2.0, 5.0])
+    shifts = np.array([0.0, 2.0, 2.0])
+    print('\nspring constants:', 1 / stds**2)
+
+    # Compute analytical free energy.
+    analytical_f = np.array([harmonic_oscillator_free_energy(s) for s in stds])
+    analytical_Deltaf = np.array([analytical_f[0] - analytical_f[i] for i in range(len(stds))])
+
+    # FIRST TEST.
+    # Sample from all states and verify that MBAR free energy is correct.
+    # -------------------------------------------------------------------
+    all_samples = [normal(loc=l, scale=s, size=n_samples) for l, s in zip(shifts, stds)]
+    Deltaf_ij, dDeltaf_ij = compute_mbar_free_energy(all_samples, shifts, stds, analytical_f)
+    print()
+    print_free_energies(Deltaf_ij, dDeltaf_ij)
+
+    # SECOND TEST.
+    # Check if the bias is not due to lack of overlap. If we sample only the end states the estimate should be correct.
+    # -----------------------------------------------------------------------------------------------------------------
+    for i in range(1, len(all_samples)):
+        all_samples_bar = [all_samples[0], all_samples[i]]
+        shifts_bar = [shifts[0], shifts[i]]
+        stds_bar = [stds[0], stds[i]]
+        analytical_f_bar = [analytical_f[0], analytical_f[i]]
+        Deltaf_ij, dDeltaf_ij = compute_mbar_free_energy(all_samples_bar, shifts_bar, stds_bar, analytical_f_bar)
+        print('\nBAR_{}0'.format(i))
+        print_free_energies(Deltaf_ij, dDeltaf_ij)
+
+    # THIRD TEST.
+    # Now sample from only the bound state to see how the free energy changes.
+    # ------------------------------------------------------------------------
+    all_samples[1:] = [normal(loc=shifts[0], scale=stds[0], size=n_samples) for _ in range(len(stds)-1)]
+    Deltaf_ij, dDeltaf_ij = compute_mbar_free_energy(all_samples, shifts, stds, analytical_f)
+    print()
+    print_free_energies(Deltaf_ij, dDeltaf_ij)
+
+    # FOURTH TEST.
+    # Now let the unbound state decorrelate fast (i.e. sample from its own distribution).
+    # -----------------------------------------------------------------------------------
+    all_samples[-1] = normal(loc=shifts[-1], scale=stds[-1], size=n_samples)
+    Deltaf_ij, dDeltaf_ij = compute_mbar_free_energy(all_samples, shifts, stds, analytical_f)
+    print()
+    print_free_energies(Deltaf_ij, dDeltaf_ij)
+
+    # RESULT: SUCCESS!!!
+
+
+# =============================================================================
+# SUPPORTING INFORMATION - COMPLEX/SOLVENT and ENTROPY/ENTHALPY DECOMPOSITION
+# =============================================================================
+
+def _mean_data_decomposition(data):
+    # Convert into a numpy array to take the mean.
+    # Convert None (not supported by numpy) into nans.
+    try:
+        # This may fail if we have computed different iterations for each.
+        data = np.array(data, dtype=np.float)
+    except ValueError:
+        data_lengths = [len(x) for x in data]
+        print('Warning: Truncating data of shape {}'.format(data_lengths))
+        min_length = min(data_lengths)
+        data = [x[:min_length] for x in data]
+        data = np.array(data, dtype=np.float)
+    # Compute std and mean along the trajectory ignoring NaNs.
+    return np.nanmean(data, axis=0), np.nanstd(data, axis=0)
+
+
+def _plot_phase_decomposition(ax, phase_free_energies):
+    # Shortcuts.
+    data = phase_free_energies
+    label = '$\Delta$G'
+
+    # Plot each phase data on a separate axis to make the comparison on different order of magnitudes easier.
+    # Receipt with three axes: https://matplotlib.org/3.1.0/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
+    phase_axes = {
+        'complex': ax.twinx(),
+        'solvent': ax.twinx()
     }
+    phase_colors = {
+        'complex': 'C1',
+        'solvent': 'C0',
+    }
+    for ax_name in sorted(phase_axes):
+        phase_axes[ax_name].set_ylabel(label + ' ' + ax_name + ' [kcal/mol]',
+                                       color=phase_colors[ax_name])
+    phase_axes[ax_name].spines["right"].set_position(("axes", 1.2))
 
-    palette = sns.color_palette('tab10', n_colors=2)
+    # Compute total free energy summing complex and solvent for all replicates.
+    total_mean = [np.array(data['solvent'][i]) + np.array(data['complex'][i]) for i in range(5)]
+    total_mean, total_std = _mean_data_decomposition(total_mean)
 
-    for col_idx, system_name in enumerate(['CB8-G3', 'OA-G3', 'OA-G6']):
-        for i, (label, yank_analysis) in enumerate([
-            ('potential', yank_analysis_potential),
-            ('average instantaneous work', yank_analysis_work)
-        ]):
-            # mean_data = yank_analysis.get_system_free_energies(system_name, mean_trajectory=True)
-            mean_data = yank_analysis.get_free_energies_from_iteration(
-                YANK_N_ITERATIONS, system_name=system_name, mean_trajectory=True)
-            plot_mean_data(mean_data, axes[:,col_idx], x='HREX iteration', color=palette[i], label=label,
-                           plot_std=True, plot_bias=True, plot_ci=True)
+    # Compute and plot the phase free energy.
+    for phase_name in ['complex', 'solvent']:
+        color = phase_colors[phase_name]
 
-            # Set labels and limits.
-            ax = axes[0,col_idx]
-            ax.set_title(system_name)
-            ax.set_ylim(ylimits[system_name])
+        # Convert into a numpy array to take the mean.
+        # Convert None (not supported by numpy) into nans.
+        data[phase_name], std = _mean_data_decomposition(data[phase_name])
 
-    axes[0][0].set_ylabel('$\Delta$G [kcal/mol]')
-    axes[1][0].set_ylabel('std($\Delta$G) [kcal/mol]')
-    axes[2][0].set_ylabel('bias [kcal/mol]')
-    axes[-1,1].set_xlabel('N HREX iterations')
+        # Plot each phase data on a separate axis to make the comparison easier.
+        phase_axes[phase_name].plot(data[phase_name], ls='-', color=color,
+                                    label=label + ' ' + phase_name)
+        # Plot uncertainties.
+        phase_axes[phase_name].fill_between(x=list(range(len(std))), y1=data[phase_name]-std,
+                                            y2=data[phase_name]+std, color=color, alpha=0.7)
 
-    axes[0,0].legend(loc='upper right', bbox_to_anchor=(2.4, 1.48),
-                      fancybox=True, ncol=2)
 
-    # plt.show()
-    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'Figure4-bias_hrex')
-    os.makedirs(figure_dir_path, exist_ok=True)
-    output_file_path = os.path.join(figure_dir_path, 'Figure4-instantaneous_work_equil')
-    plt.savefig(output_file_path + '.pdf')
-    # plt.savefig(output_file_path + '.png', dpi=600)
+    # Plot total free energy.
+    # total = data['solvent'] + data['complex']
+    # ax.plot(total, color='black', label=label+' total')
+    ax.plot(total_mean, color='black', label=label+' total')
+    ax.fill_between(x=list(range(len(total_std))), y1=total_mean-total_std,
+                    y2=total_mean+total_std, color='black', alpha=0.7)
+    ax.set_ylabel(label + ' total [kcal/mol]')
+    ax.set_xlabel('simulation percentage')
+
+    # Make the range of all y axes the same.
+    ax.set_ylim((-21, -18))
+    phase_axes['complex'].set_ylim((-151.0, -148.0))
+    phase_axes['solvent'].set_ylim((129.0, 132.0))
+
+
+def _plot_entropy_enthalpy_decomposition(ax, phase_free_energies, phase_enthalpy):
+    # Analyze only the complex.
+    phase_name = 'complex'
+
+    # Plot each phase data on a separate axis to make the comparison on different order of magnitudes easier.
+    # Receipt with three axes: https://matplotlib.org/3.1.0/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
+    axes = {
+        '$\Delta$G': ax,
+        '$\Delta$H': ax.twinx(),
+        '-T$\Delta$S': ax.twinx(),
+    }
+    colors = {
+        '$\Delta$G': 'black',
+        '$\Delta$H': 'C1',
+        '-T$\Delta$S': 'C0',
+    }
+    for ax_name in sorted(axes):
+        axes[ax_name].set_ylabel(ax_name + ' ' + phase_name + ' [kcal/mol]', color=colors[ax_name])
+    axes[ax_name].spines["right"].set_position(("axes", 1.2))
+
+    # Variable used to propagate entropy decomposition.
+    entropy_std = []
+
+    # Plot the total average free energy and enthalpy and for each phase.
+    for data, label in [(phase_free_energies, '$\Delta$G'),
+                        (phase_enthalpy, '$\Delta$H')]:
+        color = colors[label]
+
+        # Convert into a numpy array to take the mean.
+        # Convert None (not supported by numpy) into nans.
+        data[phase_name], std = _mean_data_decomposition(data[phase_name])
+        ns_replica = np.arange(0.0, 40.0, 40/len(std))
+
+        # Plot each phase data on a separate axis to make the comparison easier.
+        axes[label].plot(ns_replica, data[phase_name], ls='-', color=color, label=label+' '+phase_name)
+        # Plot uncertainties.
+        axes[label].fill_between(x=ns_replica, y1=data[phase_name]-std,
+                                 y2=data[phase_name]+std, color=color, alpha=0.7)
+
+        # Propagate uncertainty.
+        if len(entropy_std) == 0:
+            entropy_std = std**2
+        else:
+            entropy_std += std**2
+    entropy_std = np.sqrt(entropy_std)
+
+    # Plot also entropies.
+    label = '-T$\Delta$S'
+    color = colors[label]
+    entropy = phase_free_energies[phase_name] - phase_enthalpy[phase_name]
+    axes[label].plot(ns_replica, entropy, ls='-', color=color, label=label+' '+phase_name)
+    # Plot uncertainties.
+    axes[label].fill_between(x=ns_replica, y1=entropy-entropy_std,
+                             y2=entropy+entropy_std, color=color, alpha=0.7)
+
+    ax.set_xlabel('ns/replica')
+
+
+def plot_decomposition(system_name, starting_iteration, type, output_file_path):
+    """
+    Decomposition of the free energy trajectory in complex/solvent phase or entropy/enthalpy.
+
+    Parameters
+    ----------
+    type : str
+        Can be 'entropy-enthalpy' or 'phase'.
+    """
+    data_file_pattern = 'YankAnalysis/BiasAnalysis/iter{}/fe-decomposition-{}-{{}}.json'.format(
+        starting_iteration, system_name)
+
+    n_replicates = 5
+    phase_free_energies = {'complex': [[] for _ in range(n_replicates)],
+                           'solvent': [[] for _ in range(n_replicates)]}
+    phase_enthalpy = copy.deepcopy(phase_free_energies)
+
+    for replicate_idx in range(n_replicates):
+        # Read decomposition data.
+        decomposition_data_file_path = data_file_pattern.format(replicate_idx)
+        with open(decomposition_data_file_path, 'r') as f:
+            decomposition_data = json.load(f)
+
+        # Read free energy and enthalpy at each iteration.
+        sorted_decomposition_data = sorted(decomposition_data, key=lambda x: int(x.split('-')[1]))
+        for phase_iter in sorted_decomposition_data:
+            decomposition = decomposition_data[phase_iter]
+            phase_name, iteration = phase_iter.split('-')
+
+            # Correct sign consistent with thermodynamic cycle.
+            if phase_name == 'complex':
+                sign = -1
+            else:
+                sign = 1
+
+            corrected_free_energy = sign * (decomposition['DeltaF'] + decomposition['DeltaF_standard_state_correction'])
+            phase_free_energies[phase_name][replicate_idx].append(corrected_free_energy)
+
+            # Multiplication works only if enthalpy is not None.
+            if decomposition['DeltaH'] is not None:
+                decomposition['DeltaH'] *= sign
+            phase_enthalpy[phase_name][replicate_idx].append(decomposition['DeltaH'])
+
+    # Create figure.
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(7.25, 4.6))
+    if type == 'entropy-enthalpy':
+        _plot_entropy_enthalpy_decomposition(ax, phase_free_energies, phase_enthalpy)
+    else:
+        _plot_phase_decomposition(ax, phase_free_energies)
+
+        # # Plot total free energy.
+        # total = data['solvent'] + data['complex']
+        # ax.plot(total, color=color, label=label)
+        # totals.append(total)
+
+    # Plot also entropies.
+    # ax.plot(totals[0] - totals[1], color='blue', label='-T$\Delta$S')
+
+    # ax.set_ylim((-20, -18))
+    # phase_axes['complex'].set_ylim((-153, -148))
+    # phase_axes['solvent'].set_ylim((128, 133))
+    # ax.set_ylim((-23, -18))
+    # phase_axes['complex'].set_ylim((30, 45))
+    # phase_axes['solvent'].set_ylim((-55, -40))
+
+    # ax.legend()
+
+    plt.tight_layout()
+    if output_file_path is not None:
+        os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
+        plt.savefig(output_file_path)
+    else:
+        plt.show()
+
 
 # =============================================================================
 # RELATIVE EFFICIENCY ANALYSIS
@@ -1201,7 +1565,7 @@ def get_relative_efficiency_input(submission, yank_analysis, system_name):
             system_id_data = data[data['System ID'] == system_id]
             free_energy[i] = system_id_data[DG_KEY].values
 
-    # Discard the initial frames of WExplorer and GROMACS/EE that don't have predictions.
+    # Discard the initial frames of REVO and GROMACS/EE that don't have predictions.
     from pkganalysis.efficiency import discard_initial_zeros
     free_energy_ref, free_energy_sub = discard_initial_zeros(free_energy_ref, free_energy_sub)
 
@@ -1238,12 +1602,13 @@ def compute_all_relative_efficiencies(
 
 def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_samples=1000,
                                same_plot=False, step_cumulative=2):
+    sns.set_style('whitegrid')
     sns.set_context('paper')
 
     statistic_names = ['std', 'absolute bias', 'RMSE']
 
     # Create output directory.
-    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure2-efficiencies')
+    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure-efficiencies')
     os.makedirs(figure_dir_path, exist_ok=True)
 
     # Check if we need all the efficiencies in the same plot or not.
@@ -1255,12 +1620,10 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
     max_n_energy_evaluations = [0 for _ in range(3)]
 
     for submission in submissions:
-        if submission.paper_name in {'OpenMM/WExplore'}:
+        if submission.paper_name in {'OpenMM/REVO'}:
             continue
-        # if submission.paper_name in {'AMBER/APR', 'GROMACS/CT-NS', 'GROMACS/CT-NS-long',
-        #                              'GROMACS/EE', 'OpenMM/SOMD'}:
-        #     continue
-        # if submission.paper_name not in {'AMBER/APR'}:
+        # if submission.paper_name in {'AMBER/APR', 'GROMACS/NS-DS/SB', 'GROMACS/NS-DS/SB-long',
+        #                              'NAMD/BAR', 'GROMACS/EE', 'GROMACS/EE-fullequil', 'OpenMM/SOMD'}:
         #     continue
         print(submission.paper_name)
 
@@ -1277,8 +1640,15 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
             statistic_ranges = {name: [np.inf, 0] for name in statistic_names}
 
         for col_idx, system_name in enumerate(system_names):
+            color = SUBMISSION_COLORS[submission.paper_name]
+
             # For GROMACS/EE, there are no submissions for CB8-G3.
             if 'GROMACS/EE' in submission.paper_name and system_name == 'CB8-G3':
+                continue
+            # For GROMACS/NS-DS/SB-long there are no new submissions for OAs.
+            if 'GROMACS/NS-DS/SB-long' in submission.paper_name and system_name != 'CB8-G3':
+                # Just add the label.
+                axes[0][col_idx].plot([], color=color, label=submission.paper_name)
                 continue
 
             # Get input for EfficiencyAnalysis.
@@ -1330,9 +1700,6 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
                 if ci is not None:
                     low_bounds[:,i]  = [x[0] for x in cis]
                     high_bounds[:,i]  = [x[1] for x in cis]
-
-            # Plot.
-            color = SUBMISSION_COLORS[submission.paper_name]
 
             # Get number of energy evaluations.
             mean_data = submission.mean_free_energies(system_name=system_name)
@@ -1388,7 +1755,7 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
                                statistic_ranges[statistic_name][1] + extra_space)
                     axes[row_idx][col_idx].set_ylim(ylimits)
                     axes[row_idx][col_idx].tick_params(axis='y', which='major', pad=0.1)
-            axes[-1][1].set_xlabel('Calculation length')
+            axes[-1][1].set_xlabel('Number of force/energy evaluations [10$^6$]')
 
         # Set labels and axes limits.
         if not same_plot:
@@ -1414,6 +1781,7 @@ def plot_relative_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
 
 
 def plot_absolute_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_samples=1000):
+    sns.set_style('whitegrid')
     sns.set_context('paper')
 
     # Keep track of data range by statistic.
@@ -1428,7 +1796,7 @@ def plot_absolute_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
     fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(7.25, 8))
 
     for submission in submissions + [yank_analysis]:
-        if 'WExplore' in submission.paper_name:
+        if 'REVO' in submission.paper_name:
             continue
         print(submission.paper_name)
 
@@ -1437,9 +1805,16 @@ def plot_absolute_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
         if not isinstance(submission, YankSamplingAnalysis):
             mean_free_energies = submission.mean_free_energies()
 
+        color = SUBMISSION_COLORS[submission.paper_name]
+
         for col_idx, system_name in enumerate(system_names):
             # GROMACS/EE doesn't have submissions for CB8-G3.
             if 'GROMACS/EE' in submission.paper_name and system_name == 'CB8-G3':
+                continue
+            # For GROMACS/NS-DS/SB-long there are no new submissions for OAs.
+            if 'GROMACS/NS-DS/SB-long' in submission.paper_name and 'OA' in system_name:
+                # Just add the label.
+                axes[0][col_idx].plot([], color=color, label=submission.paper_name)
                 continue
 
             # Select the submission data for only this host-guest system.
@@ -1470,7 +1845,6 @@ def plot_absolute_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
             # Discard first energy evaluation as cumtrapz doesn't return a result for it.
             for row_idx, avg_stats in enumerate([avg_std, avg_abs_bias, avg_rmse]):
                 ax = axes[row_idx, col_idx]
-                color = SUBMISSION_COLORS[submission.paper_name]
                 ax.plot(n_energy_evaluations[1:] / scale_energy_evaluations, avg_stats,
                         color=color, label=submission.paper_name, ls=line_style)
 
@@ -1505,7 +1879,7 @@ def plot_absolute_efficiencies(submissions, yank_analysis, ci=0.95, n_bootstrap_
     axes[0][1].legend(loc='upper right', bbox_to_anchor=(2.0, 1.48),
                       fancybox=True, ncol=3)
 
-    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure2-efficiencies')
+    figure_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure-efficiencies')
     os.makedirs(figure_dir_path, exist_ok=True)
     output_file_base_path = os.path.join(figure_dir_path, 'absolute-efficiencies')
     plt.savefig(output_file_base_path + '.pdf')
@@ -1523,7 +1897,7 @@ def print_relative_efficiency_table(
 
     # Initialize the table to be converted into a Pandas dataframe.
     system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
-    statistic_names = [r'$e_{\text{std}}$', r'$e_{|\text{bias}|}$', r'$e_{\text{RMSD}}$']
+    statistic_names = [r'$e_{\mathrm{std}}$', r'$e_{|\mathrm{bias}|}$', r'$e_{\mathrm{RMSD}}$']
     column_names  = ['\\makecell{$\Delta$ G \\\\ $[$kcal/mol$]$}', '\\makecell{n eval \\\\ $[$M$]$}'] + statistic_names
     # Add columns.
     efficiency_table = collections.OrderedDict()
@@ -1539,7 +1913,7 @@ def print_relative_efficiency_table(
             # CB8-G3 calculations for GROMACS/EE did not converge yet, and the
             # long protocol in CS-NS calculations have been run only on CB8-G3.
             if ((submission.name == 'Expanded-ensemble/MBAR' and system_name == 'CB8-G3') or
-                    (submission.paper_name == 'GROMACS/CT-NS-long' and system_name != 'CB8-G3')):
+                    (submission.paper_name == 'GROMACS/NS-DS/SB-long' and system_name != 'CB8-G3')):
                 relative_efficiencies, relative_efficiencies_corrected = np.full((2, 3), fill_value=np.nan)
                 dg = ''
                 n_force_eval = ''
@@ -1650,13 +2024,55 @@ def print_relative_efficiency_table(
     print(efficiency_table_latex)
 
 
-# =============================================================================
-# SUPPORTING INFORMATION FIGURES
-# =============================================================================
+def print_nonequilibrium_relative_efficiencies(nonequilibrium_submissions):
+    """Print relative efficiencies w.r.t. for the nonequilibrium estimators table."""
+    system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
+
+    def _get_free_energy_array(submission, system_name, step=1, max_c=100, get_asymptotic=False):
+        n_replicates = 5
+        system_data = submission.data[submission.data['System name'] == system_name]
+        free_energy_array = np.empty(shape=(n_replicates, int(max_c/step)))
+        for i in range(n_replicates):
+            system_id = system_name + '-' + str(i)
+            system_id_data = system_data[system_data['System ID'] == system_id]
+            free_energy_array[i] = system_id_data[DG_KEY].values[:max_c:step]
+
+        if get_asymptotic:
+            mean_free_energies = submission.mean_free_energies()
+            asymptotic = mean_free_energies[mean_free_energies['System name'] == system_name][DG_KEY].values[-1]
+            return free_energy_array, asymptotic
+        return free_energy_array
+
+    # Use GROMACS/NS-DS/SB-long as reference method.
+    reference_submission = [s for s in nonequilibrium_submissions if s.paper_name == 'GROMACS/NS-DS/SB-long'][0]
+    # Also remove the other BAR submission.
+    nonequilibrium_submissions = [s for s in nonequilibrium_submissions if 'GROMACS/NS-DS/SB' not in s.paper_name]
+
+    # Get only the first 50 as the 1-directional estimators only have half the cost.
+    free_energy_ref = {}
+    asymptotic_ref = {}
+    for system_name in system_names:
+        DG, asympt = _get_free_energy_array(reference_submission, system_name, max_c=50, get_asymptotic=True)
+        free_energy_ref[system_name] = DG
+        asymptotic_ref[system_name] = asympt
+
+    for submission in nonequilibrium_submissions:
+        print(submission.paper_name, end='')
+        for system_name in system_names:
+            free_energy_sub = _get_free_energy_array(submission, system_name, step=2)
+            rel_eff, cis = compute_all_relative_efficiencies(
+                free_energy_ref[system_name], free_energy_sub, ci=0.95, n_bootstrap_samples=1000,
+                asymptotic_free_energy_A=asymptotic_ref[system_name],
+                asymptotic_free_energy_B=asymptotic_ref[system_name]
+            )
+            for i, stat_name in enumerate(['std', 'bias', 'RMSE']):
+                print(r' & {:.1f}$_{{\raisem{{2pt}}{{{:.1f}}}}}^{{\mathstrut {:.1f}}}$'.format(rel_eff[i], cis[i][0], cis[i][1]), end='')
+        print(r' \\')
+
 
 def print_final_prediction_table(submissions, yank_analysis):
     """Plot the table containing the fina binding free energy predictions for all replicates."""
-    for submission in all_submissions + [yank_analysis]:
+    for submission in submissions + [yank_analysis]:
         # GROMACS/EE-fullequil predictions are identical to GROMACS/EE
         if submission.paper_name == 'GROMACS/EE-fullequil':
             continue
@@ -1671,9 +2087,9 @@ def print_final_prediction_table(submissions, yank_analysis):
         submission_final_DGs = []
         for system_id in submission_data['System ID'].unique():
             # GROMACS/EE doesn't have predictions for CB8-G3, and the
-            # GROMACS/CT-NS-long protocol was applied only to CB8-G3.
+            # GROMACS/NS-DS/SB-long protocol was applied only to CB8-G3.
             if (('GROMACS/EE' in submission.paper_name and 'CB8-G3' in system_id) or
-                        (submission.paper_name == 'GROMACS/CT-NS-long' and 'OA' in system_id)):
+                        (submission.paper_name == 'GROMACS/NS-DS/SB-long' and 'OA' in system_id)):
                 submission_final_DGs.append('')
                 continue
 
@@ -1684,6 +2100,10 @@ def print_final_prediction_table(submissions, yank_analysis):
         row_str += '  &  '.join(submission_final_DGs) + r'  \\'
         print(row_str)
 
+
+# =============================================================================
+# SUPPORTING INFORMATION - SINGLE TRAJECTORIES
+# =============================================================================
 
 def plot_single_trajectories_figures(axes, system_data, system_mean_data,
                                      reference_system_mean_data=None,
@@ -1747,7 +2167,7 @@ def plot_single_trajectories_figures(axes, system_data, system_mean_data,
 
         ax = axes[1]
 
-        # WExplore uses the mean of the 5 replicates to estimate the
+        # REVO uses the mean of the 5 replicates to estimate the
         # uncertainty so it doesn't add information.
         if plot_methods_uncertainties:
             sns.lineplot(data=system_data, x='N energy evaluations', y=DDG_KEY,
@@ -1788,10 +2208,11 @@ def plot_single_trajectories_figures(axes, system_data, system_mean_data,
 
 def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors=True, output_path_dir=None):
     """Individual plots for each method with the 5 individual free energy and uncertainty trajectories."""
+    sns.set_style('whitegrid')
     sns.set_context('paper')
 
     if output_path_dir is None:
-        output_path_dir = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure1-individual-trajectories/')
+        output_path_dir = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure-individual-trajectories/')
     os.makedirs(output_path_dir, exist_ok=True)
 
     # -------------------- #
@@ -1805,9 +2226,9 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
         # CB8-G3 calculations for GROMACS/EE did not converge yet.
         if submission.name == 'Expanded-ensemble/MBAR':
             submission.data = submission.data[submission.data['System name'] != 'CB8-G3']
-        # WExplore uses the mean of the 5 replicates to estimate the
+        # REVO uses the mean of the 5 replicates to estimate the
         # uncertainty so it doesn't add information.
-        if 'WExplore' in submission.paper_name:
+        if 'REVO' in submission.paper_name:
             plot_methods_uncertainties = False
         else:
             plot_methods_uncertainties = True
@@ -1890,6 +2311,10 @@ def plot_all_single_trajectories_figures(submissions, yank_analysis, plot_errors
         # plt.savefig(os.path.join(output_path_dir, output_file_name + '.png'), dpi=300)
         # plt.show()
 
+
+# =============================================================================
+# SUPPORTING INFORMATION - HREX/MBAR STATISTICAL INEFFICIENCY ANALYSIS
+# =============================================================================
 
 def plot_hrex_stat_ineff_trajectories():
     """Individual plots for HREX with the 5 individual free energy and uncertainty trajectories
@@ -2032,47 +2457,59 @@ if __name__ == '__main__':
     main_submissions = [s for s in all_submissions if not ('Jarz' in s.paper_name or 'Gauss' in s.paper_name)]
     noneq_submissions = [s for s in all_submissions if 'NS' in s.paper_name]
 
-    # # Export YANK analysis and submissions to CSV/JSON tables.
-    # yank_analysis.export(os.path.join(SAMPLING_DATA_DIR_PATH, 'reference_free_energies'))
-    # for s in main_submissions:
-    #     file_base_path = os.path.join(SAMPLING_DATA_DIR_PATH, s.receipt_id + '-reference')
-    #     yank_analysis.export_by_submission(file_base_path, s)
-    # export_submissions(all_submissions, reference_free_energies)
+    # Export YANK analysis and submissions to CSV/JSON tables.
+    yank_analysis.export(os.path.join(SAMPLING_DATA_DIR_PATH, 'reference_free_energies'))
+    for s in main_submissions:
+        file_base_path = os.path.join(SAMPLING_DATA_DIR_PATH, s.receipt_id + '-reference')
+        yank_analysis.export_by_submission(file_base_path, s)
+    export_submissions(all_submissions, reference_free_energies)
 
     # Create example trajectory for the figure describing the challenge process.
-    # plot_example_bias_variance(yank_analysis, max_n_eval_percentage=0.4, mixed_proportion=0.3)
+    plot_example_bias_variance(yank_analysis, max_n_eval_percentage=0.4, mixed_proportion=0.3)
 
     # Cartoon explaining mean error and relative efficiency.
-    # plot_mean_error_cartoon()
+    plot_mean_error_cartoon()
 
     # Create figure with free energy, standard deviation, and bias as a function of computational cost.
-    # plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=False)
-    # plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=True)
+    plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=False)
+    plot_all_entries_trajectory(main_submissions, yank_analysis, zoomed=True)
 
     # Create results and efficiency table.
-    plot_relative_efficiencies(main_submissions, yank_analysis)
-    # plot_relative_efficiencies(main_submissions, yank_analysis, ci=None, same_plot=True)
-    # plot_absolute_efficiencies(main_submissions, yank_analysis)
-    # print_relative_efficiency_table(main_submissions, yank_analysis, print_bias_corrected=False)
+    print_relative_efficiency_table(main_submissions, yank_analysis, print_bias_corrected=False)
 
     # Plot nonequilibrium-switching single-direction estimator.
-    # plot_all_nonequilibrium_switching(noneq_submissions)
+    plot_all_nonequilibrium_switching(noneq_submissions)
 
     # Plot sensitivity analysis figure.
-    # plot_restraint_and_barostat_analysis()
+    plot_restraint_and_barostat_analysis()
 
     # Plot figure for HREX bias analysis.
-    # plot_yank_bias()
-    # plot_equilibration_methods()
+    plot_yank_bias()
+
 
     # Supporting information
     # ----------------------
 
+    # Absolute/relative efficiency as a function of the computational cost.
+    plot_relative_efficiencies(main_submissions, yank_analysis)
+    plot_relative_efficiencies(main_submissions, yank_analysis, ci=None, same_plot=True)
+    plot_absolute_efficiencies(main_submissions, yank_analysis)
+
+    # Relative efficiency for uni/bi-directional estimators.
+    print_nonequilibrium_relative_efficiencies(noneq_submissions)
+
     # Plot replicate predictions table.
-    # print_final_prediction_table(all_submissions, yank_analysis)
+    print_final_prediction_table(all_submissions, yank_analysis)
 
     # Plot individual trajectories.
-    # plot_all_single_trajectories_figures(all_submissions, yank_analysis)
+    plot_all_single_trajectories_figures(all_submissions, yank_analysis)
 
     # Plot statistical inefficiency analysis.
-    # plot_hrex_stat_ineff_trajectories()
+    plot_hrex_stat_ineff_trajectories()
+
+    # Supporting information for bias section.
+    output_dir_path = os.path.join(SAMPLING_PAPER_DIR_PATH, 'SI_Figure-bias_hrex')
+    plot_decomposition('CB8-G3', starting_iteration=5, type='phase',
+                       output_file_path=output_dir_path + '/free-energy-phase-decomposition.pdf'))
+    plot_decomposition('CB8-G3', starting_iteration=5, type='entropy-enthalpy',
+                       output_file_path=output_dir_path + '/free-energy-entropy-decomposition.pdf')
