@@ -300,14 +300,15 @@ class SamplingSubmission(SamplSubmission):
         name_table = {
             'APR/pAPRika': 'AMBER/APR',
             'Langevin/Virtual Bond/TI': 'AMBER/TI',
-            'WExploreRateRatio': 'OpenMM/WExplore',
+            'WExploreRateRatio': 'OpenMM/REVO',
             'SOMD/AM1BCC-GAFF-TIP3P/MBAR/C': 'OpenMM/SOMD',
-            'Expanded-ensemble/MBAR': 'GROMACS/EE'
+            'Expanded-ensemble/MBAR': 'GROMACS/EE',
+            'MD/FEP/BAR': 'NAMD/BAR'
         }
         if self.receipt_id == 'NB007':
-            return 'GROMACS/CT-NS'
+            return 'GROMACS/NS-DS/SB'
         elif self.receipt_id == 'NB008':
-            return 'GROMACS/CT-NS-long'
+            return 'GROMACS/NS-DS/SB-long'
         if self.receipt_id == 'NB009':
             return 'GROMACS/NS-Jarz-F'
         elif self.receipt_id == 'NB010':

@@ -192,7 +192,7 @@ class SamplSubmission:
         # Check that all the sections have been loaded.
         found_sections = set(sections.keys())
         if found_sections != cls.SECTIONS:
-            raise BadFormatError('Missing sections: {}.'.format(found_sections - cls.SECTIONS))
+            raise BadFormatError('Missing sections: {}.'.format(cls.SECTIONS - found_sections))
 
         # Create a Pandas dataframe from the CSV format.
         for section_name, pandas_kwargs in cls.CSV_SECTIONS.items():
