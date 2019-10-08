@@ -1379,7 +1379,7 @@ if __name__ == '__main__':
     # Analysis of standard blind submissions WITHOUT reference calculations
     # ==========================================================================================
 
-    # Load submissions data.
+    '''    # Load submissions data.
     submissions_logP = load_submissions(LOGP_SUBMISSIONS_DIR_PATH, user_map)
 
     # Perform the analysis
@@ -1416,7 +1416,7 @@ if __name__ == '__main__':
     # Generate QQ-Plots for model uncertainty predictions
     QQplot_directory_path = os.path.join(output_directory_path, "QQPlots")
     generate_QQplots_for_model_uncertainty(input_file_name="QQplot_dict.pickle", directory_path=QQplot_directory_path)
-
+    '''
 
     #==========================================================================================
     # Repeat analysis WITH reference calculations
