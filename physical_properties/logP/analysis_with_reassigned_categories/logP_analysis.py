@@ -1280,23 +1280,29 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
 
         # Plot RMSE, MAE, Kendall's Tau comparison plots for each category separately
         #category_list = ["Physical","Empirical", "Mixed", "Other"]
-        category_list = ["Physical_MM", "Empirical", "Mixed", "Physical_QM"] # Reassigned categories
+        category_list = ["Physical (MM)", "Empirical", "Mixed", "Physical (QM)"] # Reassigned categories
+
+        # New labels for file naming for reassigned categories
+        reassigned_category_path_label_dict = {"Physical (MM)": "Physical_MM",
+                                               "Empirical": "Empirical",
+                                               "Mixed": "Mixed",
+                                               "Physical (QM)": "Physical_QM"}
 
         for category in category_list:
-            print("category: ",category)
+            print("Reassigned category: ",category)
             #print("df_statistics.columns:\n", df_statistics.columns)
 
             # Take subsection of dataframe for each category
-            df_statistics_1category = df_statistics.loc[df_statistics['category'] == category]
-            df_statistics_MAE_1category = df_statistics_MAE.loc[df_statistics_MAE['category'] == category]
-            df_statistics_tau_1category = df_statistics_tau.loc[df_statistics_tau['category'] == category]
+            df_statistics_1category = df_statistics.loc[df_statistics['reassigned_category'] == category]
+            df_statistics_MAE_1category = df_statistics_MAE.loc[df_statistics_MAE['reassigned_category'] == category]
+            df_statistics_tau_1category = df_statistics_tau.loc[df_statistics_tau['reassigned_category'] == category]
 
             # RMSE comparison plot for each category
             barplot_with_CI_errorbars(df=df_statistics_1category, x_label="ID", y_label="RMSE", y_lower_label="RMSE_lower_bound",
                                       y_upper_label="RMSE_upper_bound", figsize=(12, 10))
             plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
             plt.ylim(0.0,7.0)
-            plt.savefig(directory_path + "/RMSE_vs_method_plot_for_{}_category.pdf".format(category))
+            plt.savefig(directory_path + "/RMSE_vs_method_plot_for_{}_category.pdf".format(reassigned_category_path_label_dict[category]))
 
             # MAE comparison plot for each category
             barplot_with_CI_errorbars(df=df_statistics_MAE_1category, x_label="ID", y_label="MAE",
@@ -1304,7 +1310,7 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
                                       y_upper_label="MAE_upper_bound", figsize=(12, 10))
             plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
             plt.ylim(0.0, 7.0)
-            plt.savefig(directory_path + "/MAE_vs_method_plot_for_{}_category.pdf".format(category))
+            plt.savefig(directory_path + "/MAE_vs_method_plot_for_{}_category.pdf".format(reassigned_category_path_label_dict[category]))
 
             # Kendall's Tau  comparison plot for each category
             barplot_with_CI_errorbars(df=df_statistics_tau_1category, x_label="ID", y_label="kendall_tau",
@@ -1312,7 +1318,7 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
                                       y_upper_label="kendall_tau_upper_bound", figsize=(12, 10))
             plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
             # plt.ylim(-1.0, 1.0)
-            plt.savefig(directory_path + "/kendalls_tau_vs_method_plot_for_{}_category.pdf".format(category))
+            plt.savefig(directory_path + "/kendalls_tau_vs_method_plot_for_{}_category.pdf".format(reassigned_category_path_label_dict[category]))
 
 
 def generate_QQplots_for_model_uncertainty(input_file_name, directory_path):
@@ -1474,6 +1480,7 @@ if __name__ == '__main__':
                                     file_base_name='statistics', sort_stat='RMSE',
                                     ordering_functions=ordering_functions,
                                     latex_header_conversions=latex_header_conversions, ignore_refcalcs = False)
+
 
     # Generate RMSE, MAE, and Kendall's Tau comparison plots.
     statistics_directory_path = os.path.join(output_directory_path, "StatisticsTables")
