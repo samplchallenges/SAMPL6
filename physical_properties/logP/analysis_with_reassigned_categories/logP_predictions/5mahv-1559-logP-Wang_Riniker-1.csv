@@ -1,0 +1,73 @@
+# PARTITION COEFFICIENT PREDICTIONS
+#
+# This file will be automatically parsed. It must contain the following four elements:
+# predictions, name of method, software listing, and method description.
+# These elements must be provided in the order shown with their respective headers.
+#
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty.
+# The data in each prediction line should be structured as follows:
+# Molecule ID, logP, logP SEM, logP model uncertainty
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here.
+Predictions:
+SM02,3.70,0.25,0.90
+SM04,3.91,0.20,0.90
+SM07,3.95,0.18,0.90
+SM08,2.94,0.20,0.90
+SM09,4.03,0.21,0.90
+SM11,2.12,0.19,0.90
+SM12,3.50,0.18,0.90
+SM13,4.68,0.24,0.90
+SM14,1.79,0.17,0.90
+SM15,1.47,0.16,0.90
+SM16,1.98,0.16,0.90
+# NAME SECTION
+#
+# Please provide an informal but informative name of the method used.
+# The 'Name:' keyword is required as shown here.
+Name:
+ML Prediction using MD Feature Vector Trained on Hydration Free Energy
+
+# SOFTWARE SECTION
+#
+# List all major software packages used and their versions.
+# Create a new line for each software.
+# The 'Software:' keyword is required.
+Software:
+Packmol 18.039
+OpenEye 2018.Feb.1
+Openforcefield 0.0.4
+OpenMM 7.1.1
+Scikit-Learn 0.19.1
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`, `Empirical`, `Mixed`, or `Other`.
+# Pick only one category label.
+# The `Category:` keyword is required.
+Category:
+Mixed
+
+# METHOD DESCRIPTION SECTION
+#
+# Methodology and computational details.
+# Level of details should be roughly equivalent to that used in a publication.
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated.
+# Use as many lines and paragraphs of text as you need.
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description.
+Method:
+We run water simulations of the molecule and extract energy components to construct a feature vector (termed molecular dynamics fingerprint). By collecting feature vectors from a set of molecules with known logP values, we can train machine learning (ML) models to infer the relationship between the energy components and experimental observation.
+
+The detailed workflow has been described in this previous publication:`10.1021/acs.jcim.6b00778`. The difference here is instead of using GAFF-like parameters in the GROMOS simulation package, here molecules are parameterised via Openforcefield and ran with OpenMM.
+
+The key difference of this submission to other submissions by the same authors is: instead of training a ML model to map the feature vector to logP values, two ML models are separately trained on hydration free energy data of water, and octanol. The water solvation free energy model is trained from a set of 670 molecules, while the one for octanol is from a set of 448 molecules. The predicted hydration free energies can then be converted to logP readings using this mathematical formula:
+  $$logP = \frac{\Delta G_{solv}(water) - \Delta G_{solv}(octanol)}{RT \cdot ln(10)}$$
+
+The standard error of mean (SEM) is estimated by repeating the prediction model 100 times with different random seed for the learning models. The overall model uncertainty is estimated by obtaining the MAE of the trained water+octanol model predictions on an unseen logP dataset (1999 molecules).
+
+This model is limited by the training set size and in addition, molecules in the training set are relativly low in molecular weight compared to the SAMPL6 molecules. This model will probably not perform as well as other submissions by the same authors where ML models are directly trained on logP data.

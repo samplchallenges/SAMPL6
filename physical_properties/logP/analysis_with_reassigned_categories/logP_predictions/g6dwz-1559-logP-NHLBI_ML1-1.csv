@@ -1,0 +1,66 @@
+# PARTITION COEFFICIENT PREDICTIONS 
+#  
+# This file will be automatically parsed. It must contain the following four elements:  
+# predictions, name of method, software listing, and method description. 
+# These elements must be provided in the order shown with their respective headers. 
+# 
+# Any line that begins with a # is considered a comment and will be ignored when parsing. 
+# 
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty. 
+# The data in each prediction line should be structured as follows:
+# Molecule ID, logP, logP SEM, logP model uncertainty
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here.
+Predictions:
+SM02,4.39,0.05,0.72
+SM04,2.86,0.12,0.72
+SM07,2.09,0.11,0.72
+SM08,3.41,0.09,0.72
+SM09,3.27,0.03,0.72
+SM11,0.96,0.10,0.72
+SM12,3.96,0.04,0.72
+SM13,3.97,0.11,0.72
+SM14,1.60,0.07,0.72
+SM15,1.58,0.05,0.72
+SM16,2.00,0.06,0.72
+
+# NAME SECTION 
+# 
+# Please provide an informal but informative name of the method used.  
+# The 'Name:' keyword is required as shown here. 
+Name: 
+NHLBI-NN-3HL 
+ 
+# SOFTWARE SECTION 
+# 
+# List all major software packages used and their versions. 
+# Create a new line for each software. 
+# The 'Software:' keyword is required. 
+Software: 
+Tensorflow 1.10
+RDKIT Release 2018
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`, `Empirical`, `Mixed`, or `Other`.
+# Pick only one category label.
+# The `Category:` keyword is required. 
+Category:
+Empirical
+ 
+# METHOD DESCRIPTION SECTION 
+# 
+# Methodology and computational details. 
+# Level of details should be roughly equivalent to that used in a publication. 
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated. 
+# Use as many lines and paragraphs of text as you need. 
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
+Method:
+We built a deep neural network model to predict log P values. 
+The input vector contains consists of a 1024 size bit vector of Morgan Fingerprints.
+The dense NN contains 3 hidden layers with 512,256 and 64 units.
+Input training data was obtained from Popova et.al.(Science Advances  25 Jul 2018:Vol. 4, no. 7, eaap7885 DOI: 10.1126/sciadv.aap7885) 
+5-fold cross validation was performed on the training data. 

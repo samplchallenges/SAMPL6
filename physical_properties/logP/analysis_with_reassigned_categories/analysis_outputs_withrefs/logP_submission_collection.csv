@@ -1,0 +1,89 @@
+,$\Delta$logP error (calc - exp),Molecule ID,category,logP (calc),logP (exp),logP SEM (calc),logP SEM (exp),logP model uncertainty,name,participant,reassigned category,receipt_id
+0,-0.05999999999999961,SM02,Empirical,4.03,4.09,0.31,0.03,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+1,-0.25,SM04,Empirical,3.73,3.98,0.32,0.03,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+2,-0.1200000000000001,SM07,Empirical,3.09,3.21,0.29,0.04,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+3,-0.5700000000000003,SM08,Empirical,2.53,3.1,0.46,0.03,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+4,0.2400000000000002,SM09,Empirical,3.27,3.03,0.29,0.07,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+5,-0.8900000000000001,SM11,Empirical,1.21,2.1,0.36,0.04,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+6,-0.010000000000000231,SM12,Empirical,3.82,3.83,0.33,0.03,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+7,0.6499999999999999,SM13,Empirical,3.57,2.92,0.23,0.04,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+8,0.17000000000000015,SM14,Empirical,2.12,1.95,0.23,0.03,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+9,-0.7999999999999998,SM15,Empirical,2.27,3.07,0.4,0.03,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+10,0.6999999999999997,SM16,Empirical,3.32,2.62,0.29,0.01,0.31,S+logP,Robert Fraczkiewicz,Empirical,yd6ub
+11,-0.10999999999999988,SM02,Mixed,3.98,4.09,0.0,0.03,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+12,-0.23999999999999977,SM04,Mixed,3.74,3.98,0.0,0.03,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+13,-0.020000000000000018,SM07,Mixed,3.19,3.21,0.0,0.04,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+14,-0.3599999999999999,SM08,Mixed,2.74,3.1,0.0,0.03,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+15,0.3500000000000001,SM09,Mixed,3.38,3.03,0.0,0.07,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+16,0.54,SM11,Mixed,2.64,2.1,0.0,0.04,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+17,0.45999999999999996,SM12,Mixed,4.29,3.83,0.0,0.03,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+18,0.4900000000000002,SM13,Mixed,3.41,2.92,0.0,0.04,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+19,0.29000000000000026,SM14,Mixed,2.24,1.95,0.0,0.03,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+20,-0.79,SM15,Mixed,2.28,3.07,0.0,0.03,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+21,0.2599999999999998,SM16,Mixed,2.88,2.62,0.0,0.01,0.5,cosmoquick_TZVP18+ML,Chris Loschen,Mixed,3vqbi
+22,1.2800000000000002,SM02,Physical,5.37,4.09,0.13,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+23,0.8400000000000003,SM04,Physical,4.82,3.98,0.11,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+24,0.7000000000000002,SM07,Physical,3.91,3.21,0.12,0.04,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+25,6.3100000000000005,SM08,Physical,9.41,3.1,0.02,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+26,1.7500000000000004,SM09,Physical,4.78,3.03,0.17,0.07,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+27,1.6400000000000001,SM11,Physical,3.74,2.1,0.25,0.04,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+28,1.7699999999999996,SM12,Physical,5.6,3.83,0.51,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+29,3.0700000000000003,SM13,Physical,5.99,2.92,0.17,0.04,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+30,0.8899999999999999,SM14,Physical,2.84,1.95,0.1,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+31,0.94,SM15,Physical,4.01,3.07,0.21,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+32,0.8399999999999999,SM16,Physical,3.46,2.62,0.19,0.01,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,Physical (MM),REF01
+33,-2.8099999999999996,SM02,Other,1.28,4.09,0.0,0.03,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+34,-2.2800000000000002,SM04,Other,1.7,3.98,0.0,0.03,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+35,-2.01,SM07,Other,1.2,3.21,0.0,0.04,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+36,-0.18000000000000016,SM08,Other,2.92,3.1,0.0,0.03,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+37,-1.2199999999999998,SM09,Other,1.81,3.03,0.0,0.07,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+38,-0.44000000000000017,SM11,Other,1.66,2.1,0.0,0.04,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+39,-1.44,SM12,Other,2.39,3.83,0.0,0.03,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+40,-0.20999999999999996,SM13,Other,2.71,2.92,0.0,0.04,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+41,0.4600000000000002,SM14,Other,2.41,1.95,0.0,0.03,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+42,-0.69,SM15,Other,2.38,3.07,0.0,0.03,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+43,-0.29000000000000004,SM16,Other,2.33,2.62,0.0,0.01,0.0,DLPNO-CCSD(T)/cc-pVTZ//B3LYP-D3/cc-pVTZ,Prajay Patel,Physical (QM),arw58
+44,-0.5099999999999998,SM02,Mixed,3.58,4.09,0.15,0.03,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+45,-0.16000000000000014,SM04,Mixed,3.82,3.98,0.16,0.03,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+46,-0.3999999999999999,SM07,Mixed,2.81,3.21,0.18,0.04,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+47,-0.8300000000000001,SM08,Mixed,2.27,3.1,0.15,0.03,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+48,-0.18999999999999995,SM09,Mixed,2.84,3.03,0.12,0.07,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+49,-0.30000000000000004,SM11,Mixed,1.8,2.1,0.15,0.04,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+50,-0.75,SM12,Mixed,3.08,3.83,0.23,0.03,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+51,0.010000000000000231,SM13,Mixed,2.93,2.92,0.37,0.04,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+52,0.040000000000000036,SM14,Mixed,1.99,1.95,0.08,0.03,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+53,-0.96,SM15,Mixed,2.11,3.07,0.12,0.03,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+54,0.5699999999999998,SM16,Mixed,3.19,2.62,0.07,0.01,0.57,"ML Prediction using MD Feature Vector Trained on logP_octanol_water, with Additional Meta-learner",Shuzhe Wang,Mixed,0a7a8
+55,0.6100000000000003,SM02,Empirical,4.7,4.09,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+56,0.18000000000000016,SM04,Empirical,4.16,3.98,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+57,0.2999999999999998,SM07,Empirical,3.51,3.21,0.0,0.04,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+58,-0.06000000000000005,SM08,Empirical,3.04,3.1,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+59,0.3500000000000001,SM09,Empirical,3.38,3.03,0.0,0.07,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+60,-0.7000000000000002,SM11,Empirical,1.4,2.1,0.0,0.04,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+61,0.20000000000000018,SM12,Empirical,4.03,3.83,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+62,0.7800000000000002,SM13,Empirical,3.7,2.92,0.0,0.04,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+63,0.6599999999999999,SM14,Empirical,2.61,1.95,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+64,-0.33999999999999986,SM15,Empirical,2.73,3.07,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+65,1.02,SM16,Empirical,3.64,2.62,0.0,0.01,0.0,SlogP (MOE),Thomas Fox,Empirical,REF13
+66,-1.5499999999999998,SM02,Physical,2.54,4.09,0.51,0.03,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+67,-3.98,SM04,Physical,0.0,3.98,10.0,0.03,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+68,0.8700000000000001,SM07,Physical,4.08,3.21,0.38,0.04,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+69,0.52,SM08,Physical,3.62,3.1,1.0,0.03,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+70,-2.8299999999999996,SM09,Physical,0.2,3.03,1.34,0.07,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+71,0.31999999999999984,SM11,Physical,2.42,2.1,0.34,0.04,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+72,-3.83,SM12,Physical,0.0,3.83,10.0,0.03,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+73,1.2400000000000002,SM13,Physical,4.16,2.92,0.57,0.04,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+74,-0.020000000000000018,SM14,Physical,1.93,1.95,0.39,0.03,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+75,-0.2799999999999998,SM15,Physical,2.79,3.07,0.36,0.03,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+76,-2.62,SM16,Physical,0.0,2.62,10.0,0.01,1.2,MD-CHARMM-dryoct,Bogdan Iorga,Physical (MM),3oqhx
+77,-2.4899999999999998,SM02,Physical,1.6,4.09,0.29,0.03,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+78,-3.89,SM04,Physical,0.09,3.98,0.34,0.03,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+79,-4.2,SM07,Physical,-0.99,3.21,0.32,0.04,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+80,0.5099999999999998,SM08,Physical,3.61,3.1,0.5,0.03,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+81,-4.55,SM09,Physical,-1.52,3.03,0.3,0.07,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+82,-0.33000000000000007,SM11,Physical,1.77,2.1,0.36,0.04,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+83,-3.8000000000000003,SM12,Physical,0.03,3.83,0.34,0.03,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+84,-2.27,SM13,Physical,0.65,2.92,0.37,0.04,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+85,0.6100000000000001,SM14,Physical,2.56,1.95,0.36,0.03,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+86,-3.07,SM15,Physical,0.0,3.07,0.34,0.03,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i
+87,0.7999999999999998,SM16,Physical,3.42,2.62,0.38,0.01,3.0,ARROW_2017,Ganesh Kamath,Physical (MM),eg52i

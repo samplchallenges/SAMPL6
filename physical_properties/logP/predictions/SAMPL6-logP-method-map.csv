@@ -1,4 +1,4 @@
-ID,name,category,reassigned category,physical method category (QM vs MM)
+receipt_id,name,category,reassigned_category,physical_method_details
 hmz0n,cosmotherm_FINE19,Physical,Physical (QM),QM
 gmoq5,Global XGBoost-Based QSPR LogP Predictor,Empirical,Empirical,
 3vqbi,cosmoquick_TZVP18+ML,Mixed,Mixed,QM+EC

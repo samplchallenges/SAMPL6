@@ -1,0 +1,71 @@
+# PARTITION COEFFICIENT PREDICTIONS 
+#  
+# This file will be automatically parsed. It must contain the following four elements:  
+# predictions, name of method, software listing, and method description.  
+# These elements must be provided in the order shown with their respective headers. 
+# 
+# is considered a comment and will be ignored when parsing. 
+# 
+# PREDICTION SECTION 
+# 
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted. 
+# Please report logP standard error of the mean (SEM) and logP model uncertainty.  
+# The data in each prediction line should be structured as follows: 
+# Molecule ID, logP, logP SEM, logP model uncertainty 
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here.  
+Predictions: 
+SM02,4.66,0.00,0.00
+SM04,4.04,0.00,0.00
+SM07,3.33,0.00,0.00
+SM08,2.17,0.00,0.00
+SM09,3.65,0.00,0.00
+SM11,1.47,0.00,0.00
+SM12,4.46,0.00,0.00
+SM13,4.64,0.00,0.00
+SM14,3.14,0.00,0.00
+SM15,3.33,0.00,0.00
+SM16,1.84,0.00,0.00
+ 
+# NAME SECTION 
+# 
+# Please provide an informal but informative name of the method used.  
+# The 'Name:' keyword is required as shown here. 
+Name: 
+clogP (Biobyte)
+ 
+# SOFTWARE SECTION 
+# 
+# List all major software packages used and their versions. 
+# Create a new line for each software. 
+# The 'Software:' keyword is required. 
+Software: 
+Biobyte clogp-5.4
+ 
+# METHOD CATEGORY SECTION 
+# 
+# State which method category your prediction method is better described as: 
+# `Physical`, `Empirical`, `Mixed`, or `Other`. 
+# Pick only one category label. 
+# The `Category:` keyword is required. 
+Category: 
+Empirical
+
+ 
+# METHOD DESCRIPTION SECTION 
+# 
+# Methodology and computational details. 
+# Level of details should be roughly equivalent to that used in a publication. 
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated. 
+# Use as many lines of text as you need. 
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description. 
+Method: 
+The logP values were calculated by the program clogP by BioByte Corp., Claremont, CA 91711-4707. As no SEM or model uncertainty is reported, these values are set to zero.
+
+The method is described in 
+a) Leo, A., Chemical Reviews, 1993, 93, 1281.
+b) Leo, A., J. Chem. Soc. Perkin Trans. II, 1983, 825.
+c) Leo, A., The Science of the Total Environment, 1991, 109/110, 121.
+
+and also at
+https://www.daylight.com/dayhtml/doc/clogp/ 
+http://www.biobyte.com/bb/prod/40manual.pdf
