@@ -1278,7 +1278,38 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
 
 
 
-        # Plot RMSE, MAE, Kendall's Tau comparison plots for each category separately
+        # R-squared comparison plot
+        # Reorder based on R-squared
+        df_statistics_R2 = df_statistics.sort_values(by="R2", inplace=False, ascending=False)
+
+        barplot_with_CI_errorbars(df=df_statistics_R2, x_label="ID", y_label="R2",
+                                  y_lower_label="R2_lower_bound",
+                                  y_upper_label="R2_upper_bound", figsize=(22, 10))
+        plt.savefig(directory_path + "/Rsquared_vs_method_plot.pdf")
+
+        # R-squared comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics_R2, x_label="ID", y_label="R2",
+                                                   y_lower_label="R2_lower_bound",
+                                                   y_upper_label="R2_upper_bound", color_label="reassigned_category",
+                                                   figsize=(22, 10))
+        # plt.ylim(-1.0, 1.0)
+        plt.savefig(directory_path + "/Rsquared_vs_method_plot_colored_by_method_category.pdf")
+
+
+        # Do same graph with colorizing by reference calculation
+        if not ignore_refcalcs:
+            # MAE comparison plot with each category colored separately
+            barplot_with_CI_errorbars_colored_by_label(df=df_statistics_R2, x_label="ID", y_label="R2",
+                                                       y_lower_label="R2_lower_bound",
+                                                       y_upper_label="R2_upper_bound", color_label="type",
+                                                       figsize=(22, 10))
+            plt.ylim(0.0, 7.0)
+            plt.savefig(directory_path + "/Rsquared_vs_method_plot_colored_by_type.pdf")
+
+
+
+
+        # Plot RMSE, MAE, Kendall's Tau, and R-squared comparison plots for each category separately
         #category_list = ["Physical","Empirical", "Mixed", "Other"]
         category_list = ["Physical (MM)", "Empirical", "Mixed", "Physical (QM)"] # Reassigned categories
 
@@ -1296,6 +1327,7 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
             df_statistics_1category = df_statistics.loc[df_statistics['reassigned_category'] == category]
             df_statistics_MAE_1category = df_statistics_MAE.loc[df_statistics_MAE['reassigned_category'] == category]
             df_statistics_tau_1category = df_statistics_tau.loc[df_statistics_tau['reassigned_category'] == category]
+            df_statistics_R2_1category = df_statistics_R2.loc[df_statistics_R2['reassigned_category'] == category]
 
             # RMSE comparison plot for each category
             barplot_with_CI_errorbars(df=df_statistics_1category, x_label="ID", y_label="RMSE", y_lower_label="RMSE_lower_bound",
@@ -1319,6 +1351,14 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
             plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
             # plt.ylim(-1.0, 1.0)
             plt.savefig(directory_path + "/kendalls_tau_vs_method_plot_for_{}_category.pdf".format(reassigned_category_path_label_dict[category]))
+
+            # R-squared comparison plot for each category
+            barplot_with_CI_errorbars(df=df_statistics_R2_1category, x_label="ID", y_label="R2",
+                                      y_lower_label="R2_lower_bound",
+                                      y_upper_label="R2_upper_bound", figsize=(12, 10))
+            plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
+            # plt.ylim(-1.0, 1.0)
+            plt.savefig(directory_path + "/Rsquared_vs_method_plot_for_{}_category.pdf".format(reassigned_category_path_label_dict[category]))
 
 
 def generate_QQplots_for_model_uncertainty(input_file_name, directory_path):
