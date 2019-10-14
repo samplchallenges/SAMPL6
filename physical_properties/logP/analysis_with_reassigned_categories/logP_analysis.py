@@ -1303,9 +1303,7 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
                                                        y_lower_label="R2_lower_bound",
                                                        y_upper_label="R2_upper_bound", color_label="type",
                                                        figsize=(22, 10))
-            plt.ylim(0.0, 7.0)
             plt.savefig(directory_path + "/Rsquared_vs_method_plot_colored_by_type.pdf")
-
 
 
 
@@ -1318,6 +1316,7 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
                                                "Empirical": "Empirical",
                                                "Mixed": "Mixed",
                                                "Physical (QM)": "Physical_QM"}
+
 
         for category in category_list:
             print("Reassigned category: ",category)
@@ -1359,6 +1358,100 @@ def generate_performance_comparison_plots(statistics_filename, directory_path, i
             plt.title("Method category: {}".format(category), fontdict={'fontsize': 22})
             # plt.ylim(-1.0, 1.0)
             plt.savefig(directory_path + "/Rsquared_vs_method_plot_for_{}_category.pdf".format(reassigned_category_path_label_dict[category]))
+
+
+        # Create plots for Physical methods (both MM and QM methods)
+
+        df_statistics_MM = df_statistics.loc[df_statistics['reassigned_category'] == "Physical (MM)"]
+        df_statistics_QM = df_statistics.loc[df_statistics['reassigned_category'] == "Physical (QM)"]
+        df_statistics_physical = pd.concat([df_statistics_MM, df_statistics_QM])
+
+        # RMSE comparison plot
+        # Reorder based on RMSE value
+        df_statistics_physical_RMSE = df_statistics_physical.sort_values(by="RMSE", inplace=False)
+
+        # RMSE comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics_physical_RMSE, x_label="ID", y_label="RMSE",
+                                                   y_lower_label="RMSE_lower_bound",
+                                                   y_upper_label="RMSE_upper_bound", color_label="reassigned_category",
+                                                   figsize=(22, 10))
+        plt.ylim(0.0, 7.0)
+        plt.savefig(directory_path + "/RMSE_vs_method_plot_physical_methoods_colored_by_method_category.pdf")
+
+        # Do same graph with colorizing by reference calculation
+        if not ignore_refcalcs:
+            # RMSE comparison plot with each category colored separately
+            barplot_with_CI_errorbars_colored_by_label(df=df_statistics_physical_RMSE, x_label="ID", y_label="RMSE",
+                                                       y_lower_label="RMSE_lower_bound",
+                                                       y_upper_label="RMSE_upper_bound", color_label="type",
+                                                       figsize=(22, 10))
+            plt.ylim(0.0, 7.0)
+            plt.savefig(directory_path + "/RMSE_vs_method_plot_physical_methods_colored_by_type.pdf")
+
+        # MAE comparison plot
+        # Reorder based on MAE value
+        df_statistics_physical_MAE = df_statistics_physical.sort_values(by="MAE", inplace=False)
+
+        # RMSE comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics_physical_MAE, x_label="ID", y_label="MAE",
+                                                   y_lower_label="MAE_lower_bound",
+                                                   y_upper_label="MAE_upper_bound", color_label="reassigned_category",
+                                                   figsize=(22, 10))
+        plt.ylim(0.0, 7.0)
+        plt.savefig(directory_path + "/MAE_vs_method_plot_physical_methoods_colored_by_method_category.pdf")
+
+        # Do same graph with colorizing by reference calculation
+        if not ignore_refcalcs:
+            # MAE comparison plot with each category colored separately
+            barplot_with_CI_errorbars_colored_by_label(df=df_statistics_physical_MAE, x_label="ID", y_label="MAE",
+                                                       y_lower_label="MAE_lower_bound",
+                                                       y_upper_label="MAE_upper_bound", color_label="type",
+                                                       figsize=(22, 10))
+            plt.ylim(0.0, 7.0)
+            plt.savefig(directory_path + "/MAE_vs_method_plot_physical_methods_colored_by_type.pdf")
+
+        # Kendall's Tau comparison plot
+        # Reorder based on Tau value
+        df_statistics_physical_tau = df_statistics_physical.sort_values(by="kendall_tau", inplace=False, ascending=False)
+
+        # Kendall's Tau comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics_physical_tau, x_label="ID", y_label="kendall_tau",
+                                                   y_lower_label="kendall_tau_lower_bound",
+                                                   y_upper_label="kendall_tau_upper_bound", color_label="reassigned_category",
+                                                   figsize=(22, 10))
+        plt.savefig(directory_path + "/kendall_tau_vs_method_plot_physical_methoods_colored_by_method_category.pdf")
+
+        # Do same graph with colorizing by reference calculation
+        if not ignore_refcalcs:
+            # Kendall's Tau comparison plot with each category colored separately
+            barplot_with_CI_errorbars_colored_by_label(df=df_statistics_physical_tau, x_label="ID", y_label="kendall_tau",
+                                                       y_lower_label="kendall_tau_lower_bound",
+                                                       y_upper_label="kendall_tau_upper_bound", color_label="type",
+                                                       figsize=(22, 10))
+            plt.savefig(directory_path + "/kendall_tau_vs_method_plot_physical_methods_colored_by_type.pdf")
+
+
+        # R-squared comparison plot
+        # Reorder based on R-squared value
+        df_statistics_physical_R2 = df_statistics_physical.sort_values(by="R2", inplace=False, ascending=False)
+
+        # R-squared comparison plot with each category colored separately
+        barplot_with_CI_errorbars_colored_by_label(df=df_statistics_physical_R2, x_label="ID", y_label="R2",
+                                                   y_lower_label="R2_lower_bound",
+                                                   y_upper_label="R2_upper_bound", color_label="reassigned_category",
+                                                   figsize=(22, 10))
+        plt.savefig(directory_path + "/Rsquared_vs_method_plot_physical_methoods_colored_by_method_category.pdf")
+
+        # Do same graph with colorizing by reference calculation
+        if not ignore_refcalcs:
+            # R-Squared comparison plot with each category colored separately
+            barplot_with_CI_errorbars_colored_by_label(df=df_statistics_physical_R2, x_label="ID", y_label="R2",
+                                                       y_lower_label="R2_lower_bound",
+                                                       y_upper_label="R2_upper_bound", color_label="type",
+                                                       figsize=(22, 10))
+            plt.savefig(directory_path + "/Rsquared_vs_method_plot_physical_methods_colored_by_type.pdf")
+
+
 
 
 def generate_QQplots_for_model_uncertainty(input_file_name, directory_path):
