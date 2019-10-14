@@ -16,7 +16,8 @@ from matplotlib import pyplot as plt
 # PLOTTING FUNCTIONS
 # =============================================================================
 
-def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, y_lower_label, y_upper_label):
+def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, y_lower_label, y_upper_label,
+                                          group_labels):
     """Creates bar plot of a given dataframe with asymmetric error bars for y axis.
     Args:
         df: Pandas Dataframe that should have columns with columnnames specified in other arguments.
@@ -24,6 +25,7 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
         y_label: str, column name of y axis values
         y_lower_label: str, column name of lower error values of y axis
         y_upper_label: str, column name of upper error values of y axis
+        group_labels: List of 4 method category labels
     """
     # Column names for new columns for delta y_err which is calculated as | y_err - y |
     delta_lower_yerr_label = "$\Delta$" + y_lower_label
@@ -111,7 +113,7 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
                     Line2D([0], [0], color=current_palette[1], lw=5),
                     Line2D([0], [0], color=current_palette[2], lw=5),
                     Line2D([0], [0], color=current_palette[3], lw=5)]
-    ax.legend(custom_lines, ["Physical", "Empirical","Mixed","Other"])
+    ax.legend(custom_lines, group_labels)
 
 
 # =============================================================================
@@ -225,8 +227,10 @@ def select_subsection_of_collection(collection_df, method_group):
     print("Looking for submissions of selected method group...")
     print("Method group: {}".format(method_group))
 
+    print("Collection_df:\n",collection_df)
+
     # Filter collection dataframe based on method category
-    collection_df_of_selected_method_group = collection_df.loc[collection_df["category"] == method_group]
+    collection_df_of_selected_method_group = collection_df.loc[collection_df["reassigned category"] == method_group]
     collection_df_of_selected_method_group = collection_df_of_selected_method_group.reset_index(drop=True)
     print("collection_df_of_selected_method_group: \n {}".format(collection_df_of_selected_method_group))
 
@@ -247,7 +251,12 @@ def calc_MAE_for_molecules_across_selected_predictions(collection_df, selected_m
     # Create subsection of collection dataframe for selected methods
     collection_df_subset = select_subsection_of_collection(collection_df=collection_df, method_group=selected_method_group)
 
-    subset_directory_path = os.path.join(directory_path, selected_method_group)
+    # reassigned_category_path_label_dict ={ "Physical (MM)": "Physical_MM",
+    #                                        "Empirical": "Empirical",
+    #                                        "Mixed": "Mixed",
+    #                                        "Physical (QM)": "Physical_QM"}
+
+    subset_directory_path = os.path.join(directory_path, reassigned_category_path_label_dict[selected_method_group])
 
     # Calculate MAE using subsection of collection database
     calc_MAE_for_molecules_across_all_predictions(collection_df=collection_df_subset, directory_path=subset_directory_path, file_base_name=file_base_name)
@@ -255,12 +264,16 @@ def calc_MAE_for_molecules_across_selected_predictions(collection_df, selected_m
 
 def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path, group1, group2, group3, group4, file_base_name):
 
+    label1 = reassigned_category_path_label_dict[group1]
+    label2 = reassigned_category_path_label_dict[group2]
+    label3 = reassigned_category_path_label_dict[group3]
+    label4 = reassigned_category_path_label_dict[group4]
 
     # Read molecular_error_statistics table
-    df_gr1 = pd.read_csv(directory_path + "/" + group1 + "/molecular_error_statistics_for_{}_methods.csv".format(group1))
-    df_gr2 = pd.read_csv(directory_path + "/" + group2 + "/molecular_error_statistics_for_{}_methods.csv".format(group2))
-    df_gr3 = pd.read_csv(directory_path + "/" + group3 + "/molecular_error_statistics_for_{}_methods.csv".format(group3))
-    df_gr4 = pd.read_csv(directory_path + "/" + group4 + "/molecular_error_statistics_for_{}_methods.csv".format(group4))
+    df_gr1 = pd.read_csv(directory_path + "/" + label1 + "/molecular_error_statistics_for_{}_methods.csv".format(label1))
+    df_gr2 = pd.read_csv(directory_path + "/" + label2 + "/molecular_error_statistics_for_{}_methods.csv".format(label2))
+    df_gr3 = pd.read_csv(directory_path + "/" + label3 + "/molecular_error_statistics_for_{}_methods.csv".format(label3))
+    df_gr4 = pd.read_csv(directory_path + "/" + label4 + "/molecular_error_statistics_for_{}_methods.csv".format(label4))
 
 
     # Reorder dataframes based on the order of molecular MAE statistic of first group (Physical methods)
@@ -283,7 +296,8 @@ def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path,
     # Molecular labels will be taken from 1st dataframe, so the second dataframe should have the same molecule ID order.
     barplot_with_CI_errorbars_and_4groups(df1=df_gr1, df2=df_gr2_reordered, df3=df_gr3_reordered, df4=df_gr4_reordered,
                                           x_label="Molecule ID", y_label="MAE",
-                                          y_lower_label="MAE_lower_CI", y_upper_label="MAE_upper_CI")
+                                          y_lower_label="MAE_lower_CI", y_upper_label="MAE_upper_CI",
+                                          group_labels=[group1, group2, group3, group4])
     plt.savefig(molecular_statistics_directory_path + "/" + file_base_name + ".pdf")
 
     # Same comparison plot with only QM results (only for presentation effects)
@@ -316,17 +330,24 @@ if __name__ == '__main__':
 
 
     # Calculate MAE for each molecule across each method category
-    list_of_method_categories = ["Physical", "Empirical", "Mixed", "Other"]
+    list_of_method_categories = ["Physical (MM)", "Empirical", "Mixed", "Physical (QM)"]
+    # New labels for file naming for reassigned categories
+    reassigned_category_path_label_dict = {"Physical (MM)": "Physical_MM",
+                                           "Empirical": "Empirical",
+                                           "Mixed": "Mixed",
+                                           "Physical (QM)": "Physical_QM"}
+
     for category in list_of_method_categories:
+        category_file_label = reassigned_category_path_label_dict[category]
         calc_MAE_for_molecules_across_selected_predictions(collection_df=collection_data,
                                                        selected_method_group=category,
                                                        directory_path=molecular_statistics_directory_path,
-                                                       file_base_name="molecular_error_statistics_for_{}_methods".format(category))
+                                                       file_base_name="molecular_error_statistics_for_{}_methods".format(category_file_label))
 
     # Create comparison plot of MAE for each molecule across method categories
     create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path=molecular_statistics_directory_path,
-                                                                 group1='Physical', group2='Empirical',
-                                                                 group3="Mixed", group4='Other',
+                                                                 group1='Physical (MM)', group2='Empirical',
+                                                                 group3="Mixed", group4='Physical (QM)',
                                                                  file_base_name="molecular_MAE_comparison_between_method_categories")
 
 
