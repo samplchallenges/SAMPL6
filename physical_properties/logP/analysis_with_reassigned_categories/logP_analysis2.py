@@ -122,6 +122,7 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
 
 # Paths to input data.
 LOGP_COLLECTION_PATH = './analysis_outputs/logP_submission_collection.csv'
+LOGP_COLLECTION_PATH_WITHREFS =  './analysis_outputs_withrefs/logP_submission_collection.csv'
 
 # =============================================================================
 # UTILITY FUNCTIONS
@@ -312,6 +313,10 @@ def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path,
 
 if __name__ == '__main__':
 
+    # ==========================================================================================
+    # Analysis of standard blind submissions WITHOUT reference calculations
+    # ==========================================================================================
+
     # Read collection file
     collection_data = read_collection_file(collection_file_path = LOGP_COLLECTION_PATH)
 
@@ -350,4 +355,45 @@ if __name__ == '__main__':
                                                                  group3="Mixed", group4='Physical (QM)',
                                                                  file_base_name="molecular_MAE_comparison_between_method_categories")
 
+    # ==========================================================================================
+    # Repeat analysis WITH reference calculations
+    # ==========================================================================================
+
+    # Read collection file
+    collection_data = read_collection_file(collection_file_path = LOGP_COLLECTION_PATH_WITHREFS)
+
+    # Create new directory to store molecular statistics
+    output_directory_path = './analysis_outputs_withrefs'
+    analysis_directory_name = 'MolecularStatisticsTables'
+
+    if os.path.isdir('{}/{}'.format(output_directory_path, analysis_directory_name)):
+        shutil.rmtree('{}/{}'.format(output_directory_path, analysis_directory_name))
+
+    # Calculate MAE of each molecule across all predictions methods
+    molecular_statistics_directory_path = os.path.join(output_directory_path, "MolecularStatisticsTables")
+    calc_MAE_for_molecules_across_all_predictions(collection_df = collection_data,
+                                                  directory_path = molecular_statistics_directory_path,
+                                                  file_base_name = "molecular_error_statistics")
+
+
+    # Calculate MAE for each molecule across each method category
+    list_of_method_categories = ["Physical (MM)", "Empirical", "Mixed", "Physical (QM)"]
+    # New labels for file naming for reassigned categories
+    reassigned_category_path_label_dict = {"Physical (MM)": "Physical_MM",
+                                           "Empirical": "Empirical",
+                                           "Mixed": "Mixed",
+                                           "Physical (QM)": "Physical_QM"}
+
+    for category in list_of_method_categories:
+        category_file_label = reassigned_category_path_label_dict[category]
+        calc_MAE_for_molecules_across_selected_predictions(collection_df=collection_data,
+                                                       selected_method_group=category,
+                                                       directory_path=molecular_statistics_directory_path,
+                                                       file_base_name="molecular_error_statistics_for_{}_methods".format(category_file_label))
+
+    # Create comparison plot of MAE for each molecule across method categories
+    create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path=molecular_statistics_directory_path,
+                                                                 group1='Physical (MM)', group2='Empirical',
+                                                                 group3="Mixed", group4='Physical (QM)',
+                                                                 file_base_name="molecular_MAE_comparison_between_method_categories")
 
