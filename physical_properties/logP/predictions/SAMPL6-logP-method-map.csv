@@ -63,8 +63,8 @@ c7t5j,PBE/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,Physical (QM),QM
 jc68f,PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,Physical (QM),QM
 03cyy,Linear Regression-B3LYP/6-311G**,Mixed,Mixed,QM+QSAR(ML)
 hsotx,B3LYP/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,Physical (QM),QM
-ke5gu,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,Physical,MM (S-MBIS-GAFF-SPCE)
-mwuua,MD-LigParGen-wetoct,Physical,Physical,MM (OPLS-AA/TIP4P)
+ke5gu,MD/S-MBIS-GAFF-SPCE/MBAR/,Physical,Physical (MM),MM (S-MBIS-GAFF-SPCE)
+mwuua,MD-LigParGen-wetoct,Physical,Physical (MM),MM (OPLS-AA/TIP4P)
 fe8ws,B3PW91/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,Physical (QM),QM
 5t0yn,PBE0/cc-pVTZ//B3LYP-D3/cc-pVTZ,Other,Physical (QM),QM
 fyx45,LogP-prediction-Drude-FEP-HuangLab,Physical,Physical (MM),MM (Drude)

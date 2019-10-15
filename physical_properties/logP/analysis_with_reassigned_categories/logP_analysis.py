@@ -28,7 +28,7 @@ from operator import itemgetter, attrgetter
 # =============================================================================
 
 # Paths to input data.
-LOGP_SUBMISSIONS_DIR_PATH = './logP_predictions_test'
+LOGP_SUBMISSIONS_DIR_PATH = './logP_predictions'
 EXPERIMENTAL_DATA_FILE_PATH = '../experimental_data/logP_experimental_values.csv'
 USER_MAP_FILE_PATH = '../predictions/SAMPL6-user-map-logP.csv'
 METHOD_MAP_FILE_PATH = '../predictions/SAMPL6-logP-method-map.csv'
