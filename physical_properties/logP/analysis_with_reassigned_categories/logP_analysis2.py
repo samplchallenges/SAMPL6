@@ -11,6 +11,8 @@ from logP_analysis import compute_bootstrap_statistics
 import shutil
 import seaborn as sns
 from matplotlib import pyplot as plt
+from matplotlib import cm
+import joypy
 
 # =============================================================================
 # PLOTTING FUNCTIONS
@@ -114,6 +116,17 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
                     Line2D([0], [0], color=current_palette[2], lw=5),
                     Line2D([0], [0], color=current_palette[3], lw=5)]
     ax.legend(custom_lines, group_labels)
+
+
+def ridge_plot(df, by, column, figsize, colormap):
+    plt.rcParams['axes.labelsize'] = 14
+    plt.rcParams['xtick.labelsize'] = 14
+    plt.tight_layout()
+
+    # Make ridge plot
+    fig, axes = joypy.joyplot(data=df, by=by, column=column, figsize=figsize, colormap=colormap, linewidth=1)
+    # Add x-axis label
+    axes[-1].set_xlabel(column)
 
 
 # =============================================================================
@@ -306,6 +319,21 @@ def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path,
      #                                     y_lower_label="MAE_lower_CI", y_upper_label="MAE_upper_CI")
     #plt.savefig(molecular_statistics_directory_path + "/" + file_base_name + "_only_QM.pdf")
 
+def create_molecular_error_distribution_plots(collection_df, directory_path, file_base_name, subset_of_method_ids):
+
+    # Ridge plot using all predictions
+    ridge_plot(df=collection_df, by = "Molecule ID", column = "$\Delta$logP error (calc - exp)", figsize=(4, 6),
+                colormap=cm.plasma)
+    plt.savefig(directory_path + "/" + file_base_name +"_all_methods.pdf")
+
+    # Ridge plot using only consistently well-performing methods
+    collection_subset_df =  collection_df[collection_df["receipt_id"].isin(subset_of_method_ids)].reset_index(drop=True)
+    ridge_plot(df=collection_subset_df, by = "Molecule ID", column = "$\Delta$logP error (calc - exp)", figsize=(4, 6),
+                colormap=cm.plasma)
+    plt.savefig(directory_path + "/" + file_base_name +"_well_performing_methods.pdf")
+
+
+
 
 # =============================================================================
 # MAIN
@@ -355,6 +383,14 @@ if __name__ == '__main__':
                                                                  group3="Mixed", group4='Physical (QM)',
                                                                  file_base_name="molecular_MAE_comparison_between_method_categories")
 
+    # Create molecular error distribution ridge plots  for all methods  and a subset of well performing methods
+    well_performing_method_ids = ["hmz0n", "gmoq5", "j8nwc", "hdpuj", "dqxk4", "vzgyt", "qyzjx"]
+    create_molecular_error_distribution_plots(collection_df=collection_data,
+                                              directory_path=molecular_statistics_directory_path,
+                                              subset_of_method_ids=well_performing_method_ids,
+                                              file_base_name="molecular_error_distribution_ridge_plot")
+
+
     # ==========================================================================================
     # Repeat analysis WITH reference calculations
     # ==========================================================================================
@@ -391,9 +427,16 @@ if __name__ == '__main__':
                                                        directory_path=molecular_statistics_directory_path,
                                                        file_base_name="molecular_error_statistics_for_{}_methods".format(category_file_label))
 
-    # Create comparison plot of MAE for each molecule across method categories
+    # Create comparison plot of MAE for each molecule across all method categories
     create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path=molecular_statistics_directory_path,
                                                                  group1='Physical (MM)', group2='Empirical',
                                                                  group3="Mixed", group4='Physical (QM)',
                                                                  file_base_name="molecular_MAE_comparison_between_method_categories")
+
+    # Create molecular error distribution ridge plots  for all methods  and a subset of well performing methods
+    well_performing_method_ids = ["hmz0n", "gmoq5", "j8nwc", "hdpuj", "dqxk4", "vzgyt", "qyzjx", "REF13"]
+    create_molecular_error_distribution_plots(collection_df=collection_data,
+                                              directory_path=molecular_statistics_directory_path,
+                                              subset_of_method_ids=well_performing_method_ids,
+                                              file_base_name="molecular_error_distribution_ridge_plot")
 
