@@ -15,6 +15,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 import scipy.stats
 
+
 ## For QQ-Plots and Error Slope Calc
 import scipy.stats
 import scipy.integrate
@@ -391,9 +392,17 @@ def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_lab
     data.loc[:, delta_upper_yerr_label] = data.loc[:, y_upper_label] - data.loc[:, y_label]
 
     # Color
-    current_palette = sns.color_palette()
-    # Error bar color
-    sns_color = current_palette[2]
+    #current_palette = sns.color_palette()
+    #sns_color = current_palette[2] # Error bar color
+
+    # Zesty colorblind-friendly color palette
+    color0 = "#0F2080"
+    color1 = "#F5793A"
+    color2 = "#A95AA1"
+    color3 = "#85C0F9"
+    current_palette = [color0, color1, color2, color3]
+    error_color = 'gray'
+
     # Bar colors
     if color_label == "category":
         category_list = ["Physical", "Empirical", "Mixed", "Other"]
@@ -432,7 +441,7 @@ def barplot_with_CI_errorbars_colored_by_label(df, x_label, y_label, y_lower_lab
 
     plt.xticks(x, data[x_label], rotation=90)
     plt.errorbar(x, y, yerr=(data[delta_lower_yerr_label], data[delta_upper_yerr_label]),
-                 fmt="none", ecolor='gray', capsize=3, elinewidth=2, capthick=True)
+                 fmt="none", ecolor=error_color, capsize=3, elinewidth=2, capthick=True)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
 
@@ -977,6 +986,10 @@ class logPSubmissionCollection:
                                        self.LOGP_CORRELATION_PLOT_BY_METHOD_PATH_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
         for receipt_id in self.data.receipt_id.unique():
+            # Skip NULL0 submission
+            if receipt_id == "NULL0":
+                continue
+
             data = self.data[self.data.receipt_id == receipt_id]
             title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 
@@ -994,6 +1007,11 @@ class logPSubmissionCollection:
                                        self.LOGP_CORRELATION_PLOT_WITH_SEM_BY_METHOD_PATH_DIR)
         os.makedirs(output_dir_path, exist_ok=True)
         for receipt_id in self.data.receipt_id.unique():
+
+            # Skip NULL0 submission
+            if receipt_id == "NULL0":
+                continue
+
             data = self.data[self.data.receipt_id == receipt_id]
             title = '{} ({})'.format(receipt_id, data.name.unique()[0])
 

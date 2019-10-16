@@ -14,6 +14,7 @@ from matplotlib import pyplot as plt
 from matplotlib import cm
 import joypy
 
+
 # =============================================================================
 # PLOTTING FUNCTIONS
 # =============================================================================
@@ -37,7 +38,9 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
     #current_palette = sns.color_palette("muted")
     #current_palette = sns.color_palette("GnBu_d")
     #error_color = sns.color_palette("GnBu_d")[0]
-    error_color = 'gray'
+
+
+
     # Plot style
     plt.close()
     plt.style.use(["seaborn-talk", "seaborn-whitegrid"])
@@ -47,7 +50,18 @@ def barplot_with_CI_errorbars_and_4groups(df1, df2, df3, df4, x_label, y_label, 
     plt.tight_layout()
     #plt.figure(figsize=(8, 6))
     bar_width = 0.2
-    current_palette = sns.color_palette("deep")
+
+    # Color
+    #current_palette = sns.color_palette("deep")
+
+    # Zesty colorblind-friendly color palette
+    color0 = "#0F2080"
+    color1 = "#F5793A"
+    color2 = "#A95AA1"
+    color3 = "#85C0F9"
+    current_palette = [color0, color1, color2, color3]
+    error_color = 'gray'
+
 
     fig, ax = plt.subplots(figsize=(8, 6))
 
