@@ -1,9 +1,24 @@
-# Analysis of log *P* predictions
+# Analysis of log *P* predictions with reassigned method categories
+
+Challenge participants were asked to indicate the method category their method belongs to in their submission. The following method categories were allowed: 
+- Physical
+- Empirical
+- Mixed
+- Other  
+
+Later, at evaluation stage we realized it is better to divide the submissions based on following method categories: 
+- Physical (MM)
+- Physical (QM)
+- Empirical
+- Mixed  
+
+Thus, methods from Physical category were divided into MM- and QM-based method categories. Methods from the previous Other category were reassigned to Physical (QM) and Empirical category based on the description given in the Method section in the submission files.
+[Method map file: SAMPL6-logP-method-map.csv](https://github.com/samplchallenges/SAMPL6/blob/logP_analysis5/physical_properties/logP/predictions/SAMPL6-logP-method-map.csv) has a table with "category" column showing participant assigned method categories and "reassigned_category" column showing the new method categories we will use in the SAMPL6 logP Challenge evaluation paper.
 
 General analysis of log *P* predictions include calculated vs predicted log *P* correlation plots and 6 performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), and error slope(ES)) for all the submissions.
 95%-percentile bootstrap confidence intervals of all the statistics were reported. Error slope (ES) statistic is calculated as the slope of the line fit the the QQ plot of model uncertainty predictions.
 
-Molecular statistics analysis was performed to indicate logP values of which molecules of SAMPL6 logP Challenge set were more difficult to predict accurately across participated methods. Error statistics (MAE and RMSE) were calculated for each molecule averaging across all methods or for all methods within a method category (Physical, Empirical, Mixed, or Other).
+Molecular statistics analysis was performed to indicate logP values of which molecules of SAMPL6 logP Challenge set were more difficult to predict accurately across participated methods. Error statistics (MAE and RMSE) were calculated for each molecule averaging across all methods or for all methods within a method category.
 
 ## Manifest
 - `run.sh` - Bash script that run python analysis scripts and compiles TeX files.
@@ -22,22 +37,33 @@ Molecular statistics analysis was performed to indicate logP values of which mol
     - `statistics.csv`- A table of performance statistics (RMSE, MAE, ME, R^2, linear regression slope(m), Kendall's Tau, and error slope(ES)) for all the submissions.
     - `RMSE_vs_method_plot.pdf`
     - `RMSE_vs_method_plot_colored_by_method_category.pdf`
-    - `RMSE_vs_method_plot_for_Physical_category.pdf`
+    - `RMSE_vs_method_plot_for_Physical_MM_category.pdf`
+    - `RMSE_vs_method_plot_for_Physical_QM_category.pdf`
     - `RMSE_vs_method_plot_for_Empirical_category.pdf`
     - `RMSE_vs_method_plot_for_Mixed_category.pdf`
-    - `RMSE_vs_method_plot_for_Other_category.pdf`
+    - `RMSE_vs_method_plot_physical_methoods_colored_by_method_category.pdf`
     - `MAE_vs_method_plot.pdf`
     - `MAE_vs_method_plot_colored_by_method_category.pdf`
-    - `MAE_vs_method_plot_for_Physical_category.pdf`
+    - `MAE_vs_method_plot_for_Physical_MM_category.pdf`
+    - `MAE_vs_method_plot_for_Physical_QM_category.pdf`
     - `MAE_vs_method_plot_for_Empirical_category.pdf`
     - `MAE_vs_method_plot_for_Mixed_category.pdf`
-    - `MAE_vs_method_plot_for_Other_category.pdf`
     - `kendalls_tau_vs_method_plot.pdf`
+    - `MAE_vs_method_plot_physical_methoods_colored_by_method_category.pdf` 
     - `kendalls_tau_vs_method_plot_colored_by_method_category.pdf`
-    - `kendalls_tau_vs_method_plot_for_Physical_category.pdf`
+    - `kendalls_tau_vs_method_plot_for_Physical_MM_category.pdf`
+    - `kendalls_tau_vs_method_plot_for_Physical_QM_category.pdf`
     - `kendalls_tau_vs_method_plot_for_Empirical_category.pdf`
     - `kendalls_tau_vs_method_plot_for_Mixed_category.pdf`
-    - `kendalls_tau_vs_method_plot_for_Other_category.pdf` 
+    - `kendall_tau_vs_method_plot_physical_methoods_colored_by_method_category.pdf`
+    - `Rsquared_vs_method_plot.pdf`                            
+    - `Rsquared_vs_method_plot_colored_by_method_category.pdf`                 
+    - `Rsquared_vs_method_plot_colored_by_type.pdf`
+    - `Rsquared_vs_method_plot_for_Empirical_category.pdf`
+    - `Rsquared_vs_method_plot_for_Mixed_category.pdf`
+    - `Rsquared_vs_method_plot_for_Physical_MM_category.pdf`
+    - `Rsquared_vs_method_plot_for_Physical_QM_category.pdf`
+    - `Rsquared_vs_method_plot_physical_methoods_colored_by_method_category.pdf`
     - `statistics_bootstrap_distributions.pdf` - Violin plots showing bootstrap distributions of performance statistics of each method. Each method is labelled by submission ID.
   - `QQPlots/` - Quantile-Quantile plots for the analysis of model uncertainty predictions.
   - `MolecularStatisticsTables/` - This directory contains tables and barplots of molecular statistics analysis (Error statistics, MAE and RMSE, calculated across methods for each molecule.)
@@ -52,6 +78,8 @@ Molecular statistics analysis was performed to indicate logP values of which mol
 - `analysis_outputs_withrefs/` - Duplicates the `analysis_outputs` directory, but also includes analysis of Mobley lab reference calculations, which were not formal submissions. In addition to the plot categories above, also adds, under `MolecularStatisticsTables`, the following new plots:
     - `MAE_vs_method_plot_colored_by_type.pdf`: Barplot showing overall performance by MAE, with reference calculations colored differently.
     - `RMSE_vs_method_plot_colored_by_type.pdf`: Barplot showing overall performance by RMSE, with reference calculations colored differently.
+    - `molecular_error_distribution_ridge_plot_all_methods.pdf`: Error distribution of each molecules based on predictions from all methods.
+    - `molecular_error_distribution_ridge_plot_well_performing_methods.pdf`: Error distribution of each molecules based on predictions from only methods who are determined as consistently well-performing methods (submission IDs: hmz0n, gmoq5, j8nwc, hdpuj, dqxk4, vzgyt, qyzjx, REF13). 
 
 
   ## Submission IDs for log *P* prediction methods
@@ -157,23 +185,34 @@ Molecular statistics analysis was performed to indicate logP values of which mol
 
 Reference calculations are not formally part of the challenge but are provided as reference/comparison methods. 
 They are collected after the blind challenge deadline. 
+Reference calculations have submission IDs of the format REF##. 
+A null prediction is created which predicts all logPs as the mean clogP of FDA approved oral drugs (1998-2017) with submission ID NULL0.
+
 SAMPL6 log *P* challenge reference submissions were listed in the ascending order of RMSE.
 
 | Submission ID | Method Name |  Category    |
 |---------------|-------------|--------------|
+| REF11 | logP(o/w) (MOE) | Empirical |
+| REF13 | SlogP (MOE) | Empirical |
+| REF12 | MoKa_logP | Empirical |
+| REF10 | h_logP (MOE) | Empirical |
+| NULL0 | mean clogP of FDA approved oral drugs (1998-2017) | Empirical |
+| REF09 | clogP (Biobyte) | Empirical |
 | REF02 | YANK-GAFF-TIP3P-wet-oct | Physical |
+| REF07 | YANK-GAFF-TIP3P-dry-oct | Physical |
+| REF08 | YANK-SMIRNOFF-TIP3P-dry-oct| Physical |
 | REF05 | YANK-SMIRNOFF-TIP3P-wet-oct | Physical |
 | REF06 | YANK-SMIRNOFF-OPC-wet-oct	| Physical |
 | REF03 | YANK-GAFF-OPC-wet-oct | Physical |
 | REF01 | YANK-GAFF-TIP3P-FB-wet-oct | Physical |
 | REF04 | YANK-SMIRNOFF-TIP3P-FB-wet-oct	| Physical |
-| REF05 | YANK-SMIRNOFF-TIP3P-wet-oct | Physical |
-| REF06 | YANK-SMIRNOFF-OPC-wet-oct | Physical |
-| REF07 | YANK-GAFF-TIP3P-dry-oct | Physical |
-| REF08 | YANK-SMIRNOFF-TIP3P-dry-oct| Physical |
-| REF09 | clogP (Biobyte) | Empirical |
-| REF10 | h_logP (MOE) | Empirical |
-| REF11 | logP(o/w) (MOE) | Empirical |
-| REF12 | MoKa_logP | Empirical |
-| REF13 | SlogP (MOE) | Empirical |
+
+
+
+
+
+
+
+
+
 
