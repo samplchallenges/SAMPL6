@@ -142,6 +142,16 @@ def ridge_plot(df, by, column, figsize, colormap):
     # Add x-axis label
     axes[-1].set_xlabel(column)
 
+def ridge_plot_wo_overlap(df, by, column, figsize, colormap):
+        plt.rcParams['axes.labelsize'] = 14
+        plt.rcParams['xtick.labelsize'] = 14
+        plt.tight_layout()
+
+        # Make ridge plot
+        fig, axes = joypy.joyplot(data=df, by=by, column=column, figsize=figsize, colormap=colormap, linewidth=1, overlap=0)
+        # Add x-axis label
+        axes[-1].set_xlabel(column)
+
 
 # =============================================================================
 # CONSTANTS
@@ -333,6 +343,7 @@ def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path,
      #                                     y_lower_label="MAE_lower_CI", y_upper_label="MAE_upper_CI")
     #plt.savefig(molecular_statistics_directory_path + "/" + file_base_name + "_only_QM.pdf")
 
+
 def create_molecular_error_distribution_plots(collection_df, directory_path, file_base_name, subset_of_method_ids):
 
     # Ridge plot using all predictions
@@ -346,6 +357,69 @@ def create_molecular_error_distribution_plots(collection_df, directory_path, fil
                 colormap=cm.plasma)
     plt.savefig(directory_path + "/" + file_base_name +"_well_performing_methods.pdf")
 
+
+def create_category_error_distribution_plots(collection_df, directory_path, file_base_name):
+
+    # Ridge plot using all predictions
+    ridge_plot_wo_overlap(df=collection_df, by = "reassigned category", column = "$\Delta$logP error (calc - exp)", figsize=(4, 4),
+                colormap=cm.plasma)
+    plt.savefig(directory_path + "/" + file_base_name +".pdf")
+
+
+def calculate_summary_statistics_of_top_methods_of_each_category(statistics_df, categories, top, directory_path, file_base_name):
+    df_stat = pd.read_csv(statistics_df)
+
+    data = []
+
+    for category in categories:
+        #print(category)
+        #is_cat = (df_stat["category"] == "Physical")
+        #print(is_cat)
+        df_cat = df_stat[df_stat["reassigned_category"] == category].reset_index(drop=False)
+
+        # Already ordered by RMSE
+        df_cat_top = df_cat.head(top).reset_index(drop=False)
+        RMSE_mean = df_cat_top["RMSE"].mean()
+        RMSE_std = df_cat_top["RMSE"].values.std(ddof=1)
+
+        # Reorder by increasing MEA
+        df_cat = df_cat.sort_values(by="MAE", inplace=False, ascending=True)
+        df_cat_top = df_cat.head(top).reset_index(drop=False)
+        MAE_mean = df_cat_top["MAE"].mean()
+        MAE_std = df_cat_top["MAE"].values.std(ddof=1)
+
+        # Reorder by decreasing Kendall's Tau
+        df_cat = df_cat.sort_values(by="kendall_tau", inplace=False, ascending=False)
+        df_cat_top = df_cat.head(top).reset_index(drop=False)
+        tau_mean = df_cat_top["kendall_tau"].mean()
+        tau_std = df_cat_top["kendall_tau"].values.std(ddof=1)
+
+        # Reorder by decreasing R-Squared
+        df_cat = df_cat.sort_values(by="R2", inplace=False, ascending=False)
+        df_cat_top = df_cat.head(top).reset_index(drop=False)
+        r2_mean = df_cat_top["R2"].mean()
+        r2_std = df_cat_top["R2"].values.std(ddof=1)
+
+        # Number of predictions, in case less than 10
+        num_predictions =df_cat_top.shape[0]
+
+        data.append({
+            'reassigned_category': category,
+            'RMSE_mean': RMSE_mean,
+            'RMSE_std': RMSE_std,
+            'MAE_mean': MAE_mean,
+            'MAE_std': MAE_std,
+            'kendall_tau_mean': tau_mean,
+            'kendall_tau_std': tau_std,
+            'R2_mean': r2_mean,
+            'R2_std': r2_std,
+            'N': num_predictions
+        })
+
+    # Transform into Pandas DataFrame.
+    df_stat_summary = pd.DataFrame(data=data)
+    file_name = os.path.join(directory_path, file_base_name)
+    df_stat_summary.to_csv(file_name, index=False)
 
 
 
@@ -404,6 +478,28 @@ if __name__ == '__main__':
                                               subset_of_method_ids=well_performing_method_ids,
                                               file_base_name="molecular_error_distribution_ridge_plot")
 
+    # Compare method categories
+
+    # Calculate error distribution plots for each method category
+    category_comparison_directory_path = os.path.join(output_directory_path, "StatisticsTables/MethodCategoryComparison")
+    os.makedirs(category_comparison_directory_path, exist_ok=True)
+    create_category_error_distribution_plots(collection_df=collection_data,
+                                              directory_path=category_comparison_directory_path,
+                                              file_base_name="error_distribution_of_method_categories_ridge_plot")
+
+    # Calculate mean and standard deviation of performance statistics of top 10 methods of each category.
+    statistics_table_path = os.path.join(output_directory_path, "StatisticsTables/statistics.csv")
+    calculate_summary_statistics_of_top_methods_of_each_category(
+        statistics_df= statistics_table_path, categories=list_of_method_categories, top=10,
+        directory_path=category_comparison_directory_path, file_base_name="summary_statistics_of_method_categories_top10.csv"
+    )
+
+    # Calculate mean and standard deviation of performance statistics of top 5 methods of each category.
+    statistics_table_path = os.path.join(output_directory_path, "StatisticsTables/statistics.csv")
+    calculate_summary_statistics_of_top_methods_of_each_category(
+        statistics_df= statistics_table_path, categories=list_of_method_categories, top=5,
+        directory_path=category_comparison_directory_path, file_base_name="summary_statistics_of_method_categories_top5.csv"
+    )
 
     # ==========================================================================================
     # Repeat analysis WITH reference calculations
@@ -453,4 +549,27 @@ if __name__ == '__main__':
                                               directory_path=molecular_statistics_directory_path,
                                               subset_of_method_ids=well_performing_method_ids,
                                               file_base_name="molecular_error_distribution_ridge_plot")
+
+    # Compare method categories
+
+    # Calculate error distribution plots for each method category
+    category_comparison_directory_path = os.path.join(output_directory_path, "StatisticsTables/MethodCategoryComparison")
+    os.makedirs(category_comparison_directory_path, exist_ok=True)
+    create_category_error_distribution_plots(collection_df=collection_data,
+                                              directory_path=category_comparison_directory_path,
+                                              file_base_name="error_distribution_of_method_categories_ridge_plot")
+
+    # Calculate mean and standard deviation of performance statistics of top 10 methods of each category.
+    statistics_table_path = os.path.join(output_directory_path, "StatisticsTables/statistics.csv")
+    calculate_summary_statistics_of_top_methods_of_each_category(
+        statistics_df= statistics_table_path, categories=list_of_method_categories, top=10,
+        directory_path=category_comparison_directory_path, file_base_name="summary_statistics_of_method_categories_top10.csv"
+    )
+
+    # Calculate mean and standard deviation of performance statistics of top 5 methods of each category.
+    statistics_table_path = os.path.join(output_directory_path, "StatisticsTables/statistics.csv")
+    calculate_summary_statistics_of_top_methods_of_each_category(
+        statistics_df= statistics_table_path, categories=list_of_method_categories, top=5,
+        directory_path=category_comparison_directory_path, file_base_name="summary_statistics_of_method_categories_top5.csv"
+    )
 
