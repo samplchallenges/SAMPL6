@@ -161,19 +161,17 @@ SAMPL6 log *P* challenge reference submissions were listed in the ascending orde
 
 | Submission ID | Method Name |  Category    |
 |---------------|-------------|--------------|
+| REF11 | logP(o/w) (MOE) | Empirical |
+| REF13 | SlogP (MOE) | Empirical |
+| REF12 | MoKa_logP | Empirical |
+| REF10 | h_logP (MOE) | Empirical |
+| REF09 | clogP (Biobyte) | Empirical |
 | REF02 | YANK-GAFF-TIP3P-wet-oct | Physical |
+| REF07 | YANK-GAFF-TIP3P-dry-oct | Physical |
+| REF08 | YANK-SMIRNOFF-TIP3P-dry-oct| Physical |
 | REF05 | YANK-SMIRNOFF-TIP3P-wet-oct | Physical |
 | REF06 | YANK-SMIRNOFF-OPC-wet-oct	| Physical |
 | REF03 | YANK-GAFF-OPC-wet-oct | Physical |
 | REF01 | YANK-GAFF-TIP3P-FB-wet-oct | Physical |
 | REF04 | YANK-SMIRNOFF-TIP3P-FB-wet-oct	| Physical |
-| REF05 | YANK-SMIRNOFF-TIP3P-wet-oct | Physical |
-| REF06 | YANK-SMIRNOFF-OPC-wet-oct | Physical |
-| REF07 | YANK-GAFF-TIP3P-dry-oct | Physical |
-| REF08 | YANK-SMIRNOFF-TIP3P-dry-oct| Physical |
-| REF09 | clogP (Biobyte) | Empirical |
-| REF10 | h_logP (MOE) | Empirical |
-| REF11 | logP(o/w) (MOE) | Empirical |
-| REF12 | MoKa_logP | Empirical |
-| REF13 | SlogP (MOE) | Empirical |
 
