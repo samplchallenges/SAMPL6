@@ -66,6 +66,7 @@ The SAMPL project was recently funded by the National Institutes of Health, for 
 - (Post-challenge) Update pKa challenge type I analysis: add unmatched pKa statistics, new reference calculations, and performance comparison plots colored by method.
 - (Post-challenge) Add reference calculation done by Thomas Fox (empirical logP prediction methods).
 - (Post-challenge) Expanded analysis of reference methods with extra molecules set. The "extra molecules" dataset is composed of potentiometric log *P* values of 27 small molecules published by Slater et al. (1994).
+- (Post-challenge) Add logP challenge analysis with reassigned method categories and a null submission.
 
 ## Challenge Overview
 (This is reproduced from the [SAMPL6 Website](https://drugdesigndata.org/about/sampl6))
