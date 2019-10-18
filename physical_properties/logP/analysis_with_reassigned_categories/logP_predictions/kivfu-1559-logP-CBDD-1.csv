@@ -1,0 +1,66 @@
+# PARTITION COEFFICIENT PREDICTIONS
+# 
+# This file will be automatically parsed. It must contain the following four elements: 
+# predictions, name of method, software listing, and method description. 
+# These elements must be provided in the order shown with their respective headers.
+#
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty. 
+# The data in each prediction line should be structured as follows:
+# Molecule ID, logP, logP SEM, logP model uncertainty
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here. 
+Predictions:
+SM02,4.18,0.00,0.80
+SM04,3.45,0.00,0.80
+SM07,2.78,0.00,0.80
+SM08,4.69,0.00,0.80
+SM09,3.21,0.00,0.80
+SM11,1.71,0.00,0.80
+SM12,3.70,0.00,0.80
+SM13,4.28,0.00,0.80
+SM14,1.77,0.00,0.80
+SM15,1.81,0.00,0.80
+SM16,2.67,0.00,0.80
+
+# NAME SECTION
+#
+# Please provide an informal but informative name of the method used. 
+# The 'Name:' keyword is required as shown here.
+Name:
+LogP-prediction-method-IEFPCM/MST
+
+# SOFTWARE SECTION
+#
+# List all major software packages used and their versions.
+# Create a new line for each software.
+# The 'Software:' keyword is required.
+Software:
+Gaussian
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`, `Empirical`, `Mixed`, or `Other`.
+# Pick only one category label.
+# The `Category:` keyword is required.
+Category:
+Physical
+
+# METHOD DESCRIPTION SECTION
+#
+# Methodology and computational details.
+# Level of details should be roughly equivalent to that used in a publication.
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated.
+# Use as many lines of text as you need.
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description.
+Method:
+The IEFPCM/MST method is a quantum mechanical (QM) self-consistent continuum solvation method that have proved to be a cost-effective approach for the calculation of solvation free energies in differents solvents. From the computation of the solvation free energies in water and n-octanol the partition coefficient is determined. In the Miertus−Scrocco−Tomasi model, the solvation free energy is calculated by adding nonelectrostatic and electrostatic contributions, which are calculated using a double molecule-shaped cavity for the solute embedded in the polarizable continuum medium.
+
+
+
+
+

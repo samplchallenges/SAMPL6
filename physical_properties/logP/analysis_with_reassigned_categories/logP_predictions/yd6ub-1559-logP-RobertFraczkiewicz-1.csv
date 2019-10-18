@@ -1,0 +1,65 @@
+# PARTITION COEFFICIENT PREDICTIONS
+# 
+# This file will be automatically parsed. It must contain the following four elements: 
+# predictions, name of method, software listing, and method description. 
+# These elements must be provided in the order shown with their respective headers.
+#
+# Any line that begins with a # is considered a comment and will be ignored when parsing.
+#
+# PREDICTION SECTION
+#
+# It is mandatory to submit logP predictions for all 11 molecules. Incomplete submissions will not be accepted.
+# Please report logP standard error of the mean (SEM) and logP model uncertainty. 
+# The data in each prediction line should be structured as follows:
+# Molecule ID, logP, logP SEM, logP model uncertainty
+# The list of predictions must begin with the 'Predictions:' keyword as illustrated here. 
+Predictions:
+SM02,4.03,0.31,0.31
+SM04,3.73,0.32,0.31
+SM07,3.09,0.29,0.31
+SM08,2.53,0.46,0.31
+SM09,3.27,0.29,0.31
+SM11,1.21,0.36,0.31
+SM12,3.82,0.33,0.31
+SM13,3.57,0.23,0.31
+SM14,2.12,0.23,0.31
+SM15,2.27,0.4,0.31
+SM16,3.32,0.29,0.31
+
+# NAME SECTION
+#
+# Please provide an informal but informative name of the method used. 
+# The 'Name:' keyword is required as shown here.
+Name:
+S+logP
+
+# SOFTWARE SECTION
+#
+# List all major software packages used and their versions.
+# Create a new line for each software.
+# The 'Software:' keyword is required.
+Software:
+ADMET Predictor 9.5, Simulations Plus, Inc., 2018, https://www.simulations-plus.com/software/admetpredictor/
+
+# METHOD CATEGORY SECTION
+#
+# State which method category your prediction method is better described as:
+# `Physical`, `Empirical`, `Mixed`, or `Other`.
+# Pick only one category label.
+# The `Category:` keyword is required.
+Category:
+Empirical
+
+# METHOD DESCRIPTION SECTION
+#
+# Methodology and computational details.
+# Level of details should be roughly equivalent to that used in a publication.
+# Please include the values of key parameters with units. Please explain how statistical uncertainties were estimated.
+# Use as many lines of text as you need.
+# All text following the 'Method:' keyword will be regarded as part of your free text methods description.
+Method:
+S+logP in an artificial neural network ensemble (ANNE) model built by ADMET Modeler software in 2013.
+The logP SEM column contains estimated individual prediction errors determined by Simulations Plus' new algorithm to be published in a future version of ADMET Predictor
+The  uncertainty column contains model's global RMSE determined on the test subset counting 1759 compounds.
+S+logP details are contained in the following webinar: https://www.simulations-plus.com/assets/SimPlusWebinar06.28.13-PchemBio.mp4
+ADMET Modeler is described in https://www.simulations-plus.com/software/admetpredictor/admet-modeler/

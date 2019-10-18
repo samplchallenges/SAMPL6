@@ -11,6 +11,8 @@ from logP_analysis import compute_bootstrap_statistics
 import shutil
 import seaborn as sns
 from matplotlib import pyplot as plt
+from matplotlib import cm
+import joypy
 
 # =============================================================================
 # PLOTTING FUNCTIONS
@@ -33,7 +35,7 @@ def barplot_with_CI_errorbars_and_2groups(df1, df2, x_label, y_label, y_lower_la
     #current_palette = sns.color_palette("muted")
     #current_palette = sns.color_palette("GnBu_d")
     #error_color = sns.color_palette("GnBu_d")[0]
-    error_color = 'gray'
+
     # Plot style
     plt.close()
     plt.style.use(["seaborn-talk", "seaborn-whitegrid"])
@@ -43,7 +45,18 @@ def barplot_with_CI_errorbars_and_2groups(df1, df2, x_label, y_label, y_lower_la
     plt.tight_layout()
     #plt.figure(figsize=(8, 6))
     bar_width = 0.4
-    current_palette = sns.color_palette("deep")
+
+    # Color
+    #current_palette = sns.color_palette("deep")
+
+    # Zesty colorblind-friendly color palette
+    color0 = "#0F2080"
+    color1 = "#F5793A"
+    color2 = "#A95AA1"
+    color3 = "#85C0F9"
+    current_palette = [color0, color1, color2, color3]
+    error_color = 'gray'
+
 
     fig, ax = plt.subplots(figsize=(8, 6))
 
@@ -84,7 +97,25 @@ def barplot_with_CI_errorbars_and_2groups(df1, df2, x_label, y_label, y_lower_la
                     Line2D([0], [0], color=current_palette[1], lw=5)]
     ax.legend(custom_lines, ["Physical", "Empirical"])
 
+def ridge_plot(df, by, column, figsize, colormap):
+    plt.rcParams['axes.labelsize'] = 14
+    plt.rcParams['xtick.labelsize'] = 14
+    plt.tight_layout()
 
+    # Make ridge plot
+    fig, axes = joypy.joyplot(data=df, by=by, column=column, figsize=figsize, colormap=colormap, linewidth=1)
+    # Add x-axis label
+    axes[-1].set_xlabel(column)
+
+def ridge_plot_wo_overlap(df, by, column, figsize, colormap):
+        plt.rcParams['axes.labelsize'] = 14
+        plt.rcParams['xtick.labelsize'] = 14
+        plt.tight_layout()
+
+        # Make ridge plot
+        fig, axes = joypy.joyplot(data=df, by=by, column=column, figsize=figsize, colormap=colormap, linewidth=1, overlap=0)
+        # Add x-axis label
+        axes[-1].set_xlabel(column)
 # =============================================================================
 # CONSTANTS
 # =============================================================================
@@ -259,6 +290,15 @@ def create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path,
     #plt.savefig(molecular_statistics_directory_path + "/" + file_base_name + "_only_QM.pdf")
 
 
+def create_molecular_error_distribution_plots(collection_df, directory_path, file_base_name):
+
+    # Ridge plot using all predictions
+    ridge_plot(df=collection_df, by = "Molecule ID", column = "$\Delta$logP error (calc - exp)", figsize=(4, 6),
+                colormap=cm.plasma)
+    plt.savefig(directory_path + "/" + file_base_name +"_all_methods.pdf")
+
+
+
 # =============================================================================
 # MAIN
 # =============================================================================
@@ -294,5 +334,12 @@ if __name__ == '__main__':
     create_comparison_plot_of_molecular_MAE_of_method_categories(directory_path=molecular_statistics_directory_path,
                                                                  group1='Physical', group2='Empirical',
                                                                  file_base_name="molecular_MAE_comparison_between_method_categories")
+
+    # Create molecular error distribution ridge plots  for all methods  and a subset of well performing methods
+    create_molecular_error_distribution_plots(collection_df=collection_data,
+                                              directory_path=molecular_statistics_directory_path,
+                                              file_base_name="molecular_error_distribution_ridge_plot")
+
+
 
 
