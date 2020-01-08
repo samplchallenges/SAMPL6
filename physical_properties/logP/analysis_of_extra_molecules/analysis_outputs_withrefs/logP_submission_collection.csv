@@ -1,352 +1,352 @@
-,$\Delta$logP error (calc - exp),Molecule ID,category,logP (calc),logP (exp),logP SEM (calc),logP SEM (exp),logP model uncertainty,name,participant,receipt_id
-0,-0.69,34Dichlorophenol,Empirical,2.7,3.39,0.0,0.02,0.0,SlogP (MOE),Thomas Fox,EXT13
-1,-0.9299999999999997,35Dichlorophenol,Empirical,2.7,3.63,0.0,0.02,0.0,SlogP (MOE),Thomas Fox,EXT13
-2,0.08999999999999986,3Bromoquinoline,Empirical,3.0,2.91,0.0,0.04,0.0,SlogP (MOE),Thomas Fox,EXT13
-3,-0.52,3Chlorophenol,Empirical,2.05,2.57,0.0,0.01,0.0,SlogP (MOE),Thomas Fox,EXT13
-4,-0.30000000000000027,4Butoxyphenol,Empirical,2.57,2.87,0.0,0.08,0.0,SlogP (MOE),Thomas Fox,EXT13
-5,-0.40000000000000036,4Chlorophenol,Empirical,2.05,2.45,0.0,0.01,0.0,SlogP (MOE),Thomas Fox,EXT13
-6,-0.020000000000000018,4Ethoxyphenol,Empirical,1.79,1.81,0.0,0.02,0.0,SlogP (MOE),Thomas Fox,EXT13
-7,-0.8999999999999999,4lodophenol,Empirical,2.0,2.9,0.0,0.02,0.0,SlogP (MOE),Thomas Fox,EXT13
-8,-0.010000000000000009,4Methoxyphenol,Empirical,1.4,1.41,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,EXT13
-9,-0.2999999999999998,4Pentoxyphenol,Empirical,2.96,3.26,0.0,0.11,0.0,SlogP (MOE),Thomas Fox,EXT13
-10,-0.1299999999999999,4Propoxyphenol,Empirical,2.18,2.31,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,EXT13
-11,0.6200000000000001,Acebutolol,Empirical,2.37,1.75,0.0,0.19,0.0,SlogP (MOE),Thomas Fox,EXT13
-12,-0.8299999999999998,Amylobarbitone,Empirical,1.18,2.01,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,EXT13
-13,-0.5800000000000001,Benzoicacid,Empirical,1.38,1.96,0.0,0.02,0.0,SlogP (MOE),Thomas Fox,EXT13
-14,-0.6400000000000001,Butobarbitone,Empirical,0.94,1.58,0.0,0.07,0.0,SlogP (MOE),Thomas Fox,EXT13
-15,0.9700000000000002,Celiprolol,Empirical,2.89,1.92,0.0,0.04,0.0,SlogP (MOE),Thomas Fox,EXT13
-16,-0.5,Chlorpromazine,Empirical,4.89,5.39,0.0,0.01,0.0,SlogP (MOE),Thomas Fox,EXT13
-17,-0.03000000000000025,Ketoprofen,Empirical,3.11,3.14,0.0,0.02,0.0,SlogP (MOE),Thomas Fox,EXT13
-18,0.08000000000000007,NMethylaniline,Empirical,1.73,1.65,0.0,0.01,0.0,SlogP (MOE),Thomas Fox,EXT13
-19,-0.9000000000000001,Pentobarbitone,Empirical,1.18,2.08,0.0,0.06,0.0,SlogP (MOE),Thomas Fox,EXT13
-20,0.3599999999999999,Pericyazine,Empirical,4.01,3.65,0.0,0.08,0.0,SlogP (MOE),Thomas Fox,EXT13
-21,-0.8300000000000001,Phenobarbitone,Empirical,0.7,1.53,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,EXT13
-22,-0.09000000000000008,Phenol,Empirical,1.39,1.48,0.0,0.01,0.0,SlogP (MOE),Thomas Fox,EXT13
-23,-1.04,Quinalbarbitone,Empirical,1.35,2.39,0.0,0.02,0.0,SlogP (MOE),Thomas Fox,EXT13
-24,0.08000000000000007,Quinoline,Empirical,2.23,2.15,0.0,0.08,0.0,SlogP (MOE),Thomas Fox,EXT13
-25,-0.77,rPropranolol,Empirical,2.58,3.35,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,EXT13
-26,0.59,Sulfamethazine,Empirical,1.48,0.89,0.0,0.03,0.0,SlogP (MOE),Thomas Fox,EXT13
-27,-0.040000000000000036,34Dichlorophenol,Physical,3.35,3.39,0.04,0.02,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-28,-0.04999999999999982,35Dichlorophenol,Physical,3.58,3.63,0.03,0.02,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-29,1.25,3Bromoquinoline,Physical,4.16,2.91,0.03,0.04,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-30,-0.31999999999999984,3Chlorophenol,Physical,2.25,2.57,0.08,0.01,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-31,-0.27,4Butoxyphenol,Physical,2.6,2.87,0.14,0.08,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-32,-0.5400000000000003,4Chlorophenol,Physical,1.91,2.45,0.01,0.01,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-33,-0.18999999999999995,4Ethoxyphenol,Physical,1.62,1.81,0.08,0.02,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-34,-0.16999999999999993,4Methoxyphenol,Physical,1.24,1.41,0.01,0.03,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-35,0.010000000000000231,4Pentoxyphenol,Physical,3.27,3.26,0.18,0.11,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-36,-0.28000000000000025,4Propoxyphenol,Physical,2.03,2.31,0.03,0.03,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-37,0.3200000000000003,4lodophenol,Physical,3.22,2.9,0.07,0.02,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-38,2.9400000000000004,Acebutolol,Physical,4.69,1.75,0.45,0.19,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-39,0.6900000000000004,Amylobarbitone,Physical,2.7,2.01,0.03,0.03,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-40,-1.2,Benzoicacid,Physical,0.76,1.96,0.22,0.02,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-41,0.29000000000000004,Butobarbitone,Physical,1.87,1.58,0.49,0.07,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-42,1.92,Celiprolol,Physical,3.84,1.92,0.45,0.04,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-43,0.23000000000000043,Chlorpromazine,Physical,5.62,5.39,0.17,0.01,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-44,-0.2400000000000002,Ketoprofen,Physical,2.9,3.14,0.43,0.02,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-45,-1.0899999999999999,NMethylaniline,Physical,0.56,1.65,0.1,0.01,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-46,0.75,Pentobarbitone,Physical,2.83,2.08,0.35,0.06,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-47,3.11,Pericyazine,Physical,6.76,3.65,0.36,0.08,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-48,0.95,Phenobarbitone,Physical,2.48,1.53,0.19,0.03,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-49,-0.9199999999999999,Phenol,Physical,0.56,1.48,0.07,0.01,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-50,-0.050000000000000266,Quinalbarbitone,Physical,2.34,2.39,0.39,0.02,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-51,0.06000000000000005,Quinoline,Physical,2.21,2.15,0.17,0.08,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-52,1.25,Sulfamethazine,Physical,2.14,0.89,0.29,0.03,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-53,0.009999999999999787,rPropranolol,Physical,3.36,3.35,0.34,0.03,1.6,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT04
-54,-0.4500000000000002,34Dichlorophenol,Physical,2.94,3.39,0.05,0.02,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-55,-0.6200000000000001,35Dichlorophenol,Physical,3.01,3.63,0.08,0.02,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-56,0.69,3Bromoquinoline,Physical,3.6,2.91,0.1,0.04,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-57,-0.9099999999999999,3Chlorophenol,Physical,1.66,2.57,0.06,0.01,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-58,-1.11,4Butoxyphenol,Physical,1.76,2.87,0.08,0.08,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-59,-0.9900000000000002,4Chlorophenol,Physical,1.46,2.45,0.04,0.01,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-60,-0.74,4Ethoxyphenol,Physical,1.07,1.81,0.05,0.02,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-61,-1.0799999999999998,4Methoxyphenol,Physical,0.33,1.41,0.07,0.03,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-62,-0.9699999999999998,4Pentoxyphenol,Physical,2.29,3.26,0.1,0.11,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-63,-1.1500000000000001,4Propoxyphenol,Physical,1.16,2.31,0.08,0.03,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-64,-0.31999999999999984,4lodophenol,Physical,2.58,2.9,0.09,0.02,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-65,0.96,Acebutolol,Physical,2.71,1.75,0.31,0.19,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-66,-1.4099999999999997,Amylobarbitone,Physical,0.6,2.01,0.08,0.03,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-67,-0.32000000000000006,Benzoicacid,Physical,1.64,1.96,0.68,0.02,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-68,-0.7000000000000001,Butobarbitone,Physical,0.88,1.58,0.28,0.07,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-69,0.5100000000000002,Celiprolol,Physical,2.43,1.92,0.3,0.04,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-70,-0.6599999999999993,Chlorpromazine,Physical,4.73,5.39,0.09,0.01,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-71,-2.0,Ketoprofen,Physical,1.14,3.14,0.13,0.02,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-72,-1.8199999999999998,NMethylaniline,Physical,-0.17,1.65,0.05,0.01,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-73,-0.3700000000000001,Pentobarbitone,Physical,1.71,2.08,0.11,0.06,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-74,1.8800000000000003,Pericyazine,Physical,5.53,3.65,0.09,0.08,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-75,-0.55,Phenobarbitone,Physical,0.98,1.53,0.11,0.03,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-76,-1.55,Phenol,Physical,-0.07,1.48,0.04,0.01,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-77,-1.6400000000000001,Quinalbarbitone,Physical,0.75,2.39,0.46,0.02,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-78,-0.6199999999999999,Quinoline,Physical,1.53,2.15,0.07,0.08,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-79,0.17000000000000004,Sulfamethazine,Physical,1.06,0.89,0.15,0.03,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-80,-0.9300000000000002,rPropranolol,Physical,2.42,3.35,0.26,0.03,1.6,YANK-GAFF-tip3p-dry-oct,Danielle Bergazin,EXT07
-81,-0.5900000000000003,34Dichlorophenol,Physical,2.8,3.39,0.06,0.02,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-82,-0.46999999999999975,35Dichlorophenol,Physical,3.16,3.63,0.07,0.02,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-83,0.3799999999999999,3Bromoquinoline,Physical,3.29,2.91,0.06,0.04,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-84,-1.0499999999999998,3Chlorophenol,Physical,1.52,2.57,0.08,0.01,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-85,-0.8400000000000003,4Butoxyphenol,Physical,2.03,2.87,0.1,0.08,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-86,-0.8100000000000003,4Chlorophenol,Physical,1.64,2.45,0.08,0.01,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-87,-0.6000000000000001,4Ethoxyphenol,Physical,1.21,1.81,0.09,0.02,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-88,-0.5999999999999999,4Methoxyphenol,Physical,0.81,1.41,0.1,0.03,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-89,-0.5,4Pentoxyphenol,Physical,2.76,3.26,0.09,0.11,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-90,-0.7,4Propoxyphenol,Physical,1.61,2.31,0.08,0.03,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-91,-0.46999999999999975,4lodophenol,Physical,2.43,2.9,0.09,0.02,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-92,0.43000000000000016,Acebutolol,Physical,2.18,1.75,0.31,0.19,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-93,0.16000000000000014,Amylobarbitone,Physical,2.17,2.01,0.37,0.03,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-94,-1.12,Benzoicacid,Physical,0.84,1.96,0.09,0.02,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-95,-0.16000000000000014,Butobarbitone,Physical,1.42,1.58,0.22,0.07,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-96,0.2400000000000002,Celiprolol,Physical,2.16,1.92,0.5,0.04,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-97,-0.02999999999999936,Chlorpromazine,Physical,5.36,5.39,0.07,0.01,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-98,-2.98,Ketoprofen,Physical,0.16,3.14,0.08,0.02,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-99,-1.68,NMethylaniline,Physical,-0.03,1.65,0.02,0.01,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-100,-0.06000000000000005,Pentobarbitone,Physical,2.02,2.08,0.17,0.06,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-101,2.0800000000000005,Pericyazine,Physical,5.73,3.65,0.32,0.08,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-102,0.9200000000000002,Phenobarbitone,Physical,2.45,1.53,0.33,0.03,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-103,-1.3599999999999999,Phenol,Physical,0.12,1.48,0.16,0.01,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-104,-0.9600000000000002,Quinalbarbitone,Physical,1.43,2.39,0.29,0.02,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-105,-0.31999999999999984,Quinoline,Physical,1.83,2.15,0.02,0.08,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-106,1.04,Sulfamethazine,Physical,1.93,0.89,0.27,0.03,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-107,-0.4500000000000002,rPropranolol,Physical,2.9,3.35,0.22,0.03,1.6,YANK-SMIRNOFF-TIP3P-dry-oct,Danielle Bergazin,EXT08
-108,0.6699999999999995,34Dichlorophenol,Physical,4.06,3.39,0.45,0.02,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-109,-0.9699999999999998,35Dichlorophenol,Physical,2.66,3.63,0.2,0.02,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-110,1.3099999999999996,3Bromoquinoline,Physical,4.22,2.91,0.1,0.04,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-111,-0.3299999999999996,3Chlorophenol,Physical,2.24,2.57,0.36,0.01,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-112,-0.3400000000000003,4Butoxyphenol,Physical,2.53,2.87,0.18,0.08,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-113,-0.9700000000000002,4Chlorophenol,Physical,1.48,2.45,0.08,0.01,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-114,0.2999999999999998,4Ethoxyphenol,Physical,2.11,1.81,0.24,0.02,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-115,0.40000000000000013,4Methoxyphenol,Physical,1.81,1.41,0.65,0.03,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-116,0.26000000000000023,4Pentoxyphenol,Physical,3.52,3.26,0.24,0.11,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-117,-0.74,4Propoxyphenol,Physical,1.57,2.31,0.44,0.03,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-118,0.10000000000000009,4lodophenol,Physical,3.0,2.9,0.42,0.02,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-119,3.1100000000000003,Acebutolol,Physical,4.86,1.75,0.69,0.19,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-120,-0.10999999999999988,Amylobarbitone,Physical,1.9,2.01,0.5,0.03,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-121,-0.49,Benzoicacid,Physical,1.47,1.96,0.05,0.02,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-122,1.4,Butobarbitone,Physical,2.98,1.58,1.02,0.07,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-123,1.4500000000000002,Celiprolol,Physical,3.37,1.92,0.26,0.04,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-124,0.8000000000000007,Chlorpromazine,Physical,6.19,5.39,0.14,0.01,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-125,-1.6900000000000002,Ketoprofen,Physical,1.45,3.14,0.29,0.02,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-126,-1.29,NMethylaniline,Physical,0.36,1.65,0.31,0.01,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-127,0.1299999999999999,Pentobarbitone,Physical,2.21,2.08,0.46,0.06,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-128,4.24,Pericyazine,Physical,7.89,3.65,0.36,0.08,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-129,0.040000000000000036,Phenobarbitone,Physical,1.57,1.53,0.54,0.03,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-130,-0.5599999999999999,Phenol,Physical,0.92,1.48,0.25,0.01,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-131,-0.2400000000000002,Quinalbarbitone,Physical,2.15,2.39,0.27,0.02,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-132,-0.24,Quinoline,Physical,1.91,2.15,0.09,0.08,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-133,0.32999999999999996,Sulfamethazine,Physical,1.22,0.89,0.42,0.03,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-134,1.0399999999999996,rPropranolol,Physical,4.39,3.35,0.16,0.03,1.6,YANK-GAFF-OPC-wet-oct,Danielle Bergazin,EXT03
-135,-0.56,34Dichlorophenol,Physical,2.83,3.39,0.04,0.02,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-136,-0.6499999999999999,35Dichlorophenol,Physical,2.98,3.63,0.09,0.02,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-137,0.8300000000000001,3Bromoquinoline,Physical,3.74,2.91,0.07,0.04,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-138,-1.0999999999999999,3Chlorophenol,Physical,1.47,2.57,0.1,0.01,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-139,-1.03,4Butoxyphenol,Physical,1.84,2.87,0.02,0.08,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-140,-0.9200000000000002,4Chlorophenol,Physical,1.53,2.45,0.03,0.01,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-141,-0.8500000000000001,4Ethoxyphenol,Physical,0.96,1.81,0.08,0.02,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-142,-0.7799999999999999,4Methoxyphenol,Physical,0.63,1.41,0.05,0.03,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-143,-1.0199999999999996,4Pentoxyphenol,Physical,2.24,3.26,0.04,0.11,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-144,-1.07,4Propoxyphenol,Physical,1.24,2.31,0.13,0.03,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-145,-0.20999999999999996,4lodophenol,Physical,2.69,2.9,0.06,0.02,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-146,0.43000000000000016,Acebutolol,Physical,2.18,1.75,0.25,0.19,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-147,0.1900000000000004,Amylobarbitone,Physical,2.2,2.01,0.16,0.03,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-148,-1.08,Benzoicacid,Physical,0.88,1.96,0.2,0.02,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-149,-0.06000000000000005,Butobarbitone,Physical,1.52,1.58,0.04,0.07,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-150,0.4700000000000002,Celiprolol,Physical,2.39,1.92,0.29,0.04,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-151,-0.4899999999999993,Chlorpromazine,Physical,4.9,5.39,0.06,0.01,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-152,-0.16999999999999993,Ketoprofen,Physical,2.97,3.14,0.82,0.02,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-153,-1.71,NMethylaniline,Physical,-0.06,1.65,0.09,0.01,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-154,-0.54,Pentobarbitone,Physical,1.54,2.08,0.23,0.06,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-155,2.0100000000000002,Pericyazine,Physical,5.66,3.65,0.18,0.08,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-156,0.1499999999999999,Phenobarbitone,Physical,1.68,1.53,0.16,0.03,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-157,-1.52,Phenol,Physical,-0.04,1.48,0.02,0.01,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-158,-1.1,Quinalbarbitone,Physical,1.29,2.39,0.05,0.02,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-159,-0.43999999999999995,Quinoline,Physical,1.71,2.15,0.05,0.08,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-160,1.0099999999999998,Sulfamethazine,Physical,1.9,0.89,0.02,0.03,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-161,-0.75,rPropranolol,Physical,2.6,3.35,0.13,0.03,1.6,YANK-GAFF-TIP3P-wet-oct,Danielle Bergazin,EXT02
-162,-0.03000000000000025,34Dichlorophenol,Physical,3.36,3.39,0.07,0.02,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-163,0.020000000000000018,35Dichlorophenol,Physical,3.65,3.63,0.04,0.02,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-164,1.29,3Bromoquinoline,Physical,4.2,2.91,0.11,0.04,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-165,-0.44999999999999973,3Chlorophenol,Physical,2.12,2.57,0.12,0.01,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-166,-0.06000000000000005,4Butoxyphenol,Physical,2.81,2.87,0.19,0.08,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-167,-0.5200000000000002,4Chlorophenol,Physical,1.93,2.45,0.08,0.01,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-168,-0.26,4Ethoxyphenol,Physical,1.55,1.81,0.07,0.02,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-169,-0.25,4Methoxyphenol,Physical,1.16,1.41,0.14,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-170,0.11000000000000032,4Pentoxyphenol,Physical,3.37,3.26,0.11,0.11,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-171,-0.10999999999999988,4Propoxyphenol,Physical,2.2,2.31,0.06,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-172,0.41000000000000014,4lodophenol,Physical,3.31,2.9,0.05,0.02,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-173,1.92,Acebutolol,Physical,3.67,1.75,0.5,0.19,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-174,-0.019999999999999796,Amylobarbitone,Physical,1.99,2.01,0.23,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-175,-2.32,Benzoicacid,Physical,-0.36,1.96,0.78,0.02,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-176,0.73,Butobarbitone,Physical,2.31,1.58,0.29,0.07,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-177,2.74,Celiprolol,Physical,4.66,1.92,0.27,0.04,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-178,0.3799999999999999,Chlorpromazine,Physical,5.77,5.39,0.25,0.01,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-179,1.02,Ketoprofen,Physical,4.16,3.14,0.21,0.02,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-180,-1.0699999999999998,NMethylaniline,Physical,0.58,1.65,0.05,0.01,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-181,-0.3700000000000001,Pentobarbitone,Physical,1.71,2.08,0.19,0.06,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-182,3.15,Pericyazine,Physical,6.8,3.65,0.16,0.08,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-183,0.08000000000000007,Phenobarbitone,Physical,1.61,1.53,0.09,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-184,-0.73,Phenol,Physical,0.75,1.48,0.13,0.01,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-185,-0.6400000000000001,Quinalbarbitone,Physical,1.75,2.39,0.1,0.02,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-186,-0.1299999999999999,Quinoline,Physical,2.02,2.15,0.13,0.08,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-187,0.5299999999999999,Sulfamethazine,Physical,1.42,0.89,0.31,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-188,0.10000000000000009,rPropranolol,Physical,3.45,3.35,0.81,0.03,1.6,YANK-GAFF-TIP3P-FB-wet-oct,Danielle Bergazin,EXT01
-189,-0.3500000000000001,34Dichlorophenol,Physical,3.04,3.39,0.04,0.02,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-190,-0.33000000000000007,35Dichlorophenol,Physical,3.3,3.63,0.12,0.02,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-191,0.71,3Bromoquinoline,Physical,3.62,2.91,0.05,0.04,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-192,-0.8399999999999999,3Chlorophenol,Physical,1.73,2.57,0.06,0.01,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-193,-0.8200000000000003,4Butoxyphenol,Physical,2.05,2.87,0.1,0.08,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-194,-0.7200000000000002,4Chlorophenol,Physical,1.73,2.45,0.05,0.01,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-195,-0.6800000000000002,4Ethoxyphenol,Physical,1.13,1.81,0.1,0.02,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-196,-0.6299999999999999,4Methoxyphenol,Physical,0.78,1.41,0.05,0.03,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-197,-0.5299999999999998,4Pentoxyphenol,Physical,2.73,3.26,0.08,0.11,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-198,-0.31000000000000005,4Propoxyphenol,Physical,2.0,2.31,0.04,0.03,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-199,-0.040000000000000036,4lodophenol,Physical,2.86,2.9,0.07,0.02,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-200,1.5,Acebutolol,Physical,3.25,1.75,0.2,0.19,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-201,-0.4099999999999997,Amylobarbitone,Physical,1.6,2.01,0.3,0.03,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-202,-2.09,Benzoicacid,Physical,-0.13,1.96,0.03,0.02,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-203,0.20999999999999996,Butobarbitone,Physical,1.79,1.58,0.12,0.07,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-204,1.13,Celiprolol,Physical,3.05,1.92,0.4,0.04,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-205,-0.02999999999999936,Chlorpromazine,Physical,5.36,5.39,0.33,0.01,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-206,-2.34,Ketoprofen,Physical,0.8,3.14,0.16,0.02,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-207,-1.65,NMethylaniline,Physical,0.0,1.65,0.09,0.01,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-208,0.20999999999999996,Pentobarbitone,Physical,2.29,2.08,0.05,0.06,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-209,2.39,Pericyazine,Physical,6.04,3.65,0.46,0.08,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-210,0.32000000000000006,Phenobarbitone,Physical,1.85,1.53,0.14,0.03,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-211,-1.0899999999999999,Phenol,Physical,0.39,1.48,0.07,0.01,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-212,-1.06,Quinalbarbitone,Physical,1.33,2.39,0.22,0.02,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-213,-0.5299999999999998,Quinoline,Physical,1.62,2.15,0.07,0.08,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-214,0.62,Sulfamethazine,Physical,1.51,0.89,0.27,0.03,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-215,-0.71,rPropranolol,Physical,2.64,3.35,0.29,0.03,1.6,YANK-SMIRNOFF-TIP3P-wet-oct,Danielle Bergazin,EXT05
-216,-0.6400000000000001,34Dichlorophenol,Empirical,2.75,3.39,0.0,0.02,0.0,h_logP (MOE),Thomas Fox,EXT10
-217,-0.8700000000000001,35Dichlorophenol,Empirical,2.76,3.63,0.0,0.02,0.0,h_logP (MOE),Thomas Fox,EXT10
-218,0.1499999999999999,3Bromoquinoline,Empirical,3.06,2.91,0.0,0.04,0.0,h_logP (MOE),Thomas Fox,EXT10
-219,-0.5,3Chlorophenol,Empirical,2.07,2.57,0.0,0.01,0.0,h_logP (MOE),Thomas Fox,EXT10
-220,-0.6100000000000003,4Butoxyphenol,Empirical,2.26,2.87,0.0,0.08,0.0,h_logP (MOE),Thomas Fox,EXT10
-221,-0.4200000000000004,4Chlorophenol,Empirical,2.03,2.45,0.0,0.01,0.0,h_logP (MOE),Thomas Fox,EXT10
-222,-0.32000000000000006,4Ethoxyphenol,Empirical,1.49,1.81,0.0,0.02,0.0,h_logP (MOE),Thomas Fox,EXT10
-223,-0.48,4lodophenol,Empirical,2.42,2.9,0.0,0.02,0.0,h_logP (MOE),Thomas Fox,EXT10
-224,-0.16999999999999993,4Methoxyphenol,Empirical,1.24,1.41,0.0,0.03,0.0,h_logP (MOE),Thomas Fox,EXT10
-225,-0.48,4Pentoxyphenol,Empirical,2.78,3.26,0.0,0.11,0.0,h_logP (MOE),Thomas Fox,EXT10
-226,-0.56,4Propoxyphenol,Empirical,1.75,2.31,0.0,0.03,0.0,h_logP (MOE),Thomas Fox,EXT10
-227,0.75,Acebutolol,Empirical,2.5,1.75,0.0,0.19,0.0,h_logP (MOE),Thomas Fox,EXT10
-228,-0.039999999999999813,Amylobarbitone,Empirical,1.97,2.01,0.0,0.03,0.0,h_logP (MOE),Thomas Fox,EXT10
-229,-0.6199999999999999,Benzoicacid,Empirical,1.34,1.96,0.0,0.02,0.0,h_logP (MOE),Thomas Fox,EXT10
-230,-0.1200000000000001,Butobarbitone,Empirical,1.46,1.58,0.0,0.07,0.0,h_logP (MOE),Thomas Fox,EXT10
-231,0.4500000000000002,Celiprolol,Empirical,2.37,1.92,0.0,0.04,0.0,h_logP (MOE),Thomas Fox,EXT10
-232,-0.10999999999999943,Chlorpromazine,Empirical,5.28,5.39,0.0,0.01,0.0,h_logP (MOE),Thomas Fox,EXT10
-233,0.16999999999999993,Ketoprofen,Empirical,3.31,3.14,0.0,0.02,0.0,h_logP (MOE),Thomas Fox,EXT10
-234,-0.029999999999999805,NMethylaniline,Empirical,1.62,1.65,0.0,0.01,0.0,h_logP (MOE),Thomas Fox,EXT10
-235,-0.10000000000000009,Pentobarbitone,Empirical,1.98,2.08,0.0,0.06,0.0,h_logP (MOE),Thomas Fox,EXT10
-236,0.6700000000000004,Pericyazine,Empirical,4.32,3.65,0.0,0.08,0.0,h_logP (MOE),Thomas Fox,EXT10
-237,-0.1200000000000001,Phenobarbitone,Empirical,1.41,1.53,0.0,0.03,0.0,h_logP (MOE),Thomas Fox,EXT10
-238,-0.11999999999999988,Phenol,Empirical,1.36,1.48,0.0,0.01,0.0,h_logP (MOE),Thomas Fox,EXT10
-239,-0.3600000000000003,Quinalbarbitone,Empirical,2.03,2.39,0.0,0.02,0.0,h_logP (MOE),Thomas Fox,EXT10
-240,0.010000000000000231,Quinoline,Empirical,2.16,2.15,0.0,0.08,0.0,h_logP (MOE),Thomas Fox,EXT10
-241,-0.43000000000000016,rPropranolol,Empirical,2.92,3.35,0.0,0.03,0.0,h_logP (MOE),Thomas Fox,EXT10
-242,0.18000000000000005,Sulfamethazine,Empirical,1.07,0.89,0.0,0.03,0.0,h_logP (MOE),Thomas Fox,EXT10
-243,-0.5900000000000003,34Dichlorophenol,Empirical,2.8,3.39,0.0,0.02,0.0,MoKa_logP,Thomas Fox,EXT12
-244,-0.6299999999999999,35Dichlorophenol,Empirical,3.0,3.63,0.0,0.02,0.0,MoKa_logP,Thomas Fox,EXT12
-245,0.29000000000000004,3Bromoquinoline,Empirical,3.2,2.91,0.0,0.04,0.0,MoKa_logP,Thomas Fox,EXT12
-246,-0.27,3Chlorophenol,Empirical,2.3,2.57,0.0,0.01,0.0,MoKa_logP,Thomas Fox,EXT12
-247,0.1299999999999999,4Butoxyphenol,Empirical,3.0,2.87,0.0,0.08,0.0,MoKa_logP,Thomas Fox,EXT12
-248,-0.15000000000000036,4Chlorophenol,Empirical,2.3,2.45,0.0,0.01,0.0,MoKa_logP,Thomas Fox,EXT12
-249,0.18999999999999995,4Ethoxyphenol,Empirical,2.0,1.81,0.0,0.02,0.0,MoKa_logP,Thomas Fox,EXT12
-250,-0.10000000000000009,4lodophenol,Empirical,2.8,2.9,0.0,0.02,0.0,MoKa_logP,Thomas Fox,EXT12
-251,0.19000000000000017,4Methoxyphenol,Empirical,1.6,1.41,0.0,0.03,0.0,MoKa_logP,Thomas Fox,EXT12
-252,0.2400000000000002,4Pentoxyphenol,Empirical,3.5,3.26,0.0,0.11,0.0,MoKa_logP,Thomas Fox,EXT12
-253,0.18999999999999995,4Propoxyphenol,Empirical,2.5,2.31,0.0,0.03,0.0,MoKa_logP,Thomas Fox,EXT12
-254,-0.1499999999999999,Acebutolol,Empirical,1.6,1.75,0.0,0.19,0.0,MoKa_logP,Thomas Fox,EXT12
-255,-0.009999999999999787,Amylobarbitone,Empirical,2.0,2.01,0.0,0.03,0.0,MoKa_logP,Thomas Fox,EXT12
-256,-0.15999999999999992,Benzoicacid,Empirical,1.8,1.96,0.0,0.02,0.0,MoKa_logP,Thomas Fox,EXT12
-257,0.11999999999999988,Butobarbitone,Empirical,1.7,1.58,0.0,0.07,0.0,MoKa_logP,Thomas Fox,EXT12
-258,0.18000000000000016,Celiprolol,Empirical,2.1,1.92,0.0,0.04,0.0,MoKa_logP,Thomas Fox,EXT12
-259,-0.08999999999999986,Chlorpromazine,Empirical,5.3,5.39,0.0,0.01,0.0,MoKa_logP,Thomas Fox,EXT12
-260,-0.14000000000000012,Ketoprofen,Empirical,3.0,3.14,0.0,0.02,0.0,MoKa_logP,Thomas Fox,EXT12
-261,0.3500000000000001,NMethylaniline,Empirical,2.0,1.65,0.0,0.01,0.0,MoKa_logP,Thomas Fox,EXT12
-262,-0.08000000000000007,Pentobarbitone,Empirical,2.0,2.08,0.0,0.06,0.0,MoKa_logP,Thomas Fox,EXT12
-263,0.5500000000000003,Pericyazine,Empirical,4.2,3.65,0.0,0.08,0.0,MoKa_logP,Thomas Fox,EXT12
-264,-0.13000000000000012,Phenobarbitone,Empirical,1.4,1.53,0.0,0.03,0.0,MoKa_logP,Thomas Fox,EXT12
-265,0.020000000000000018,Phenol,Empirical,1.5,1.48,0.0,0.01,0.0,MoKa_logP,Thomas Fox,EXT12
-266,-0.29000000000000004,Quinalbarbitone,Empirical,2.1,2.39,0.0,0.02,0.0,MoKa_logP,Thomas Fox,EXT12
-267,0.050000000000000266,Quinoline,Empirical,2.2,2.15,0.0,0.08,0.0,MoKa_logP,Thomas Fox,EXT12
-268,-0.5500000000000003,rPropranolol,Empirical,2.8,3.35,0.0,0.03,0.0,MoKa_logP,Thomas Fox,EXT12
-269,0.0,Sulfamethazine,Empirical,0.89,0.89,0.0,0.03,0.0,MoKa_logP,Thomas Fox,EXT12
-270,-0.5700000000000003,34Dichlorophenol,Empirical,2.82,3.39,0.0,0.02,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-271,-0.7399999999999998,35Dichlorophenol,Empirical,2.89,3.63,0.0,0.02,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-272,0.029999999999999805,3Bromoquinoline,Empirical,2.94,2.91,0.0,0.04,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-273,-0.33999999999999986,3Chlorophenol,Empirical,2.23,2.57,0.0,0.01,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-274,0.08000000000000007,4Butoxyphenol,Empirical,2.95,2.87,0.0,0.08,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-275,-0.26000000000000023,4Chlorophenol,Empirical,2.19,2.45,0.0,0.01,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-276,0.08999999999999986,4Ethoxyphenol,Empirical,1.9,1.81,0.0,0.02,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-277,-0.10999999999999988,4lodophenol,Empirical,2.79,2.9,0.0,0.02,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-278,0.14000000000000012,4Methoxyphenol,Empirical,1.55,1.41,0.0,0.03,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-279,0.13000000000000034,4Pentoxyphenol,Empirical,3.39,3.26,0.0,0.11,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-280,0.19999999999999973,4Propoxyphenol,Empirical,2.51,2.31,0.0,0.03,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-281,0.050000000000000044,Acebutolol,Empirical,1.8,1.75,0.0,0.19,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-282,0.1200000000000001,Amylobarbitone,Empirical,2.13,2.01,0.0,0.03,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-283,-0.3799999999999999,Benzoicacid,Empirical,1.58,1.96,0.0,0.02,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-284,0.18999999999999995,Butobarbitone,Empirical,1.77,1.58,0.0,0.07,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-285,-0.10999999999999988,Celiprolol,Empirical,1.81,1.92,0.0,0.04,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-286,-0.7699999999999996,Chlorpromazine,Empirical,4.62,5.39,0.0,0.01,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-287,0.44999999999999973,Ketoprofen,Empirical,3.59,3.14,0.0,0.02,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-288,-0.09999999999999987,NMethylaniline,Empirical,1.55,1.65,0.0,0.01,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-289,0.04999999999999982,Pentobarbitone,Empirical,2.13,2.08,0.0,0.06,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-290,0.0,Pericyazine,Empirical,3.65,3.65,0.0,0.08,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-291,0.18999999999999995,Phenobarbitone,Empirical,1.72,1.53,0.0,0.03,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-292,0.1200000000000001,Phenol,Empirical,1.6,1.48,0.0,0.01,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-293,-0.4700000000000002,Quinalbarbitone,Empirical,1.92,2.39,0.0,0.02,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-294,-0.040000000000000036,Quinoline,Empirical,2.11,2.15,0.0,0.08,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-295,-0.43000000000000016,rPropranolol,Empirical,2.92,3.35,0.0,0.03,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-296,-0.36,Sulfamethazine,Empirical,0.53,0.89,0.0,0.03,0.0,logP(o/w) (MOE),Thomas Fox,EXT11
-297,0.46999999999999975,34Dichlorophenol,Physical,3.86,3.39,0.5,0.02,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-298,-0.44999999999999973,35Dichlorophenol,Physical,3.18,3.63,0.59,0.02,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-299,1.4500000000000002,3Bromoquinoline,Physical,4.36,2.91,0.1,0.04,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-300,-1.3099999999999998,3Chlorophenol,Physical,1.26,2.57,0.15,0.01,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-301,0.4299999999999997,4Butoxyphenol,Physical,3.3,2.87,0.41,0.08,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-302,-0.28000000000000025,4Chlorophenol,Physical,2.17,2.45,0.4,0.01,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-303,-0.5,4Ethoxyphenol,Physical,1.31,1.81,0.33,0.02,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-304,0.27,4Methoxyphenol,Physical,1.68,1.41,0.4,0.03,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-305,-0.09999999999999964,4Pentoxyphenol,Physical,3.16,3.26,0.12,0.11,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-306,-0.9000000000000001,4Propoxyphenol,Physical,1.41,2.31,0.22,0.03,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-307,-0.27,4lodophenol,Physical,2.63,2.9,0.13,0.02,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-308,1.2000000000000002,Acebutolol,Physical,2.95,1.75,0.72,0.19,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-309,0.10000000000000009,Amylobarbitone,Physical,2.11,2.01,0.36,0.03,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-310,-1.44,Benzoicacid,Physical,0.52,1.96,0.59,0.02,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-311,-0.29000000000000004,Butobarbitone,Physical,1.29,1.58,0.62,0.07,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-312,3.79,Celiprolol,Physical,5.71,1.92,0.24,0.04,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-313,0.20000000000000018,Chlorpromazine,Physical,5.59,5.39,0.11,0.01,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-314,-0.77,Ketoprofen,Physical,2.37,3.14,1.37,0.02,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-315,-1.42,NMethylaniline,Physical,0.23,1.65,0.18,0.01,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-316,1.6,Pentobarbitone,Physical,3.68,2.08,0.34,0.06,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-317,2.1199999999999997,Pericyazine,Physical,5.77,3.65,0.34,0.08,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-318,0.27,Phenobarbitone,Physical,1.8,1.53,0.08,0.03,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-319,-1.35,Phenol,Physical,0.13,1.48,0.41,0.01,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-320,-0.56,Quinalbarbitone,Physical,1.83,2.39,0.27,0.02,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-321,0.6499999999999999,Quinoline,Physical,2.8,2.15,0.13,0.08,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-322,-0.030000000000000027,Sulfamethazine,Physical,0.86,0.89,0.27,0.03,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-323,-0.20999999999999996,rPropranolol,Physical,3.14,3.35,0.56,0.03,1.6,YANK-SMIRNOFF-OPC-wet-oct,Danielle Bergazin,EXT06
-324,-0.20800000000000018,34Dichlorophenol,Empirical,3.182,3.39,0.0,0.02,0.0,clogP (Biobyte),Thomas Fox,EXT09
-325,-0.32799999999999985,35Dichlorophenol,Empirical,3.302,3.63,0.0,0.02,0.0,clogP (Biobyte),Thomas Fox,EXT09
-326,0.06600000000000028,3Bromoquinoline,Empirical,2.9760000000000004,2.91,0.0,0.04,0.0,clogP (Biobyte),Thomas Fox,EXT09
-327,-0.08499999999999996,3Chlorophenol,Empirical,2.485,2.57,0.0,0.01,0.0,clogP (Biobyte),Thomas Fox,EXT09
-328,0.2909999999999999,4Butoxyphenol,Empirical,3.161,2.87,0.0,0.08,0.0,clogP (Biobyte),Thomas Fox,EXT09
-329,0.0349999999999997,4Chlorophenol,Empirical,2.485,2.45,0.0,0.01,0.0,clogP (Biobyte),Thomas Fox,EXT09
-330,0.29300000000000015,4Ethoxyphenol,Empirical,2.103,1.81,0.0,0.02,0.0,clogP (Biobyte),Thomas Fox,EXT09
-331,-0.004999999999999893,4lodophenol,Empirical,2.895,2.9,0.0,0.02,0.0,clogP (Biobyte),Thomas Fox,EXT09
-332,0.16400000000000015,4Methoxyphenol,Empirical,1.574,1.41,0.0,0.03,0.0,clogP (Biobyte),Thomas Fox,EXT09
-333,0.43000000000000016,4Pentoxyphenol,Empirical,3.69,3.26,0.0,0.11,0.0,clogP (Biobyte),Thomas Fox,EXT09
-334,0.3219999999999996,4Propoxyphenol,Empirical,2.6319999999999997,2.31,0.0,0.03,0.0,clogP (Biobyte),Thomas Fox,EXT09
-335,-0.040000000000000036,Acebutolol,Empirical,1.71,1.75,0.0,0.19,0.0,clogP (Biobyte),Thomas Fox,EXT09
-336,0.10200000000000031,Amylobarbitone,Empirical,2.112,2.01,0.0,0.03,0.0,clogP (Biobyte),Thomas Fox,EXT09
-337,-0.07499999999999996,Benzoicacid,Empirical,1.885,1.96,0.0,0.02,0.0,clogP (Biobyte),Thomas Fox,EXT09
-338,0.133,Butobarbitone,Empirical,1.713,1.58,0.0,0.07,0.0,clogP (Biobyte),Thomas Fox,EXT09
-339,-0.06400000000000006,Celiprolol,Empirical,1.8559999999999999,1.92,0.0,0.04,0.0,clogP (Biobyte),Thomas Fox,EXT09
-340,0.11000000000000032,Chlorpromazine,Empirical,5.5,5.39,0.0,0.01,0.0,clogP (Biobyte),Thomas Fox,EXT09
-341,-0.379,Ketoprofen,Empirical,2.761,3.14,0.0,0.02,0.0,clogP (Biobyte),Thomas Fox,EXT09
-342,-0.008999999999999897,NMethylaniline,Empirical,1.641,1.65,0.0,0.01,0.0,clogP (Biobyte),Thomas Fox,EXT09
-343,0.03200000000000003,Pentobarbitone,Empirical,2.112,2.08,0.0,0.06,0.0,clogP (Biobyte),Thomas Fox,EXT09
-344,-0.21399999999999952,Pericyazine,Empirical,3.4360000000000004,3.65,0.0,0.08,0.0,clogP (Biobyte),Thomas Fox,EXT09
-345,-0.16500000000000004,Phenobarbitone,Empirical,1.365,1.53,0.0,0.03,0.0,clogP (Biobyte),Thomas Fox,EXT09
-346,-0.004999999999999893,Phenol,Empirical,1.475,1.48,0.0,0.01,0.0,clogP (Biobyte),Thomas Fox,EXT09
-347,-0.2330000000000001,Quinalbarbitone,Empirical,2.157,2.39,0.0,0.02,0.0,clogP (Biobyte),Thomas Fox,EXT09
-348,-0.121,Quinoline,Empirical,2.029,2.15,0.0,0.08,0.0,clogP (Biobyte),Thomas Fox,EXT09
-349,-0.597,rPropranolol,Empirical,2.753,3.35,0.0,0.03,0.0,clogP (Biobyte),Thomas Fox,EXT09
-350,0.20699999999999996,Sulfamethazine,Empirical,1.097,0.89,0.0,0.03,0.0,clogP (Biobyte),Thomas Fox,EXT09
+,receipt_id,participant,name,category,Molecule ID,logP (calc),logP SEM (calc),logP (exp),logP SEM (exp),$\Delta$logP error (calc - exp),logP model uncertainty
+0,EXT13,Thomas Fox,SlogP (MOE),Empirical,34Dichlorophenol,2.7,0.0,3.39,0.02,-0.69,0.0
+1,EXT13,Thomas Fox,SlogP (MOE),Empirical,35Dichlorophenol,2.7,0.0,3.63,0.02,-0.9299999999999997,0.0
+2,EXT13,Thomas Fox,SlogP (MOE),Empirical,3Bromoquinoline,3.0,0.0,2.91,0.04,0.08999999999999986,0.0
+3,EXT13,Thomas Fox,SlogP (MOE),Empirical,3Chlorophenol,2.05,0.0,2.57,0.01,-0.52,0.0
+4,EXT13,Thomas Fox,SlogP (MOE),Empirical,4Butoxyphenol,2.57,0.0,2.87,0.08,-0.30000000000000027,0.0
+5,EXT13,Thomas Fox,SlogP (MOE),Empirical,4Chlorophenol,2.05,0.0,2.45,0.01,-0.40000000000000036,0.0
+6,EXT13,Thomas Fox,SlogP (MOE),Empirical,4Ethoxyphenol,1.79,0.0,1.81,0.02,-0.020000000000000018,0.0
+7,EXT13,Thomas Fox,SlogP (MOE),Empirical,4lodophenol,2.0,0.0,2.9,0.02,-0.8999999999999999,0.0
+8,EXT13,Thomas Fox,SlogP (MOE),Empirical,4Methoxyphenol,1.4,0.0,1.41,0.03,-0.010000000000000009,0.0
+9,EXT13,Thomas Fox,SlogP (MOE),Empirical,4Pentoxyphenol,2.96,0.0,3.26,0.11,-0.2999999999999998,0.0
+10,EXT13,Thomas Fox,SlogP (MOE),Empirical,4Propoxyphenol,2.18,0.0,2.31,0.03,-0.1299999999999999,0.0
+11,EXT13,Thomas Fox,SlogP (MOE),Empirical,Acebutolol,2.37,0.0,1.75,0.19,0.6200000000000001,0.0
+12,EXT13,Thomas Fox,SlogP (MOE),Empirical,Amylobarbitone,1.18,0.0,2.01,0.03,-0.8299999999999998,0.0
+13,EXT13,Thomas Fox,SlogP (MOE),Empirical,Benzoicacid,1.38,0.0,1.96,0.02,-0.5800000000000001,0.0
+14,EXT13,Thomas Fox,SlogP (MOE),Empirical,Butobarbitone,0.94,0.0,1.58,0.07,-0.6400000000000001,0.0
+15,EXT13,Thomas Fox,SlogP (MOE),Empirical,Celiprolol,2.89,0.0,1.92,0.04,0.9700000000000002,0.0
+16,EXT13,Thomas Fox,SlogP (MOE),Empirical,Chlorpromazine,4.89,0.0,5.39,0.01,-0.5,0.0
+17,EXT13,Thomas Fox,SlogP (MOE),Empirical,Ketoprofen,3.11,0.0,3.14,0.02,-0.03000000000000025,0.0
+18,EXT13,Thomas Fox,SlogP (MOE),Empirical,NMethylaniline,1.73,0.0,1.65,0.01,0.08000000000000007,0.0
+19,EXT13,Thomas Fox,SlogP (MOE),Empirical,Pentobarbitone,1.18,0.0,2.08,0.06,-0.9000000000000001,0.0
+20,EXT13,Thomas Fox,SlogP (MOE),Empirical,Pericyazine,4.01,0.0,3.65,0.08,0.3599999999999999,0.0
+21,EXT13,Thomas Fox,SlogP (MOE),Empirical,Phenobarbitone,0.7,0.0,1.53,0.03,-0.8300000000000001,0.0
+22,EXT13,Thomas Fox,SlogP (MOE),Empirical,Phenol,1.39,0.0,1.48,0.01,-0.09000000000000008,0.0
+23,EXT13,Thomas Fox,SlogP (MOE),Empirical,Quinalbarbitone,1.35,0.0,2.39,0.02,-1.04,0.0
+24,EXT13,Thomas Fox,SlogP (MOE),Empirical,Quinoline,2.23,0.0,2.15,0.08,0.08000000000000007,0.0
+25,EXT13,Thomas Fox,SlogP (MOE),Empirical,rPropranolol,2.58,0.0,3.35,0.03,-0.77,0.0
+26,EXT13,Thomas Fox,SlogP (MOE),Empirical,Sulfamethazine,1.48,0.0,0.89,0.03,0.59,0.0
+27,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,34Dichlorophenol,3.13,1.37,3.39,0.02,-0.26000000000000023,1.6
+28,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,35Dichlorophenol,5.07,0.03,3.63,0.02,1.4400000000000004,1.6
+29,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,3Bromoquinoline,4.47,0.33,2.91,0.04,1.5599999999999996,1.6
+30,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,3Chlorophenol,1.87,1.33,2.57,0.01,-0.6999999999999997,1.6
+31,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,4Butoxyphenol,1.56,2.27,2.87,0.08,-1.31,1.6
+32,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,4Chlorophenol,0.47,2.03,2.45,0.01,-1.9800000000000002,1.6
+33,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,4Ethoxyphenol,0.32,2.02,1.81,0.02,-1.49,1.6
+34,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,4Methoxyphenol,-0.16,1.92,1.41,0.03,-1.5699999999999998,1.6
+35,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,4Pentoxyphenol,2.88,1.26,3.26,0.11,-0.3799999999999999,1.6
+36,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,4Propoxyphenol,1.25,1.65,2.31,0.03,-1.06,1.6
+37,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,4lodophenol,2.17,1.52,2.9,0.02,-0.73,1.6
+38,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Acebutolol,6.52,0.35,1.75,0.19,4.77,1.6
+39,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Amylobarbitone,3.94,0.18,2.01,0.03,1.9300000000000002,1.6
+40,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Benzoicacid,2.25,0.23,1.96,0.02,0.29000000000000004,1.6
+41,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Butobarbitone,2.53,0.25,1.58,0.07,0.9499999999999997,1.6
+42,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Celiprolol,6.02,0.59,1.92,0.04,4.1,1.6
+43,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Chlorpromazine,7.72,0.1,5.39,0.01,2.33,1.6
+44,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Ketoprofen,4.68,0.61,3.14,0.02,1.5399999999999996,1.6
+45,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,NMethylaniline,1.57,0.24,1.65,0.01,-0.07999999999999985,1.6
+46,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Pentobarbitone,4.03,0.47,2.08,0.06,1.9500000000000002,1.6
+47,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Pericyazine,7.88,0.09,3.65,0.08,4.23,1.6
+48,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Phenobarbitone,2.5,0.02,1.53,0.03,0.97,1.6
+49,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Phenol,-1.12,2.16,1.48,0.01,-2.6,1.6
+50,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Quinalbarbitone,3.54,0.26,2.39,0.02,1.15,1.6
+51,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Quinoline,1.42,1.38,2.15,0.08,-0.73,1.6
+52,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,Sulfamethazine,3.91,0.15,0.89,0.03,3.02,1.6
+53,EXT04,Danielle Bergazin,YANK-SMIRNOFF-TIP3P-FB-wet-oct,Physical,rPropranolol,0.95,2.92,3.35,0.03,-2.4000000000000004,1.6
+54,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,34Dichlorophenol,4.06,0.04,3.39,0.02,0.6699999999999995,1.6
+55,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,35Dichlorophenol,4.18,0.08,3.63,0.02,0.5499999999999998,1.6
+56,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,3Bromoquinoline,4.25,0.09,2.91,0.04,1.3399999999999999,1.6
+57,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,3Chlorophenol,2.85,0.05,2.57,0.01,0.28000000000000025,1.6
+58,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,4Butoxyphenol,3.56,0.08,2.87,0.08,0.69,1.6
+59,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,4Chlorophenol,2.65,0.04,2.45,0.01,0.19999999999999973,1.6
+60,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,4Ethoxyphenol,2.58,0.05,1.81,0.02,0.77,1.6
+61,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,4Methoxyphenol,1.54,0.06,1.41,0.03,0.13000000000000012,1.6
+62,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,4Pentoxyphenol,4.31,0.12,3.26,0.11,1.0499999999999998,1.6
+63,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,4Propoxyphenol,2.86,0.11,2.31,0.03,0.5499999999999998,1.6
+64,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,4lodophenol,3.48,0.11,2.9,0.02,0.5800000000000001,1.6
+65,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Acebutolol,5.43,0.41,1.75,0.19,3.6799999999999997,1.6
+66,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Amylobarbitone,1.53,0.07,2.01,0.03,-0.47999999999999976,1.6
+67,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Benzoicacid,2.62,0.68,1.96,0.02,0.6600000000000001,1.6
+68,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Butobarbitone,1.82,0.29,1.58,0.07,0.24,1.6
+69,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Celiprolol,5.28,0.29,1.92,0.04,3.3600000000000003,1.6
+70,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Chlorpromazine,6.72,0.11,5.39,0.01,1.33,1.6
+71,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Ketoprofen,3.02,0.12,3.14,0.02,-0.1200000000000001,1.6
+72,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,NMethylaniline,1.18,0.05,1.65,0.01,-0.47,1.6
+73,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Pentobarbitone,2.6,0.13,2.08,0.06,0.52,1.6
+74,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Pericyazine,6.53,0.05,3.65,0.08,2.8800000000000003,1.6
+75,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Phenobarbitone,1.36,0.09,1.53,0.03,-0.16999999999999993,1.6
+76,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Phenol,1.24,0.05,1.48,0.01,-0.24,1.6
+77,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Quinalbarbitone,1.98,0.46,2.39,0.02,-0.41000000000000014,1.6
+78,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Quinoline,2.54,0.06,2.15,0.08,0.3900000000000001,1.6
+79,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,Sulfamethazine,1.82,0.19,0.89,0.03,0.93,1.6
+80,EXT07,Danielle Bergazin,YANK-GAFF-tip3p-dry-oct,Physical,rPropranolol,4.35,0.29,3.35,0.03,0.9999999999999996,1.6
+81,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,34Dichlorophenol,3.81,0.06,3.39,0.02,0.41999999999999993,1.6
+82,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,35Dichlorophenol,4.21,0.05,3.63,0.02,0.5800000000000001,1.6
+83,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,3Bromoquinoline,4.31,0.08,2.91,0.04,1.3999999999999995,1.6
+84,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,3Chlorophenol,2.61,0.08,2.57,0.01,0.040000000000000036,1.6
+85,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,4Butoxyphenol,3.63,0.07,2.87,0.08,0.7599999999999998,1.6
+86,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,4Chlorophenol,2.71,0.05,2.45,0.01,0.2599999999999998,1.6
+87,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,4Ethoxyphenol,2.51,0.1,1.81,0.02,0.6999999999999997,1.6
+88,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,4Methoxyphenol,1.8,0.08,1.41,0.03,0.3900000000000001,1.6
+89,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,4Pentoxyphenol,4.46,0.09,3.26,0.11,1.2000000000000002,1.6
+90,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,4Propoxyphenol,3.08,0.08,2.31,0.03,0.77,1.6
+91,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,4lodophenol,3.52,0.1,2.9,0.02,0.6200000000000001,1.6
+92,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Acebutolol,4.51,0.26,1.75,0.19,2.76,1.6
+93,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Amylobarbitone,2.97,0.35,2.01,0.03,0.9600000000000004,1.6
+94,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Benzoicacid,1.87,0.1,1.96,0.02,-0.08999999999999986,1.6
+95,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Butobarbitone,2.13,0.2,1.58,0.07,0.5499999999999998,1.6
+96,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Celiprolol,4.85,0.56,1.92,0.04,2.9299999999999997,1.6
+97,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Chlorpromazine,7.1,0.07,5.39,0.01,1.71,1.6
+98,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Ketoprofen,2.05,0.08,3.14,0.02,-1.0900000000000003,1.6
+99,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,NMethylaniline,1.37,0.03,1.65,0.01,-0.2799999999999998,1.6
+100,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Pentobarbitone,2.74,0.16,2.08,0.06,0.6600000000000001,1.6
+101,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Pericyazine,6.44,0.28,3.65,0.08,2.7900000000000005,1.6
+102,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Phenobarbitone,2.7,0.26,1.53,0.03,1.1700000000000002,1.6
+103,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Phenol,1.27,0.16,1.48,0.01,-0.20999999999999996,1.6
+104,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Quinalbarbitone,2.45,0.29,2.39,0.02,0.06000000000000005,1.6
+105,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Quinoline,2.83,0.01,2.15,0.08,0.6800000000000002,1.6
+106,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,Sulfamethazine,2.61,0.28,0.89,0.03,1.7199999999999998,1.6
+107,EXT08,Danielle Bergazin,YANK-SMIRNOFF-tip3p-dry-oct,Physical,rPropranolol,4.74,0.3,3.35,0.03,1.3900000000000001,1.6
+108,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,34Dichlorophenol,5.79,0.35,3.39,0.02,2.4,1.6
+109,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,35Dichlorophenol,4.68,0.22,3.63,0.02,1.0499999999999998,1.6
+110,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,3Bromoquinoline,6.33,0.23,2.91,0.04,3.42,1.6
+111,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,3Chlorophenol,4.06,0.42,2.57,0.01,1.4899999999999998,1.6
+112,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,4Butoxyphenol,5.16,0.25,2.87,0.08,2.29,1.6
+113,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,4Chlorophenol,3.78,0.1,2.45,0.01,1.3299999999999996,1.6
+114,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,4Ethoxyphenol,4.37,0.13,1.81,0.02,2.56,1.6
+115,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,4Methoxyphenol,3.49,0.51,1.41,0.03,2.08,1.6
+116,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,4Pentoxyphenol,5.97,0.28,3.26,0.11,2.71,1.6
+117,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,4Propoxyphenol,3.77,0.27,2.31,0.03,1.46,1.6
+118,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,4lodophenol,4.71,0.43,2.9,0.02,1.81,1.6
+119,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Acebutolol,9.4,0.55,1.75,0.19,7.65,1.6
+120,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Amylobarbitone,2.9,0.71,2.01,0.03,0.8900000000000001,1.6
+121,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Benzoicacid,3.0,0.04,1.96,0.02,1.04,1.6
+122,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Butobarbitone,3.8,0.71,1.58,0.07,2.2199999999999998,1.6
+123,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Celiprolol,7.07,0.74,1.92,0.04,5.15,1.6
+124,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Chlorpromazine,9.37,0.31,5.39,0.01,3.9799999999999995,1.6
+125,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Ketoprofen,4.8,0.36,3.14,0.02,1.6599999999999997,1.6
+126,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,NMethylaniline,2.13,0.13,1.65,0.01,0.48,1.6
+127,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Pentobarbitone,3.82,0.34,2.08,0.06,1.7399999999999998,1.6
+128,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Pericyazine,8.74,0.5,3.65,0.08,5.09,1.6
+129,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Phenobarbitone,3.1,0.02,1.53,0.03,1.57,1.6
+130,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Phenol,2.51,0.22,1.48,0.01,1.0299999999999998,1.6
+131,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Quinalbarbitone,4.54,0.34,2.39,0.02,2.15,1.6
+132,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Quinoline,3.51,0.14,2.15,0.08,1.3599999999999999,1.6
+133,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,Sulfamethazine,2.47,0.46,0.89,0.03,1.58,1.6
+134,EXT03,Danielle Bergazin,YANK-GAFF-opc-wet-oct,Physical,rPropranolol,7.26,0.42,3.35,0.03,3.9099999999999997,1.6
+135,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,34Dichlorophenol,3.94,0.04,3.39,0.02,0.5499999999999998,1.6
+136,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,35Dichlorophenol,2.3,1.32,3.63,0.02,-1.33,1.6
+137,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,3Bromoquinoline,2.44,1.34,2.91,0.04,-0.4700000000000002,1.6
+138,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,3Chlorophenol,0.81,1.33,2.57,0.01,-1.7599999999999998,1.6
+139,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,4Butoxyphenol,1.15,1.79,2.87,0.08,-1.7200000000000002,1.6
+140,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,4Chlorophenol,1.01,1.22,2.45,0.01,-1.4400000000000002,1.6
+141,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,4Ethoxyphenol,-0.29,1.89,1.81,0.02,-2.1,1.6
+142,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,4Methoxyphenol,-0.82,1.84,1.41,0.03,-2.23,1.6
+143,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,4Pentoxyphenol,2.6,1.15,3.26,0.11,-0.6599999999999997,1.6
+144,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,4Propoxyphenol,0.69,1.55,2.31,0.03,-1.62,1.6
+145,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,4lodophenol,1.83,1.2,2.9,0.02,-1.0699999999999998,1.6
+146,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Acebutolol,4.83,0.31,1.75,0.19,3.08,1.6
+147,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Amylobarbitone,3.06,0.18,2.01,0.03,1.0500000000000003,1.6
+148,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Benzoicacid,-2.11,2.95,1.96,0.02,-4.07,1.6
+149,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Butobarbitone,2.1,0.21,1.58,0.07,0.52,1.6
+150,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Celiprolol,5.54,0.32,1.92,0.04,3.62,1.6
+151,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Chlorpromazine,6.86,0.08,5.39,0.01,1.4700000000000006,1.6
+152,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Ketoprofen,4.64,0.89,3.14,0.02,1.4999999999999996,1.6
+153,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,NMethylaniline,0.25,0.65,1.65,0.01,-1.4,1.6
+154,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Pentobarbitone,2.43,0.26,2.08,0.06,0.3500000000000001,1.6
+155,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Pericyazine,6.68,0.13,3.65,0.08,3.03,1.6
+156,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Phenobarbitone,1.89,0.36,1.53,0.03,0.3599999999999999,1.6
+157,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Phenol,1.28,0.03,1.48,0.01,-0.19999999999999996,1.6
+158,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Quinalbarbitone,2.59,0.04,2.39,0.02,0.19999999999999973,1.6
+159,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Quinoline,0.14,1.79,2.15,0.08,-2.01,1.6
+160,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,Sulfamethazine,2.52,0.18,0.89,0.03,1.63,1.6
+161,EXT02,Danielle Bergazin,YANK-GAFF-tip3p-wet-oct,Physical,rPropranolol,1.54,2.39,3.35,0.03,-1.81,1.6
+162,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,34Dichlorophenol,1.76,2.15,3.39,0.02,-1.6300000000000001,1.6
+163,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,35Dichlorophenol,5.04,0.05,3.63,0.02,1.4100000000000001,1.6
+164,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,3Bromoquinoline,4.75,0.2,2.91,0.04,1.8399999999999999,1.6
+165,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,3Chlorophenol,3.48,0.12,2.57,0.01,0.9100000000000001,1.6
+166,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,4Butoxyphenol,1.79,1.77,2.87,0.08,-1.08,1.6
+167,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,4Chlorophenol,0.46,2.02,2.45,0.01,-1.9900000000000002,1.6
+168,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,4Ethoxyphenol,1.14,1.24,1.81,0.02,-0.6700000000000002,1.6
+169,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,4Methoxyphenol,-0.36,1.91,1.41,0.03,-1.77,1.6
+170,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,4Pentoxyphenol,3.36,1.41,3.26,0.11,0.10000000000000009,1.6
+171,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,4Propoxyphenol,1.38,1.74,2.31,0.03,-0.9300000000000002,1.6
+172,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,4lodophenol,2.41,1.36,2.9,0.02,-0.48999999999999977,1.6
+173,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Acebutolol,6.23,0.47,1.75,0.19,4.48,1.6
+174,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Amylobarbitone,3.16,0.32,2.01,0.03,1.1500000000000004,1.6
+175,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Benzoicacid,0.83,0.73,1.96,0.02,-1.13,1.6
+176,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Butobarbitone,2.81,0.42,1.58,0.07,1.23,1.6
+177,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Celiprolol,7.3,0.35,1.92,0.04,5.38,1.6
+178,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Chlorpromazine,7.92,0.28,5.39,0.01,2.5300000000000002,1.6
+179,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Ketoprofen,4.45,1.47,3.14,0.02,1.31,1.6
+180,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,NMethylaniline,1.93,0.07,1.65,0.01,0.28,1.6
+181,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Pentobarbitone,2.57,0.2,2.08,0.06,0.48999999999999977,1.6
+182,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Pericyazine,8.09,0.24,3.65,0.08,4.4399999999999995,1.6
+183,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Phenobarbitone,2.34,0.43,1.53,0.03,0.8099999999999998,1.6
+184,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Phenol,1.94,0.18,1.48,0.01,0.45999999999999996,1.6
+185,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Quinalbarbitone,3.18,0.21,2.39,0.02,0.79,1.6
+186,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Quinoline,1.59,1.14,2.15,0.08,-0.5599999999999998,1.6
+187,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,Sulfamethazine,2.66,0.08,0.89,0.03,1.77,1.6
+188,EXT01,Danielle Bergazin,YANK-GAFF-TIP3P-FB-wet-oct,Physical,rPropranolol,0.46,3.63,3.35,0.03,-2.89,1.6
+189,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,34Dichlorophenol,1.51,1.78,3.39,0.02,-1.8800000000000001,1.6
+190,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,35Dichlorophenol,4.13,0.12,3.63,0.02,0.5,1.6
+191,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,3Bromoquinoline,2.71,1.41,2.91,0.04,-0.20000000000000018,1.6
+192,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,3Chlorophenol,0.82,0.96,2.57,0.01,-1.75,1.6
+193,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,4Butoxyphenol,1.24,1.74,2.87,0.08,-1.6300000000000001,1.6
+194,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,4Chlorophenol,0.56,1.57,2.45,0.01,-1.8900000000000001,1.6
+195,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,4Ethoxyphenol,0.07,1.81,1.81,0.02,-1.74,1.6
+196,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,4Methoxyphenol,-0.61,1.87,1.41,0.03,-2.02,1.6
+197,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,4Pentoxyphenol,2.92,1.03,3.26,0.11,-0.33999999999999986,1.6
+198,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,4Propoxyphenol,3.28,0.12,2.31,0.03,0.9699999999999998,1.6
+199,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,4lodophenol,2.15,1.19,2.9,0.02,-0.75,1.6
+200,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Acebutolol,4.99,0.27,1.75,0.19,3.24,1.6
+201,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Amylobarbitone,2.94,0.12,2.01,0.03,0.9300000000000002,1.6
+202,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Benzoicacid,-3.85,3.39,1.96,0.02,-5.8100000000000005,1.6
+203,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Butobarbitone,1.81,0.26,1.58,0.07,0.22999999999999998,1.6
+204,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Celiprolol,5.26,0.38,1.92,0.04,3.34,1.6
+205,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Chlorpromazine,7.05,0.33,5.39,0.01,1.6600000000000001,1.6
+206,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Ketoprofen,2.73,0.09,3.14,0.02,-0.41000000000000014,1.6
+207,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,NMethylaniline,1.31,0.05,1.65,0.01,-0.33999999999999986,1.6
+208,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Pentobarbitone,3.04,0.1,2.08,0.06,0.96,1.6
+209,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Pericyazine,6.8,0.42,3.65,0.08,3.15,1.6
+210,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Phenobarbitone,2.51,0.23,1.53,0.03,0.9799999999999998,1.6
+211,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Phenol,-1.2,1.9,1.48,0.01,-2.6799999999999997,1.6
+212,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Quinalbarbitone,1.94,0.57,2.39,0.02,-0.4500000000000002,1.6
+213,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Quinoline,0.54,1.51,2.15,0.08,-1.6099999999999999,1.6
+214,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,Sulfamethazine,2.35,0.18,0.89,0.03,1.46,1.6
+215,EXT05,Danielle Bergazin,YANK-SMIRNOFF-tip3p-wet-oct,Physical,rPropranolol,2.05,1.59,3.35,0.03,-1.3000000000000003,1.6
+216,EXT10,Thomas Fox,h_logP (MOE),Empirical,34Dichlorophenol,2.75,0.0,3.39,0.02,-0.6400000000000001,0.0
+217,EXT10,Thomas Fox,h_logP (MOE),Empirical,35Dichlorophenol,2.76,0.0,3.63,0.02,-0.8700000000000001,0.0
+218,EXT10,Thomas Fox,h_logP (MOE),Empirical,3Bromoquinoline,3.06,0.0,2.91,0.04,0.1499999999999999,0.0
+219,EXT10,Thomas Fox,h_logP (MOE),Empirical,3Chlorophenol,2.07,0.0,2.57,0.01,-0.5,0.0
+220,EXT10,Thomas Fox,h_logP (MOE),Empirical,4Butoxyphenol,2.26,0.0,2.87,0.08,-0.6100000000000003,0.0
+221,EXT10,Thomas Fox,h_logP (MOE),Empirical,4Chlorophenol,2.03,0.0,2.45,0.01,-0.4200000000000004,0.0
+222,EXT10,Thomas Fox,h_logP (MOE),Empirical,4Ethoxyphenol,1.49,0.0,1.81,0.02,-0.32000000000000006,0.0
+223,EXT10,Thomas Fox,h_logP (MOE),Empirical,4lodophenol,2.42,0.0,2.9,0.02,-0.48,0.0
+224,EXT10,Thomas Fox,h_logP (MOE),Empirical,4Methoxyphenol,1.24,0.0,1.41,0.03,-0.16999999999999993,0.0
+225,EXT10,Thomas Fox,h_logP (MOE),Empirical,4Pentoxyphenol,2.78,0.0,3.26,0.11,-0.48,0.0
+226,EXT10,Thomas Fox,h_logP (MOE),Empirical,4Propoxyphenol,1.75,0.0,2.31,0.03,-0.56,0.0
+227,EXT10,Thomas Fox,h_logP (MOE),Empirical,Acebutolol,2.5,0.0,1.75,0.19,0.75,0.0
+228,EXT10,Thomas Fox,h_logP (MOE),Empirical,Amylobarbitone,1.97,0.0,2.01,0.03,-0.039999999999999813,0.0
+229,EXT10,Thomas Fox,h_logP (MOE),Empirical,Benzoicacid,1.34,0.0,1.96,0.02,-0.6199999999999999,0.0
+230,EXT10,Thomas Fox,h_logP (MOE),Empirical,Butobarbitone,1.46,0.0,1.58,0.07,-0.1200000000000001,0.0
+231,EXT10,Thomas Fox,h_logP (MOE),Empirical,Celiprolol,2.37,0.0,1.92,0.04,0.4500000000000002,0.0
+232,EXT10,Thomas Fox,h_logP (MOE),Empirical,Chlorpromazine,5.28,0.0,5.39,0.01,-0.10999999999999943,0.0
+233,EXT10,Thomas Fox,h_logP (MOE),Empirical,Ketoprofen,3.31,0.0,3.14,0.02,0.16999999999999993,0.0
+234,EXT10,Thomas Fox,h_logP (MOE),Empirical,NMethylaniline,1.62,0.0,1.65,0.01,-0.029999999999999805,0.0
+235,EXT10,Thomas Fox,h_logP (MOE),Empirical,Pentobarbitone,1.98,0.0,2.08,0.06,-0.10000000000000009,0.0
+236,EXT10,Thomas Fox,h_logP (MOE),Empirical,Pericyazine,4.32,0.0,3.65,0.08,0.6700000000000004,0.0
+237,EXT10,Thomas Fox,h_logP (MOE),Empirical,Phenobarbitone,1.41,0.0,1.53,0.03,-0.1200000000000001,0.0
+238,EXT10,Thomas Fox,h_logP (MOE),Empirical,Phenol,1.36,0.0,1.48,0.01,-0.11999999999999988,0.0
+239,EXT10,Thomas Fox,h_logP (MOE),Empirical,Quinalbarbitone,2.03,0.0,2.39,0.02,-0.3600000000000003,0.0
+240,EXT10,Thomas Fox,h_logP (MOE),Empirical,Quinoline,2.16,0.0,2.15,0.08,0.010000000000000231,0.0
+241,EXT10,Thomas Fox,h_logP (MOE),Empirical,rPropranolol,2.92,0.0,3.35,0.03,-0.43000000000000016,0.0
+242,EXT10,Thomas Fox,h_logP (MOE),Empirical,Sulfamethazine,1.07,0.0,0.89,0.03,0.18000000000000005,0.0
+243,EXT12,Thomas Fox,MoKa_logP,Empirical,34Dichlorophenol,2.8,0.0,3.39,0.02,-0.5900000000000003,0.0
+244,EXT12,Thomas Fox,MoKa_logP,Empirical,35Dichlorophenol,3.0,0.0,3.63,0.02,-0.6299999999999999,0.0
+245,EXT12,Thomas Fox,MoKa_logP,Empirical,3Bromoquinoline,3.2,0.0,2.91,0.04,0.29000000000000004,0.0
+246,EXT12,Thomas Fox,MoKa_logP,Empirical,3Chlorophenol,2.3,0.0,2.57,0.01,-0.27,0.0
+247,EXT12,Thomas Fox,MoKa_logP,Empirical,4Butoxyphenol,3.0,0.0,2.87,0.08,0.1299999999999999,0.0
+248,EXT12,Thomas Fox,MoKa_logP,Empirical,4Chlorophenol,2.3,0.0,2.45,0.01,-0.15000000000000036,0.0
+249,EXT12,Thomas Fox,MoKa_logP,Empirical,4Ethoxyphenol,2.0,0.0,1.81,0.02,0.18999999999999995,0.0
+250,EXT12,Thomas Fox,MoKa_logP,Empirical,4lodophenol,2.8,0.0,2.9,0.02,-0.10000000000000009,0.0
+251,EXT12,Thomas Fox,MoKa_logP,Empirical,4Methoxyphenol,1.6,0.0,1.41,0.03,0.19000000000000017,0.0
+252,EXT12,Thomas Fox,MoKa_logP,Empirical,4Pentoxyphenol,3.5,0.0,3.26,0.11,0.2400000000000002,0.0
+253,EXT12,Thomas Fox,MoKa_logP,Empirical,4Propoxyphenol,2.5,0.0,2.31,0.03,0.18999999999999995,0.0
+254,EXT12,Thomas Fox,MoKa_logP,Empirical,Acebutolol,1.6,0.0,1.75,0.19,-0.1499999999999999,0.0
+255,EXT12,Thomas Fox,MoKa_logP,Empirical,Amylobarbitone,2.0,0.0,2.01,0.03,-0.009999999999999787,0.0
+256,EXT12,Thomas Fox,MoKa_logP,Empirical,Benzoicacid,1.8,0.0,1.96,0.02,-0.15999999999999992,0.0
+257,EXT12,Thomas Fox,MoKa_logP,Empirical,Butobarbitone,1.7,0.0,1.58,0.07,0.11999999999999988,0.0
+258,EXT12,Thomas Fox,MoKa_logP,Empirical,Celiprolol,2.1,0.0,1.92,0.04,0.18000000000000016,0.0
+259,EXT12,Thomas Fox,MoKa_logP,Empirical,Chlorpromazine,5.3,0.0,5.39,0.01,-0.08999999999999986,0.0
+260,EXT12,Thomas Fox,MoKa_logP,Empirical,Ketoprofen,3.0,0.0,3.14,0.02,-0.14000000000000012,0.0
+261,EXT12,Thomas Fox,MoKa_logP,Empirical,NMethylaniline,2.0,0.0,1.65,0.01,0.3500000000000001,0.0
+262,EXT12,Thomas Fox,MoKa_logP,Empirical,Pentobarbitone,2.0,0.0,2.08,0.06,-0.08000000000000007,0.0
+263,EXT12,Thomas Fox,MoKa_logP,Empirical,Pericyazine,4.2,0.0,3.65,0.08,0.5500000000000003,0.0
+264,EXT12,Thomas Fox,MoKa_logP,Empirical,Phenobarbitone,1.4,0.0,1.53,0.03,-0.13000000000000012,0.0
+265,EXT12,Thomas Fox,MoKa_logP,Empirical,Phenol,1.5,0.0,1.48,0.01,0.020000000000000018,0.0
+266,EXT12,Thomas Fox,MoKa_logP,Empirical,Quinalbarbitone,2.1,0.0,2.39,0.02,-0.29000000000000004,0.0
+267,EXT12,Thomas Fox,MoKa_logP,Empirical,Quinoline,2.2,0.0,2.15,0.08,0.050000000000000266,0.0
+268,EXT12,Thomas Fox,MoKa_logP,Empirical,rPropranolol,2.8,0.0,3.35,0.03,-0.5500000000000003,0.0
+269,EXT12,Thomas Fox,MoKa_logP,Empirical,Sulfamethazine,0.89,0.0,0.89,0.03,0.0,0.0
+270,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,34Dichlorophenol,2.82,0.0,3.39,0.02,-0.5700000000000003,0.0
+271,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,35Dichlorophenol,2.89,0.0,3.63,0.02,-0.7399999999999998,0.0
+272,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,3Bromoquinoline,2.94,0.0,2.91,0.04,0.029999999999999805,0.0
+273,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,3Chlorophenol,2.23,0.0,2.57,0.01,-0.33999999999999986,0.0
+274,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,4Butoxyphenol,2.95,0.0,2.87,0.08,0.08000000000000007,0.0
+275,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,4Chlorophenol,2.19,0.0,2.45,0.01,-0.26000000000000023,0.0
+276,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,4Ethoxyphenol,1.9,0.0,1.81,0.02,0.08999999999999986,0.0
+277,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,4lodophenol,2.79,0.0,2.9,0.02,-0.10999999999999988,0.0
+278,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,4Methoxyphenol,1.55,0.0,1.41,0.03,0.14000000000000012,0.0
+279,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,4Pentoxyphenol,3.39,0.0,3.26,0.11,0.13000000000000034,0.0
+280,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,4Propoxyphenol,2.51,0.0,2.31,0.03,0.19999999999999973,0.0
+281,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Acebutolol,1.8,0.0,1.75,0.19,0.050000000000000044,0.0
+282,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Amylobarbitone,2.13,0.0,2.01,0.03,0.1200000000000001,0.0
+283,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Benzoicacid,1.58,0.0,1.96,0.02,-0.3799999999999999,0.0
+284,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Butobarbitone,1.77,0.0,1.58,0.07,0.18999999999999995,0.0
+285,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Celiprolol,1.81,0.0,1.92,0.04,-0.10999999999999988,0.0
+286,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Chlorpromazine,4.62,0.0,5.39,0.01,-0.7699999999999996,0.0
+287,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Ketoprofen,3.59,0.0,3.14,0.02,0.44999999999999973,0.0
+288,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,NMethylaniline,1.55,0.0,1.65,0.01,-0.09999999999999987,0.0
+289,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Pentobarbitone,2.13,0.0,2.08,0.06,0.04999999999999982,0.0
+290,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Pericyazine,3.65,0.0,3.65,0.08,0.0,0.0
+291,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Phenobarbitone,1.72,0.0,1.53,0.03,0.18999999999999995,0.0
+292,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Phenol,1.6,0.0,1.48,0.01,0.1200000000000001,0.0
+293,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Quinalbarbitone,1.92,0.0,2.39,0.02,-0.4700000000000002,0.0
+294,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Quinoline,2.11,0.0,2.15,0.08,-0.040000000000000036,0.0
+295,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,rPropranolol,2.92,0.0,3.35,0.03,-0.43000000000000016,0.0
+296,EXT11,Thomas Fox,logP(o/w) (MOE),Empirical,Sulfamethazine,0.53,0.0,0.89,0.03,-0.36,0.0
+297,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,34Dichlorophenol,5.97,0.35,3.39,0.02,2.5799999999999996,1.6
+298,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,35Dichlorophenol,5.73,0.34,3.63,0.02,2.1000000000000005,1.6
+299,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,3Bromoquinoline,5.6,0.34,2.91,0.04,2.6899999999999995,1.6
+300,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,3Chlorophenol,3.81,0.06,2.57,0.01,1.2400000000000002,1.6
+301,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,4Butoxyphenol,6.45,0.12,2.87,0.08,3.58,1.6
+302,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,4Chlorophenol,3.13,0.29,2.45,0.01,0.6799999999999997,1.6
+303,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,4Ethoxyphenol,3.42,0.23,1.81,0.02,1.6099999999999999,1.6
+304,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,4Methoxyphenol,3.4,0.33,1.41,0.03,1.99,1.6
+305,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,4Pentoxyphenol,5.59,0.35,3.26,0.11,2.33,1.6
+306,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,4Propoxyphenol,3.67,0.18,2.31,0.03,1.3599999999999999,1.6
+307,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,4lodophenol,4.5,0.11,2.9,0.02,1.6,1.6
+308,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Acebutolol,6.43,0.13,1.75,0.19,4.68,1.6
+309,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Amylobarbitone,3.15,0.32,2.01,0.03,1.1400000000000001,1.6
+310,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Benzoicacid,2.52,0.78,1.96,0.02,0.56,1.6
+311,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Butobarbitone,4.24,0.21,1.58,0.07,2.66,1.6
+312,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Celiprolol,8.42,0.01,1.92,0.04,6.5,1.6
+313,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Chlorpromazine,8.86,0.18,5.39,0.01,3.4699999999999998,1.6
+314,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Ketoprofen,3.64,0.62,3.14,0.02,0.5,1.6
+315,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,NMethylaniline,2.27,0.05,1.65,0.01,0.6200000000000001,1.6
+316,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Pentobarbitone,3.18,0.59,2.08,0.06,1.1,1.6
+317,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Pericyazine,7.87,0.5,3.65,0.08,4.220000000000001,1.6
+318,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Phenobarbitone,3.92,1.13,1.53,0.03,2.3899999999999997,1.6
+319,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Phenol,2.16,0.22,1.48,0.01,0.6800000000000002,1.6
+320,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Quinalbarbitone,3.33,0.23,2.39,0.02,0.94,1.6
+321,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Quinoline,3.88,0.3,2.15,0.08,1.73,1.6
+322,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,Sulfamethazine,1.76,0.27,0.89,0.03,0.87,1.6
+323,EXT06,Danielle Bergazin,YANK-SMIRNOFF-OPC-wet-oct,Physical,rPropranolol,6.45,0.33,3.35,0.03,3.1,1.6
+324,EXT09,Thomas Fox,clogP (Biobyte),Empirical,34Dichlorophenol,3.182,0.0,3.39,0.02,-0.20800000000000018,0.0
+325,EXT09,Thomas Fox,clogP (Biobyte),Empirical,35Dichlorophenol,3.302,0.0,3.63,0.02,-0.32799999999999985,0.0
+326,EXT09,Thomas Fox,clogP (Biobyte),Empirical,3Bromoquinoline,2.9760000000000004,0.0,2.91,0.04,0.06600000000000028,0.0
+327,EXT09,Thomas Fox,clogP (Biobyte),Empirical,3Chlorophenol,2.485,0.0,2.57,0.01,-0.08499999999999996,0.0
+328,EXT09,Thomas Fox,clogP (Biobyte),Empirical,4Butoxyphenol,3.161,0.0,2.87,0.08,0.2909999999999999,0.0
+329,EXT09,Thomas Fox,clogP (Biobyte),Empirical,4Chlorophenol,2.485,0.0,2.45,0.01,0.0349999999999997,0.0
+330,EXT09,Thomas Fox,clogP (Biobyte),Empirical,4Ethoxyphenol,2.103,0.0,1.81,0.02,0.29300000000000015,0.0
+331,EXT09,Thomas Fox,clogP (Biobyte),Empirical,4lodophenol,2.895,0.0,2.9,0.02,-0.004999999999999893,0.0
+332,EXT09,Thomas Fox,clogP (Biobyte),Empirical,4Methoxyphenol,1.574,0.0,1.41,0.03,0.16400000000000015,0.0
+333,EXT09,Thomas Fox,clogP (Biobyte),Empirical,4Pentoxyphenol,3.69,0.0,3.26,0.11,0.43000000000000016,0.0
+334,EXT09,Thomas Fox,clogP (Biobyte),Empirical,4Propoxyphenol,2.6319999999999997,0.0,2.31,0.03,0.3219999999999996,0.0
+335,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Acebutolol,1.71,0.0,1.75,0.19,-0.040000000000000036,0.0
+336,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Amylobarbitone,2.112,0.0,2.01,0.03,0.10200000000000031,0.0
+337,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Benzoicacid,1.885,0.0,1.96,0.02,-0.07499999999999996,0.0
+338,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Butobarbitone,1.713,0.0,1.58,0.07,0.133,0.0
+339,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Celiprolol,1.8559999999999999,0.0,1.92,0.04,-0.06400000000000006,0.0
+340,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Chlorpromazine,5.5,0.0,5.39,0.01,0.11000000000000032,0.0
+341,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Ketoprofen,2.761,0.0,3.14,0.02,-0.379,0.0
+342,EXT09,Thomas Fox,clogP (Biobyte),Empirical,NMethylaniline,1.641,0.0,1.65,0.01,-0.008999999999999897,0.0
+343,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Pentobarbitone,2.112,0.0,2.08,0.06,0.03200000000000003,0.0
+344,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Pericyazine,3.4360000000000004,0.0,3.65,0.08,-0.21399999999999952,0.0
+345,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Phenobarbitone,1.365,0.0,1.53,0.03,-0.16500000000000004,0.0
+346,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Phenol,1.475,0.0,1.48,0.01,-0.004999999999999893,0.0
+347,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Quinalbarbitone,2.157,0.0,2.39,0.02,-0.2330000000000001,0.0
+348,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Quinoline,2.029,0.0,2.15,0.08,-0.121,0.0
+349,EXT09,Thomas Fox,clogP (Biobyte),Empirical,rPropranolol,2.753,0.0,3.35,0.03,-0.597,0.0
+350,EXT09,Thomas Fox,clogP (Biobyte),Empirical,Sulfamethazine,1.097,0.0,0.89,0.03,0.20699999999999996,0.0
