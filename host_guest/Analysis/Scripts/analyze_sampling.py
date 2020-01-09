@@ -52,7 +52,7 @@ SUBMISSION_COLORS = {
     'OpenMM/REVO': 'gold', #KELLY_COLORS[7],
     'OpenMM/SOMD': KELLY_COLORS[4],
     'GROMACS/EE': 'darkviolet', #KELLY_COLORS[3],
-    'GROMACS/EE-fullequil': KELLY_COLORS[10],
+    'GROMACS/EE-fullequil': 'hotpink', #KELLY_COLORS[10],
     YANK_METHOD_PAPER_NAME: '#4ECC41', #'limegreen', #KELLY_COLORS[9],
     'GROMACS/NS-DS/SB-long': KELLY_COLORS[6],
     'GROMACS/NS-DS/SB': KELLY_COLORS[1],
