@@ -21,5 +21,5 @@ Experimental log *P* measurements was made available in this repository after th
 - `/example_experimental_data/` - This directory contains the experimental report of pH-metric log *P* measurement of phenol with Sirius T3 as an example.
 - `/experimental_data/` - Experimental measurements of log *P* values.
 - `/predictions/` - Prediction files submitted to SAMPL6 log *P* challenge. Reference calculations are also present, but have submission IDs containing the tag `REF` to distinguish them from other submissions
-- `/analysis/` - Analysis of log *P* predictions of challenge molecules.
+- `/analysis_with_reassigned_categories/` - Analysis of log *P* predictions of challenge molecules.
 - `/analysis_of_extra_molecules/` - Analysis of log *P* predictions of extra molecules (not a part of SAMPL6 log *P* challenge) with reference calculation methods. The "extra molecules" dataset is composed of potentiometric log *P* values of 27 small molecules published by Slater et al. (1994).
