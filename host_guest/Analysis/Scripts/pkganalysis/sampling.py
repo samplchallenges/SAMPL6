@@ -16,9 +16,10 @@ import collections
 
 import numpy as np
 import pandas as pd
+import scipy
 
 from .submission import SamplSubmission
-from .stats import mean_confidence_interval
+from .stats import mean_confidence_interval, unbiased_std, ci_unbiased_std
 
 
 # =============================================================================
@@ -40,6 +41,7 @@ YANK_N_STATES = {
 
 DG_KEY = '$\Delta$G [kcal/mol]'
 DDG_KEY = 'd$\Delta$G [kcal/mol]'
+SEM_KEY = 'SEM [kcal/mol]'
 
 
 # =============================================================================
@@ -75,7 +77,7 @@ def export_dictionary(data_dict, file_base_path):
         writer.writerows(csv_data)
 
 
-def compute_system_name_mean_free_energies(data, extra_fields=()):
+def compute_system_name_mean_free_energies(data, reference_free_energies=None, extra_fields=()):
     """Compute mean free energies and CI for each system name in data."""
     output_data = []
     system_names = data['System name'].unique()
@@ -86,12 +88,19 @@ def compute_system_name_mean_free_energies(data, extra_fields=()):
         energy_evaluations = system_name_data['N energy evaluations'].unique().tolist()
         tot_energy_evaluations = max(energy_evaluations)
 
+        # Obtain final free energy to be used for computing the RMSE of the estimator.
+        if reference_free_energies is None:
+            last_data_point = system_name_data[system_name_data['N energy evaluations'] == tot_energy_evaluations]
+            reference_free_energy, _ = mean_confidence_interval(last_data_point[DG_KEY])
+        else:
+            reference_free_energy = reference_free_energies[system_name]
+
         # Add records.
         for idx, n_energy_evaluations in enumerate(energy_evaluations):
             time_point_data = system_name_data[system_name_data['N energy evaluations'] == n_energy_evaluations]
             free_energies = time_point_data[DG_KEY]
             f, ci = mean_confidence_interval(free_energies.values, confidence=0.95)
-            std = np.std(free_energies.values)
+            ci_u_std = ci_unbiased_std(free_energies.values)
 
             extra_values = {}
             for field in extra_fields:
@@ -107,14 +116,23 @@ def compute_system_name_mean_free_energies(data, extra_fields=()):
             output_data.append({
                 'System name': system_name,
                 DG_KEY: f,
-                'std': std,
+                'std': np.std(free_energies.values, ddof=1),
+                'unbiased_std': unbiased_std(free_energies.values),
+                # CI for the chi distribution are asymmetric so we
+                # need separate entries for lower and upper bound.
+                'unbiased_std_low_CI': ci_u_std[0],
+                'unbiased_std_up_CI': ci_u_std[1],
+                'RMSE': np.sqrt(1/(len(free_energies.values)) * np.sum((free_energies.values - reference_free_energy)**2)),
+                'bias': f - reference_free_energy,
                 '$\Delta$G CI': ci,
+                SEM_KEY: scipy.stats.sem(free_energies.values),
                 'Simulation percentage': simulation_percentage,
                 'N energy evaluations': n_energy_evaluations,
                 **extra_values
             })
-    columns_order = ['System name',  DG_KEY, 'std', '$\Delta$G CI', 'Simulation percentage',
-                     'N energy evaluations'] + list(extra_fields)
+    columns_order = ['System name',  DG_KEY, 'std', 'unbiased_std', 'unbiased_std_low_CI',
+                     'unbiased_std_up_CI', 'RMSE', 'bias', '$\Delta$G CI', SEM_KEY,
+                     'Simulation percentage', 'N energy evaluations'] + list(extra_fields)
     output_data = pd.DataFrame(output_data, columns=columns_order)
     return output_data
 
@@ -133,13 +151,14 @@ def energy_evaluations_from_iterations(system_name, n_iterations):
     return energy_evaluations_per_iteration * n_iterations
 
 
-def energy_evaluations_iteration_cutoffs(tot_energy_evaluations, system_name):
+def energy_evaluations_iteration_cutoffs(tot_energy_evaluations, system_name, start=0):
     """Compute the 100 YANK iterations to use for analysis from the total energy evaluations to consider."""
     # Find the number of energy evaluations per iteration.
     energy_evaluations_per_iteration = energy_evaluations_from_iterations(system_name, n_iterations=1)
     # Find total number of iterations.
     last_iteration = tot_energy_evaluations / energy_evaluations_per_iteration
-    return get_iteration_cutoffs(last_iteration)
+    start_iteration = start / energy_evaluations_per_iteration
+    return get_iteration_cutoffs(last_iteration, start_iteration=start_iteration)
 
 
 def cpu_time_iteration_cutoffs(tot_time, system_id, yank_cpu_times):
@@ -152,7 +171,7 @@ def cpu_time_iteration_cutoffs(tot_time, system_id, yank_cpu_times):
     return get_iteration_cutoffs(last_iteration)
 
 
-def get_iteration_cutoffs(last_iteration):
+def get_iteration_cutoffs(last_iteration, start_iteration=0):
     """Return 100 equally spaced iterations.
 
     Parameters
@@ -160,6 +179,9 @@ def get_iteration_cutoffs(last_iteration):
     last_iteration : float
         The approximate total number of iterations considered.
         This will be rounded to the nearest integer.
+    start_iteration : int, optional
+        The first iteration of the 100 equally-spaced iterations will
+        be ``last_iteration/100 + start_iteration``.
 
     Returns
     -------
@@ -168,7 +190,7 @@ def get_iteration_cutoffs(last_iteration):
 
     """
     # Find all iterations cutoff.
-    first_iteration = last_iteration / 100
+    first_iteration = last_iteration / 100 + start_iteration
     iteration_cutoffs = np.linspace(first_iteration, last_iteration, num=100, endpoint=True)
 
     # Convert to list of integers.
@@ -231,6 +253,7 @@ class SamplingSubmission(SamplSubmission):
         sections = self._load_sections(file_path)  # From parent-class.
         self.name = sections['Name'][0]
         self.cost = sections['Cost']  # This is a pandas DataFrame.
+        self.paper_name = self._assign_paper_name()
 
         # Reformat predictions to create main data table.
         predictions = sections['Predictions']  # This is a pandas DataFrame.
@@ -260,15 +283,41 @@ class SamplingSubmission(SamplSubmission):
                     'CPU time [s]': cpu_times[timepoint_idx],
                     'CPU time [h]': cpu_times[timepoint_idx] / 3600,
                     'CPU time [d]': cpu_times[timepoint_idx] / 3600 / 24,
-                     DG_KEY: free_energies[timepoint_idx],
-                    'd$\Delta$G': err_free_energies[timepoint_idx],
+                    DG_KEY: free_energies[timepoint_idx],
+                    DDG_KEY: err_free_energies[timepoint_idx],
                     'Simulation percentage': timepoint_idx + 1,
                 })
         self.data = pd.DataFrame(data)
 
-    def mean_free_energies(self):
+    def mean_free_energies(self, system_name=None):
         """Return a dataframe with mean free energies and 95% t-based confidence intervals."""
-        return compute_system_name_mean_free_energies(self.data)
+        mean_data = compute_system_name_mean_free_energies(self.data)
+        if system_name is not None:
+            mean_data = mean_data[mean_data['System name'] == system_name]
+        return mean_data
+
+    def _assign_paper_name(self):
+        name_table = {
+            'APR/pAPRika': 'AMBER/APR',
+            'Langevin/Virtual Bond/TI': 'AMBER/TI',
+            'WExploreRateRatio': 'OpenMM/REVO',
+            'SOMD/AM1BCC-GAFF-TIP3P/MBAR/C': 'OpenMM/SOMD',
+            'Expanded-ensemble/MBAR': 'GROMACS/EE',
+            'MD/FEP/BAR': 'NAMD/BAR'
+        }
+        if self.receipt_id == 'NB007':
+            return 'GROMACS/NS-DS/SB'
+        elif self.receipt_id == 'NB008':
+            return 'GROMACS/NS-DS/SB-long'
+        if self.receipt_id == 'NB009':
+            return 'GROMACS/NS-Jarz-F'
+        elif self.receipt_id == 'NB010':
+            return 'GROMACS/NS-Jarz-R'
+        if self.receipt_id == 'NB011':
+            return 'GROMACS/NS-Gauss-F'
+        elif self.receipt_id == 'NB012':
+            return 'GROMACS/NS-Gauss-R'
+        return name_table[self.name]
 
 
 # =============================================================================
@@ -295,6 +344,16 @@ class YankSamplingAnalysis:
         with open(yank_cpu_times_file_path, 'r') as f:
             self._yank_cpu_times = json.load(f)
 
+        # Attributes exposed by a SamplingSubmission.
+        self.name = 'OpenMM/HREX'
+        self.paper_name = 'OpenMM/HREX'
+        self.receipt_id = 'REF'
+        self.file_name = 'YANK'
+
+    @property
+    def system_names(self):
+        return {system_id[:-2] for system_id in self._yank_free_energies}
+
     def export(self, file_base_path):
         """Export the YANK analysis into CSV and JSON formats.
 
@@ -308,7 +367,7 @@ class YankSamplingAnalysis:
         # Export data of 5 replicates
         for system_id in sorted(self._yank_free_energies):
             iterations = sorted(self._yank_free_energies[system_id])
-            system_id_data = self._free_energies_from_iterations(iterations, [system_id], mean_trajectory=False)
+            system_id_data = self._get_free_energies_from_iterations(iterations, [system_id], mean_trajectory=False)
             exported_data[system_id] = collections.OrderedDict([
                 ('DG', system_id_data[DG_KEY].values.tolist()),
                 ('dDG', system_id_data[DDG_KEY].values.tolist()),
@@ -318,9 +377,8 @@ class YankSamplingAnalysis:
             ])
 
         # Export data of mean trajectory and confidence intervals.
-        system_names = {system_id[:-2] for system_id in self._yank_free_energies}
-        for system_name in system_names:
-            system_name_data = self.system_free_energies(system_name, mean_trajectory=True)
+        for system_name in self.system_names:
+            system_name_data = self.get_system_free_energies(system_name, mean_trajectory=True)
             exported_data[system_name + '-mean'] = collections.OrderedDict([
                 ('DG', system_name_data[DG_KEY].values.tolist()),
                 ('DG_CI', system_name_data['$\Delta$G CI'].values.tolist()),
@@ -331,7 +389,65 @@ class YankSamplingAnalysis:
         # Export.
         export_dictionary(exported_data, file_base_path)
 
-    def system_free_energies(self, system_name, mean_trajectory=False):
+    def export_by_submission(self, file_base_path, submission):
+        """Export YANK data only for those energy evaluations available in submission.
+
+        Parameters
+        ----------
+        file_base_path : str
+            The extension-less path where to save the file.
+
+        """
+        submission_system_names = submission.data['System name'].unique()
+
+        # Find maximum number of energy evaluations by system name.
+        system_energy_evaluations = {}
+        for system_name in self.system_names:
+            if system_name not in submission_system_names:
+                continue
+            system_energy_evaluations[system_name] = int(submission.cost.loc[system_name + '-0', 'N energy evaluations'])
+
+        # Create dictionary that will be converted to pandas dataframe.
+        exported_data = collections.OrderedDict()
+
+        # Export data of 5 replicates
+        for system_id in sorted(self._yank_free_energies):
+            # Skip this if the submission has no data for this system.
+            system_name = system_id[:-2]
+            try:
+                n_energy_evaluations = system_energy_evaluations[system_name]
+            except KeyError:
+                continue
+
+            system_id_data = self.get_free_energies_from_energy_evaluations(
+                n_energy_evaluations, system_id=system_id, mean_trajectory=False)
+            exported_data[system_id] = collections.OrderedDict([
+                ('DG', system_id_data[DG_KEY].values.tolist()),
+                ('dDG', system_id_data[DDG_KEY].values.tolist()),
+                ('hrex_iterations', system_id_data['HREX iteration'].values.tolist()),
+                ('n_energy_evaluations', system_id_data['N energy evaluations'].values.tolist()),
+                ('cpu_times', system_id_data['CPU time [s]'].values.tolist()),
+            ])
+
+        # Export data of mean trajectory and confidence intervals.
+        for system_name, n_energy_evaluations in system_energy_evaluations.items():
+            system_name_data = self.get_free_energies_from_energy_evaluations(
+                n_energy_evaluations, system_name=system_name, mean_trajectory=True)
+            exported_data[system_name + '-mean'] = collections.OrderedDict([
+                ('DG', system_name_data[DG_KEY].values.tolist()),
+                ('DG_CI', system_name_data['$\Delta$G CI'].values.tolist()),
+                ('hrex_iterations', system_name_data['HREX iteration'].values.tolist()),
+                ('n_energy_evaluations', system_name_data['N energy evaluations'].values.tolist()),
+            ])
+
+        # Export.
+        export_dictionary(exported_data, file_base_path)
+
+
+    def get_system_iterations(self, system_id):
+        return sorted(self._yank_free_energies[system_id])
+
+    def get_system_free_energies(self, system_name, mean_trajectory=False):
         """Get all the free energies from the system name as a Dataframe."""
         system_ids = sorted([k for k in self._yank_free_energies if k[:-2] == system_name])
 
@@ -345,39 +461,56 @@ class YankSamplingAnalysis:
                 system_name_common_iterations.intersection_update(set(iterations))
 
         # Retrieve the dataframe.
-        return self._free_energies_from_iterations(sorted(system_name_common_iterations),
-                                                   system_ids, mean_trajectory)
+        return self._get_free_energies_from_iterations(sorted(system_name_common_iterations),
+                                                       system_ids, mean_trajectory)
 
-    def free_energies_from_total_time(self, tot_time, system_id):
+    def get_reference_free_energies(self):
+        """Get the mean free energy estimate of the last iteration."""
+        # We can't use mean_trajectory=True because otherwise
+        # _compute_mean_trajectory() will go under infinite recursion.
+        last_iteration_free_energies = self._get_free_energies_from_iterations(
+            [YANK_N_ITERATIONS], system_ids=[], mean_trajectory=False)
+
+        reference_free_energies = {}
+        for system_name in self.system_names:
+            data = last_iteration_free_energies[last_iteration_free_energies['System name'] == system_name]
+            reference_free_energies[system_name] = np.mean(data[DG_KEY].values)
+        return reference_free_energies
+
+    def get_free_energies_from_total_time(self, tot_time, system_id):
         """Get 100 equally-spaced free energies and errors covering tot_time as a DataFrame."""
         iterations = cpu_time_iteration_cutoffs(tot_time, system_id, self._yank_cpu_times)
-        return self._free_energies_from_iterations(iterations, [system_id])
+        return self._get_free_energies_from_iterations(iterations, [system_id])
 
-    def free_energies_from_energy_evaluations(self, n_energy_evaluations, system_id=None,
-                                              system_name=None, mean_trajectory=False):
+    def get_free_energies_from_energy_evaluations(self, n_energy_evaluations, system_id=None,
+                                                  system_name=None, mean_trajectory=False,
+                                                  start=0):
         """Get 100 equally-spaced free energies and errors covering n_energy_evaluations as a DataFrame."""
         assert operator.xor(system_id is not None, system_name is not None)
 
         if system_name is None:
             system_name = system_id[:-2]
-        iterations = energy_evaluations_iteration_cutoffs(n_energy_evaluations, system_name)
+        iterations = energy_evaluations_iteration_cutoffs(n_energy_evaluations, system_name, start=start)
 
         if system_id is not None:
             system_ids = [system_id]
         else:
             system_ids = sorted([k for k in self._yank_free_energies if k[:-2] == system_name])
-        return self._free_energies_from_iterations(iterations, system_ids, mean_trajectory)
+        return self._get_free_energies_from_iterations(iterations, system_ids, mean_trajectory)
 
-    def free_energies_from_iteration(self, final_iteration, system_id=None, mean_trajectory=False):
+    def get_free_energies_from_iteration(self, final_iteration, system_id=None,
+                                         system_name=None, mean_trajectory=False):
         """Get 100 equally-spaced free energies and errors covering final_iterations as a DataFrame."""
         iterations = get_iteration_cutoffs(final_iteration)
-        if system_id is None:
+        if system_id is None and system_name is None:
             system_ids = []
-        else:
+        elif system_id is not None:
             system_ids = [system_id]
-        return self._free_energies_from_iterations(iterations, system_ids, mean_trajectory)
+        else:
+            system_ids = sorted([k for k in self._yank_free_energies if k[:-2] == system_name])
+        return self._get_free_energies_from_iterations(iterations, system_ids, mean_trajectory)
 
-    def _free_energies_from_iterations(self, iterations, system_ids, mean_trajectory=False):
+    def _get_free_energies_from_iterations(self, iterations, system_ids, mean_trajectory=False):
         # Handle default argument.
         if len(system_ids) == 0:
             # Pick everything.
@@ -419,4 +552,6 @@ class YankSamplingAnalysis:
 
     def _compute_mean_trajectory(self, data):
         """Compute average free energy and t-based CI for each iteration."""
-        return compute_system_name_mean_free_energies(data, extra_fields=['HREX iteration'])
+        reference_free_energies = self.get_reference_free_energies()
+        return compute_system_name_mean_free_energies(data, reference_free_energies=reference_free_energies,
+                                                      extra_fields=['HREX iteration'])

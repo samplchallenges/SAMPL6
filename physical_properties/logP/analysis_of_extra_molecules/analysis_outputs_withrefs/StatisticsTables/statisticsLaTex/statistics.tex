@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[a4paper,margin=0.005in,tmargin=0.5in,lmargin=0.5in,rmargin=0.5in,landscape]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\pagenumbering{gobble}
+\begin{document}
+\begin{center}
+\scriptsize
+\begin{longtable}{|ccccccccc|}
+\toprule
+    ID &                            name &               RMSE &                MAE &                   ME &              R$^2$ &                  m &             $\tau$ &                 ES \\
+\midrule
+\endhead
+\midrule
+\multicolumn{9}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+ EXT09 &                 clogP (Biobyte) &  0.23 [0.16, 0.29] &  0.17 [0.12, 0.23] &   0.01 [-0.07, 0.10] &  0.94 [0.86, 0.98] &  0.94 [0.80, 1.02] &  0.85 [0.74, 0.93] &  0.27 [0.08, 0.42] \\
+ EXT12 &                      MoKa\_logP &  0.28 [0.20, 0.35] &  0.22 [0.16, 0.28] &   0.03 [-0.07, 0.14] &  0.91 [0.81, 0.97] &  0.93 [0.75, 1.05] &  0.83 [0.72, 0.91] &  0.23 [0.08, 0.41] \\
+ EXT11 &                 logP(o/w) (MOE) &  0.32 [0.22, 0.41] &  0.24 [0.17, 0.32] &   0.11 [-0.00, 0.22] &  0.90 [0.81, 0.95] &  0.85 [0.75, 1.02] &  0.80 [0.66, 0.91] &  0.28 [0.11, 0.48] \\
+ EXT10 &                   h\_logP (MOE) &  0.43 [0.33, 0.51] &  0.35 [0.26, 0.44] &    0.17 [0.02, 0.32] &  0.83 [0.63, 0.94] &  0.91 [0.67, 1.06] &  0.74 [0.55, 0.90] &  0.09 [0.01, 0.25] \\
+ EXT13 &                     SlogP (MOE) &  0.59 [0.48, 0.69] &  0.49 [0.36, 0.62] &    0.28 [0.08, 0.48] &  0.71 [0.41, 0.87] &  0.84 [0.60, 1.04] &  0.55 [0.34, 0.73] &  0.13 [0.01, 0.26] \\
+ EXT02 &         YANK-GAFF-TIP3P-wet-oct &  0.91 [0.72, 1.10] &  0.78 [0.61, 0.96] &    0.41 [0.08, 0.70] &  0.58 [0.33, 0.78] &  1.04 [0.66, 1.54] &  0.55 [0.32, 0.73] &  1.25 [1.15, 1.34] \\
+ EXT08 &     YANK-SMIRNOFF-TIP3P-dry-oct &  1.01 [0.68, 1.34] &  0.78 [0.55, 1.04] &    0.39 [0.04, 0.74] &  0.49 [0.11, 0.78] &  0.99 [0.42, 1.44] &  0.46 [0.14, 0.71] &  1.25 [1.12, 1.36] \\
+ EXT05 &     YANK-SMIRNOFF-TIP3P-wet-oct &  1.05 [0.74, 1.32] &  0.82 [0.59, 1.08] &   0.30 [-0.08, 0.67] &  0.49 [0.15, 0.74] &  1.05 [0.53, 1.53] &  0.47 [0.21, 0.70] &  1.22 [1.09, 1.35] \\
+ EXT07 &         YANK-GAFF-tip3p-dry-oct &  1.05 [0.85, 1.25] &  0.93 [0.74, 1.12] &    0.62 [0.28, 0.93] &  0.58 [0.30, 0.79] &  1.07 [0.71, 1.55] &  0.57 [0.32, 0.76] &  1.18 [1.08, 1.29] \\
+ EXT04 &  YANK-SMIRNOFF-TIP3P-FB-wet-oct &  1.08 [0.62, 1.48] &  0.71 [0.43, 1.04] &  -0.31 [-0.72, 0.06] &  0.46 [0.16, 0.74] &  1.02 [0.59, 1.57] &  0.53 [0.28, 0.75] &  1.26 [1.10, 1.39] \\
+ EXT01 &      YANK-GAFF-TIP3P-FB-wet-oct &  1.11 [0.65, 1.51] &  0.72 [0.43, 1.07] &  -0.20 [-0.64, 0.19] &  0.54 [0.26, 0.78] &  1.23 [0.86, 1.80] &  0.57 [0.34, 0.77] &  1.25 [1.09, 1.40] \\
+ EXT06 &       YANK-SMIRNOFF-OPC-wet-oct &  1.16 [0.73, 1.60] &  0.83 [0.55, 1.17] &  -0.10 [-0.57, 0.30] &  0.45 [0.13, 0.75] &  1.11 [0.71, 1.56] &  0.52 [0.28, 0.71] &  1.22 [1.07, 1.34] \\
+ EXT03 &           YANK-GAFF-OPC-wet-oct &  1.28 [0.73, 1.80] &  0.87 [0.56, 1.26] &  -0.28 [-0.78, 0.16] &  0.44 [0.10, 0.73] &  1.17 [0.53, 1.81] &  0.47 [0.18, 0.72] &  1.21 [1.06, 1.35] \\
+\end{longtable}
+\end{center}
+
+Notes
+
+- RMSE: Root mean square error
+
+- MAE: Mean absolute error
+
+- ME: Mean error
+
+- R2: R-squared, square of Pearson correlation coefficient
+
+- m: slope of the line fit to predicted vs experimental logP values
+
+- $\tau$:  Kendall rank correlation coefficient
+
+- ES: error slope calculated from the QQ Plots of model uncertainty predictions
+
+- Mean and 95\% confidence intervals of RMSE, MAE, ME, R2, and m were calculated by bootstrapping with 10000 samples.
+
+- 95\% confidence intervals of ES were calculated by bootstrapping with 1000 samples.\end{document}

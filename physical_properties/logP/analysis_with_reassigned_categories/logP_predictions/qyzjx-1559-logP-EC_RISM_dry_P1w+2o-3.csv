@@ -1,0 +1,40 @@
+Predictions:
+SM02,4.56,0.01,0.83
+SM04,4.08,0.01,0.83
+SM07,3.62,0.01,0.83
+SM08,3.78,0.01,0.83
+SM09,3.41,0.01,0.83
+SM11,2.25,0.01,0.83
+SM12,4.25,0.01,0.83
+SM13,3.28,0.01,0.83
+SM14,1.51,0.01,0.83
+SM15,1.85,0.01,0.83
+SM16,3.00,0.01,0.83
+
+
+Name:
+EC_RISM_dry_P1w+2o
+
+Software:
+Maestro 2017-2/Macromodel (Schroedinger)
+Gaussian 09 Rev E.01
+Gaussian 16 Rev B.01
+3D RISM (inhouse development)
+EC-RISM (inhouse development)
+Python 3.6
+Mathematica 11.3 (Wolfram)
+
+Category:
+Physical
+
+Method:
+A number of geometries per microstate was generated using Maestro 2017-2/Macromodel with the OPLS3/Water force field with mixed torsional/low-mode sampling, 100 steps per RB and 1000 steps max (default parameters).
+The resulting conformations were optimized using Gaussian 16revB01 with IEF-PCM using default settings for water or n-octanol respectively at the B3LYP/6-311+G(d,p) level of theory.
+These conformations were treated with EC-RISM/MP2/6-311+G(d,p) using the PSE2 closure for water and the PSE1 closure for n-octanol [REF1] and the resulting free energies of solvation reparametrized with respect to the MNSol free energies of solvation in water or n-octanol [REF2] as min[deltaG_exp-((E_{EC-RISM}+c1*mu_{ex}+c2*PMV_{EC-RISM}+c3*q)-E_{vac}] with E_{EC-RISM} being the QM-energy of the molecule after convergence of the EC-RISM cycle, mu_{ex} the excess chemical potential, PMV_{EC-RISM} the partial molar volume as calculated by EC-RISM, q being the net charge of the molecule and E_{vac} taken from the same quantum chemical level of theory in vacuum. The correction (c1*mu_{ex}+c2*PMV_{EC-RISM}) was then applied to the raw EC-RISM energies since only neutral species were considered for the calculation of the log P. All corrections for water have a fixed parameter c1 = 1 since this additional parameter was found to be of no predicitve value in previous challenges [REF3]. In case of models ending with 2o the parameter c1 was optimized for n-octanol while in case of models ending with 1o the parameter was fixed to c1 = 1.
+The log P of a compound was then calculated by log P=(G_{oct}-G_{wat})/(-RT ln(10)), where G_{m} refers to the partition function estimate of the solvent specific free energy by summing over the tautomer states.
+The SEM was estimated as the convergence criterion for a single EC-RISM calculation. The uncertainty was estimated as the RMSE of the n-octanol-water transfer free energy dataset contained within the Minnesota Solvation Database.
+
+References:
+REF1: N. Tielker, D. Tomazic, J. Heil, T. Kloss, S. Ehrhart, S. Guessregen, K. F. Schmidt, S. M. Kast, J. Comput.-Aided Mol. Des. 30, 1035-1044 (2016).
+REF2: Marenich, A. V., Kelly, C. P., Thompson, J. D., Hawkins, G. D., Chambers, C. C., Giesen, D. J., Winget, P., Cramer, C. J., Truhlar, D. G. Minnesota Solvation Database - version 2012, University of Minnesota, Minneapolis, 2012.
+REF3:  N. Tielker, L. Eberlein, S. Guessregen, S. M. Kast, J. Comput.-Aided Mol. Des. 32, 1151-1163 (2018).

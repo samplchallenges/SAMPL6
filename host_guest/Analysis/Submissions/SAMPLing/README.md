@@ -1,0 +1,13 @@
+## Map submission ID to method name in the paper
+
+- NB002: AMBER/APR
+- NB004: OpenMM/REVO
+- NB005: OpenMM/SOMD
+- NB006: GROMACS/EE
+- NB007: GROMACS/NS-DS/SB
+- NB008: GROMACS/NS-DS/SB-long
+- NB009: GROMACS/NS-Jarz-F
+- NB010: GROMACS/NS-Jarz-R
+- NB011: GROMACS/NS-Gauss-F
+- NB012: GROMACS/NS-Gauss-R
+- NB013: NAMD/BAR
