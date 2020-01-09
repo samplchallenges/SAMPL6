@@ -1,25 +1,25 @@
 Predictions:
-SM02,4.44,0.29,1.6
-SM04,5.31,0.3,1.6
-SM07,4.35,0.36,1.6
-SM08,8.71,0.08,1.6
-SM09,5.7,0.37,1.6
-SM11,3.4,0.2,1.6
-SM12,5.41,0.3,1.6
-SM13,6.34,0.6,1.6
-SM14,3.05,0.22,1.6
-SM15,3.84,0.26,1.6
-SM16,3.66,0.34,1.6
+SM02,7.1,0.25,1.6
+SM04,7.16,0.27,1.6
+SM07,6.45,0.23,1.6
+SM08,11.19,0.16,1.6
+SM09,6.92,0.17,1.6
+SM11,4.34,0.45,1.6
+SM12,6.66,0.05,1.6
+SM13,8.97,0.48,1.6
+SM14,4.5,0.19,1.6
+SM15,4.52,0.14,1.6
+SM16,5.49,0.15,1.6
 
 Name:
-YANK-GAFF-OPC-wet-oct
+YANK-GAFF-opc-wet-oct
 
 Software:
 yank=0.24.0=py36_0
-
 Category:
 Physical
 
+Method:
 Method:
 Everything starting from input file generation was done in triplicate.
 Solvation Toolkit[1] was used to generate initial input AMBER files (prmtop and inpcrd files).
@@ -70,14 +70,9 @@ The overall length of the YANK simulations were 5ns for each replica.
 Hydrogen mass repartitioning (HMR) allowed a timestep of 3fs to be used by slowing down the fastest motions in the simulation
 by reallocating mass from the connected heavy atom to the hydrogens, thus constraining the hydrogen bonds[3].
 
-The alchemical path used for the octanol phase was the following:
+The alchemical path used for the octanol and water phase was the following:
 lambda_electrostatics: [1.00, 0.75, 0.50, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
 lambda_sterics: [1.00, 1.00, 1.00, 1.00, 1.00, 0.95, 0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.35, 0.30, 0.25, 0.20, 0.15, 0.10, 0.05, 0.00]
-
-The alchemical path used for the water phase was:
-lambda_electrostatics: [1.00, 0.75, 0.50, 0.25, 0.00]
-lambda_sterics: [1.00, 1.00, 1.00, 1.00, 1.00
-
 
 The transfer free energy obtained from YANK, where dG_transfer = G_octanol - G_water.
 The dG_transfer was converted to logP(oct/wat) like so:
