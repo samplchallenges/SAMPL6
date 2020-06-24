@@ -28,4 +28,4 @@ Experimental log *P* measurements was made available in this repository after th
 
 Mehtap Işık, Dorothy Levorse, David L. Mobley, Timothy Rhodes, John D. Chodera. "Octanol–water partition coefficient measurements for the SAMPL6 blind prediction challenge". J Comput Aided Mol Des (2019). https://doi.org/10.1007/s10822-019-00271-3
 
-Mehtap Işık, Teresa Danielle Bergazin, Thomas Fox, Andrea Rizzi, John D. Chodera, David L. Mobley. "Assessing the accuracy of octanol-water partition coefficient predictions in the SAMPL6 Part II log P Challenge". bioRxiv 2020.01.20.913178; doi: https://doi.org/10.1101/2020.01.20.913178
+Mehtap Işık, Teresa Danielle Bergazin, Thomas Fox, Andrea Rizzi, John D. Chodera, David L. Mobley. "Assessing the accuracy of octanol-water partition coefficient predictions in the SAMPL6 Part II log P Challenge". J Comput Aided Mol Des 34, 335–370 (2020). https://doi.org/10.1007/s10822-020-00295-0
