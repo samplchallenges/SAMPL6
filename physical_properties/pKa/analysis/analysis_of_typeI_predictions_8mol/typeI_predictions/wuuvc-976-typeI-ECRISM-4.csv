@@ -1,0 +1,650 @@
+# Submission Type I
+Predictions:
+SM01_micro001,SM01_micro005, -2.64,1.77
+SM01_micro001,SM01_micro006,  7.67,1.77
+SM01_micro004,SM01_micro002, 15.70,1.77
+SM01_micro010,SM01_micro002, 10.54,1.77
+SM01_micro005,SM01_micro004,  8.70,1.77
+SM01_micro006,SM01_micro004, -1.61,1.77
+SM01_micro008,SM01_micro004, -5.20,1.77
+SM01_micro009,SM01_micro005, -6.55,1.77
+SM01_micro005,SM01_micro010, 13.85,1.77
+SM01_micro009,SM01_micro008,  7.35,1.77
+SM02_micro004,SM02_micro002,  4.13,1.77
+SM02_micro005,SM02_micro002,  2.97,1.77
+SM02_micro006,SM02_micro002, -5.61,1.77
+SM02_micro002,SM02_micro011, 11.71,1.77
+SM02_micro005,SM02_micro003,  4.68,1.77
+SM02_micro003,SM02_micro011, 10.00,1.77
+SM02_micro004,SM02_micro007,  6.13,1.77
+SM02_micro008,SM02_micro004,-13.96,1.77
+SM02_micro012,SM02_micro004, -6.01,1.77
+SM02_micro012,SM02_micro005, -4.85,1.77
+SM02_micro013,SM02_micro005,-20.37,1.77
+SM02_micro008,SM02_micro006, -4.22,1.77
+SM02_micro013,SM02_micro006,-11.78,1.77
+SM02_micro007,SM02_micro011,  9.70,1.77
+SM02_micro014,SM02_micro008,-21.79,1.77
+SM02_micro014,SM02_micro012,-29.74,1.77
+SM02_micro014,SM02_micro013,-14.22,1.77
+SM03_micro001,SM03_micro004,  8.74,1.77
+SM03_micro001,SM03_micro012, -0.67,1.77
+SM03_micro001,SM03_micro021, -0.69,1.77
+SM03_micro024,SM03_micro001,-14.89,1.77
+SM03_micro004,SM03_micro002, -0.39,1.77
+SM03_micro009,SM03_micro002,  3.04,1.77
+SM03_micro012,SM03_micro002,  9.02,1.77
+SM03_micro013,SM03_micro002,  6.59,1.77
+SM03_micro002,SM03_micro014, 25.15,1.77
+SM03_micro015,SM03_micro004,  2.69,1.77
+SM03_micro023,SM03_micro004, -3.51,1.77
+SM03_micro011,SM03_micro009, -2.48,1.77
+SM03_micro015,SM03_micro009, -0.73,1.77
+SM03_micro022,SM03_micro009, -0.59,1.77
+SM03_micro012,SM03_micro010, 23.63,1.77
+SM03_micro010,SM03_micro014, 10.54,1.77
+SM03_micro011,SM03_micro012, -8.47,1.77
+SM03_micro016,SM03_micro012, -1.46,1.77
+SM03_micro016,SM03_micro013,  0.97,1.77
+SM03_micro020,SM03_micro013,-18.70,1.77
+SM03_micro022,SM03_micro013, -4.15,1.77
+SM03_micro023,SM03_micro013,-10.49,1.77
+SM03_micro024,SM03_micro016,-14.10,1.77
+SM03_micro024,SM03_micro023, -2.64,1.77
+SM04_micro002,SM04_micro003,  4.75,1.77
+SM04_micro002,SM04_micro004,  9.36,1.77
+SM04_micro013,SM04_micro002, -9.91,1.77
+SM04_micro014,SM04_micro002, -6.46,1.77
+SM04_micro003,SM04_micro005, 14.56,1.77
+SM04_micro006,SM04_micro003,  2.63,1.77
+SM04_micro008,SM04_micro003, -1.36,1.77
+SM04_micro004,SM04_micro005,  9.96,1.77
+SM04_micro009,SM04_micro005,  8.47,1.77
+SM04_micro006,SM04_micro009,  8.72,1.77
+SM04_micro014,SM04_micro006, -4.34,1.77
+SM04_micro015,SM04_micro006,-13.91,1.77
+SM04_micro013,SM04_micro008, -3.80,1.77
+SM04_micro015,SM04_micro008, -9.92,1.77
+SM04_micro016,SM04_micro013,-19.82,1.77
+SM04_micro016,SM04_micro014,-23.27,1.77
+SM04_micro016,SM04_micro015,-13.70,1.77
+SM05_micro001,SM05_micro002, 11.89,1.77
+SM05_micro009,SM05_micro001,  6.57,1.77
+SM05_micro010,SM05_micro001,  4.52,1.77
+SM05_micro006,SM05_micro002,  8.26,1.77
+SM05_micro008,SM05_micro002,  8.86,1.77
+SM05_micro003,SM05_micro009, -9.65,1.77
+SM05_micro005,SM05_micro009, -9.46,1.77
+SM05_micro005,SM05_micro010, -7.41,1.77
+SM05_micro005,SM05_micro011, -2.28,1.77
+SM05_micro010,SM05_micro006,  8.15,1.77
+SM05_micro011,SM05_micro006,  3.01,1.77
+SM05_micro009,SM05_micro008,  9.60,1.77
+SM05_micro011,SM05_micro008,  2.42,1.77
+SM06_micro005,SM06_micro001,  1.82,1.77
+SM06_micro006,SM06_micro001,  1.93,1.77
+SM06_micro007,SM06_micro001,  1.82,1.77
+SM06_micro001,SM06_micro008,  9.98,1.77
+SM06_micro002,SM06_micro004,  4.19,1.77
+SM06_micro002,SM06_micro005,  1.03,1.77
+SM06_micro002,SM06_micro007,  1.02,1.77
+SM06_micro003,SM06_micro009,  3.76,1.77
+SM06_micro003,SM06_micro011,  4.60,1.77
+SM06_micro012,SM06_micro003, -3.23,1.77
+SM06_micro004,SM06_micro009,  3.60,1.77
+SM06_micro004,SM06_micro010,  6.29,1.77
+SM06_micro005,SM06_micro010,  9.46,1.77
+SM06_micro006,SM06_micro011,  7.72,1.77
+SM06_micro012,SM06_micro006, -6.35,1.77
+SM06_micro007,SM06_micro009,  6.77,1.77
+SM06_micro012,SM06_micro007, -6.24,1.77
+SM06_micro009,SM06_micro008,  5.03,1.77
+SM06_micro010,SM06_micro008,  2.34,1.77
+SM06_micro011,SM06_micro008,  4.19,1.77
+SM07_micro006,SM07_micro002,  7.42,1.77
+SM07_micro002,SM07_micro012, 11.68,1.77
+SM07_micro007,SM07_micro003,  6.60,1.77
+SM07_micro003,SM07_micro012, 12.38,1.77
+SM07_micro006,SM07_micro004,  2.71,1.77
+SM07_micro007,SM07_micro004,  2.60,1.77
+SM07_micro011,SM07_micro004, -1.62,1.77
+SM07_micro004,SM07_micro012, 16.38,1.77
+SM07_micro013,SM07_micro006, -7.55,1.77
+SM07_micro014,SM07_micro006, -3.77,1.77
+SM07_micro014,SM07_micro007, -3.65,1.77
+SM07_micro015,SM07_micro007,-13.52,1.77
+SM07_micro013,SM07_micro011, -3.22,1.77
+SM07_micro015,SM07_micro011, -9.30,1.77
+SM07_micro016,SM07_micro013,-18.96,1.77
+SM07_micro016,SM07_micro014,-22.75,1.77
+SM07_micro016,SM07_micro015,-12.89,1.77
+SM08_micro002,SM08_micro008, -1.74,1.77
+SM08_micro002,SM08_micro010,  1.40,1.77
+SM08_micro002,SM08_micro011, -1.41,1.77
+SM08_micro003,SM08_micro004,  4.86,1.77
+SM08_micro010,SM08_micro003,  7.37,1.77
+SM08_micro011,SM08_micro003, 10.17,1.77
+SM08_micro006,SM08_micro004, 10.80,1.77
+SM08_micro009,SM08_micro004,  8.55,1.77
+SM08_micro008,SM08_micro006,  4.56,1.77
+SM08_micro011,SM08_micro006,  4.23,1.77
+SM08_micro008,SM08_micro009,  6.81,1.77
+SM08_micro010,SM08_micro009,  3.67,1.77
+SM09_micro001,SM09_micro002,  6.65,1.77
+SM09_micro001,SM09_micro003,  4.88,1.77
+SM09_micro008,SM09_micro001,-12.59,1.77
+SM09_micro013,SM09_micro001, -4.68,1.77
+SM09_micro002,SM09_micro009,  8.64,1.77
+SM09_micro005,SM09_micro003,  4.28,1.77
+SM09_micro006,SM09_micro003, -3.72,1.77
+SM09_micro003,SM09_micro009, 10.41,1.77
+SM09_micro005,SM09_micro011,  5.88,1.77
+SM09_micro013,SM09_micro005, -4.08,1.77
+SM09_micro014,SM09_micro005,-18.73,1.77
+SM09_micro008,SM09_micro006, -4.00,1.77
+SM09_micro014,SM09_micro006,-10.73,1.77
+SM09_micro015,SM09_micro008,-20.43,1.77
+SM09_micro011,SM09_micro009,  8.81,1.77
+SM09_micro015,SM09_micro013,-28.35,1.77
+SM09_micro015,SM09_micro014,-13.70,1.77
+SM10_micro004,SM10_micro002, 14.45,1.77
+SM10_micro014,SM10_micro002,  4.65,1.77
+SM10_micro017,SM10_micro002, 12.69,1.77
+SM10_micro021,SM10_micro002, 12.61,1.77
+SM10_micro002,SM10_micro022, 10.90,1.77
+SM10_micro003,SM10_micro008,  7.38,1.77
+SM10_micro003,SM10_micro019, 11.93,1.77
+SM10_micro003,SM10_micro036, -3.06,1.77
+SM10_micro005,SM10_micro004, -1.65,1.77
+SM10_micro004,SM10_micro018,  9.48,1.77
+SM10_micro036,SM10_micro004, 13.21,1.77
+SM10_micro037,SM10_micro004,  2.68,1.77
+SM10_micro005,SM10_micro014,  8.15,1.77
+SM10_micro032,SM10_micro005, 10.47,1.77
+SM10_micro006,SM10_micro013, 17.96,1.77
+SM10_micro016,SM10_micro006, -6.03,1.77
+SM10_micro006,SM10_micro020,  8.74,1.77
+SM10_micro006,SM10_micro023,  7.48,1.77
+SM10_micro024,SM10_micro006, -3.67,1.77
+SM10_micro028,SM10_micro006,  3.00,1.77
+SM10_micro033,SM10_micro006, -1.90,1.77
+SM10_micro007,SM10_micro023,  3.79,1.77
+SM10_micro032,SM10_micro007,  0.70,1.77
+SM10_micro033,SM10_micro007,  1.79,1.77
+SM10_micro007,SM10_micro034, 16.34,1.77
+SM10_micro008,SM10_micro023, -1.55,1.77
+SM10_micro024,SM10_micro008,  5.36,1.77
+SM10_micro009,SM10_micro013,  6.63,1.77
+SM10_micro026,SM10_micro009,  3.65,1.77
+SM10_micro033,SM10_micro009,  9.43,1.77
+SM10_micro009,SM10_micro034,  8.71,1.77
+SM10_micro010,SM10_micro011,  5.42,1.77
+SM10_micro010,SM10_micro036, -6.71,1.77
+SM10_micro038,SM10_micro010,  0.36,1.77
+SM10_micro016,SM10_micro011,  4.69,1.77
+SM10_micro011,SM10_micro023, -3.25,1.77
+SM10_micro013,SM10_micro027,  8.18,1.77
+SM10_micro013,SM10_micro030,  8.39,1.77
+SM10_micro031,SM10_micro013,  7.70,1.77
+SM10_micro015,SM10_micro014, 11.24,1.77
+SM10_micro015,SM10_micro017,  3.19,1.77
+SM10_micro026,SM10_micro015,  2.69,1.77
+SM10_micro032,SM10_micro015,  7.38,1.77
+SM10_micro015,SM10_micro034,  9.66,1.77
+SM10_micro038,SM10_micro016,  1.09,1.77
+SM10_micro019,SM10_micro017, -0.01,1.77
+SM10_micro017,SM10_micro027, 12.56,1.77
+SM10_micro031,SM10_micro017,  3.32,1.77
+SM10_micro036,SM10_micro017, 14.97,1.77
+SM10_micro020,SM10_micro018, 12.56,1.77
+SM10_micro018,SM10_micro022, 15.87,1.77
+SM10_micro023,SM10_micro018, 13.81,1.77
+SM10_micro020,SM10_micro030, 17.60,1.77
+SM10_micro037,SM10_micro020, -0.39,1.77
+SM10_micro021,SM10_micro030, 12.69,1.77
+SM10_micro031,SM10_micro021,  3.40,1.77
+SM10_micro037,SM10_micro021,  4.52,1.77
+SM10_micro027,SM10_micro022, 11.03,1.77
+SM10_micro030,SM10_micro022, 10.83,1.77
+SM10_micro023,SM10_micro027, 18.66,1.77
+SM10_micro036,SM10_micro023,  8.88,1.77
+SM10_micro026,SM10_micro031,  2.57,1.77
+SM10_micro034,SM10_micro027,  6.10,1.77
+SM10_micro028,SM10_micro031, 13.26,1.77
+SM10_micro028,SM10_micro036,  1.61,1.77
+SM10_micro028,SM10_micro037, 12.13,1.77
+SM10_micro038,SM10_micro028, -7.95,1.77
+SM10_micro032,SM10_micro036, -4.39,1.77
+SM11_micro005,SM11_micro007, 14.67,1.77
+SM11_micro008,SM11_micro005,  3.53,1.77
+SM11_micro009,SM11_micro005, -3.39,1.77
+SM11_micro011,SM11_micro005,  1.38,1.77
+SM11_micro013,SM11_micro005, -2.90,1.77
+SM11_micro028,SM11_micro007, 10.94,1.77
+SM11_micro029,SM11_micro007,  6.97,1.77
+SM11_micro030,SM11_micro007,  0.82,1.77
+SM11_micro018,SM11_micro008, -8.36,1.77
+SM11_micro019,SM11_micro008,-15.30,1.77
+SM11_micro008,SM11_micro028,  7.27,1.77
+SM11_micro031,SM11_micro008, -7.93,1.77
+SM11_micro021,SM11_micro009, -3.67,1.77
+SM11_micro022,SM11_micro009, -8.16,1.77
+SM11_micro009,SM11_micro030, 10.45,1.77
+SM11_micro031,SM11_micro009, -1.01,1.77
+SM11_micro017,SM11_micro011,-11.96,1.77
+SM11_micro018,SM11_micro011, -6.21,1.77
+SM11_micro021,SM11_micro011, -8.45,1.77
+SM11_micro011,SM11_micro029,  9.08,1.77
+SM11_micro017,SM11_micro013, -7.68,1.77
+SM11_micro019,SM11_micro013, -8.87,1.77
+SM11_micro022,SM11_micro013, -8.66,1.77
+SM11_micro024,SM11_micro017,-15.07,1.77
+SM11_micro026,SM11_micro017,-18.35,1.77
+SM11_micro025,SM11_micro018,-13.17,1.77
+SM11_micro026,SM11_micro018,-24.11,1.77
+SM11_micro023,SM11_micro019,-14.72,1.77
+SM11_micro026,SM11_micro019,-17.16,1.77
+SM11_micro024,SM11_micro021,-18.58,1.77
+SM11_micro025,SM11_micro021,-10.93,1.77
+SM11_micro023,SM11_micro022,-14.93,1.77
+SM11_micro024,SM11_micro022,-14.09,1.77
+SM11_micro027,SM11_micro023,-24.00,1.77
+SM11_micro023,SM11_micro031,-22.09,1.77
+SM11_micro027,SM11_micro024,-24.84,1.77
+SM11_micro027,SM11_micro025,-32.49,1.77
+SM11_micro025,SM11_micro031,-13.60,1.77
+SM11_micro027,SM11_micro026,-21.55,1.77
+SM12_micro001,SM12_micro002,  5.76,1.77
+SM12_micro001,SM12_micro012,  4.38,1.77
+SM12_micro013,SM12_micro001, -2.26,1.77
+SM12_micro014,SM12_micro001,-15.48,1.77
+SM12_micro002,SM12_micro009,  8.34,1.77
+SM12_micro010,SM12_micro006, -9.26,1.77
+SM12_micro006,SM12_micro011,  6.01,1.77
+SM12_micro006,SM12_micro012,  4.86,1.77
+SM12_micro013,SM12_micro006, -2.74,1.77
+SM12_micro010,SM12_micro008, -1.56,1.77
+SM12_micro008,SM12_micro012, -2.83,1.77
+SM12_micro014,SM12_micro008, -8.27,1.77
+SM12_micro011,SM12_micro009,  8.56,1.77
+SM12_micro012,SM12_micro009,  9.71,1.77
+SM12_micro015,SM12_micro010,-16.28,1.77
+SM12_micro015,SM12_micro013,-22.79,1.77
+SM12_micro015,SM12_micro014, -9.57,1.77
+SM13_micro003,SM13_micro001,-10.94,1.77
+SM13_micro001,SM13_micro005,  5.88,1.77
+SM13_micro001,SM13_micro009,  7.70,1.77
+SM13_micro013,SM13_micro001, -4.75,1.77
+SM13_micro003,SM13_micro008, -2.78,1.77
+SM13_micro015,SM13_micro003,-16.59,1.77
+SM13_micro005,SM13_micro004, 11.31,1.77
+SM13_micro007,SM13_micro004,  9.64,1.77
+SM13_micro009,SM13_micro004,  9.49,1.77
+SM13_micro008,SM13_micro005, -2.27,1.77
+SM13_micro012,SM13_micro005,  5.00,1.77
+SM13_micro012,SM13_micro007,  6.67,1.77
+SM13_micro014,SM13_micro008, -9.62,1.77
+SM13_micro013,SM13_micro012, -3.87,1.77
+SM13_micro014,SM13_micro012,-16.89,1.77
+SM13_micro015,SM13_micro013,-22.77,1.77
+SM13_micro015,SM13_micro014, -9.75,1.77
+SM14_micro002,SM14_micro001,  3.59,1.77
+SM14_micro004,SM14_micro001,  4.22,1.77
+SM14_micro001,SM14_micro006, 19.15,1.77
+SM14_micro003,SM14_micro002,  1.39,1.77
+SM14_micro002,SM14_micro005, 17.93,1.77
+SM14_micro003,SM14_micro004,  0.76,1.77
+SM14_micro005,SM14_micro006,  4.81,1.77
+SM15_micro003,SM15_micro001,  8.24,1.77
+SM15_micro001,SM15_micro004,  4.74,1.77
+SM15_micro003,SM15_micro002,  3.20,1.77
+SM15_micro002,SM15_micro004,  9.78,1.77
+SM16_micro001,SM16_micro003,  6.59,1.77
+SM16_micro001,SM16_micro007,  3.69,1.77
+SM16_micro008,SM16_micro001, -6.09,1.77
+SM16_micro004,SM16_micro002,  4.96,1.77
+SM16_micro002,SM16_micro005, 11.66,1.77
+SM16_micro006,SM16_micro002, -7.12,1.77
+SM16_micro003,SM16_micro005,  5.09,1.77
+SM16_micro006,SM16_micro003, -0.55,1.77
+SM16_micro004,SM16_micro007,  8.63,1.77
+SM16_micro008,SM16_micro004,-11.03,1.77
+SM16_micro007,SM16_micro005,  7.99,1.77
+SM16_micro008,SM16_micro006,  1.06,1.77
+SM17_micro006,SM17_micro004,  1.17,1.77
+SM17_micro009,SM17_micro004,-19.64,1.77
+SM17_micro004,SM17_micro010, -3.62,1.77
+SM17_micro007,SM17_micro005,  1.44,1.77
+SM17_micro009,SM17_micro005,-18.13,1.77
+SM17_micro005,SM17_micro010, -5.12,1.77
+SM17_micro008,SM17_micro006,-22.42,1.77
+SM17_micro006,SM17_micro011, -6.53,1.77
+SM17_micro008,SM17_micro007,-21.18,1.77
+SM17_micro007,SM17_micro011, -7.77,1.77
+SM17_micro008,SM17_micro009, -1.61,1.77
+SM17_micro011,SM17_micro010,  4.09,1.77
+SM18_micro001,SM18_micro013,  0.00,1.77
+SM18_micro001,SM18_micro016,-12.26,1.77
+SM18_micro029,SM18_micro001, -2.20,1.77
+SM18_micro001,SM18_micro038,  0.94,1.77
+SM18_micro004,SM18_micro002,  1.63,1.77
+SM18_micro002,SM18_micro005, 11.78,1.77
+SM18_micro002,SM18_micro020, 19.52,1.77
+SM18_micro031,SM18_micro002,  1.04,1.77
+SM18_micro034,SM18_micro002,  3.85,1.77
+SM18_micro037,SM18_micro002,-11.90,1.77
+SM18_micro054,SM18_micro002,  3.60,1.77
+SM18_micro002,SM18_micro071,  7.61,1.77
+SM18_micro004,SM18_micro003, 17.45,1.77
+SM18_micro003,SM18_micro020,  3.70,1.77
+SM18_micro003,SM18_micro048,  6.83,1.77
+SM18_micro004,SM18_micro025,  6.18,1.77
+SM18_micro026,SM18_micro004,  1.84,1.77
+SM18_micro004,SM18_micro069,  2.15,1.77
+SM18_micro076,SM18_micro004, -0.01,1.77
+SM18_micro009,SM18_micro005,  0.96,1.77
+SM18_micro021,SM18_micro005,  6.14,1.77
+SM18_micro025,SM18_micro005,  7.23,1.77
+SM18_micro047,SM18_micro005, 13.84,1.77
+SM18_micro005,SM18_micro049,  5.06,1.77
+SM18_micro007,SM18_micro020,  3.97,1.77
+SM18_micro034,SM18_micro007, 19.39,1.77
+SM18_micro007,SM18_micro070,  2.48,1.77
+SM18_micro010,SM18_micro009, -2.61,1.77
+SM18_micro009,SM18_micro011,  8.09,1.77
+SM18_micro037,SM18_micro009, -1.09,1.77
+SM18_micro010,SM18_micro025, -8.87,1.77
+SM18_micro010,SM18_micro061, -3.03,1.77
+SM18_micro013,SM18_micro011,  8.77,1.77
+SM18_micro038,SM18_micro011,  7.82,1.77
+SM18_micro011,SM18_micro049, -2.08,1.77
+SM18_micro061,SM18_micro011,  8.52,1.77
+SM18_micro053,SM18_micro013, -5.60,1.77
+SM18_micro013,SM18_micro065, -1.52,1.77
+SM18_micro034,SM18_micro016,  1.74,1.77
+SM18_micro056,SM18_micro016,  0.84,1.77
+SM18_micro058,SM18_micro016,  1.68,1.77
+SM18_micro016,SM18_micro065, 10.74,1.77
+SM18_micro016,SM18_micro070, 20.13,1.77
+SM18_micro016,SM18_micro071,  9.72,1.77
+SM18_micro074,SM18_micro016, -4.06,1.77
+SM18_micro017,SM18_micro075,  7.64,1.77
+SM18_micro020,SM18_micro045,  7.10,1.77
+SM18_micro054,SM18_micro021,  9.23,1.77
+SM18_micro059,SM18_micro021,  3.80,1.77
+SM18_micro025,SM18_micro032,  7.92,1.77
+SM18_micro025,SM18_micro048, 18.10,1.77
+SM18_micro059,SM18_micro025,  2.72,1.77
+SM18_micro063,SM18_micro025,  4.62,1.77
+SM18_micro026,SM18_micro034, -0.38,1.77
+SM18_micro026,SM18_micro056,  0.52,1.77
+SM18_micro026,SM18_micro063,  3.41,1.77
+SM18_micro031,SM18_micro028,  2.71,1.77
+SM18_micro028,SM18_micro033, 10.35,1.77
+SM18_micro028,SM18_micro071,  5.94,1.77
+SM18_micro074,SM18_micro028, -0.28,1.77
+SM18_micro029,SM18_micro034,-16.20,1.77
+SM18_micro029,SM18_micro037, -0.44,1.77
+SM18_micro056,SM18_micro030, 16.98,1.77
+SM18_micro030,SM18_micro062,  8.42,1.77
+SM18_micro030,SM18_micro070,  3.99,1.77
+SM18_micro076,SM18_micro031,  0.58,1.77
+SM18_micro042,SM18_micro032, 12.16,1.77
+SM18_micro032,SM18_micro049,  4.36,1.77
+SM18_micro057,SM18_micro032,  6.99,1.77
+SM18_micro061,SM18_micro032,  2.08,1.77
+SM18_micro032,SM18_micro064, 17.65,1.77
+SM18_micro069,SM18_micro032, 11.95,1.77
+SM18_micro033,SM18_micro049,  4.82,1.77
+SM18_micro057,SM18_micro033,  6.54,1.77
+SM18_micro034,SM18_micro047,  1.78,1.77
+SM18_micro037,SM18_micro038, -0.81,1.77
+SM18_micro038,SM18_micro071, -3.48,1.77
+SM18_micro053,SM18_micro042,-15.43,1.77
+SM18_micro055,SM18_micro042, -2.04,1.77
+SM18_micro056,SM18_micro042,  3.27,1.77
+SM18_micro042,SM18_micro062, 22.13,1.77
+SM18_micro063,SM18_micro042,  0.38,1.77
+SM18_micro042,SM18_micro065,  8.31,1.77
+SM18_micro070,SM18_micro045,  8.59,1.77
+SM18_micro071,SM18_micro045, 19.01,1.77
+SM18_micro063,SM18_micro047, -2.00,1.77
+SM18_micro047,SM18_micro065, 10.69,1.77
+SM18_micro048,SM18_micro064,  7.47,1.77
+SM18_micro068,SM18_micro048,  3.01,1.77
+SM18_micro065,SM18_micro049,  8.21,1.77
+SM18_micro071,SM18_micro049,  9.23,1.77
+SM18_micro058,SM18_micro050, 15.63,1.77
+SM18_micro050,SM18_micro070,  6.19,1.77
+SM18_micro062,SM18_micro052,  8.01,1.77
+SM18_micro065,SM18_micro052, 21.83,1.77
+SM18_micro070,SM18_micro052, 12.44,1.77
+SM18_micro053,SM18_micro061, -5.35,1.77
+SM18_micro054,SM18_micro060,  3.63,1.77
+SM18_micro055,SM18_micro072,  1.61,1.77
+SM18_micro056,SM18_micro069,  3.47,1.77
+SM18_micro057,SM18_micro075, 20.42,1.77
+SM18_micro058,SM18_micro060,  3.82,1.77
+SM18_micro058,SM18_micro072,  7.76,1.77
+SM18_micro060,SM18_micro071,  7.58,1.77
+SM18_micro062,SM18_micro064,  7.67,1.77
+SM18_micro068,SM18_micro062,  2.81,1.77
+SM18_micro063,SM18_micro068, 19.71,1.77
+SM18_micro075,SM18_micro064,  4.22,1.77
+SM18_micro072,SM18_micro065,  4.66,1.77
+SM18_micro069,SM18_micro071,  7.08,1.77
+SM19_micro001,SM19_micro014,  5.64,1.77
+SM19_micro001,SM19_micro015,  4.16,1.77
+SM19_micro001,SM19_micro016,  2.81,1.77
+SM19_micro005,SM19_micro002, -2.25,1.77
+SM19_micro006,SM19_micro002,  3.29,1.77
+SM19_micro002,SM19_micro008, 20.28,1.77
+SM19_micro002,SM19_micro012,  7.64,1.77
+SM19_micro004,SM19_micro010, 11.94,1.77
+SM19_micro014,SM19_micro004,  8.60,1.77
+SM19_micro016,SM19_micro004, 11.43,1.77
+SM19_micro018,SM19_micro004, 17.46,1.77
+SM19_micro005,SM19_micro016,  5.86,1.77
+SM19_micro005,SM19_micro018, -0.17,1.77
+SM19_micro006,SM19_micro007, -0.37,1.77
+SM19_micro006,SM19_micro015, 12.74,1.77
+SM19_micro007,SM19_micro012, 11.30,1.77
+SM19_micro007,SM19_micro013, 13.99,1.77
+SM19_micro019,SM19_micro007, -4.91,1.77
+SM19_micro008,SM19_micro010, 12.40,1.77
+SM19_micro015,SM19_micro008, 10.36,1.77
+SM19_micro016,SM19_micro008, 10.83,1.77
+SM19_micro012,SM19_micro010, 23.84,1.77
+SM19_micro013,SM19_micro010, 21.15,1.77
+SM19_micro018,SM19_micro012,  5.56,1.77
+SM19_micro014,SM19_micro013, -0.61,1.77
+SM19_micro015,SM19_micro013,  0.88,1.77
+SM19_micro019,SM19_micro014,  9.69,1.77
+SM19_micro019,SM19_micro018,  0.83,1.77
+SM20_micro003,SM20_micro004,  7.10,1.77
+SM20_micro005,SM20_micro004,  1.75,1.77
+SM20_micro006,SM20_micro004, -0.65,1.77
+SM21_micro001,SM21_micro014,  7.52,1.77
+SM21_micro001,SM21_micro018,  8.16,1.77
+SM21_micro001,SM21_micro020,  1.60,1.77
+SM21_micro026,SM21_micro001, -5.97,1.77
+SM21_micro027,SM21_micro001,-10.75,1.77
+SM21_micro030,SM21_micro001,-11.08,1.77
+SM21_micro002,SM21_micro020, -3.29,1.77
+SM21_micro029,SM21_micro002, -8.57,1.77
+SM21_micro030,SM21_micro002, -6.20,1.77
+SM21_micro031,SM21_micro002, -8.52,1.77
+SM21_micro003,SM21_micro005,  3.84,1.77
+SM21_micro003,SM21_micro015,  7.09,1.77
+SM21_micro024,SM21_micro003,  6.34,1.77
+SM21_micro018,SM21_micro005,  4.50,1.77
+SM21_micro020,SM21_micro005, 11.07,1.77
+SM21_micro005,SM21_micro021, 12.18,1.77
+SM21_micro006,SM21_micro012,  5.37,1.77
+SM21_micro006,SM21_micro015,  8.02,1.77
+SM21_micro024,SM21_micro006,  5.41,1.77
+SM21_micro014,SM21_micro012,  5.74,1.77
+SM21_micro020,SM21_micro012, 11.67,1.77
+SM21_micro012,SM21_micro021, 11.58,1.77
+SM21_micro014,SM21_micro025,  7.64,1.77
+SM21_micro015,SM21_micro021,  8.93,1.77
+SM21_micro018,SM21_micro025,  6.99,1.77
+SM21_micro022,SM21_micro020, -6.24,1.77
+SM21_micro024,SM21_micro020, -0.89,1.77
+SM21_micro025,SM21_micro021,  9.68,1.77
+SM21_micro027,SM21_micro022, -2.91,1.77
+SM21_micro028,SM21_micro022, -8.72,1.77
+SM21_micro031,SM21_micro022, -5.56,1.77
+SM21_micro026,SM21_micro024, -3.48,1.77
+SM21_micro028,SM21_micro024,-14.08,1.77
+SM21_micro029,SM21_micro024,-10.96,1.77
+SM21_micro032,SM21_micro026,-23.91,1.77
+SM21_micro034,SM21_micro026,-22.58,1.77
+SM21_micro032,SM21_micro027,-19.13,1.77
+SM21_micro035,SM21_micro027,-17.92,1.77
+SM21_micro032,SM21_micro028,-13.31,1.77
+SM21_micro033,SM21_micro028,-18.78,1.77
+SM21_micro033,SM21_micro029,-21.89,1.77
+SM21_micro034,SM21_micro029,-15.10,1.77
+SM21_micro034,SM21_micro030,-17.47,1.77
+SM21_micro035,SM21_micro030,-17.59,1.77
+SM21_micro033,SM21_micro031,-21.94,1.77
+SM21_micro035,SM21_micro031,-15.27,1.77
+SM21_micro036,SM21_micro032,-27.84,1.77
+SM21_micro036,SM21_micro033,-22.38,1.77
+SM21_micro036,SM21_micro034,-29.16,1.77
+SM21_micro036,SM21_micro035,-29.05,1.77
+SM22_micro002,SM22_micro001, -1.95,1.77
+SM22_micro001,SM22_micro004,  7.88,1.77
+SM22_micro002,SM22_micro003, -3.76,1.77
+SM22_micro003,SM22_micro004,  7.95,1.77
+SM23_micro025,SM23_micro005,  5.83,1.77
+SM23_micro005,SM23_micro028, 10.62,1.77
+SM23_micro005,SM23_micro034,  8.29,1.77
+SM23_micro007,SM23_micro011,  9.17,1.77
+SM23_micro007,SM23_micro012,  3.96,1.77
+SM23_micro007,SM23_micro020,  8.23,1.77
+SM23_micro007,SM23_micro026, 18.70,1.77
+SM23_micro038,SM23_micro007, -5.81,1.77
+SM23_micro039,SM23_micro007,-11.84,1.77
+SM23_micro040,SM23_micro007,-12.75,1.77
+SM23_micro011,SM23_micro034,  8.81,1.77
+SM23_micro011,SM23_micro036, 10.65,1.77
+SM23_micro021,SM23_micro012, -6.15,1.77
+SM23_micro024,SM23_micro012, -3.38,1.77
+SM23_micro025,SM23_micro012,  0.12,1.77
+SM23_micro012,SM23_micro034, 14.01,1.77
+SM23_micro012,SM23_micro035, 13.95,1.77
+SM23_micro020,SM23_micro035,  9.69,1.77
+SM23_micro020,SM23_micro036, 11.59,1.77
+SM23_micro039,SM23_micro021, -1.73,1.77
+SM23_micro041,SM23_micro021, -7.78,1.77
+SM23_micro043,SM23_micro021, -7.08,1.77
+SM23_micro025,SM23_micro022,  7.17,1.77
+SM23_micro022,SM23_micro028,  9.28,1.77
+SM23_micro022,SM23_micro035,  6.89,1.77
+SM23_micro040,SM23_micro024, -5.41,1.77
+SM23_micro042,SM23_micro024, -8.93,1.77
+SM23_micro043,SM23_micro024, -9.85,1.77
+SM23_micro038,SM23_micro025, -1.96,1.77
+SM23_micro041,SM23_micro025,-14.04,1.77
+SM23_micro042,SM23_micro025,-12.43,1.77
+SM23_micro044,SM23_micro038,-24.96,1.77
+SM23_micro046,SM23_micro038,-26.88,1.77
+SM23_micro044,SM23_micro039,-18.93,1.77
+SM23_micro045,SM23_micro039,-20.59,1.77
+SM23_micro045,SM23_micro040,-19.68,1.77
+SM23_micro046,SM23_micro040,-19.94,1.77
+SM23_micro044,SM23_micro041,-12.88,1.77
+SM23_micro047,SM23_micro041,-22.03,1.77
+SM23_micro046,SM23_micro042,-16.42,1.77
+SM23_micro047,SM23_micro042,-23.65,1.77
+SM23_micro045,SM23_micro043,-15.24,1.77
+SM23_micro047,SM23_micro043,-22.73,1.77
+SM23_micro048,SM23_micro044,-34.34,1.77
+SM23_micro048,SM23_micro045,-32.68,1.77
+SM23_micro048,SM23_micro046,-32.42,1.77
+SM23_micro048,SM23_micro047,-25.19,1.77
+SM24_micro001,SM24_micro007, -0.97,1.77
+SM24_micro020,SM24_micro001,  3.15,1.77
+SM24_micro001,SM24_micro028,  3.68,1.77
+SM24_micro006,SM24_micro002, 15.52,1.77
+SM24_micro007,SM24_micro002,  8.37,1.77
+SM24_micro024,SM24_micro002,  8.25,1.77
+SM24_micro028,SM24_micro002,  3.71,1.77
+SM24_micro004,SM24_micro006,  2.56,1.77
+SM24_micro004,SM24_micro024,  9.82,1.77
+SM24_micro025,SM24_micro004, -7.69,1.77
+SM24_micro005,SM24_micro024,  7.33,1.77
+SM24_micro025,SM24_micro005, -5.20,1.77
+SM24_micro005,SM24_micro028, 11.86,1.77
+SM24_micro010,SM24_micro006,  0.20,1.77
+SM24_micro011,SM24_micro006,  1.79,1.77
+SM24_micro017,SM24_micro006, -3.08,1.77
+SM24_micro006,SM24_micro027, 14.73,1.77
+SM24_micro011,SM24_micro007,  8.94,1.77
+SM24_micro014,SM24_micro007,  8.69,1.77
+SM24_micro017,SM24_micro009, -2.73,1.77
+SM24_micro009,SM24_micro027, 14.38,1.77
+SM24_micro029,SM24_micro009,  0.22,1.77
+SM24_micro030,SM24_micro009,  0.67,1.77
+SM24_micro020,SM24_micro010, -5.17,1.77
+SM24_micro010,SM24_micro023, 13.07,1.77
+SM24_micro025,SM24_micro010, -5.33,1.77
+SM24_micro010,SM24_micro028, 12.00,1.77
+SM24_micro032,SM24_micro010,-11.00,1.77
+SM24_micro011,SM24_micro013,  1.71,1.77
+SM24_micro020,SM24_micro011, -6.76,1.77
+SM24_micro033,SM24_micro011,-12.15,1.77
+SM24_micro013,SM24_micro027, 14.81,1.77
+SM24_micro030,SM24_micro013,  0.24,1.77
+SM24_micro031,SM24_micro013, -9.46,1.77
+SM24_micro014,SM24_micro024,  8.81,1.77
+SM24_micro032,SM24_micro017, -7.72,1.77
+SM24_micro033,SM24_micro017, -7.28,1.77
+SM24_micro020,SM24_micro031,  4.40,1.77
+SM24_micro035,SM24_micro020,-21.91,1.77
+SM24_micro023,SM24_micro027,  1.86,1.77
+SM24_micro029,SM24_micro023, 12.74,1.77
+SM24_micro031,SM24_micro023,  3.50,1.77
+SM24_micro032,SM24_micro029,-10.67,1.77
+SM24_micro034,SM24_micro029, -4.91,1.77
+SM24_micro033,SM24_micro030,-10.69,1.77
+SM24_micro034,SM24_micro030, -5.36,1.77
+SM24_micro034,SM24_micro031,  4.33,1.77
+SM24_micro035,SM24_micro032,-16.07,1.77
+SM24_micro035,SM24_micro033,-16.51,1.77
+SM24_micro035,SM24_micro034,-21.84,1.77
+
+
+Name:
+EC-RISM/MP2/6-311+G(d,p)-P2-phi-noThiols-2par
+
+
+Software:
+Maestro 2017-2/Macromodel (Schroedinger)
+Gaussian 09 Rev A.02
+Gaussian 09 Rev E.01
+3D RISM (inhouse development)
+EC-RISM (inhouse development)
+Python 2.7
+Mathematica 11.0.1 (Wolfram)
+
+
+Method:
+A single geometry per microstate (or two if a formal E-/Z-isomer was not specified in the SMILES string) was generated using Maestro 2017-2/Macromodel with the OPLS3/Water force field with mixed torsional/low-mode sampling, 100 steps per RB and 1000 steps max (default parameters).
+The resulting conformations were optimized using Gaussian 09revE01 with IEF-PCM using default settings for water and B3LYP/6-311+G(d,p). Due to the limitations of the basis set, iodine was replaced with bromine in compounds where it occured.
+
+These conformations were treated with EC-RISM/MP2/6-311+G(d,p)/PSE2 [REF1] and the resulting free energies of solvation reparametrized with respect to the MNSol hydration free energies [REF2] as min[deltaG_exp-((E_{EC-RISM}+mu_{ex}+c1*PMV_{EC-RISM}+c2*q)-E_{vac}] with E_{EC-RISM} being the QM-energy of the molecule after convergence of the EC-RISM cycle, mu_{ex} the excess chemical potential, PMV_{EC-RISM} the partial molar volume as calculated by EC-RISM, q being the net charge of the molecule and E_{vac} taken from the same quantum chemical level of theory in vacuum. This correction (mu_{ex}+c2*PMV_{EC-RISM}+c3*q) was then applied to the raw EC-RISM energies.
+These yield G_{mtc} where m refers to the ionization state, t to the tautomer (microstate per ionization state) and c to the respective conformation. The different statistical weights of conformations were taken into account by computing the free energy of the resulting discrete partition function G_{mt}=-RT*ln[sum_c(exp(-G_{mtc}/RT))]. Using a similar partition function over tautomer states yields the ionization state-specific free energy G_{m}. For deprotonation processes, pKa_{raw}=(G_{k}-G_{k-1})/(RT ln(10)) and the bulk pKa follows from m*pKa_{raw}+b where parameters m and b are calculated within the chosen level of theory by fitting to the reference data set from [REF3].
+
+Data for SM06, SM10, SM12 and SM21 were replaced by the data from the corresponding q-model. All microstate pairs involving SM03_micro014, SM19_micro008 and SM22_micro002, as well as their fractional microstate populations, were similarly replaced. For SM03 the macrostate pKa for the deprotonation from ionization state -1 to -2 and for SM22 the macrostate pKa for the deprotonation from ionization state 1 to 0 were also replaced.
+
+Type 1: Microstate pKa's were defined over all specified pairs (i,j) by pKa_{ij}=m*(G_{mt(i)}-G_{mt(j)})/(RT*ln(10))+b.
+
+The uncertainty was estimated as the maximum RMSE of all submitted methods from the pKa training dataset.
+
+References:
+REF1: N. Tielker, D. Tomazic, J. Heil, T. Kloss, S. Ehrhart, S. Güssregen, K. F. Schmidt, S. M. Kast, J. Comput.-Aided Mol. Des. 30, 1035-1044 (2016).
+REF2: Marenich, A. V., Kelly, C. P., Thompson, J. D., Hawkins, G. D., Chambers, C. C., Giesen, D. J., Winget, P., Cramer, C. J., Truhlar, D. G. Minnesota Solvation Database - version 2012, University of Minnesota, Minneapolis, 2012.
+REF3: Klicic, J. J., Friesner, R. A., Liu, S., Guida, W. C., J. Phys. Chem. A 106, 1327-1335 (2002).

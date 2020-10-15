@@ -1,0 +1,5 @@
+Microstate ID of HA,Microstate ID of A,pKa (calc),pKa SEM (calc)
+SM15_micro001,SM15_micro004,5.24,
+SM15_micro002,SM15_micro004,10.64,
+SM15_micro003,SM15_micro001,11.55,
+SM15_micro003,SM15_micro002,6.14,
