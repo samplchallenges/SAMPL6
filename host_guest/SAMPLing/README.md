@@ -1,7 +1,7 @@
 # SAMPL6 SAMPLing files
 
 ## Manifest
-See [`SAMPLing_instructions.md`](../SAMPLing_instructions.md#files-description) for a detailed description of the files.
+See [`SAMPLing_instructions.md`](https://github.com/samplchallenges/SAMPL6/blob/master/SAMPLing_instructions.md#files-description) for a detailed description of the files.
 - `CB8-G3-X/`: Parameter and coordinates input files for the CB8-G3 5 replicate calculations.
 - `OA-G3-X/`: Parameter and coordinates input files for the OA-G3 5 replicate calculations.
 - `OA-G6-X/`: Parameter and coordinates input files for the OA-G6 5 replicate calculations.
