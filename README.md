@@ -12,8 +12,13 @@ Specifically, if you want to receive updates if we uncover any problems, it is i
 The first part of SAMPL6 challenge culminated with a [joint D3R/SAMPL workshop](https://drugdesigndata.org//about/d3r-2018-workshop) in La Jolla, CA., Feb. 22-23, 2018.
 A special issue of JCAMD was organized with a submission deadline of June 1, 2018.
 
-SAMPL6 Part II will include a octanol-water log *P* prediction challenge and will be followed by a joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019, immediately before the San Diego ACS National Meeting.
-A special issue or special section of JCAMD will be organized to disseminate the results of this challenge.
+SAMPL6 Part II included a octanol-water log *P* prediction challenge and will be followed by a joint D3R/SAMPL workshop in San Diego, Aug 22-23, 2019, immediately before the San Diego ACS National Meeting. It also resulted in JCAMD special issues.
+
+## Special issues:
+- [SAMPL6 host-guest](https://link.springer.com/journal/10822/32/10/page/1)
+- [SAMPL6 logP part 1](https://link.springer.com/journal/10822/34/4)
+- [SAMPL6 logP part 2](https://link.springer.com/journal/10822/34/5)
+
 
 ## What's Here
 - [Challenge Overview](#challenge-overview)
