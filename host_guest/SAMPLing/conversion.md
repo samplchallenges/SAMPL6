@@ -58,7 +58,7 @@ compounds (CB8-G3, OA-G3, OA-G6), the following files are included:
 # Explanation
 
 Files in `OPENMM/`, `AMBER/`, `PDB/` and `GROMACS_old` were generated as describe
-in `SAMPLing_instructions.md`. Other simulation input files are generated as described here.
+in `../../SAMPLing_instructions.md`. Other simulation input files are generated as described here.
 
 The SAMPL6_energyoutput_conversion files contain the outputs of
 InterMol called with two different cutoff schemes, and the runfiles/
